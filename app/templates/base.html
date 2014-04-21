@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="/static/stylesheet.css"/>
+        {% if title %}
+        <title>{{title}} - Tyler's Blog</title>
+        {% else %}
+        <title>Tyler's Blog</title>
+        {% endif %}
+    </head>
+    <body>
+        <div id="menu">
+            <h2 id="name">Tyler Kershner</h2>
+            <ul>
+                <li><a href="index">Home</a></li>
+                <li><a href="projects">Projects</a></li>
+                <li><a href="about">About Me</a></li>
+            </ul>
+            <a id="email" href="mailto:tylerkershner@gmail.com">tylerkershner@gmail.com</a>
+        </div>
+    {% block content %}{% endblock %}
+    </body>
+</html>
