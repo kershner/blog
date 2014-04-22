@@ -37,8 +37,20 @@
 	color: #FFFFFF;
 	position: absolute;
 	left: 25px;
-	top: -10px;
+	top: -12px;
 	font-family: Verdana;
+	text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 
 #email {
@@ -59,30 +71,36 @@
 	margin: 0 auto;
 	font-family: Verdana, Arial;
 	text-align: justify;
-	padding-left: 15px;
-	padding-top: 25px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 #header {
+	background-color: #C3C3E5;
 	margin: 0 auto;
-	background-color: #330066;
-	height: 45px;
-	color: #FFFFFF;
-	border-radius: 25px 25px 0 0;
+	height: 40px;
+	border-radius: 45px 5px 45px 5px
 }
 
 #header h1 {
-    font-family: Courier;
-	padding-left: 25px;
-	padding-top: 0.5px;
+    text-shadow: 0px 2px 2px rgba(0,0,0,0.4),
+             0px 4px 10px rgba(0,0,0,0.1),
+             0px 15px 20px rgba(0,0,0,0.1);
+	padding-left: 19px;
+	padding-top: 6px;
+	color: #443266;
+	font-family: Courier;
 }
 
 #date {
+	color: #CC0000;
 	position: relative;
 	text-align: right;
-	padding-right: 15px;
-	bottom: 58px;
+	bottom: 42px;
+	right: 30px;
 	font-family: Verdana, Arial;
+	text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
 }
 
 /* Image Thumbnails */
@@ -95,7 +113,6 @@
 
 #imagebar {
 	text-align: center;
-	padding-left: 40px;
 }
 
 /* Github link under thumbnails */
@@ -104,7 +121,7 @@
 	position: relative;
 	text-decoration: none;
 	color: #66CC00;
-	left: 50%;
+	left: 47%;
 }
 
 /* Project titles */
@@ -112,6 +129,8 @@
 	padding-top: 50px;
 	text-align: center;
 	font-family: Verdana, Arial;
+	text-shadow: 0px -2px 0px #333,
+                  0px 2px 7px #666;
 }
 
 /* Project blurb */
