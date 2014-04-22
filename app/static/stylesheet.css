@@ -39,11 +39,11 @@
 	left: 25px;
 	top: -12px;
 	font-family: Verdana;
-	text-shadow: 0 1px 0 #ccc, 
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 4px 0 #b9b9b9,
-               0 5px 0 #aaa,
+	text-shadow: 2px 2px 0 #000000,
+               0 2px 0 #000000,
+               0 3px 0 #000000,
+               0 4px 0 #000000,
+               0 1px 0 #000000,
                0 6px 1px rgba(0,0,0,.1),
                0 0 5px rgba(0,0,0,.1),
                0 1px 3px rgba(0,0,0,.3),
@@ -77,10 +77,9 @@
 }
 
 #header {
-	background-color: #C3C3E5;
+	background-color: #ffffff;
 	margin: 0 auto;
-	height: 40px;
-	border-radius: 45px 5px 45px 5px
+	height: 55px;
 }
 
 #header h1 {
@@ -96,9 +95,9 @@
 #date {
 	color: #CC0000;
 	position: relative;
-	text-align: right;
-	bottom: 42px;
-	right: 30px;
+	text-align: left;
+	bottom: 30px;
+	left: 30px;
 	font-family: Verdana, Arial;
 	text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
 }
