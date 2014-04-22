@@ -2,7 +2,6 @@
 #menu {
     width: 100%;
 	height: 35px;
-	float: left;
 	font-size: 16px;
 	font-family: Helvetica, Verdana, Arial;
 	font-weight: bold;
@@ -13,8 +12,8 @@
 
 #menu ul {
 	height: auto;
-	width: 800x;
-	padding: 8px 0px;
+	width: 800px;
+	padding: 8px 0;
 	margin: 0 auto;
 }
 
@@ -47,7 +46,6 @@
 	right: 25px;
 	top: 8px;
 	color: #FFFFFF;
-	hover:  none;
 }
 
 /* Main content blocks */
@@ -71,7 +69,6 @@
 	height: 45px;
 	color: #FFFFFF;
 	border-radius: 25px 25px 0 0;
-	height: 35px
 }
 
 #header h1 {
