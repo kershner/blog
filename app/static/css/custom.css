@@ -6,6 +6,11 @@ body {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 
+.masthead .clearfix {
+    position: relative;
+    right: 25px;
+}
+
 
 /* Buttons/links to the various applications */
 .btn-success,
