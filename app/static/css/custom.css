@@ -19,6 +19,11 @@ body {
 	width: 325px;
 	padding: 20px 0;
 	font-size: 22px;
+	font-weight: normal;
+}
+
+.cover .btn-lg {
+    font-weight: normal;
 }
 
 /* Adjusting nav-bar text */
