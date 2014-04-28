@@ -1,0 +1,185 @@
+/* Custom styles */
+
+body {
+	font-family: 'Open Sans';
+	background-color: #6666FF;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+
+/* Buttons/links to the various applications */
+.btn-success,
+.btn-primary {
+	height: 75px;
+	width: 325px;
+	padding: 20px 0;
+	font-size: 22px;
+}
+
+/* Adjusting nav-bar text */
+.masthead-nav li a {
+	font-weight: normal;
+	font-size: 16px;
+}
+
+/* Small bug-fixing conflict between bootstrap and cover */
+a:hover {
+	text-decoration: none;
+}
+
+
+/* Backorder Notification Form */
+#backorder-form {
+	position: relative;
+	width: 75%;
+}
+
+
+.alert {
+    position: relative;
+    margin: 0 auto;
+    right: 25px
+}
+
+form {
+	padding: 20px 0;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	width: 410px;
+}
+
+#submit {
+	position: relative;
+	margin: 0 auto;
+	top: 15px;
+	font-family: Arial;
+	font-weight: normal;
+	width: 85px;
+	height: 35px;
+	padding: 0 0;
+	right: 25px;
+}
+
+input  {
+	width:375px;
+	display:block;
+	border: 1px solid #999;
+	height: 75px;
+	color: #000000;
+	font-size: 22px;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	border-radius: 0;
+}
+
+.backorder-form-top {
+	border-radius: 15px 15px 0 0;
+}
+
+.backorder-form-bottom {
+	border-radius: 0 0 15px 15px;
+}
+
+#template-blurb {
+    position: relative;
+    width: 75%;
+    right: 25px;
+}
+
+#template-div {
+    position: relative;
+    width: 440px;
+    height: 75px;
+    margin: 0 auto;
+    top: 40px;
+}
+
+#backorder-link {
+    position: relative;
+    text-shadow: 1px 1px 1px #000;
+    right: 6px;
+    bottom: 10px;
+}
+
+::-webkit-input-placeholder {
+   position: relative;
+   left: 15px;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   position: relative;
+   left: 15px;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   position: relative;
+   left: 15px;
+}
+
+:-ms-input-placeholder {
+   position: relative;
+   left: 15px;
+}
+
+/* 222 Form Date Checker */
+#date-checker-input {
+	position: relative;
+	bottom: 15px;
+	bottom: 25px;
+}
+
+.form-date {
+	position:relative;
+	margin: 0 auto;
+}
+
+.container #example-form {
+	height: 475px;
+	width: 600px;
+	padding: 0 15px;
+}
+
+.container #demo {
+	max-width: 500px;
+    max-height: 300px;
+    min-width: 500px;
+    min-height: 300px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000');
+}
+
+#demo-text-div {
+	background-color: #66b3ff;
+	height: 100%;
+	width: 555px;
+	border-radius: 65px 65px 0 0;
+	padding: 30px 15px;
+}
+
+#demo-text {
+	padding: 10px 0;
+	color: #FFFFFF;
+	font-size: 16px;
+	text-shadow: 1px 2px 1px #000;
+}
+
+.date-checker-message-div {
+	background-color: #6666FF;
+	width: 525px;
+	height: 75px;
+	position: relative;
+	bottom: 0;
+	margin: 0 auto;
+	border-radius: 25px 25px 0 0;
+}
+
+.date-checker-message {
+	font-size: 20px;
+}
+
+#suggest-footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}

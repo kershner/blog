@@ -1,43 +1,73 @@
+body {
+	background-color: #FFFFFF;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+	background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #F0E1CC)
+);
+background-image: -o-linear-gradient(bottom, #F0E1CC 0%);
+background-image: -moz-linear-gradient(bottom, #F0E1CC 0%);
+background-image: -webkit-linear-gradient(bottom, #F0E1CC 0%);
+background-image: -ms-linear-gradient(bottom, #F0E1CC 0%);
+background-image: linear-gradient(to bottom, #F0E1CC 0%);
+}
+
+
 /* Navbar */
 #menu {
-    width: 100%;
+    position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 500px;
 	height: 35px;
 	font-size: 16px;
 	font-family: Helvetica, Verdana, Arial;
 	font-weight: bold;
 	text-align: center;
-	border-radius: 10px 0;
-	background-color: #330066;
+	-webkit-border-radius: 0 0 55px 55px;
+	-moz-border-radius: 0 0 55px 55px;
+	border-radius: 0 0 55px 55px;
+	behavior: url(http://tylerkershner.pythonanywhere.com/static/PIE.htc);
+	border: 1px solid #999;background-color: #330066;
 }
 
 #menu ul {
+	position: fixed;
+	left: 210px;
+	top: -15px;
 	height: auto;
-	width: 800px;
+	width: 300px;
 	padding: 8px 0;
-	margin: 0 auto;
+
 }
 
 #menu li {
     display: inline;
-	padding: 20px;
+	padding: 2px;
 }
 
 #menu a {
     text-decoration: none;
 	color: #FFFFFF;
-	padding: 8px 8px 8px 8px;
+	padding: 9px 9px 9px 9px;
+	text-shadow:2px 2px 2px #000000,
+               0 2px 2px #000000
 }
 
-#menu a:hover{
+#menu a:hover {
 	color: #000000;
 	background-color: #FFFFFF;
+	text-shadow: none;
 }
 
 #name {
 	color: #FFFFFF;
-	position: absolute;
+	position: fixed;
 	left: 25px;
-	top: -12px;
+	top: -20px;
 	font-family: Verdana;
 	text-shadow: 2px 2px 0 #000000,
                0 2px 0 #000000,
@@ -53,53 +83,105 @@
                0 20px 20px rgba(0,0,0,.15);
 }
 
+/*Footer */
+#footer {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 290px;
+	height: 35px;
+	font-size: 16px;
+	font-family: Helvetica, Verdana, Arial;
+	font-weight: bold;
+	-webkit-border-radius: 55px 55px 0 0;
+	-moz-border-radius: 55px 55px 0 0;
+	border-radius: 55px 55px 0 0;
+	behavior: url(http://tylerkershner.pythonanywhere.com/static/PIE.htc);
+	background-color: #009966;
+	text-align: right;
+}
+
+#footer a {
+    text-decoration: none;
+	color: #FFFFFF;
+	padding: 8px 8px 8px 8px;
+	text-shadow:2px 2px 2px #000000,
+               0 2px 2px #000000
+}
+
+#footer a:hover {
+	color: #000000;
+	background-color: #FFFFFF;
+	text-shadow: none;
+}
+
+#gitlink {
+	color: #C6C6C6;
+	position: absolute;
+	right: 215px;
+	top: 8px;
+}
+
 #email {
 	position: absolute;
-	right: 25px;
+	right: 8px;
 	top: 8px;
-	color: #FFFFFF;
 }
 
 /* Main content blocks */
 .content {
-	padding-top: 40px;
-	width: 50%;
-	margin: 0 auto;
+	position: relative;
+	top: 45px;
+	padding: 5px 20px;
+	background-color: #445569;
+	margin-left: auto;
+	margin-right: auto;
+	width: 65%;
+	-webkit-border-radius: 45px 80px 80px 0;
+	-moz-border-radius: 45px 80px 80px 0;
+	border-radius: 45px 80px 80px 0;
+	behavior: url(http://tylerkershner.pythonanywhere.com/static/PIE.htc);
 }
 
-.text {
-	margin: 0 auto;
-	font-family: Verdana, Arial;
-	text-align: justify;
-	padding-top: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
+.content a:visited {
+	color: #FFFFFF;
 }
 
-#header {
-	background-color: #ffffff;
+
+.header {
+	position: relative;
 	margin: 0 auto;
 	height: 55px;
+	background-color: #A0A0A0;
+	width: 100%;
+	-webkit-border-radius: 25px 45px 0 45px;
+	-moz-border-radius: 25px 45px 0 45px;
+	border-radius: 25px 45px 0 45px;
+	behavior: url(http://tylerkershner.pythonanywhere.com/static/PIE.htc);
 }
 
-#header h1 {
-    text-shadow: 0px 2px 2px rgba(0,0,0,0.4),
-             0px 4px 10px rgba(0,0,0,0.1),
-             0px 15px 20px rgba(0,0,0,0.1);
-	padding-left: 19px;
-	padding-top: 6px;
-	color: #443266;
+.title {
+    position: relative;
+	left: 25px;
+	text-shadow: 0 2px 3px #222;
+	color: #FFFFFF;
 	font-family: Courier;
 }
 
-#date {
-	color: #CC0000;
+.date {
 	position: relative;
+	left: 35px;
+	bottom: 22px;
+	color: #B91010;
 	text-align: left;
-	bottom: 30px;
-	left: 30px;
 	font-family: Verdana, Arial;
-	text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+}
+
+.text {
+	font-family: 'Vollkorn', Arial;
+	position: relative;
+	text-align: justify;
+	color: #FFFFFF;
 }
 
 /* Image Thumbnails */
@@ -110,33 +192,28 @@
     min-height: 150px;
 }
 
-#imagebar {
+.imagebar {
+	position:relative;
 	text-align: center;
 }
 
 /* Github link under thumbnails */
-#github {
+.github {
 	font-family: Verdana, Arial;
-	position: relative;
 	text-decoration: none;
 	color: #66CC00;
-	left: 47%;
+}
+
+.writeup {
+	font-family: Verdana, Arial;
+	text-decoration: none;
+	color: #FFCC00;
 }
 
 /* Project titles */
-#title {
-	padding-top: 50px;
-	text-align: center;
-	font-family: Verdana, Arial;
-	text-shadow: 0px -2px 0px #333,
-                  0px 2px 7px #666;
-}
-
-/* Project blurb */
-.blurb {
-	margin: 0 auto;
-	font-family: Verdana, Arial;
-	text-align: justify;
-	padding-left: 15px;
-	padding-bottom: 25px;
+.title {
+	position: relative;
+	font-family: Verdana;
+	text-shadow: 0 2px 3px #222;
+	color: #FFFFFF;
 }

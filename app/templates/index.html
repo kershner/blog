@@ -1,19 +1,12 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% block content %}
 
-<div class="content">
-<div id ="header">
-    <h1>Hello, world!</h1>
-    <h6 id="date"><strong>4/21/2014</strong> | Around noon EST</h6>
+<div id="buttons" class="cover-container">
+    <a href="/backorder" class="btn btn-lg btn-success">Backorder Template</a>
+    <a href="/datechecker" class="btn btn-lg btn-primary">222 Form Date Checker</a>
+
 </div>
-<p class="text">Welcome to my simple, ugly blog.  I'm throwing small bits of
-HTML and CSS together to create some slapdash content for this thing.  The purpose of this
-whole enterprise is to get my feet wet with Python and web development, and hopefully have
-something presentable to show off when I'm all finished.  I'm currently a little more than
-a month into learning Python, and it's been closer to two months since I started to teach myself
-programming with any seriousness.<br><br>I'll be steadily adding content to this thing all summer.
-Next on the TODO is to create a write-up detailing my previous (mostly complete) project and
-general CSS stylings to make this site look a little less utilitarian.</p>
-</div>
+
+
 
 {% endblock %}
