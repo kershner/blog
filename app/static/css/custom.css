@@ -103,6 +103,7 @@ input  {
     width: 440px;
     height: 75px;
     margin: 0 auto;
+    z-index: 1;
     top: 40px;
 }
 

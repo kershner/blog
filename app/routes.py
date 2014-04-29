@@ -1,7 +1,6 @@
 from flask import render_template, request, flash
 from forms import ContactForm, DateCheckerForm
 from urllib import quote
-import webbrowser
 import datetime
 from app import app
 
@@ -81,11 +80,14 @@ def backorder():
         else:
             email = form.email.data
             subject = "Cayman Chemical Backorder Notification %s" % form.po.data
-            body = "Hello %s,\n\nUnfortunately we need to inform you that one of your items is currently not " \
-                   "available.  Item # %s is in production with an approximate lead time of %s.\n\nI apologize for " \
-                   "the inconvenience.  Please let me know if you have any questions.\n\nHave a great day," % \
-                   (form.name.data, form.item_number.data, form.lead_time.data)
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            body = "Hello %s,\n\nUnfortunately we need to inform you that one "\
+                   "of your items is currently not available.  Item # %s is " \
+                   "in production with an approximate lead time of %s.\n\nI " \
+                   "apologize for the inconvenience.  Please let me know if" \
+                   "you have any questions.\n\nHave a great day," % \
+                    (form.name.data, form.item_number.data, form.lead_time.data)
+            link = "mailto:%s?subject=%s&body=%s" % \
+                    (quote(email), quote(subject), quote(body))
             return render_template("backorder.html",
                                title="Backorder Template",
                                link=link,
