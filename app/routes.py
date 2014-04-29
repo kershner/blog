@@ -83,7 +83,7 @@ def backorder():
             body = "Hello %s,\n\nUnfortunately we need to inform you that one "\
                    "of your items is currently not available.  Item # %s is " \
                    "in production with an approximate lead time of %s.\n\nI " \
-                   "apologize for the inconvenience.  Please let me know if" \
+                   "apologize for the inconvenience.  Please let me know if " \
                    "you have any questions.\n\nHave a great day," % \
                     (form.name.data, form.item_number.data, form.lead_time.data)
             link = "mailto:%s?subject=%s&body=%s" % \
