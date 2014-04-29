@@ -41,7 +41,7 @@ a:hover {
 /* Backorder Notification Form */
 #backorder-form {
 	position: relative;
-	width: 75%;
+	margin: 0 auto;
 }
 
 
@@ -105,6 +105,7 @@ input  {
     margin: 0 auto;
     z-index: 1;
     top: 40px;
+    left: -20px;
 }
 
 #backorder-link {
