@@ -1,5 +1,5 @@
 from flask import render_template, request, flash
-from forms import ContactForm, DateCheckerForm
+from forms import ContactForm, DateCheckerForm, ApplicationForm
 from urllib import quote
 import datetime
 from app import app
@@ -102,7 +102,7 @@ def backorder():
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
-    form = ContactForm()
+    form = ApplicationForm()
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')

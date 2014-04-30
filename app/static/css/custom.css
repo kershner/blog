@@ -14,7 +14,9 @@ body {
 
 /* Buttons/links to the various applications */
 .btn-success,
-.btn-primary {
+.btn-primary,
+.btn-info,
+.btn-warning {
 	height: 75px;
 	width: 325px;
 	padding: 20px 0;
@@ -158,7 +160,6 @@ input  {
     max-height: 300px;
     min-width: 500px;
     min-height: 300px;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000');
 }
 
 #demo-text-div {
@@ -194,4 +195,18 @@ input  {
     position: fixed;
     right: 0;
     bottom: 0;
+}
+
+#application {
+    position: relative;
+    padding: 5px 0;
+    background-color: #218d97;
+    height: 55px;
+    width: 190px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.row {
+    padding: 15px 0;
 }
