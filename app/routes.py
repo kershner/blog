@@ -10,6 +10,7 @@ def home():
     return render_template("home.html",
                            title="Home")
 
+
 @app.route('/about')
 def about():
     return render_template("about.html",
@@ -96,4 +97,32 @@ def backorder():
     elif request.method == 'GET':
         return render_template("backorder.html",
                                title="Backorder Template",
+                               form=form)
+
+
+@app.route('/application', methods=['GET', 'POST'])
+def application():
+    form = ContactForm()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("application.html",
+                                   title="Account Application Template",
+                                   form=form)
+        else:
+            name = form.name.data
+            email = form.email.data
+            subject = "Cayman Chemical Account Application"
+            body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order " \
+                   "processed and your items shipped you will need to establish an account with our company.  I have " \
+                   "attached our customer account application which has all the instructions you will need, " \
+                   "though please don't hesitate to call if you have any questions." % name
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("application.html",
+                                   title="Account Application Template",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("application.html",
+                               title="Account Application Template",
                                form=form)
