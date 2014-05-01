@@ -7,7 +7,7 @@ body {
 }
 
 .row {
-    padding: 2px 0;
+    padding: 3px 0;
 }
 
 .masthead .clearfix {
@@ -20,7 +20,8 @@ body {
 .btn-success,
 .btn-primary,
 .btn-info,
-.btn-warning {
+.btn-warning,
+.btn-danger {
 	height: 75px;
 	width: 325px;
 	padding: 20px 0;

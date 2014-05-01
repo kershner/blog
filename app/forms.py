@@ -19,3 +19,10 @@ class ApplicationForm(Form):
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     submit = SubmitField("Submit")
+
+
+class NewAccountForm(Form):
+    name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
+    acct = TextField("Customer Account Number", [validators.Required("Please enter the customer's account number.")])
+    email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    submit = SubmitField("Submit")

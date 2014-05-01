@@ -146,7 +146,7 @@ def dea():
                    "that some or all of the items on your order are DEA scheduled compounds and as such will require " \
                    "additional paperwork before they can be processed.  Attached please  find the Cayman Chemical " \
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf ou have any questions, please don't hesitate to ask.\n\nThank you," % name
+                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you," % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("dea.html",
                                    title="DEA Protocol Template",
