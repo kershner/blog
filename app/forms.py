@@ -14,6 +14,7 @@ class DateCheckerForm(Form):
     form_date = TextField("Form Date", [validators.Required("Enter the form's issue date in the format MM/DD/YY.")])
     submit = SubmitField("Submit")
 
+
 class ApplicationForm(Form):
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])

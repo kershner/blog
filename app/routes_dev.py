@@ -1,8 +1,10 @@
-from flask import render_template, request, flash
+from flask import Flask, render_template, request, flash
 from forms import ContactForm, DateCheckerForm, ApplicationForm
 from urllib import quote
 import datetime
-from app import app
+
+app = Flask(__name__)
+app.secret_key = 'development key'
 
 
 @app.route('/home')
@@ -88,8 +90,7 @@ def backorder():
                    "apologize for the inconvenience.  Please let me know if " \
                    "you have any questions.\n\nHave a great day," % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
-            link = "mailto:%s?subject=%s&body=%s" % \
-                   (quote(email), quote(subject), quote(body))
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("backorder.html",
                                    title="Backorder Template",
                                    link=link,
@@ -108,7 +109,7 @@ def application():
         if not form.validate():
             flash('All fields are required.')
             return render_template("application.html",
-                                   title="Account Application Template",
+                                   title="Account Application Template3",
                                    form=form)
         else:
             name = form.name.data
@@ -120,12 +121,12 @@ def application():
                    "though please don't hesitate to call if you have any questions." % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("application.html",
-                                   title="Account Application Template",
+                                   title="Account Application Template1",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
         return render_template("application.html",
-                               title="Account Application Template",
+                               title="Account Application Template2",
                                form=form)
 
 
@@ -156,3 +157,7 @@ def dea():
         return render_template("dea.html",
                                title="DEA Protocol Template",
                                form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
