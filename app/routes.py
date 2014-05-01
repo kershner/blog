@@ -1,5 +1,5 @@
 from flask import render_template, request, flash
-from forms import ContactForm, DateCheckerForm, ApplicationForm
+from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm
 from urllib import quote
 import datetime
 from app import app
@@ -155,4 +155,35 @@ def dea():
     elif request.method == 'GET':
         return render_template("dea.html",
                                title="DEA Protocol Template",
+                               form=form)
+
+
+@app.route('/newaccount', methods=['GET', 'POST'])
+def newaccount():
+    form = NewAccountForm()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("newaccount.html",
+                                   title="New Account Template",
+                                   form=form)
+        else:
+            name = form.name.data
+            acct_number = form.acct.data
+            email = form.email.data
+            subject = "New Account with Cayman Chemical"
+            body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
+                   "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
+                   "transfers.  If you would like net 30 terms, please provide trade references.\n\nTo place an " \
+                   "order, please contact customer service at one of the following:\n\nPhone:\t\t\t 800-364-9897\n" \
+                   "Fax:order please reference customer account number %s.\n\nWe look forward to doing business with " \
+                   "you!" % (name, acct_number)
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("newaccount.html",
+                                   title="New Account Template",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("newaccount.html",
+                               title="New Account Template",
                                form=form)
