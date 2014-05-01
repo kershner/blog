@@ -196,7 +196,7 @@ def shadyblurb():
         if not form.validate():
             flash('All fields are required.')
             return render_template("shadyblurb.html",
-                                   title="Shady Customer Blurb3",
+                                   title="Shady Customer Blurb",
                                    form=form)
         else:
             email = form.email.data
@@ -214,10 +214,10 @@ def shadyblurb():
                    "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("shadyblurb.html",
-                                   title="Shady Customer Blurb1",
+                                   title="Shady Customer Blurb",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
         return render_template("shadyblurb.html",
-                               title="Shady Customer Blurb2",
+                               title="Shady Customer Blurb",
                                form=form)
