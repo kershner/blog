@@ -6,6 +6,10 @@ body {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 
+.row {
+    padding: 2px 0;
+}
+
 .masthead .clearfix {
     position: relative;
     right: 25px;
@@ -205,8 +209,4 @@ input  {
     width: 190px;
     margin: 0 auto;
     border-radius: 15px;
-}
-
-.row {
-    padding: 15px 0;
 }
