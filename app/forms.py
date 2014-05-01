@@ -26,3 +26,9 @@ class NewAccountForm(Form):
     acct = TextField("Customer Account Number", [validators.Required("Please enter the customer's account number.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     submit = SubmitField("Submit")
+
+
+class ShadyForm(Form):
+    email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
+    submit = SubmitField("Submit")

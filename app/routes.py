@@ -1,5 +1,5 @@
 from flask import render_template, request, flash
-from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm
+from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm, ShadyForm
 from urllib import quote
 import datetime
 from app import app
@@ -185,5 +185,39 @@ def newaccount():
                                    form=form)
     elif request.method == 'GET':
         return render_template("newaccount.html",
-                               title="New Account Template",
+                               title="New Acount Template",
+                               form=form)
+
+
+@app.route('/shadyblurb', methods=['GET', 'POST'])
+def shadyblurb():
+    form = ShadyForm()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("shadyblurb.html",
+                                   title="Shady Customer Blurb3",
+                                   form=form)
+        else:
+            email = form.email.data
+            order_no = form.order_no.data
+            subject = "Cayman Chemical Web Order# %s" % order_no
+            body = "To whom it may concern,\n\nCayman Chemical is a biochemical company dedicated to providing " \
+                   "quality research grade material to pharmaceutical, academic, and medical institutions.  Our " \
+                   "products are manufactured at Cayman Chemical for research purposes only and are not approved by " \
+                   "the FDA for over-the-counter use in humans or animals as therapeutic agents.  If you can provide " \
+                   "details of the research institution you are affiliated with we may be able to proceed " \
+                   "with your order.  We do require that all new customers complete an account application that can " \
+                   "be provided to you once we receive the requested information about your institution.\n\nPlease " \
+                   "be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to " \
+                   "businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please " \
+                   "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("shadyblurb.html",
+                                   title="Shady Customer Blurb1",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("shadyblurb.html",
+                               title="Shady Customer Blurb2",
                                form=form)

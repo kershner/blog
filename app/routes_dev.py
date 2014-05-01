@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash
-from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm
+from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm, ShadyForm
 from urllib import quote
 import datetime
 
@@ -88,7 +88,7 @@ def backorder():
                    "of your items is currently not available.  Item # %s is " \
                    "in production with an approximate lead time of %s.\n\nI " \
                    "apologize for the inconvenience.  Please let me know if " \
-                   "you have any questions.\n\nHave a great day," % \
+                   "you have any questions.\n\nHave a great day,\n\n" % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("backorder.html",
@@ -118,7 +118,7 @@ def application():
             body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order " \
                    "processed and your items shipped you will need to establish an account with our company.  I have " \
                    "attached our customer account application which has all the instructions you will need, " \
-                   "though please don't hesitate to call if you have any questions." % name
+                   "though please don't hesitate to call if you have any questions.\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("application.html",
                                    title="Account Application Template1",
@@ -147,7 +147,7 @@ def dea():
                    "that some or all of the items on your order are DEA scheduled compounds and as such will require " \
                    "additional paperwork before they can be processed.  Attached please  find the Cayman Chemical " \
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you," % name
+                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("dea.html",
                                    title="DEA Protocol Template",
@@ -178,7 +178,7 @@ def newaccount():
                    "transfers.  If you would like net 30 terms, please provide trade references.\n\nTo place an " \
                    "order, please contact customer service at one of the following:\n\nPhone:\t\t\t 800-364-9897\n" \
                    "Fax:order please reference customer account number %s.\n\nWe look forward to doing business with " \
-                   "you!" % (name, acct_number)
+                   "you!\n\n" % (name, acct_number)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("newaccount.html",
                                    title="New Account Template",
@@ -187,6 +187,40 @@ def newaccount():
     elif request.method == 'GET':
         return render_template("newaccount.html",
                                title="New Account Template",
+                               form=form)
+
+
+@app.route('/shadyblurb', methods=['GET', 'POST'])
+def shadyblurb():
+    form = ShadyForm()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("shadyblurb.html",
+                                   title="Shady Customer Blurb3",
+                                   form=form)
+        else:
+            email = form.email.data
+            order_no = form.order_no.data
+            subject = "Cayman Chemical Web Order# %s" % order_no
+            body = "To whom it may concern,\n\nCayman Chemical is a biochemical company dedicated to providing " \
+                   "quality research grade material to pharmaceutical, academic, and medical institutions.  Our " \
+                   "products are manufactured at Cayman Chemical for research purposes only and are not approved by " \
+                   "the FDA for over-the-counter use in humans or animals as therapeutic agents.  If you can provide " \
+                   "details of the research institution you are affiliated with we may be able to proceed " \
+                   "with your order.  We do require that all new customers complete an account application that can " \
+                   "be provided to you once we receive the requested information about your institution.\n\nPlease " \
+                   "be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to " \
+                   "businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please " \
+                   "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("shadyblurb.html",
+                                   title="Shady Customer Blurb1",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("shadyblurb.html",
+                               title="Shady Customer Blurb2",
                                form=form)
 
 if __name__ == '__main__':
