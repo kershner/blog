@@ -86,7 +86,7 @@ def backorder():
                    "of your items is currently not available.  Item # %s is " \
                    "in production with an approximate lead time of %s.\n\nI " \
                    "apologize for the inconvenience.  Please let me know if " \
-                   "you have any questions.\n\nHave a great day," % \
+                   "you have any questions.\n\nHave a great day,\n\n" % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
             link = "mailto:%s?subject=%s&body=%s" % \
                    (quote(email), quote(subject), quote(body))
@@ -117,7 +117,7 @@ def application():
             body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order " \
                    "processed and your items shipped you will need to establish an account with our company.  I have " \
                    "attached our customer account application which has all the instructions you will need, " \
-                   "though please don't hesitate to call if you have any questions." % name
+                   "though please don't hesitate to call if you have any questions.\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("application.html",
                                    title="Account Application Template",
@@ -146,7 +146,7 @@ def dea():
                    "that some or all of the items on your order are DEA scheduled compounds and as such will require " \
                    "additional paperwork before they can be processed.  Attached please  find the Cayman Chemical " \
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you," % name
+                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("dea.html",
                                    title="DEA Protocol Template",
@@ -175,9 +175,10 @@ def newaccount():
             body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
                    "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
                    "transfers.  If you would like net 30 terms, please provide trade references.\n\nTo place an " \
-                   "order, please contact customer service at one of the following:\n\nPhone:\t\t\t 800-364-9897\n" \
-                   "Fax:order please reference customer account number %s.\n\nWe look forward to doing business with " \
-                   "you!" % (name, acct_number)
+                   "order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897\n" \
+                   "Fax:\t\t   734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite: \thttp://www.caymanchem.com" \
+                   "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
+                   "business with you!\n\n" % (name, acct_number)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("newaccount.html",
                                    title="New Account Template",
