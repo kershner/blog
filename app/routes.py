@@ -1,5 +1,5 @@
 from flask import render_template, request, flash
-from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm
+from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm
 from urllib import quote
 import datetime
 from app import app
@@ -222,4 +222,33 @@ def shadyblurb():
     elif request.method == 'GET':
         return render_template("shadyblurb.html",
                                title="Shady Customer Blurb",
+                               form=form)
+
+
+@app.route('/pricediscrepancy', methods=['GET', 'POST'])
+def price_discrepancy():
+    form = DiscrepancyForm()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("pricediscrepancy.html",
+                                   title="Price Discrepancy Template",
+                                   form=form)
+        else:
+            email = form.email.data
+            subject = "Cayman Chemical Price Discrepancy %s" % form.po.data
+            body = "Hello %s,\n\nWe have received your order but have a pricing discrepancy that needs to be " \
+                   "resolved before we can ship any items.  For item #%s you reference a price of $%s but the " \
+                   "item's actual cost is $%s.  Please confirm whether we should process or cancel the item.\n\n" \
+                   "Please let me know if you have any questions,\n\n" % \
+                   (form.name.data, form.item_number.data, form.given_price.data, form.actual_price.data)
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("pricediscrepancy.html",
+                                   title="Price Discrepancy Template",
+                                   link=link,
+                                   form=form)
+
+    elif request.method == 'GET':
+        return render_template("pricediscrepancy.html",
+                               title="Price Discrepancy Template",
                                form=form)
