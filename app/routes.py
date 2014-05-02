@@ -82,9 +82,9 @@ def backorder():
         else:
             email = form.email.data
             subject = "Cayman Chemical Backorder Notification %s" % form.po.data
-            body = "Hello %s,\n\nUnfortunately we need to inform you that one "\
-                   "of your items is currently not available.  Item # %s is " \
-                   "in production with an approximate lead time of %s.\n\nI " \
+            body = "Hello %s,\n\nUnfortunately we need to inform you that the "\
+                   "following item(s) from your order are currently on backorder: # %s." \
+                   "The item(s) are in production with an approximate lead time of %s.\n\nI " \
                    "apologize for the inconvenience.  Please let me know if " \
                    "you have any questions.\n\nHave a great day,\n\n" % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
