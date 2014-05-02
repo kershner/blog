@@ -39,3 +39,13 @@ class ShadyForm(Form):
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
     submit = SubmitField("Submit")
+
+
+class DiscrepancyForm(Form):
+    name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
+    email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    po = TextField("Purchase Order or Sales Order", [validators.Required("Please enter the PO or Sales Order Number.")])
+    item_number = TextField("Item Number", [validators.Required("Please enter the item's number.")])
+    given_price = TextField("Customer's Given Price", [validators.Required("Please enter the price given by the customer.")])
+    actual_price = TextField("Actual Price", [validators.Required("Please enter the item's actual price.")])
+    submit = SubmitField("Submit")
