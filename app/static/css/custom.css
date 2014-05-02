@@ -72,7 +72,7 @@ a:hover {
     position: relative;
     margin: 0 auto;
     right: 25px;
-    padding: 0 0;
+    padding: 15px 0;
 }
 
 form {
@@ -130,6 +130,7 @@ input  {
     z-index: 1;
     top: 40px;
     left: -20px;
+    padding: 10px 0;
 }
 
 #backorder-link {
@@ -214,7 +215,8 @@ input  {
 }
 
 #suggest-footer {
-    position: fixed;
+    postition: relative;
+    float: right;
     right: 0;
     bottom: 0;
 }
