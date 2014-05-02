@@ -216,7 +216,7 @@ input  {
 }
 
 #suggest-footer {
-    postition: relative;
+    position: relative;
     float: right;
     right: 0;
     bottom: 0;

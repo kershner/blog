@@ -1,5 +1,5 @@
 from flask import render_template, request, flash
-from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm, ShadyForm
+from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm
 from urllib import quote
 import datetime
 from app import app
@@ -72,7 +72,7 @@ def datechecker():
 
 @app.route('/backorder', methods=['GET', 'POST'])
 def backorder():
-    form = ContactForm()
+    form = BackorderForm()
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
@@ -131,7 +131,7 @@ def application():
 
 @app.route('/dea', methods=['GET', 'POST'])
 def dea():
-    form = ApplicationForm()
+    form = DeaForm()
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
@@ -141,12 +141,13 @@ def dea():
         else:
             name = form.name.data
             email = form.email.data
+            items = form.dea_items.data
             subject = "Cayman Chemical DEA Scheduled Compounds Protocol"
             body = "Hello %s,\n\nThank you for your order with Cayman Chemical!  This is an email to inform you " \
-                   "that some or all of the items on your order are DEA scheduled compounds and as such will require " \
-                   "additional paperwork before they can be processed.  Attached please find the Cayman Chemical " \
+                   "that the following item(s) are DEA scheduled compounds and as such will require additional " \
+                   "paperwork before they can be processed: %s.  Attached please find the Cayman Chemical " \
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % name
+                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % (name, items)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("dea.html",
                                    title="DEA Protocol Template",
@@ -177,8 +178,8 @@ def newaccount():
                    "transfers.  If you would like net 30 terms, please provide trade references.\n\nTo place an " \
                    "order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897\n" \
                    "Fax:\t\t   734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite: \thttp://www.caymanchem.com" \
-                   "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
-                   "business with you!\n\n" % (name, acct_number)
+                   "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to " \
+                   "doing business with you!\n\n" % (name, acct_number)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("newaccount.html",
                                    title="New Account Template",
@@ -186,7 +187,7 @@ def newaccount():
                                    form=form)
     elif request.method == 'GET':
         return render_template("newaccount.html",
-                               title="New Acount Template",
+                               title="New Account Template",
                                form=form)
 
 

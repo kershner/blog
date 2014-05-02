@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form, TextField, SubmitField, validators
 
 
-class ContactForm(Form):
+class BackorderForm(Form):
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     po = TextField("Purchase Order or Sales Order", [validators.Required("Please enter the PO or Sales Order Number.")])
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
@@ -25,6 +25,13 @@ class NewAccountForm(Form):
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
     acct = TextField("Customer Account Number", [validators.Required("Please enter the customer's account number.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    submit = SubmitField("Submit")
+
+
+class DeaForm(Form):
+    name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
+    email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    dea_items = TextField("Regulated Items", [validators.Required("Please enter the regulated item(s).")])
     submit = SubmitField("Submit")
 
 

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash
-from forms import ContactForm, DateCheckerForm, ApplicationForm, NewAccountForm, ShadyForm
+from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm
 from urllib import quote
 import datetime
 
@@ -74,7 +74,7 @@ def datechecker():
 
 @app.route('/backorder', methods=['GET', 'POST'])
 def backorder():
-    form = ContactForm()
+    form = BackorderForm()
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
@@ -132,7 +132,7 @@ def application():
 
 @app.route('/dea', methods=['GET', 'POST'])
 def dea():
-    form = ApplicationForm()
+    form = DeaForm()
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
@@ -142,12 +142,13 @@ def dea():
         else:
             name = form.name.data
             email = form.email.data
+            items = form.dea_items.data
             subject = "Cayman Chemical DEA Scheduled Compounds Protocol"
             body = "Hello %s,\n\nThank you for your order with Cayman Chemical!  This is an email to inform you " \
-                   "that some or all of the items on your order are DEA scheduled compounds and as such will require " \
-                   "additional paperwork before they can be processed.  Attached please  find the Cayman Chemical " \
+                   "that the following item(s) are DEA scheduled compounds and as such will require additional " \
+                   "paperwork before they can be processed: %s.  Attached please find the Cayman Chemical " \
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % name
+                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % (name, items)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("dea.html",
                                    title="DEA Protocol Template",
