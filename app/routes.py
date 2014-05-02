@@ -211,7 +211,7 @@ def shadyblurb():
                    "details of the research institution you are affiliated with we may be able to proceed " \
                    "with your order.  We do require that all new customers complete an account application that can " \
                    "be provided to you once we receive the requested information about your institution.\n\nPlease " \
-                   "be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to " \
+                   "be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses - only to " \
                    "businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please " \
                    "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
