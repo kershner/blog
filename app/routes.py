@@ -1,4 +1,4 @@
-from flask import render_template, request, flash
+from flask import render_template, request, flash, send_file
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm
 from urllib import quote
 import datetime
@@ -84,10 +84,11 @@ def backorder():
             subject = "Cayman Chemical Backorder Notification %s" % form.po.data
             body = "Hello %s,\n\nUnfortunately we need to inform you that the "\
                    "following item(s) from your order are currently on backorder: # %s.  " \
-                   "The item(s) are in production with an approximate lead time of %s.\n\nI " \
-                   "apologize for the inconvenience.  Please let me know if " \
-                   "you have any questions.\n\nHave a great day,\n\n" % \
-                   (form.name.data, form.item_number.data, form.lead_time.data)
+                   "The item(s) are in production with an approximate lead time of %s.  If " \
+                   "there are additional items on your order, please let me know if you " \
+                   "would like to authorize partial shipment.\n\nI apologize for the " \
+                   "inconvenience.  Please let me know if you have any questions." \
+                   "\n\nHave a great day,\n\n" % (form.name.data, form.item_number.data, form.lead_time.data)
             link = "mailto:%s?subject=%s&body=%s" % \
                    (quote(email), quote(subject), quote(body))
             return render_template("backorder.html",
@@ -99,6 +100,12 @@ def backorder():
         return render_template("backorder.html",
                                title="Backorder Template",
                                form=form)
+
+
+@app.route('/account_application')
+def applicationdoc():
+    file = '/home/tylerkershner/app/static/documents/account_application.doc'
+    return send_file(file)
 
 
 @app.route('/application', methods=['GET', 'POST'])
@@ -128,6 +135,10 @@ def application():
                                title="Account Application Template",
                                form=form)
 
+@app.route('/dea_documents_needed')
+def documents_needed():
+    file = '/home/tylerkershner/app/static/documents/documents_needed.doc'
+    return send_file(file)
 
 @app.route('/dea', methods=['GET', 'POST'])
 def dea():
