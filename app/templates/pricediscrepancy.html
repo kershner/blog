@@ -17,9 +17,8 @@
     </div>
     {% if link %}
     <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your price discrepancy template.</h3></div></a>
-    <!-- <div class="alert"> -->
-        {% endif %}
-
+    {% endif %}
+    <div class="alert">
         {% for message in form.name.errors %}
             <p>{{ message }}</p>
         {% endfor %}
@@ -43,7 +42,7 @@
         {% for message in form.actual_price.errors %}
             <p>{{ message }}</p>
         {% endfor %}
-    <!--</div>-->
+    </div>
 
     <form action="{{ url_for('price_discrepancy') }}" method=POST>
         {{ form.hidden_tag() }}

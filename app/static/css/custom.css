@@ -80,10 +80,11 @@ a:hover {
 	top: 25px;
 }
 
-.alert {
+.alert { 
     position: relative;
-    margin: 0 auto;
-    right: 25px;
+    text-align: justify;
+	width: 325px;
+	margin: 0 auto;
     padding: 15px 0;
 }
 

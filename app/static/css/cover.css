@@ -34,7 +34,6 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
-  box-shadow: inset 0 0 0 rgba(0,0,0,.5);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -102,10 +101,13 @@ body {
 
 @media (min-width: 768px) {
   .masthead-brand {
-    float: left;
+    position: fixed;
+	float: left;
+	top: 0;
   }
   .masthead-nav {
     position: fixed;
+	top: 0;
 	right: 10px;
   }
 }
@@ -144,7 +146,7 @@ body {
 @media (min-width: 768px) {
   /*Pull out the header and footer */
   .masthead {
-    position: fixed;
+    position: relative;
     top: 0;
   }
   /* Start the vertical centering */
