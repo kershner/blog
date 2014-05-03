@@ -8,6 +8,7 @@ body {
 
 .row {
     padding: 3px 0;
+	width: 100%;
 }
 
 /* Header */
@@ -29,13 +30,6 @@ body {
 /* Small bug-fixing conflict between bootstrap and cover */
 a:hover {
 	text-decoration: none;
-}
-
-/* Footer */
-#suggest-footer {
-    float: right;
-    right: 0;
-    bottom: 0;
 }
 
 /* Buttons/links to the various applications */
