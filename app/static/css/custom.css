@@ -10,11 +10,53 @@ body {
     padding: 3px 0;
 }
 
+/* Header */
 .masthead .clearfix {
-    position: relative;
     right: 25px;
+	top: 0;
 }
 
+.inner {
+	padding: 10px 0;
+}
+
+/* Adjusting nav-bar text */
+.masthead-nav li a {
+	font-weight: normal;
+	font-size: 16px;
+}
+
+/* Small bug-fixing conflict between bootstrap and cover */
+a:hover {
+	text-decoration: none;
+}
+
+/* Footer */
+#suggest-footer {
+    float: right;
+    right: 0;
+    bottom: 0;
+}
+
+/* Buttons/links to the various applications */
+.btn-success,
+.btn-primary,
+.btn-info,
+.btn-warning,
+.btn-danger {
+	height: 75px;
+	width: 325px;
+	font-size: 22px;
+	font-weight: normal;
+	text-shadow: 1px 1px 2px #000000;
+	z-index: 1;
+}
+
+.cover .btn-lg {
+    font-weight: normal;
+}
+
+/* Template demo text */
 .well {
     position: relative;
     margin: 0 auto;
@@ -31,43 +73,12 @@ body {
     text-shadow: 1px 0 0 #FFFFFF;
 }
 
-/* Buttons/links to the various applications */
-.btn-success,
-.btn-primary,
-.btn-info,
-.btn-warning,
-.btn-danger {
-	height: 75px;
-	width: 325px;
-	padding: 20px 0;
-	font-size: 22px;
-	font-weight: normal;
-	text-shadow: 1px 1px 2px #000000;
-}
-
-.cover .btn-lg {
-    font-weight: normal;
-}
-
-/* Adjusting nav-bar text */
-.masthead-nav li a {
-	font-weight: normal;
-	font-size: 16px;
-}
-
-/* Small bug-fixing conflict between bootstrap and cover */
-a:hover {
-	text-decoration: none;
-}
-
-
 /* Backorder Notification Form */
 #backorder-form {
 	position: relative;
 	margin: 0 auto;
 	top: 25px;
 }
-
 
 .alert {
     position: relative;
@@ -82,12 +93,12 @@ form {
 	margin: 0 auto;
 	position: relative;
 	width: 410px;
+	z-index: 1;
 }
 
 #submit {
 	position: relative;
 	margin: 0 auto;
-	top: 15px;
 	font-family: Arial;
 	font-weight: normal;
 	width: 85px;
@@ -115,6 +126,8 @@ input  {
 
 .backorder-form-bottom {
 	border-radius: 0 0 15px 15px;
+	margin: 0;
+	position: relative;
 }
 
 #template-blurb {
@@ -214,13 +227,6 @@ input  {
 
 .date-checker-message {
 	font-size: 20px;
-}
-
-#suggest-footer {
-    position: fixed;
-    float: right;
-    right: 0;
-    bottom: 0;
 }
 
 #application {
