@@ -72,9 +72,10 @@ a:hover {
 	position: relative;
 	margin: 0 auto;
 	top: 25px;
+	padding: 10px 0;
 }
 
-.alert { 
+.alert {
     position: relative;
     text-align: justify;
 	width: 325px;
@@ -94,12 +95,10 @@ form {
 #submit {
 	position: relative;
 	margin: 0 auto;
-	font-family: Arial;
-	font-weight: normal;
+	font-size: 14px;
 	width: 85px;
 	height: 35px;
-	padding: 0 0;
-	right: 25px;
+
 }
 
 input  {
