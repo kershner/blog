@@ -13,11 +13,12 @@
         </div>
         <p>You will need to manually add your signature.</p>
     </div>
-    <div class="alert">
-        {% if link %}
-            <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your backorder notification template.</h3></div></a>
-        {% endif %}
 
+    {% if link %}
+        <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your backorder notification template.</h3></div></a>
+    {% endif %}
+
+    <div class="alert">
         {% for message in form.email.errors %}
             <p>{{ message }}</p>
         {% endfor %}

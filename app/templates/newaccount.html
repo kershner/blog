@@ -17,9 +17,10 @@
         </div>
         <p>You will need to manually add your signature.</p>
     </div>
-        {% if link %}
-            <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your new account template.</h3></div></a>
-        {% endif %}
+
+    {% if link %}
+        <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your new account template.</h3></div></a>
+    {% endif %}
 
     <div class="alert">
         {% for message in form.name.errors %}
