@@ -1,5 +1,6 @@
 from flask import render_template, request, flash, send_file
-from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm
+from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
+    StillNeed, LicenseNeeded
 from urllib import quote
 import datetime
 from app import app
@@ -104,8 +105,8 @@ def backorder():
 
 @app.route('/account_application')
 def applicationdoc():
-    file = '/home/tylerkershner/app/static/documents/account_application.doc'
-    return send_file(file)
+    account_app = '/home/tylerkershner/app/static/documents/account_application.doc'
+    return send_file(account_app)
 
 
 @app.route('/application', methods=['GET', 'POST'])
@@ -135,10 +136,12 @@ def application():
                                title="Account Application Template",
                                form=form)
 
+
 @app.route('/dea_documents_needed')
 def documents_needed():
-    file = '/home/tylerkershner/app/static/documents/documents_needed.doc'
-    return send_file(file)
+    docs_needed = '/home/tylerkershner/app/static/documents/documents_needed.doc'
+    return send_file(docs_needed)
+
 
 @app.route('/dea', methods=['GET', 'POST'])
 def dea():
@@ -262,4 +265,63 @@ def price_discrepancy():
     elif request.method == 'GET':
         return render_template("pricediscrepancy.html",
                                title="Price Discrepancy Template",
+                               form=form)
+
+
+@app.route('/stillneed', methods=['GET', 'POST'])
+def still_need():
+    form = StillNeed()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("stillneed.html",
+                                   title="Still Need Item? Template",
+                                   form=form)
+        else:
+            name = form.name.data
+            email = form.email.data
+            item = form.item_number.data
+            order_no = form.order_no.data
+            subject = "Regarding your Cayman Chemical Order %s" % order_no
+            body = "Hello %s,\n\nYour order for item #%s is now available and ready to ship!  Since the item has " \
+                   "been on a lengthy backorder we're sending this email to verify that you still need the item and " \
+                   "would like it to be shipped as soon as possible.  Please let me know how you would like " \
+                   "to proceed.\n\n" % (name, item)
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("stillneed.html",
+                                   title="Still Need Item? Template",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("stillneed.html",
+                               title="Still Need Item? Template",
+                               form=form)
+
+
+@app.route('/licenseneeded', methods=['GET', 'POST'])
+def license_needed():
+    form = LicenseNeeded()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("licenseneeded.html",
+                                   title="DEA License Needed Template",
+                                   form=form)
+        else:
+            name = form.name.data
+            email = form.email.data
+            order_no = form.order_no.data
+            subject = "DEA License Still Needed Order #%s" % order_no
+            body = "Hello %s,\n\nWe have received your 222 form but we still need an updated copy of your DEA " \
+                   "registration before the order can be processed.  Unlike the 222 form, the registration does not " \
+                   "need to be an original - you can simply scan your license and email it to me.  Please send us " \
+                   "your license as soon as possible to ensure prompt delivery of your order.\n\n" % name
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("licenseneeded.html",
+                                   title="DEA License Needed Template",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("licenseneeded.html",
+                               title="DEA License Needed Template",
                                form=form)
