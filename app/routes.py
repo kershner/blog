@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, send_file
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded
+    StillNeed, LicenseNeeded, DeaVerify
 from urllib import quote
 import datetime
 from app import app
@@ -336,4 +336,30 @@ def license_needed():
     elif request.method == 'GET':
         return render_template("licenseneeded.html",
                                title="DEA License Needed Template",
+                               form=form)
+
+
+@app.route('/deaverify', methods=['GET', 'POST'])
+def dea_verify():
+    form = DeaVerify()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("deaverify.html",
+                                   title="DEA Documents Verification Template",
+                                   form=form)
+        else:
+            email = "Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com"
+            order_no = form.order_no.data
+            institution = form.institution.data
+            subject = "%s / %s" % (order_no, institution)
+            body = "Hello,\n\nPlease verify these documents.\n\n"
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("deaverify.html",
+                                   title="DEA Documents Verification Template",
+                                   link=link,
+                                   form=form)
+    elif request.method == 'GET':
+        return render_template("deaverify.html",
+                               title="DEA Documents Verification Template",
                                form=form)

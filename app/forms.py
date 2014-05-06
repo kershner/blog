@@ -64,3 +64,9 @@ class LicenseNeeded(Form):
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
     submit = SubmitField("Submit")
+
+
+class DeaVerify(Form):
+    order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
+    institution = TextField("Institution", [validators.Required("Please enter the institution's name.")])
+    submit = SubmitField("Submit")
