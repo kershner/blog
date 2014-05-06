@@ -24,6 +24,18 @@ def projects():
                            title="Projects")
 
 
+@app.route('/pta')
+def project1():
+    return render_template("project01.html",
+                           title="Python Text Adventure")
+
+
+@app.route('/cstools')
+def project2():
+    return render_template("project02.html",
+                           title="CSTools")
+
+
 ##########################
 #####  CS Tools Apps #####
 @app.route('/')

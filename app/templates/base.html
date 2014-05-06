@@ -1,10 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <link type="text/css" rel="stylesheet" href="/static/stylesheet.css"/>
         <link rel="icon" type="image/png" href="/static/images/favicon.png">
-        <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="/static/Bootstrap/css/bootstrap.min.css"/>
+        <!-- Stanley Theme -->
+        <link type="text/css" rel="stylesheet" href="/static/main.css"/>
+        <!-- Custom Styles -->
+        <link type="text/css" rel="stylesheet" href="/static/style.css"/>
+        <!-- JavaScripts -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="/static/Bootstrap/js/hover.zoom.js"></script>
+        <script src="/static/Bootstrap/js/hover.zoom.conf.js"></script>
         {% if title %}
         <title>{{title}} - Tyler's Blog</title>
         {% else %}
@@ -12,18 +19,37 @@
         {% endif %}
     </head>
     <body>
-        <div id="menu">
-            <h2 id="name">Tyler Kershner</h2>
-            <ul>
-                <li><a href="home">Home</a></li>
-                <li><a href="projects">Projects</a></li>
-                <li><a href="about">About Me</a></li>
-            </ul>
+        <!-- Static navbar -->
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home">TYLER KERSHNER</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/home">Blog</a></li>
+                        <li><a href="/projects">Projects</a></li>
+                        <li><a href="/about">About Me</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         {% block content %}{% endblock %}
         <div id="footer">
-            <span id="email"><a href="mailto:tylerkershner@gmail.com">tylerkershner@gmail.com</a></span>
-            <span id="gitlink"><a href="http://github.com/kershner/">Github</a></span>
+            <div class="container">
+                <div class="row">
+                    <a href="mailto:tylerkershner@gmail.com">tylerkershner@gmail.com</a><br>
+                    <a href="http://github.com/kershner/">Github</a>
+                </div>
+            </div>
         </div>
+        <!-- Bootstrap core JavaScript
+             Placed at the end of the document so the pages load faster -->
+        <script src="/static/Bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
