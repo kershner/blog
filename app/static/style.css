@@ -3,11 +3,38 @@ body {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
 }
 
-.button1 {
-	display: inline-block;
+#face-name {
+	position: relative;
+	bottom: 10px;
 }
 
-.button2 {
+body div.navbar.navbar-inverse.navbar-static-top div div.navbar-header button {
+	padding-top: 85px;
+	z-index: 2;
+	background-color: #1abc9c;
+}
+
+body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collapse ul {
+	padding-top: 85px;
+}
+
+body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collapse.in ul {
+	padding-top: 0;
+}
+
+.brand {
+	display: inline-block;
+	position: absolute;
+	font-weight: 700;
+	font-size: 20px;
+	color: #FFFFFF;
+	letter-spacing: 2px;
+	bottom: 25px;
+	left: 6px;
+	z-index: 1;
+}
+
+.button {
 	display: inline-block;
 }
 
