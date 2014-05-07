@@ -3,6 +3,10 @@ body {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
 }
 
+p {
+	font-family: 'Open Sans';
+}
+
 #face-name {
 	position: relative;
 	bottom: 10px;
