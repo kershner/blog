@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container pt">
-    <div class="row mt">
-	    <div class="col-lg-6 col-lg-offset-3 centered">
-		    <h3>Projects</h3>
-			<hr>
-            <p>My programming projects so far...</p>
+<div id="grey">
+    <div class="container pt">
+        <div class="row mt">
+            <div class="col-lg-6 col-lg-offset-3 centered">
+                <h3>Projects</h3>
+                <hr>
+                <p>My programming projects so far...</p>
+            </div>
         </div>
-	</div>
-	<div class="row mt centered">
-	    <div class="col-lg-3"></div>
-        <div class="col-md-3">
-		    <a class="zoom green" href="/cstools" style="background-image: none;"><img class="img-responsive" src="/static/images/cstools1.png" alt="" style="height: 270px; margin-left: 0px; margin-top: 0px;"><div class="zoomOverlay" style="opacity: 0; display: block; background-color: rgb(26, 188, 156);"></div></a>
-			    <p>CSTools</p>
-		</div>
-		<div class="col-md-3">
-			<a class="zoom green" href="/pta" style="background-image: none;"><img class="img-responsive" src="/static/images/pta1.png" alt="" style="height: 270px; margin-left: 0px; margin-top: 0px;"><div class="zoomOverlay" style="opacity: 0; display: block; background-color: rgb(26, 188, 156);"></div></a>
-			<p>Python Text Adventure</p>
-		</div>
-        <div class="col-lg-3"></div>
-	</div><!-- /row -->
+        <div class="buttons">
+            <div class="button1">
+                <a href="/pta"><img class="img-responsive" src="/static/images/ptabutton.png"></a><br>
+                <p class="project-link">Python Text Adventure</p>
+            </div>
+            <div class="button2">
+                <a href="/cstools"><img src="/static/images/cstoolsbutton.png" class="img-responsive"></a><br>
+                <p class="project-link">CSTools</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
