@@ -188,13 +188,15 @@ a:after {
 bd {
 	font-size: 12px;
 	text-transform: uppercase;
-	color: #d2d2d2;
+	color: #bc1a3a;
 	font-weight: 700;
+	font-family: 'Helvetica';
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.09);
 }
 
 /* Blog Author*/
 ba {
-	font-size: 12px;
+	font-size: 14px;
 	text-transform: uppercase;
 }
 

@@ -48,3 +48,8 @@ body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collaps
 	height: 50%;
 	text-align: center;
 }
+
+.date {
+	font-family: Arial;
+	font-size: 12px;
+}
