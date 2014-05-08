@@ -53,3 +53,20 @@ body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collaps
 	font-family: Arial;
 	font-size: 12px;
 }
+
+h1 {
+	margin: 0 0;
+}
+
+pre code{
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.function {
+	color: #66B2FF;
+}
+
+#continue-link {
+	float: right;
+}

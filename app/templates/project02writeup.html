@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="grey">
+    <div class="container pt">
+		<div class="row mt">
+			<div class="centered">
+                <h1>Difficult Problems, Practical Solutions</h1>
+                <p><b>Getting my first useful application up and running</b></p>
+            </div>
+            <div class="col-lg-6 col-lg-offset-3">
+				<hr>
+				<p>
+                    I'd like to use this blog as an opportunity to bridge the gap between my two major skill sets: language and coding.  In that vein I think it's a good idea to
+                    do some longform write-ups after I feel I've reached a certain level of 'complete-ness' with my projects.  Maybe someone out there (besides me) will find them useful, in any case.<br><br>
+                    My day job as a Customer Service Representative involves a fair bit of repetition at times, mostly in the form of sending boilerplate emails to customers for various things.  I thought this would
+                    be an excellent application of my newfound programming abilities, both in terms of the project's actual utility in making my day-to-day work a little easier and also as a way to expose myself
+                    to ever deeper programming concepts.  I've found that a frustrating stumbling block often opens more doors than I initially expect.<br><br>
+                </p>
+                <hr>
+                <p>
+                    The first step toward completing this project was to decide: how
+                    do I want the user to access the application?  I was already learning how to use <a href="http://flask.pocoo.org/">Flask</a>, and the ubiquity of the web and the ease with which it can be accessed
+                    pretty much sealed the deal for me.  My CSTools suite would be a web application.<br><br>To get myself started with Flask, I began working through Miguel Grinberg's excellent <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world">tutorial</a>.
+                    I'm currently nowhere near finished with the piece, but it is absolutely well written and thoroughly explained, making it a relatively simple matter to achieve a fairly complicated thing: installing a Python module and setting up your own development server.  The instructions
+                    for getting started with Flask are all covered by Miguel's initial tutorials - I highly recommend them if you'd like to get off the ground with Python on the web.<br><br>Next on the list was setting some kind of baseline look for the web app, and
+                    the easiest way to achieve that is with <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.  Now, I mention that it's the "easiest" way to get a nice baseline look, but that doesn't mean that it's going to be <em>easy!</em>  I'm sure
+                    many veteran front-end guys will scoff at the notion, but wrapping your mind around Bootstrap and the grid system is a fairly daunting undertaking for someone who has no experience with that sort of thing.  Many YouTube tutorials and hours of frustration
+                    later and you're likely to arrive at one of those magnificent 'EUREKA' moments, where everything just seems to make sense.  There are countless Bootstrap tutorials on the web, both in article and video form, so I won't reinvent the wheel here.  Seek them out!<br><br></p>
+                <hr>
+                <p>
+                    Before I wrote the template apps that serve as the main functionality of my CSTools suite I had the idea for an extremely simple app to help me check whether a certain DEA form was expired or not - something relevant to my work.  An institution's DEA 222 form is only valid for
+                    60 days after it's been issued.  Sometimes the items the forms refer to are on lengthy production backorders, so some customers' forms tend to pile up in my backlog and can easily sneak past their 60 day expiration unless I'm paying careful attention.  So I wanted to create
+                    an <a href="http://tylerkershner.pythonanywhere.com/datechecker">app</a> that would very quickly tell me if this was the case or not.  This endeavor involved me experimenting with a module that I had not yet encountered: the <b>datetime</b> module.<br><br>
+                    Datetime involves a new type of object - the date.  You can read all about them <a href="https://docs.python.org/2/library/datetime.html">here</a>.  The most important thing I had to learn, however, was that in order for these objects to be of any use to me, I had to
+                    perform operations on them with <b>other datetime objects</b>.  This meant that I had to grab the value entered by my user and <em>convert</em> it into a date.  A somewhat tricky business, but I accomplished it with the following lines:</p><br>
+                    <pre><code>form_date = form.form_date.data<br>date_object = datetime.datetime.date(datetime.datetime.strptime(form_date, '%m/%d/%y'))
+                    </code></pre><br>
+                <p>
+                    Here I'm grabbing the user's input by way of the HTML form's data field with the first line.  I then assign that data to a new variable, <b>date_object</b>, and use datetime's built in <span class="function">date()</span> function (similar to the standard <span class="function">int()</span> or <span class="function">float()</span>) to convert the value into
+                    a date object.  You'll notice I had to reference datetime twice when accessing its methods.  I gather this has something to do with how the module was imported, but I honestly am not entirely sure the reasoning behind it.  Something to look into.  You'll also notice a bunch
+                    of strange string-format looking characters.  These are a part of datetime's <a href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">strptime()</a> method, which is like string formatting but for dates.  It's because of this formatting that I have to specify
+                    the correct date format for my users' input (MM/DD/YY).<br><br>
+                    From there it was a simple matter of comparing the date the user gave me with the current one, and then checking to see if the user's date plus 60 days equalled a date before or after the current one.  The rest of the code:<br>
+                    <pre><code>form_expiry_date = date_object + datetime.timedelta(days=60)<br>form_expiry_date_nice = "%s %s" % (str(form_expiry_date.strftime("%B")), str(form_expiry_date.day))<br>days_expired = datetime.date.today() - form_expiry_date<br><br>if form_expiry_date > datetime.date.today():<br>    message = "The form is valid until %s,  %s days from now." % \<br>    (form_expiry_date_nice, str(abs(days_expired.days)))<br>else:<br>    message = "The form expired on %s, %s days ago." % \<br>    (str(form_expiry_date_nice), str(days_expired.days))
+                    </code></pre>
+                <br><br><br>
+                <hr>
+                <p>
+                Well, this thing turned out longer than I thought it would, so I'll split it off here and continue with part two another day.  Thanks for reading so far, and stay tuned!<br>
+                <a id="continue-link" href="#">Continue to Part 2...</a>
+                </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
