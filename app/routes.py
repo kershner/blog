@@ -38,7 +38,7 @@ def project2():
 
 @app.route('/cstoolswriteup')
 def project2writeup():
-    return render_template("project02writeup.html",
+    return render_template("project02-part1.html",
                            title="CSTools Writeup")
 
 

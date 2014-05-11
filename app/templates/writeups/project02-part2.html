@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="grey">
+    <div class="container pt">
+		<div class="row mt">
+			<div class="centered">
+                <h1>Difficult Problems, Practical Solutions</h1>
+                <p><b>Getting my first useful application up and running</b></p>
+            </div>
+            <div class="col-lg-6 col-lg-offset-3">
+				<hr>
+                <h2>The Templates</h2>
+                <p>
+                    Email templates are surely not the most complicated piece of software you can imagine, but they are incredible useful tools.  I'm writing this a little over a week since I've "completed" most of the template scripts
+                    for my application and I've been making use of them as often and I can at work.  They definitely save me a lot of time and create a base level of consistency for many of the boilerplate emails the Customer Service
+                    department has to send.  There are many, many ways a programmer can accomplish this same functionality, but Python and Flask work just fine for my purposes.  That's not to say I've run into my share of difficulties
+                    along the way.
+                <br><br>
+                </p>
+                <hr>
+                <h2>Sending the Email</h2>
+                <p>
+                    Setting up the actual input fields - HTML forms rendered by the <A href="https://flask-wtf.readthedocs.org/en/latest/">Flask-WTF</A> extension - is the subject of Miguel Grinberg's
+                    <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms">third</a> article in his
+                    <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world">Flask Mega Tutorial</a>.  As I was already familiar with grabbing the data field of an HTML form element from my
+                    date checker app, after the forms were set up it was time to decide what method I was going to use to actually send the emails the app would be composing.  As you'd expect, there are quite a few options
+                    to choose from.
+                </p>
+                <br>
+                <h5>SMTP</h5>
+                <p>
+                    As I began my Google journey in search of some direction for this next step, the most prevalent suggestion was to use <a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>.
+                    SMTP is such a popular and preferred way of sending email in Python that there's an example implementation in the <a href="https://docs.python.org/2/library/email-examples.html">official documentation</a>.
+                    Naturally I was pretty excited to have apparently arrived at my answer after so little searching effort.  However, I quickly discovered that SMTP wouldn't work for my program because of how my colleagues
+                    and myself would be accessing it.<br><br>Creating a self-installing executable file for my application with <a href="http://www.py2exe.org/">py2exe</a> wasn't really an option because of my company's IT/administration rights policy,
+                    so I needed the app to live somewhere it could be accessed even without a Python interpreter on the user's local machine.  This was a big factor in my decision to host CSTools on PythonAnywhere.  Since the
+                    template script would be run on a different server than the local machine the user would have to enter their email authentication credentials every time they wanted to use one of my templates.  I
+                    decided that this was a bit too clunky and slow for what I had envisioned.
+                </p>
+                <h5>Mailto</h5>
+                <p>
+                    The next contender was trusty old <a href="http://en.wikipedia.org/wiki/Mailto">mailto</a>.  I remembered this guy from my first primitive forays into web development something like 15 years ago (on
+                    my slick Tripod/GeoCities sites, no doubt).  This familiarity gave me pause - surely something a novice dev was familiar with <em>fifteen years ago</em> has been
+                    deprecated and superseded by better techniques at this point.  I wasn't far off, as there are a few issues with mailto that lead many to call for its deprecation.  These issues are discussed in the
+                    previous Wiki link, but briefly they come down to issues surrounding a scenario in which the user does not have a default mail program configured and security, as a mailto URL can openly display
+                    email addresses making them visible to scamming bots.
+                </p>
+            </div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
