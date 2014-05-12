@@ -12,7 +12,7 @@
 				<hr>
                 <h2>The Templates</h2>
                 <p>
-                    Email templates are surely not the most complicated piece of software you can imagine, but they are incredible useful tools.  I'm writing this a little over a week since I've "completed" most of the template scripts
+                    Email templates are surely not the most complicated pieces of software you can imagine, but they are incredible useful tools.  I'm writing this a little over a week since I've "completed" most of the template scripts
                     for my application and I've been making use of them as often and I can at work.  They definitely save me a lot of time and create a base level of consistency for many of the boilerplate emails the Customer Service
                     department has to send.  There are many, many ways a programmer can accomplish this same functionality, but Python and Flask work just fine for my purposes.  That's not to say I haven't run into my share of difficulties
                     along the way.
@@ -23,11 +23,10 @@
                 <p>
                     Setting up the actual input fields - HTML forms rendered by the <A href="https://flask-wtf.readthedocs.org/en/latest/">Flask-WTF</A> extension - is the subject of Miguel Grinberg's
                     <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms">third</a> article in his
-                    <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world">Flask Mega Tutorial</a>.  As I was already familiar with grabbing the data field of an HTML form element from my
-                    date checker app, after the forms were set up it was time to decide what method I was going to use to actually send the emails the template would be composing.  As you'd expect, there are quite a few options
+                    <a href="http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world">Flask Mega Tutorial</a>.  I was already familiar with grabbing the data field of an HTML form element from my
+                    date checker app, so after the forms were set up it was time to decide what method I was going to use to actually send the emails the template would be composing.  As you'd expect, there are quite a few options
                     to choose from.
                 </p>
-                <br>
                 <h5>SMTP</h5>
                 <p>
                     As I began my Google journey in search of some direction for this next step, the most prevalent suggestion was to use <a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>.
@@ -35,7 +34,7 @@
                     Naturally I was pretty excited to have apparently arrived at my answer after so little searching effort.  However, I quickly discovered that SMTP wouldn't work for my program because of how my colleagues
                     and myself would be accessing it.<br><br>Creating a self-installing executable file for my application with <a href="http://www.py2exe.org/">py2exe</a> wasn't really an option because of my company's IT/administration rights policy,
                     so I needed the app to live somewhere it could be accessed even without a Python interpreter on the user's local machine.  This was a big factor in my decision to host CSTools on PythonAnywhere.  Since the
-                    template script would be run on a different server than the local machine the user would have to enter their email authentication credentials every time they wanted to use one of my templates.  I
+                    template script would be run on a different server than the local machine, the user would have to enter their email authentication credentials every time they wanted to use one of my templates.  I
                     decided that this was a bit too clunky for what I had envisioned.
                 </p>
                 <h5>Mailto</h5>
@@ -43,10 +42,9 @@
                     The next contender was trusty old <a href="http://en.wikipedia.org/wiki/Mailto">mailto</a>.  I remembered this guy from my first primitive forays into web development something like 15 years ago (on
                     my slick Tripod/GeoCities sites, no doubt).  This familiarity gave me pause - surely something a novice dev was familiar with <em>fifteen years ago</em> has been
                     deprecated and superseded by better techniques at this point.  I wasn't far off, as there are a few issues with mailto that lead many to call for its deprecation.  Briefly there are potential problems when the user does not have a default
-                    mail program configured and also with security, as a mailto URL can openly display email addresses making them vulernable to scamming bots.<br><br>Beyond those major issues, the mailto method has a problem specific to my own
+                    mail program configured and also with security, as a mailto URL can openly display email addresses making them vulernable to scamming bots.  You can read about the issues with mailto in depth on its <a href="http://en.wikipedia.org/wiki/Mailto#Functionality_issues">Wiki</a>.</a><br><br>Beyond those major issues, the mailto method has a problem specific to my own
                     application.  Using mailto, I was able to cobble together some code that does pretty much exactly what I wanted it to:
-                    <pre><code>
-email = form.email.data
+<pre><code>email = form.email.data
 
 subject = "Cayman Chemical Backorder Notification %s" % form.po.data
 
@@ -71,31 +69,41 @@ return render_template("backorder.html",
                 </p>
                 <h5>The COM Interface</h5>
                 <p>
-                    The failure of the SMTP and mailto methods to give me the exact functionality I required led me down an even darker path of Python learning.  After many hours of scanning obscure now-defunct forums
+                    The failure of the SMTP and mailto methods to give me the exact functionality I required led me down an even darker path of Python learning.  After many hours of scanning obscure, now-defunct forums
                     I was pointed in the direction of the <a href="http://en.wikipedia.org/wiki/Component_Object_Model">COM</a>.<br><br>The Component Object Model, as I understand it, was developed as a language-neutral
-                    way of accessing the various methods and classes of common OS objects.  That all sounds like a truly noble endeavor that would make many devs' lives infinitely easier.  There was just one problem: the
-                    implementation of the COM was left up to the developers of the individual components themselves with no codified system in place to guarantee consistency.  This meant in practice that finding documentation
+                    way of accessing the various methods and classes of common OS objects.  That all sounds like a truly noble endeavor that would make many devs' lives infinitely easier.  There was just one problem, though: the
+                    actual implementation of the COM was left up to the developers of the individual components themselves with no codified system in place to guarantee consistency.  This meant in practice that finding documentation
                     for the specific piece of a program you're looking for can sometimes be an arcane task.<br><br>So there I was, trying to track down a way for Python to interact with the Outlook object
                     through the COM.  I had heard it said that one of the major steps on your path toward graduating from a "beginner" programmer is being faced with a problem for which the answer does not immediately appear on the first
                     couple pages of a Google search.  I can't verify that one way or the other, but I can tell you that it was a rough couple of days trying to wrap my head around the COM.  I was looking through the Microsoft COM
                     <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.interop.outlook.application(v=office.14).aspx?cs-save-lang=1&cs-lang=vb#code-snippet-1">documentation</a> (which is written in C# and VBA, of course), posting
                     question threads on Reddit, and searching through the annals of StackOverflow.  Eventually I learned enough to piece together the following code:
-                    <pre><code>
-import win32com.client
+<pre><code>import win32com.client
 
 olMailItem = 0x0
 obj = win32com.client.Dispatch("Outlook.Application")
 newMail = obj.CreateItem(olMailItem)
 newMail.GetInspector()
 newMail.Subject = "Subject"
-newMail.Body = "Actualemail"
-newMail.To = "full@e.mail"
-newMail.Attachments.Add("E:\zapp.doc")
+newMail.Body = "Body"
+newMail.To = "person@dummyemail.com"
+newMail.Attachments.Add("E:\attachment.doc")
 
-newMail.Display()
-                    </code></pre>
-
-
+newMail.Display()</code></pre>
+                <p>
+                    First I import the Python COM module, <a href="http://docs.activestate.com/activepython/2.4/pywin32/html/com/win32com/HTML/docindex.html">win32com</a>.  I then create a new instance of the Outlook object and a new email object within that instance, supplying the object with the necessary methods for subject,
+                    body, etc.  The only command that should look relatively weird there is newMail.GetInspector(), but all that line does is populate in the user's Outlook signature.<br><br>So there we go, an extremely concise and
+                    simple program that does <em>exactly</em> what I need it to do!  Days of effort and frustration finally bear fruit!  As usual, however, there was just one problem...<br><br>Almost every web server in
+                    existence is run on a Unix operating system.<br><br>This means that my nice little Windows script could never work on PythonAnywhere or just about any other web host.  This is one of those things that an experienced
+                    web developer would read and facepalm hard with equal parts annoyance and pity, but...trial by fire, I suppose.  A nice solution here would be to have this script as part of a
+                    standalone Python environment located in a self-contained executable that could be run from the client's local machine, but I've already discussed why this isn't possible in my current situation.<br>
+                </p><br><br>
+                <hr>
+                <p>
+                    In the end, using mailto was the only viable option for my application.  At first it felt like a major compromise, as the COM method worked so perfectly, but I soon came to the understanding that in programming often
+                    the practical solution is not always the "perfect" solution.  When it comes down to it your program just needs to work and do what it's intended to do, anything else is seemingly just extra.  The flaws of the mailto
+                    method were nowhere near serious enough (in the context of my work environment) to justify not using it to create a useful everyday tool.<br><br>The CSTools app is in a perfectly usable state, but I'll definitely
+                    continue to add to it as I see fit.  Maybe one day, when I'm more experienced with Python, I'll be able to accomplish everything I want with my email templates without using goofy old mailto.<br><br>Thanks for reading!
                 </p>
             </div>
 		</div>

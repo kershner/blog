@@ -36,11 +36,15 @@ def project2():
                            title="CSTools")
 
 
-@app.route('/cstoolswriteup')
-def project2writeup():
-    return render_template("project02-part1.html",
+@app.route('/cstoolswriteup-part1')
+def project2writeup1():
+    return render_template("/writeups/project02-part1.html",
                            title="CSTools Writeup")
 
+@app.route('/cstoolswriteup-part2')
+def project2writeup2():
+    return render_template("/writeups/project02-part2.html",
+                           title="CSTools Writeup")
 
 ##########################
 #####  CS Tools Apps #####
