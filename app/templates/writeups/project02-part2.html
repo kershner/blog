@@ -44,7 +44,7 @@
                     deprecated and superseded by better techniques at this point.  I wasn't far off, as there are a few issues with mailto that lead many to call for its deprecation.  Briefly there are potential problems when the user does not have a default
                     mail program configured and also with security, as a mailto URL can openly display email addresses making them vulernable to scamming bots.  You can read about the issues with mailto in depth on its <a href="http://en.wikipedia.org/wiki/Mailto#Functionality_issues">Wiki</a>.</a><br><br>Beyond those major issues, the mailto method has a problem specific to my own
                     application.  Using mailto, I was able to cobble together some code that does pretty much exactly what I wanted it to:
-<pre><code>email = form.email.data
+<pre><code data-language="python">email = form.email.data
 
 subject = "Cayman Chemical Backorder Notification %s" % form.po.data
 
@@ -78,7 +78,7 @@ return render_template("backorder.html",
                     couple pages of a Google search.  I can't verify that one way or the other, but I can tell you that it was a rough couple of days trying to wrap my head around the COM.  I was looking through the Microsoft COM
                     <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.interop.outlook.application(v=office.14).aspx?cs-save-lang=1&cs-lang=vb#code-snippet-1">documentation</a> (which is written in C# and VBA, of course), posting
                     question threads on Reddit, and searching through the annals of StackOverflow.  Eventually I learned enough to piece together the following code:
-<pre><code>import win32com.client
+<pre><code data-language="python">import win32com.client
 
 olMailItem = 0x0
 obj = win32com.client.Dispatch("Outlook.Application")

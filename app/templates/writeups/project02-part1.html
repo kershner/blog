@@ -36,18 +36,15 @@
                     especially careful attention.  I wanted to create an <a href="http://tylerkershner.pythonanywhere.com/datechecker">app</a> that would very quickly tell me if this was the case or not.  This endeavor involved me experimenting with a module that I had not yet encountered: the <b>datetime</b> module.<br><br>
                     Datetime involves a new type of object - the <b>date</b> object.  You can read all about them <a href="https://docs.python.org/2/library/datetime.html">here</a>.  The most important thing I had to learn was that in order for these objects to be of any use to me I had to
                     perform operations on them with <b>other datetime objects</b> - similar to how you can't add integers and strings together in regular old Python.  This meant that I had to grab the value entered by my user (as a string) and <em>convert</em> it into a date object.  A somewhat tricky business, but I accomplished it with the following lines:</p><br>
-                    <pre><code>
-form_date = form.form_date.data
-date_object = datetime.datetime.date(datetime.datetime.strptime(form_date, '%m/%d/%y'))
-                    </code></pre><br>
+<pre><code data-language="python">form_date = form.form_date.data
+date_object = datetime.datetime.date(datetime.datetime.strptime(form_date, '%m/%d/%y'))</code></pre><br>
                 <p>
                     Here I'm grabbing the user's input by way of the HTML form's data field with the first line.  I then assign that data to a new variable, <b>date_object</b>, and use datetime's built in <span class="function">date()</span> function (similar to the standard <span class="function">int()</span> or <span class="function">float()</span>) to convert the value into
                     a date object.  You'll notice I had to reference datetime twice when accessing its methods.  I gather this has something to do with how the module was imported, but I honestly am not entirely sure the reasoning behind it.  Something to look into.  You'll also notice a bunch
                     of strange string-format looking characters as parameters for datetime's <a href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">strptime()</a> method, which is similar to string formatting but for dates.  It's because of this formatting that I have to specify
                     the correct format for my users' input (MM/DD/YY).<br><br>
                     From there it was a simple matter of comparing the date the user gave me with the current one (today), and then checking to see if the user's date plus 60 days was a date before or after the current one.  The rest of the code:<br>
-                    <pre><code>
-form_expiry_date = date_object + datetime.timedelta(days=60)
+<pre><code data-language="python">form_expiry_date = date_object + datetime.timedelta(days=60)
 form_expiry_date_nice = "%s %s" % (str(form_expiry_date.strftime("%B")), str(form_expiry_date.day))
 days_expired = datetime.date.today() - form_expiry_date
 
@@ -56,8 +53,7 @@ if form_expiry_date > datetime.date.today():
               (form_expiry_date_nice, str(abs(days_expired.days)))
 else:
     message = "The form expired on %s, %s days ago." % \
-              (str(form_expiry_date_nice), str(days_expired.days))
-</code></pre><br><br><br>
+              (str(form_expiry_date_nice), str(days_expired.days))</code></pre><br><br><br>
                 <hr>
                 <p>
                 Well, this thing turned out a bit longer than I thought it would, so I'll split it off here and continue with part two another day.  Thanks for reading so far, and stay tuned!<br>
