@@ -12,6 +12,18 @@ def home():
                            title="Home")
 
 
+@app.route('/archive')
+def archive():
+    return render_template("archive.html",
+                           title="Blog Archive")
+
+
+@app.route('/may14')
+def may14():
+    return render_template("/blog_archive/may14.html",
+                           title="May 2014")
+
+
 @app.route('/about')
 def about():
     return render_template("about.html",
