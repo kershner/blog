@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="grey">
+    <div class="container pt">
+		<div class="row mt">
+			<div class="centered">
+                <h1>GIF Picture Frame Project</h1>
+                <p><b>Using the Raspberry Pi with Python</b></p>
+            </div>
+            <div class="col-lg-6 col-lg-offset-3">
+				<hr>
+				<p>
+                    For the past few weeks I struggled with finding a suitable idea for my next project.  After a much
+                    needed vacation from work I was finally able to make a decision: focus my programming learning
+                    on what I actually <em>enjoy</em> doing.  Given my hobbyist love for all things hardware I thought
+                    the Raspberry Pi would be a great place to start - they're so small and awesome!  On the software
+                    side I've been looking into web scraping for a little while now and so it just seemed natural to
+                    try and integrate that type of program into the project.  I've decided on a digital
+                    picture frame that pulls GIFs from various subreddits and displays them in a slideshow.  As my Pi
+                    has not yet arrived, the first part of this writeup will focus on the scraping code.<br><br>
+                </p>
+                <hr>
+                <h2>Getting Started</h2>
+                <p>
+                    I've been through a little over half of the <a href="https://www.udacity.com/course/cs101">Udacity CS 101</a>
+                    course - very highly recommended, by the way - so I am at least somewhat familiar with the concepts of
+                    web scraping.  I'm also well aware that a script to do the majority of what I'm after very likely
+                    already exists.  So then my first step was to find another coder's work that most closely maps to
+                    my specific purpose for this project rather than waste time reinventing the wheel.<br><br>
+                    I found <a href="http://inventwithpython.com/blog/2013/09/30/downloading-imgur-posts-linked-from-reddit-with-python/">a reddit image scraper</a>
+                    written by Al Sweigart, who I was familiar with from the <a href="http://inventwithpython.com/">Invent With Python</a>
+                    series of books (also highly recommended).  This code does its job well and runs almost perfectly
+                    out of the box.  There were a few things I needed to tweak, however, and I'll detail them here.
+                </p>
+                <hr>
+                <h2>Debugging</h2>
+                <p>
+                    Al's code is up on GitHub, located <a href='https://github.com/asweigart/imgur-hosted-reddit-posted-downloader/blob/master/imgur-hosted-reddit-posted-downloader.py'>here</a>.
+                    The first thing I noticed when I fired up the script was that it would download
+                    a few images just fine, and then hit an Index Error and stop.  My first task then was to debug the code.<br><br>
+                    The line throwing the error was this one (line 83 in Al's Code):</p>
+<pre><code data-language="python">imageUrl = soup.select('.image a')[0]['href']</code></pre>
+                <p>
+                    Now, when I first started this project I wasn't very familiar with <a href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a> and how it operated,
+                    so instead of deeply analyzing the problem and fixing it at the root I decided to just get the
+                    script working with a quick and dirty try/except clause:
+                </p>
+<pre><code data-language="python">try:
+    imageUrl = soup.select('.image a')[0]['href']
+except IndexError:
+    continue
+</code></pre>
+                <p>
+                    This worked great because if an error was thrown by the line in question, the loop going through
+                    each subreddit submission would simply skip that submission and move on to the next one.  The script
+                    would execute just fine and fulfil its purpose, but this solution meant that some perfectly valid
+                    submissions weren't being scraped.  It was time to start testing.  I used this small script to test
+                    what exactly was being returned by line 83:
+                </p>
+<pre><code data-language="python">import requests
+from bs4 import BeautifulSoup
+
+html_source = requests.get('http://imgur.com/gallery/pa3Vot4').text
+soup = BeautifulSoup(html_source)
+imageUrl = soup.select('.image a')[0]['href']
+
+print image_url
+</code></pre>
+                <p>
+                    Running this script would spit out the HTML element associated with the given CSS class.  I could then
+                    check that output against the source of the imgur page to find the discrepancy.  With a few glances at the
+                    <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup documentation</a> and
+                    more than a few trial-and-error runs I was able to narrow down the culprit of the error.<br><br>
+                    It seems that imgur had slightly altered their HTML/CSS layout in the time since Al's code was authored (8
+                    months ago), so the CSS selectors referenced by Al were no longer used in the same way.  Simply swapping
+                    in the correct tags worked perfectly and allowed me to get rid of the clunky try/except clause.<br><br>
+                    <strong>Edit:</strong> I've had to sheepishly add back in the try/except clause.  There must be something
+                    I'm missing with the way imgur formats these particular pages.  It's going to require looking at many
+                    different pages and finding the discrepancy with my code.  I'll keep investigating and update this post
+                    with my progress.
+                </p>
+                <hr>
+                <h2>Modifying the Code</h2>
+                <p>
+                    Now that I had fixed the one show-stopping bug in Al's script, it did exactly what it was intended to do -
+                    whatever <em>Al</em> had written it for.  I wanted a few extra features from the script to fit
+                    my own specific purpose, so I set about building in a few new functions.<br><br>
+                    I wanted the script to log what it was doing.  It's both useful information and a good way
+                    to further practice some Python I/O.  Since this script will eventually be running automatically
+                    in the background at set intervals, I first wanted to log the time at which the script was run.  I
+                    accomplished this by importing the datetime module and setting the current time to a variable formatted
+                    how I wanted:
+                </p>
+<pre><code data-language="python">time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))</code></pre>
+                <p>
+                    This particular strftime format will output the date like so: <strong>05:33 PM on Wednesday, June 04, 2014</strong>.
+                    Very human readable.<br><br>
+                    Next, since the Raspberry Pi has a somewhat limited amount of storage space I wanted to be able
+                    to check the logs to find out just about large my GIFs folder was becoming.  This task can be handled
+                    by the OS module.  Since this operation involves a few steps, including a loop, I broke it off into
+                    another function:
+                </p>
+<pre><code data-language="python">def get_size(start_path='../imgur_scraper/gifs'):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return (total_size / 1024) / 1024.0
+</code></pre>
+                <p>
+                    Here I'm using the <a href="https://docs.python.org/2/library/os.html#os.walk">os.walk</a> method.
+                    <strong>os.walk</strong> is very handy because it can grab files and their attributes by 'walking' up or down the
+                    directory tree from a designated starting point.  The <strong>os.path.join</strong> line is used to get
+                    a full pathname to the file, which then has the <strong>getsize</strong> method called on it.
+                    The size of each file (in bytes) is added to a running total, and when the walk is finished the
+                    function returns the total divided by 1024, and then 1024 again - to get the size in MBs (a much
+                    more human-friendly unit).<br><br>
+                    I also wanted to have a simple count of the GIFs being added and the total number of images in my
+                    GIFs folder.  At first I had a very clunky solution involving <em>*gasp*</em>  <strong>global variables</strong>, but
+                    I quickly remembered that I had done this type of thing (modifying a constant variable from an
+                    outside function) many times in my text adventure using class methods and attributes.  Here's what
+                    I came up with for the scraper:
+                </p>
+<pre><code data-language="python">class Gif(object):
+    def __init__(self, count):
+        self.count = count
+
+    def counter(self):
+        self.count += 1
+
+# Instantiating Gif class
+gif = Gif(0)
+</code></pre>
+                <p>
+                    This was much better than using a global variable.  I could call the <strong>gif.counter()</strong> method
+                    every time a new gif was downloaded and then return the <strong>gif.count</strong> attribute whenever
+                    I wanted to log it.  Here's what my final log function looks like:
+                </p>
+<pre><code data-language="python">def log():
+    time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
+    log_data = '\n\nAdded %d gifs at %s.' % (gif.count, time)
+    number_of_gifs = len(os.listdir('../imgur_scraper/gifs'))
+    folder_size = '\nGIF folder size: %d GIFs, approximately %d MBs.' % (number_of_gifs, get_size())
+    with open('imgur_scraper_log.txt', 'a') as log_file:
+        log_file.write(log_data)
+        log_file.write(folder_size)
+    print log_data, folder_size</code></pre>
+                <p>
+                    Now I have a very nice, very readable log file that looks like this:
+                </p>
+                    <pre><code>Added 18 gifs at 10:43 AM on Thursday, June 05, 2014.
+GIF folder size: 51 GIFs, approximately 148 MBs.
+
+Added 2 gifs at 11:26 AM on Thursday, June 05, 2014.
+GIF folder size: 52 GIFs, approximately 163 MBs.</code></pre>
+                <hr>
+                <h2>Wrapping Up</h2>
+                <p>
+                    One final step that I want to include here (because it was new to me) was converting the script into
+                    a program that could be run without the command line and calling it with a simple batch file.  This meant encapsulating
+                    the entire script into a "main" function, and adding the standard bit at the bottom:
+                </p>
+<pre><code data-language="python">if __name__ == '__main__':
+    print '\n\n\nWhat subreddit would you like to scrape?'
+    argument = raw_input('/r/ > ')
+    scrape(argument)</code></pre>
+                <p>
+                    This way, while I'm on my Windows development machine I can call the script very easily, by running
+                    the follow extremely simple <strong>scrape.bat</strong> file:
+                </p>
+<pre><code>e:\programming\projects\imgur_scraper\venv\scripts\python e:\programming\projects\imgur_scraper\imgur_scraper_windows.py %*\</code></pre>
+                <p>
+                    Now all I have to do is double click the batch file rather than using the CLI to navigate to my projects
+                    folder, point to my virtualized Python interpreter, and run the script, which can get quite tedious.
+                </p>
+                <hr>
+                <p>
+                That about covers the software side of things.  I'm pretty happy with the script I ended up with, though
+                I'm sure I'll continue to tweak it as I see fit or as the project evolves.  My Raspberry Pi was delivered
+                today while I was at work, so my next few days will be spent getting that thing up and running and attemting
+                to familiarize myself with Linux.<br><br>
+                Thanks for reading!
+                </p>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

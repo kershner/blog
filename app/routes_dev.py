@@ -61,6 +61,12 @@ def project2writeup2():
                            title="CSTools Writeup")
 
 
+@app.route('/piproject-part1')
+def piproject1():
+    return render_template("/writeups/project03-part1.html",
+                           title="GIF Picture Frame Writeup Part 1")
+
+
 ##########################
 #####  CS Tools Apps #####
 @app.route('/')
