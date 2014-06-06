@@ -75,7 +75,7 @@ print image_url
                     It seems that imgur had slightly altered their HTML/CSS layout in the time since Al's code was authored (8
                     months ago), so the CSS selectors referenced by Al were no longer used in the same way.  Simply swapping
                     in the correct tags worked perfectly and allowed me to get rid of the clunky try/except clause.<br><br>
-                    <strong>Edit:</strong> I've had to sheepishly add back in the try/except clause.  There must be something
+                    <strong>Edit:</strong> I've had to add back in the try/except clause.  There must be something
                     I'm missing with the way imgur formats these particular pages.  It's going to require looking at many
                     different pages and finding the discrepancy with my code.  I'll keep investigating and update this post
                     with my progress.
@@ -97,7 +97,7 @@ print image_url
                     This particular strftime format will output the date like so: <strong>05:33 PM on Wednesday, June 04, 2014</strong>.
                     Very human readable.<br><br>
                     Next, since the Raspberry Pi has a somewhat limited amount of storage space I wanted to be able
-                    to check the logs to find out just about large my GIFs folder was becoming.  This task can be handled
+                    to check the logs to find out how large my GIFs folder was becoming.  This task can be handled
                     by the OS module.  Since this operation involves a few steps, including a loop, I broke it off into
                     another function:
                 </p>
@@ -167,19 +167,19 @@ GIF folder size: 52 GIFs, approximately 163 MBs.</code></pre>
     argument = raw_input('/r/ > ')
     scrape(argument)</code></pre>
                 <p>
-                    This way, while I'm on my Windows development machine I can call the script very easily, by running
+                    This way while I'm on my Windows development machine I can call the script very easily by running
                     the follow extremely simple <strong>scrape.bat</strong> file:
                 </p>
 <pre><code>e:\programming\projects\imgur_scraper\venv\scripts\python e:\programming\projects\imgur_scraper\imgur_scraper_windows.py %*\</code></pre>
                 <p>
                     Now all I have to do is double click the batch file rather than using the CLI to navigate to my projects
-                    folder, point to my virtualized Python interpreter, and run the script, which can get quite tedious.
+                    folder, point to my virtualized Python interpreter, and run the script and its arguments, which can get quite tedious.
                 </p>
                 <hr>
                 <p>
                 That about covers the software side of things.  I'm pretty happy with the script I ended up with, though
                 I'm sure I'll continue to tweak it as I see fit or as the project evolves.  My Raspberry Pi was delivered
-                today while I was at work, so my next few days will be spent getting that thing up and running and attemting
+                today while I was at work, so my next few days will be spent getting that thing up and running and attempting
                 to familiarize myself with Linux.<br><br>
                 Thanks for reading!
                 </p>
