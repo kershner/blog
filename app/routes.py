@@ -3,6 +3,7 @@ from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewA
     StillNeed, LicenseNeeded, DeaVerify
 from urllib import quote
 import datetime
+import random
 from app import app
 
 
@@ -64,6 +65,19 @@ def project2writeup2():
 def piproject1():
     return render_template("/writeups/project03-part1.html",
                            title="GIF Picture Frame Writeup Part 1")
+
+
+@app.route('/pi_display')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/url_log.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("pi_display.html",
+                           title="Raspberry PI GIF Dislay",
+                           gif_url=gif_url)
+
+
 
 ##########################
 #####  CS Tools Apps #####
