@@ -7,7 +7,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
     number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
-    with open('reddit_scraper_log.txt', 'a') as log_file:
+    with open('/home/tylerkershner/app/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(number_of_gifs)
     print log_data
