@@ -31,6 +31,8 @@ for submission in submissions:
     elif 'minus' in submission.url:
         print '%s from minus domain, skipping...' % submission.url
         pass
+    elif 'gifsound' in submission.url:
+        pass
     elif '?' in submission.url:
         print '? found in URL, snipping and adding...'
         url_snip = submission.url.find('?')
