@@ -1,0 +1,12 @@
+body {
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -200px;
+}

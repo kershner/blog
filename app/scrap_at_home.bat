@@ -14,6 +14,14 @@ h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\project
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py funnygifs %*\
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py wheredidthesodago %*\
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py reactiongifs %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py creepy_gif %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py perfectloops %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py aww_gifs %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py AnimalsBeingJerks %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py AnimalGIFs %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py whitepeoplegifs %*\
+h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py celebgifs %*\
+
 pause
 
 

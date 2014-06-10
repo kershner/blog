@@ -75,7 +75,7 @@ def pi_display():
     gif_url = random.choice(urls)
     file_object.close()
     return render_template("pi_display.html",
-                           title="Raspberry PI GIF Dislay",
+                           title="Raspberry PI GIF Display",
                            gif_url=gif_url)
 
 ##########################
