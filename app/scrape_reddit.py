@@ -13,10 +13,10 @@ print '\n\n\n\nGathering image URLs from /r/%s...' % target_subreddit
 r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
 
 # Uncomment to scrape top results from year/month/all
-#submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
+submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_year(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_month(limit=50)
-submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
+#submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
 file_object = open('url_log.txt', 'r+')
 urls = list(file_object)

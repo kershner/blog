@@ -20,7 +20,6 @@ h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\project
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py AnimalsBeingJerks %*\
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py AnimalGIFs %*\
 h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py whitepeoplegifs %*\
-h:\programming\projects\imgur_scraper\venv\scripts\python h:\programming\projects\blog\app\scrape_reddit.py celebgifs %*\
 
 pause
 
