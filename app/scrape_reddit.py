@@ -7,6 +7,7 @@ if len(sys.argv) < 2:
     print('Usage:')
     print('  python %s [subreddit]' % (sys.argv[0]))
     sys.exit()
+
 target_subreddit = sys.argv[1]
 
 print '\n\n\n\nGathering image URLs from /r/%s...' % target_subreddit
@@ -31,6 +32,9 @@ for submission in submissions:
     elif 'minus' in submission.url:
         print '%s from minus domain, skipping...' % submission.url
         pass
+    elif 'gfycat' in submission.url:
+        print '%s from gfycat domain, skipping...' % submission.url
+        pass
     elif 'gifsound' in submission.url:
         print '%s from gifsound domain, skipping...' % submission.url
         pass
@@ -43,6 +47,7 @@ for submission in submissions:
         file_object.write(submission.url[:url_snip])
         file_object.write('\n')
         count += 1
+
     else:
         print '%s not found in url_log.txt, adding...' % submission.url
         file_object.write(submission.url)
