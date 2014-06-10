@@ -32,6 +32,10 @@ for submission in submissions:
         print '%s from minus domain, skipping...' % submission.url
         pass
     elif 'gifsound' in submission.url:
+        print '%s from gifsound domain, skipping...' % submission.url
+        pass
+    elif 'gifsoup' in submission.url:
+        print '%s from gifsoup domain, skipping...' % submission.url
         pass
     elif '?' in submission.url:
         print '? found in URL, snipping and adding...'
