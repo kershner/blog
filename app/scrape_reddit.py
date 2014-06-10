@@ -32,7 +32,7 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_month(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
-file_object = open('urls.txt', 'r+')
+file_object = open('/home/tylerkershner/app/urls.txt', 'r+')
 urls = list(file_object)
 
 for submission in submissions:
