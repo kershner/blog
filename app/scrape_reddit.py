@@ -32,9 +32,6 @@ for submission in submissions:
     elif 'minus' in submission.url:
         print '%s from minus domain, skipping...' % submission.url
         pass
-    elif 'gfycat' in submission.url:
-        print '%s from gfycat domain, skipping...' % submission.url
-        pass
     elif 'gifsound' in submission.url:
         print '%s from gifsound domain, skipping...' % submission.url
         pass
