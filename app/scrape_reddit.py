@@ -1,7 +1,20 @@
 import praw
 import sys
+from datetime import datetime
+
+
+def log():
+    time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
+    log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
+    number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
+    with open('reddit_scraper_log.txt', 'a') as log_file:
+        log_file.write(log_data)
+        log_file.write(number_of_gifs)
+    print log_data
+    print number_of_gifs
 
 count = 0
+
 if len(sys.argv) < 2:
     # no command line options sent:
     print('Usage:')
@@ -19,12 +32,12 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_month(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
-file_object = open('url_log.txt', 'r+')
+file_object = open('urls.txt', 'r+')
 urls = list(file_object)
 
 for submission in submissions:
     if submission.url + '\n' in urls:
-        print '%s found in url_log.txt, skipping...' % submission.url
+        print '%s found in urls.txt, skipping...' % submission.url
         pass
     elif '.gif' not in submission.url:
         print '%s not an image link, skipping...' % submission.url
@@ -46,15 +59,12 @@ for submission in submissions:
         count += 1
 
     else:
-        print '%s not found in url_log.txt, adding...' % submission.url
+        print '%s not found in urls.txt, adding...' % submission.url
         file_object.write(submission.url)
         file_object.write('\n')
         count += 1
 
 file_object.close()
 
-number_of_gifs = len(urls)
-
-print '\n\n%d GIFs added' % count
-print 'Total number of GIFs: %d' % (number_of_gifs + count)
+log()
 
