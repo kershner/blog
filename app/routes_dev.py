@@ -70,7 +70,7 @@ def piproject1():
 
 @app.route('/pi_display')
 def pi_display():
-    file_object = open('e:/programming/projects/blog/app/url_log.txt', 'r+')
+    file_object = open('e:/programming/projects/blog/app/urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
