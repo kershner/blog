@@ -24,6 +24,7 @@ if len(sys.argv) < 2:
 target_subreddit = sys.argv[1]
 
 print '\n\n\n\nGathering image URLs from /r/%s...' % target_subreddit
+
 r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
 
 # Uncomment to scrape top results from year/month/all
@@ -37,19 +38,16 @@ urls = list(file_object)
 
 for submission in submissions:
     if submission.url + '\n' in urls:
-        print '%s found in urls.txt, skipping...' % submission.url
         pass
     elif '.gif' not in submission.url:
-        print '%s not an image link, skipping...' % submission.url
         pass
     elif 'minus' in submission.url:
-        print '%s from minus domain, skipping...' % submission.url
         pass
     elif 'gifsound' in submission.url:
-        print '%s from gifsound domain, skipping...' % submission.url
         pass
     elif 'gifsoup' in submission.url:
-        print '%s from gifsoup domain, skipping...' % submission.url
+        pass
+    elif 'Von_Karman' in submission.url:
         pass
     elif '?' in submission.url:
         print '? found in URL, snipping and adding...'
