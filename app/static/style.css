@@ -70,3 +70,15 @@ pre code{
 #continue-link {
 	float: right;
 }
+
+.top-link {
+	float: right;
+}
+
+#pi-images {
+	text-align: center;
+}
+
+#pi-images img {
+	display: inline-block;
+}
