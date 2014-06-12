@@ -8,7 +8,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
     number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
-    with open('/home/tylerkershner/app/reddit_scraper_log.txt', 'a') as log_file:
+    with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(number_of_gifs)
     print log_data
@@ -37,22 +37,22 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
 # Opening list of URLs in read + write mode
-file_object = open('/home/tylerkershner/app/urls.txt', 'r+')
+file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r+')
 
 # Converting text file to list object to more easily perform operations on it
 urls = list(file_object)
 
 for submission in submissions:
     # First 6 statments determine which URLs to skip
-    if submission.url + '\n' in urls: # Already in urls.txt
+    if submission.url + '\n' in urls:  # Already in urls.txt
         pass
-    elif '.gif' not in submission.url: # Not a .gif file
+    elif '.gif' not in submission.url:  # Not a .gif file
         pass
-    elif 'minus' in submission.url: # Link to site, not GIF file
+    elif 'minus' in submission.url:  # Link to site, not GIF file
         pass
-    elif 'gifsound' in submission.url: # Link to site, not GIF file
+    elif 'gifsound' in submission.url:  # Link to site, not GIF file
         pass
-    elif 'gifsoup' in submission.url: # Link to site, not GIF file
+    elif 'gifsoup' in submission.url:  # Link to site, not GIF file
         pass
     # This is a very specific URL that causes my scraper to halt
     elif 'Von_Karman' in submission.url:
