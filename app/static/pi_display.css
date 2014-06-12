@@ -3,6 +3,6 @@ body {
 }
 
 .container {
-    height: 240px;
-	width: 320px;
+    width: 640px;
+    height: 480px;
 }
