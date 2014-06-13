@@ -413,7 +413,14 @@ def reddit_slideshow():
     spacegifs = len(list(open(path + 'spacegifs_urls.txt', 'r+')))
     surrealgifs = len(list(open(path + 'surrealgifs_urls.txt', 'r+')))
     return render_template("/reddit_slideshow/home.html",
-                           title="Reddit Slideshow")
+                           title="Reddit Slideshow",
+                           aww_gifs=aww_gifs,
+                           highqualitygifs=highqualitygifs,
+                           interestinggifs=interestinggifs,
+                           naturegifs=naturegifs,
+                           perfectloops=perfectloops,
+                           spacegifs=spacegifs,
+                           surrealgifs=surrealgifs)
 
 
 @app.route('/aww_gifs')
