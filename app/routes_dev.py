@@ -399,5 +399,106 @@ def dea_verify():
                                title="DEA Documents Verification Template",
                                form=form)
 
+
+############################
+## Reddit Slideshow Pages ##
+@app.route('/reddit_slideshow')
+def reddit_slideshow():
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    aww_gifs = len(list(open(path + 'aww_gifs_urls.txt', 'r+')))
+    highqualitygifs = len(list(open(path + 'highqualitygifs_urls.txt', 'r+')))
+    interestinggifs = len(list(open(path + 'interestinggifs_urls.txt', 'r+')))
+    naturegifs = len(list(open(path + 'naturegifs_urls.txt', 'r+')))
+    perfectloops = len(list(open(path + 'perfectloops_urls.txt', 'r+')))
+    spacegifs = len(list(open(path + 'spacegifs_urls.txt', 'r+')))
+    surrealgifs = len(list(open(path + 'surrealgifs_urls.txt', 'r+')))
+    return render_template("/reddit_slideshow/home.html",
+                           title="Reddit Slideshow",
+                           aww_gifs=aww_gifs,
+                           highqualitygifs=highqualitygifs,
+                           interestinggifs=interestinggifs,
+                           naturegifs=naturegifs,
+                           perfectloops=perfectloops,
+                           spacegifs=spacegifs,
+                           surrealgifs=surrealgifs)
+
+
+@app.route('/aww_gifs')
+def aww_gifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/aww_gifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/aww_gifs",
+                           gif_url=gif_url)
+
+
+@app.route('/highqualitygifs')
+def highqualitygifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/highqualitygifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/highqualitygifs",
+                           gif_url=gif_url)
+
+
+@app.route('/interestinggifs')
+def interestinggifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/interestinggifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/interestinggifs",
+                           gif_url=gif_url)
+
+
+@app.route('/naturegifs')
+def naturegifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/naturegifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/naturegifs",
+                           gif_url=gif_url)
+
+
+@app.route('/perfectloops')
+def perfectloops():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/perfectloops_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/perfectloops",
+                           gif_url=gif_url)
+
+
+@app.route('/spacegifs')
+def spacegifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/spacegifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/spacegifs",
+                           gif_url=gif_url)
+
+
+@app.route('/surrealgifs')
+def surrealgifs():
+    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/surrealgifs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/surrealgifs",
+                           gif_url=gif_url)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

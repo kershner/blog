@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/static/Bootstrap/css/bootstrap.min.css"/>
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="/static/reddit_slideshow.css"/>
+
+</head>
+<body>
+<div class="about"><a href="/about_slideshow">About</a></div>
+<div class="container">
+    <h1>Reddit GIF Slideshow</h1><br>
+    <h4></h4>
+</div>
+
+<div class="row">
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/aww_gifs">
+                    <img class="img-responsive" src="/static/images/aww_gifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/aww_gifs">/r/aww_gifs</a></h3>
+                    <p>Current GIF Count: {{ aww_gifs }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/highqualitygifs">
+                    <img class="img-responsive" src="/static/images/highqualitygifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/highqualitygifs">/r/highqualitygifs</a></h3>
+                    <p>Current GIF Count: {{ highqualitygifs }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/interestinggifs">
+                    <img class="img-responsive" src="/static/images/interestinggifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/interestinggifs">/r/interestinggifs</a></h3>
+                    <p>Current GIF Count: {{ interestinggifs }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/naturegifs">
+                    <img class="img-responsive" src="/static/images/naturegifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/naturegifs">/r/naturegifs</a></h3>
+                    <p>Current GIF Count: {{ naturegifs }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/perfectloops">
+                    <img class="img-responsive" src="/static/images/perfectloops_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/perfectloops">/r/perfectloops</a></h3>
+                    <p>Current GIF Count: {{ perfectloops }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+                <a href="/spacegifs">
+                    <img class="img-responsive" src="/static/images/spacegifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/spacegifs">/r/spacegifs</a></h3>
+                    <p>Current GIF Count: {{ spacegifs }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+
+            </div>
+
+            <div id="surreal" class="col-md-4 portfolio-item">
+                <a href="/surrealgifs">
+                    <img class="img-responsive" src="/static/images/surrealgifs_thumb.png">
+                </a>
+                <div class="title-count">
+                    <h3><a href="/surrealgifs">/r/surrealgifs</a></h3>
+                    <p>Current GIF Count: {{ surrealgifs }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 portfolio-item">
+
+            </div>
+
+        </div>
+</body>
+</html>
