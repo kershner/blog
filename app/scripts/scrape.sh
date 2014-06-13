@@ -19,4 +19,6 @@ python /home/tylerkershner/app/scripts/scrape_reddit.py perfectloops
 python /home/tylerkershner/app/scripts/scrape_reddit.py aww_gifs 
 python /home/tylerkershner/app/scripts/scrape_reddit.py AnimalsBeingJerks 
 python /home/tylerkershner/app/scripts/scrape_reddit.py AnimalGIFs 
-python /home/tylerkershner/app/scripts/scrape_reddit.py whitepeoplegifs 
+python /home/tylerkershner/app/scripts/scrape_reddit.py whitepeoplegifs
+python /home/tylerkershner/app/scripts/scrape_reddit.py interestinggifs
+python /home/tylerkershner/app/scripts/scrape_reddit.py naturegifs
