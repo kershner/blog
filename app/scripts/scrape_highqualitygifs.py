@@ -30,7 +30,7 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
 # Opening list of URLs in read + write mode
-file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/highqualitygifs_uls.txt', 'r+')
+file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/highqualitygifs_urls.txt', 'r+')
 
 # Converting text file to list object to more easily perform operations on it
 urls = list(file_object)
