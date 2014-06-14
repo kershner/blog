@@ -8,6 +8,7 @@ body {
   position: fixed;
   right: -5px;
   width: 125px;
+  z-index: -1;
   background: #aa34d9;
   background-image: -webkit-linear-gradient(top, #aa34d9, #333f70);
   background-image: -moz-linear-gradient(top, #aa34d9, #333f70);
@@ -44,10 +45,16 @@ body {
 	text-decoration: none;
 }
 
+.container {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .container h1 {
 	display: block;
 	text-align: center;
 	font-size: 8em;
+	text-shadow: 2px 1px 5px #666666;
 }
 
 .title-count {
@@ -64,4 +71,20 @@ h3 {
 
 .col-md-4 {
 	margin-bottom: 50px;
+}
+
+ul {         
+    padding:0 0 0 0;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+ul li {     
+	list-style:none;
+    margin-bottom:25px;
+	margin-right: 75px;	
+}
+
+ul li img {
+	cursor: pointer;
 }

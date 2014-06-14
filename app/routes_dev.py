@@ -404,7 +404,9 @@ def dea_verify():
 ## Reddit Slideshow Pages ##
 @app.route('/reddit_slideshow')
 def reddit_slideshow():
-    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    # Path when not at work PC
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     aww_gifs = len(list(open(path + 'aww_gifs_urls.txt', 'r+')))
     highqualitygifs = len(list(open(path + 'highqualitygifs_urls.txt', 'r+')))
     interestinggifs = len(list(open(path + 'interestinggifs_urls.txt', 'r+')))
@@ -425,7 +427,9 @@ def reddit_slideshow():
 
 @app.route('/aww_gifs')
 def aww_gifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/aww_gifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'aww_gifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -436,7 +440,9 @@ def aww_gifs():
 
 @app.route('/highqualitygifs')
 def highqualitygifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/highqualitygifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'highqualitygifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -447,7 +453,9 @@ def highqualitygifs():
 
 @app.route('/interestinggifs')
 def interestinggifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/interestinggifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'interestinggifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -458,7 +466,9 @@ def interestinggifs():
 
 @app.route('/naturegifs')
 def naturegifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/naturegifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'naturegifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -469,7 +479,9 @@ def naturegifs():
 
 @app.route('/perfectloops')
 def perfectloops():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/perfectloops_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'perfectloops_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -480,7 +492,9 @@ def perfectloops():
 
 @app.route('/spacegifs')
 def spacegifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/spacegifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'spacegifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -491,7 +505,9 @@ def spacegifs():
 
 @app.route('/surrealgifs')
 def surrealgifs():
-    file_object = open('e:/programming/projects/blog/app/templates/reddit_slideshow/surrealgifs_urls.txt', 'r+')
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'surrealgifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
