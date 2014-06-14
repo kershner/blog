@@ -27,7 +27,7 @@ python /home/tylerkershner/app/scripts/scrape_reddit.py cinemagraphs
 python /home/tylerkershner/app/scripts/scrape.py aww_gifs
 python /home/tylerkershner/app/scripts/scrape.py highqualitygifs
 python /home/tylerkershner/app/scripts/scrape.py interestinggifs
-python /home/tylerkershner/app/scripts/scrape.py_naturegifs
+python /home/tylerkershner/app/scripts/scrape.py naturegifs
 python /home/tylerkershner/app/scripts/scrape.py perfectloops
 python /home/tylerkershner/app/scripts/scrape.py spacegifs
 python /home/tylerkershner/app/scripts/scrape.py surrealgifs
