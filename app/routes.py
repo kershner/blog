@@ -491,6 +491,17 @@ def spacegifs():
                            gif_url=gif_url)
 
 
+@app.route('/cinemagraphs')
+def aww_gifs():
+    file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/cinemagraphs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/cinemagraphs",
+                           gif_url=gif_url)
+
+
 @app.route('/surrealgifs')
 def surrealgifs():
     file_object = open('/home/tylerkershner/app/templates/surrealgifs_urls.txt', 'r+')

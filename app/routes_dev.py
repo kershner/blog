@@ -505,6 +505,19 @@ def spacegifs():
                            gif_url=gif_url)
 
 
+@app.route('/cinemagraphs')
+def spacegifs():
+    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    file_object = open(path + 'cinemagraphs_urls.txt', 'r+')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/reddit_slideshow/gif_viewer.html",
+                           title="Reddit Slideshow - /r/cinemagraphs",
+                           gif_url=gif_url)
+
+
 @app.route('/surrealgifs')
 def surrealgifs():
     #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
