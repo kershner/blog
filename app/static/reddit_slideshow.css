@@ -1,7 +1,8 @@
 body {
-    margin-left: 50px;
-	margin-top: 50px;
+    margin-top: 50px;
 	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .about {
@@ -51,8 +52,9 @@ body {
 }
 
 .container h1 {
-	display: block;
-	text-align: center;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
 	font-size: 8em;
 	text-shadow: 2px 1px 5px #666666;
 }
@@ -75,8 +77,6 @@ h3 {
 
 ul {         
     padding:0 0 0 0;
-    margin-left: auto;
-	margin-right: auto;
 }
 
 ul li {     

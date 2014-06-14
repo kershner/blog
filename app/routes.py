@@ -412,6 +412,7 @@ def reddit_slideshow():
     perfectloops = len(list(open(path + 'perfectloops_urls.txt', 'r+')))
     spacegifs = len(list(open(path + 'spacegifs_urls.txt', 'r+')))
     surrealgifs = len(list(open(path + 'surrealgifs_urls.txt', 'r+')))
+    cinemagraphs = len(list(open(path + 'cinemagraphs_urls.txt', 'r+')))
     return render_template("/reddit_slideshow/home.html",
                            title="Reddit Slideshow",
                            aww_gifs=aww_gifs,
@@ -420,7 +421,8 @@ def reddit_slideshow():
                            naturegifs=naturegifs,
                            perfectloops=perfectloops,
                            spacegifs=spacegifs,
-                           surrealgifs=surrealgifs)
+                           surrealgifs=surrealgifs,
+                           cinemagraphs=cinemagraphs)
 
 
 @app.route('/aww_gifs')

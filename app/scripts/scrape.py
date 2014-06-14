@@ -1,7 +1,14 @@
 import praw
 from datetime import datetime
+import sys
 
-target_subreddit = 'aww_gifs'
+if len(sys.argv) < 2:
+    # no command line options sent:
+    print('Usage:')
+    print('  python %s [subreddit]' % (sys.argv[0]))
+    sys.exit()
+
+target_subreddit = sys.argv[1]
 
 # Variable to keep track of each GIF added
 count = 0
@@ -12,7 +19,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
     number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
-    with open('/home/tylerkershner/app/templates/reddit_slideshow/aww_gifs_log.txt', 'a') as log_file:
+    with open('/home/tylerkershner/app/templates/reddit_slideshow/%s.txt' % sys.argv[1], 'a') as log_file:
         log_file.write(log_data)
         log_file.write(number_of_gifs)
     print log_data
@@ -30,7 +37,7 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
 # Opening list of URLs in read + write mode
-file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/aww_gifs_urls.txt', 'r+')
+file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/%s.txt' % sys.argv[1], 'r+')
 
 # Converting text file to list object to more easily perform operations on it
 urls = list(file_object)
