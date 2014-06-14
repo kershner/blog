@@ -19,7 +19,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
     number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
-    with open('/home/tylerkershner/app/templates/reddit_slideshow/%s.txt' % sys.argv[1], 'a') as log_file:
+    with open('/home/tylerkershner/app/templates/reddit_slideshow/%s_urls.txt' % sys.argv[1], 'a') as log_file:
         log_file.write(log_data)
         log_file.write(number_of_gifs)
     print log_data
