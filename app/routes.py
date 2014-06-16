@@ -492,7 +492,7 @@ def spacegifs():
 
 
 @app.route('/cinemagraphs')
-def aww_gifs():
+def cinemagraphs():
     file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/cinemagraphs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
