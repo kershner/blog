@@ -404,9 +404,9 @@ def dea_verify():
 ## Reddit Slideshow Pages ##
 @app.route('/reddit_slideshow')
 def reddit_slideshow():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
     # Path when not at work PC
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     aww_gifs = len(list(open(path + 'aww_gifs_urls.txt', 'r+')))
     highqualitygifs = len(list(open(path + 'highqualitygifs_urls.txt', 'r+')))
     interestinggifs = len(list(open(path + 'interestinggifs_urls.txt', 'r+')))
@@ -429,8 +429,8 @@ def reddit_slideshow():
 
 @app.route('/aww_gifs')
 def aww_gifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'aww_gifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -442,8 +442,8 @@ def aww_gifs():
 
 @app.route('/highqualitygifs')
 def highqualitygifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'highqualitygifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -455,8 +455,8 @@ def highqualitygifs():
 
 @app.route('/interestinggifs')
 def interestinggifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'interestinggifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -468,8 +468,8 @@ def interestinggifs():
 
 @app.route('/naturegifs')
 def naturegifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'naturegifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -481,8 +481,8 @@ def naturegifs():
 
 @app.route('/perfectloops')
 def perfectloops():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'perfectloops_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -494,8 +494,8 @@ def perfectloops():
 
 @app.route('/spacegifs')
 def spacegifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'spacegifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -506,9 +506,9 @@ def spacegifs():
 
 
 @app.route('/cinemagraphs')
-def spacegifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+def cinemagraphs():
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'cinemagraphs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -520,8 +520,8 @@ def spacegifs():
 
 @app.route('/surrealgifs')
 def surrealgifs():
-    #path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-    path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
+    path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
+    #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
     file_object = open(path + 'surrealgifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)

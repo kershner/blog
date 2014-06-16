@@ -482,7 +482,7 @@ def perfectloops():
 
 @app.route('/spacegifs')
 def spacegifs():
-    file_object = open('/home/tylerkershner/app/templates/spacegifs_urls.txt', 'r+')
+    file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/spacegifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
@@ -504,7 +504,7 @@ def cinemagraphs():
 
 @app.route('/surrealgifs')
 def surrealgifs():
-    file_object = open('/home/tylerkershner/app/templates/surrealgifs_urls.txt', 'r+')
+    file_object = open('/home/tylerkershner/app/templates/reddit_slideshow/surrealgifs_urls.txt', 'r+')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
