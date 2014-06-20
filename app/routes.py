@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, send_file
+from flask import render_template, request, flash
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify
 from urllib import quote
