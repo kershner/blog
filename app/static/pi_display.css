@@ -1,8 +1,9 @@
 body {
 	background-color: #000000;
+	overflow: hidden;
 }
 
 .container {
-    width: 640px;
-    height: 480px;
+    width: 320px;
+    height: 240px;
 }
