@@ -82,3 +82,7 @@ pre code{
 #pi-images img {
 	display: inline-block;
 }
+
+.video {
+	text-align: center;
+}
