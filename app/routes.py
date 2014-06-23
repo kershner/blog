@@ -74,7 +74,7 @@ def piproject2():
 
 
 #############################
-## Raspbery Pi GIF Display ##
+## Raspberry Pi GIF Display ##
 @app.route('/pi_display')
 def pi_display():
     file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r+')

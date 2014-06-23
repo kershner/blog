@@ -75,6 +75,8 @@ def piproject2():
                            title="GIF Picture Frame Writeup Part 2")
 
 
+#############################
+## Raspberry Pi GIF Display ##
 @app.route('/pi_display')
 def pi_display():
     file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r+')
