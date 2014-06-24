@@ -1,21 +1,34 @@
 import praw
 import sys
+import urllib
 from datetime import datetime
+
+
+# Function to determine size of URL via HTML header data
+def getsize(uri):
+    image_file = urllib.urlopen(uri)
+    size = image_file.headers.get("content-length")
+    image_file.close()
+    return int(size)
 
 
 def log():
     # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
-    number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
+    removed = '%d bad links removed' % bad_urls
+    number_of_gifs = 'Total number of GIFs: %d' % (len(urls) + count)
     with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
+        log_file.write(removed)
         log_file.write(number_of_gifs)
     print log_data
+    print removed
     print number_of_gifs
 
-# Variable to keep track of each GIF added
+# Variables to keep track of certain GIFs added
 count = 0
+bad_urls = 0
 
 if len(sys.argv) < 2:
     # no command line options sent:
@@ -48,11 +61,11 @@ for submission in submissions:
         pass
     elif '.gif' not in submission.url:  # Not a .gif file
         pass
-    elif 'minus' in submission.url:  # Link to site, not GIF file
-        pass
-    elif 'gifsound' in submission.url:  # Link to site, not GIF file
-        pass
-    elif 'gifsoup' in submission.url:  # Link to site, not GIF file
+    elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
+        # Logging bad URL
+        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
+            f.write(submission.url + '\n')
+        bad_urls += 1
         pass
     # This is a very specific URL that causes my scraper to halt
     elif 'Von_Karman' in submission.url:
