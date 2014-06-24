@@ -57,6 +57,9 @@ urls = list(file_object)
 
 for submission in submissions:
     # First 6 statments determine which URLs to skip
+    # This is a very specific URL that causes my scraper to halt
+    if 'Von_Karman' in submission.url:
+        pass
     if submission.url + '\n' in urls:  # Already in urls.txt
         pass
     elif '.gif' not in submission.url:  # Not a .gif file
@@ -66,9 +69,6 @@ for submission in submissions:
         with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
             f.write(submission.url + '\n')
         bad_urls += 1
-        pass
-    # This is a very specific URL that causes my scraper to halt
-    elif 'Von_Karman' in submission.url:
         pass
     # Some imgur URLs have a ? at the end, here we write the URL up to the ?
     elif '?' in submission.url:
