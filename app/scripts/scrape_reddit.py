@@ -57,31 +57,31 @@ urls = list(file_object)
 
 for submission in submissions:
     # First 6 statments determine which URLs to skip
-    # This is a very specific URL that causes my scraper to halt
-    if 'Von_Karman' in submission.url:
+    try:
+        if submission.url + '\n' in urls:  # Already in urls.txt
+            pass
+        elif '.gif' not in submission.url:  # Not a .gif file
+            pass
+        elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
+            # Logging bad URL
+            with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
+                f.write(submission.url + '\n')
+            bad_urls += 1
+            pass
+        # Some imgur URLs have a ? at the end, here we write the URL up to the ?
+        elif '?' in submission.url:
+            print '? found in URL, snipping and adding...'
+            url_snip = submission.url.find('?')
+            file_object.write(submission.url[:url_snip])
+            file_object.write('\n')
+            count += 1
+        else:
+            print '%s not found in urls.txt, adding...' % submission.url
+            file_object.write(submission.url)
+            file_object.write('\n')
+            count += 1
+    except UnicodeError:
         pass
-    if submission.url + '\n' in urls:  # Already in urls.txt
-        pass
-    elif '.gif' not in submission.url:  # Not a .gif file
-        pass
-    elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
-        # Logging bad URL
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
-            f.write(submission.url + '\n')
-        bad_urls += 1
-        pass
-    # Some imgur URLs have a ? at the end, here we write the URL up to the ?
-    elif '?' in submission.url:
-        print '? found in URL, snipping and adding...'
-        url_snip = submission.url.find('?')
-        file_object.write(submission.url[:url_snip])
-        file_object.write('\n')
-        count += 1
-    else:
-        print '%s not found in urls.txt, adding...' % submission.url
-        file_object.write(submission.url)
-        file_object.write('\n')
-        count += 1
 
 file_object.close()
 
