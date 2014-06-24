@@ -1,6 +1,61 @@
 {% extends "/blog/base.html" %}
 {% block content %}
 
+<div id="grey">
+    <div class="container">
+	    <div class="row">
+		    <div class="col-lg-8 col-lg-offset-2">
+			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
+				<h2>Iteration</h2>
+                <bd>June 24th, 2014</bd>
+                <hr>
+				<p>
+                    The GIF Display won't be completed until it's set inside a frame and looks all nice and presentable,
+                    but unfortunately that stage depends largely on both mine and Kerry's schedules, so I'm hoping to get a real start
+                    on it this weekend.<br><br>
+                    In the meantime I'm going to work on optimizing the GIF scraping algorithm.  Right now there are two
+                    things I want to handle better: broken links and image size, since I suspect large GIF file sizes
+                    are causing the Pi to choke occasionally and possibly run out of memory.  It turns out both cases
+                    can be handled using data included in the URL's <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">HTTP header fields</a>.<br><br>
+                    Using the <a href="https://docs.python.org/2/library/urllib.html">urllib</a> module I can find the
+                    GIF's file size in bytes from the <strong>content-length</strong> field:
+                </p>
+<pre><code data-language="python"># Function to determine size of URL via HTML header data
+def getsize(uri):
+    image_file = urllib.urlopen(uri)
+    size = image_file.headers.get("content-length")
+    image_file.close()
+    return int(size)</code></pre>
+                <p>
+                    While running some diagnostics
+                    on my accumulated list of GIF urls I noticed that all the broken links had the same filesize, 503 bytes.
+                    This just happens to be the size of imgur's placeholder broken-link image.  Using this information
+                    it became a simple matter of adjusting my code to ignore those links:
+                </p>
+<pre><code data-language="python">if submission.url + '\n' in urls:  # Already in urls.txt
+    pass
+elif '.gif' not in submission.url:  # Not a .gif file
+    pass
+elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
+    # Logging bad URL
+    with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
+        f.write(submission.url + '\n')
+    bad_urls += 1
+    pass</code></pre>
+                <p>
+                    I also added in some logging functionality.  I should note that I first attempted this functionality
+                    with the <a href="http://docs.python-requests.org/en/latest/">requests</a> module, using the HTTP
+                    response code for redirects, but it was much slower than the urllib solution.<br><br>
+                    Great!  Now my scraper won't pull in any broken links,
+                    and I have a self-contained script I can run to remove broken links from my existing collection of
+                    URLs.  Next up I'll be testing my Pi for the next few days to see what it's ideal GIF size is for
+                    smooth playback.
+				</p>
+			</div>
+        </div><!-- /row -->
+	</div> <!-- /container -->
+</div>
+
 <div id="white">
     <div class="container">
 	    <div class="row">
