@@ -16,8 +16,8 @@ def log():
     # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\nAdded %d gifs from /r/%s at %s.' % (count, target_subreddit, time)
-    removed = '%d bad links removed' % bad_urls
-    number_of_gifs = 'Total number of GIFs: %d' % (len(urls) + count)
+    removed = '\n%d bad links removed' % bad_urls
+    number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
     with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(removed)
