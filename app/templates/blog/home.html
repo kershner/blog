@@ -44,11 +44,12 @@ elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
     pass</code></pre>
                 <p>
                     I also added in some logging functionality.  I should note that I first attempted this functionality
-                    with the <a href="http://docs.python-requests.org/en/latest/">requests</a> module, using the HTTP
-                    response code for redirects, but it was much slower than the urllib solution.<br><br>
+                    with the <a href="http://docs.python-requests.org/en/latest/">requests</a> module, using the
+                    <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP
+                    response code</a> for redirects, but it was much slower than the urllib solution.<br><br>
                     Great!  Now my scraper won't pull in any broken links,
                     and I have a self-contained script I can run to remove broken links from my existing collection of
-                    URLs.  Next up I'll be testing my Pi for the next few days to see what it's ideal GIF size is for
+                    URLs.  Next up I'll be testing my Pi for the next few days to see what its ideal GIF size is for
                     smooth playback.
 				</p>
 			</div>
