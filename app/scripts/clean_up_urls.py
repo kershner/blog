@@ -5,9 +5,9 @@ import urllib
 
 # Function to determine size of URL via HTML header data
 def getsize(uri):
-    file = urllib.urlopen(uri)
-    size = file.headers.get("content-length")
-    file.close()
+    image_file = urllib.urlopen(uri)
+    size = image_file.headers.get("content-length")
+    image_file.close()
     return int(size)
 
 # Opening current URL file for reading
@@ -20,9 +20,11 @@ file_object.close()
 # Opening (or creating) files to be used in the loop
 clean_urls = open('E:/programming/projects/blog/app/templates/pi_display/clean_urls.txt', 'a+')
 bad_urls = open('E:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'a')
+large_urls = open('E:/programming/projects/blog/app/templates/pi_display/large_urls.txt', 'a')
 
-# Initializing variable to hold count of removed links, for logging
+# Initializing variables to hold count of removed links, for logging
 count = 0
+large_gifs = 0
 
 # Loop to determine if link is broken/file too large.  URL written to either clean or bad URLs files.
 for url in urls:
@@ -35,6 +37,11 @@ for url in urls:
             print '%s is a broken link, skipping...' % url
             bad_urls.write(str(url) + '\n')
             count += 1
+        # The Pi has a hard time with GIFs larger than 8MBs
+        elif getsize(url) > 8192000:
+            print '%s is larger than 8MBs, skipping...' % url
+            large_gifs += 1
+            large_urls.write(str(url) + '\n')
         else:
             print 'Clean URL, adding...'
             clean_urls.write(str(url) + '\n')
@@ -46,6 +53,7 @@ for url in urls:
 # Closing files
 clean_urls.close()
 bad_urls.close()
+large_urls.close()
 
 # Creating Python list from newly populated clean_urls.txt
 updated_clean_urls = open('E:/programming/projects/blog/app/templates/pi_display/clean_urls.txt', 'r')
@@ -65,7 +73,8 @@ url_file.close()
 with open('E:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r') as f:
     number_of_gifs = len(list(f))
     print '\nNumber of GIFS: %d' % number_of_gifs
-print '%d links removed' % count
+print '%d bad links removed' % count
+print '%d large GIFs removed' % large_gifs
 
 # Opening and closing the clean_urls.txt file.  Side effect to erase contents of file.
 print '\n\n\n\nErasing contents of clean_urls.txt...'
