@@ -74,6 +74,11 @@ for submission in submissions:
         with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
             e.write(submission.url + '\n')
         large_urls += 1
+    # Imgur 'removed' image is 503 bytes
+    elif getsize(submission.url) == 503:
+        print '%s is a broken link, skipping...' % submission.url
+        bad_urls.write(str(submission.url) + '\n')
+        count += 1
     elif r.getcode() == 404:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
