@@ -70,39 +70,39 @@ for submission in submissions:
         continue
     if submission.url + '\n' in urls:  # Already in urls.txt
         continue
-    elif submission.url + '\n' in bad_urls_list:
+    if submission.url + '\n' in bad_urls_list:
         continue
     # This URL throws a timeout error I don't know how to catch yet
-    elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
+    if submission.url == 'http://www.picsarus.com/53FBHN.gif':
         continue
-    elif '.gif' not in submission.url:  # Not a .gif file
+    if '.gif' not in submission.url:  # Not a .gif file
         continue
-    elif getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
+    if getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
         # Logging large GIF
         with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
             e.write(submission.url + '\n')
         large_urls += 1
     # Imgur 'removed' image is 503 bytes
-    elif getsize(submission.url) == 503:
+    if getsize(submission.url) == 503:
         print '%s is a broken link, skipping...' % submission.url
         with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
             f.write(submission.url + '\n')
         bad_urls += 1
-    elif r.getcode() == 404:
+    if r.getcode() == 404:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
         with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as h:
             h.write(submission.url + '\n')
         bad_urls += 1
     # If the image 302s, we're being redirected (bad link)
-    elif r.getcode() == 302:
+    if r.getcode() == 302:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
         with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as i:
             i.write(submission.url + '\n')
         bad_urls += 1
     # Some imgur URLs have a ? at the end, here we write the URL up to the ?
-    elif '?' in submission.url:
+    if '?' in submission.url:
         print '? found in URL, snipping and adding...'
         url_snip = submission.url.find('?')
         file_object.write(submission.url[:url_snip])
