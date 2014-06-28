@@ -52,6 +52,12 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 
 # Opening list of URLs in read + write mode
 file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r+')
+bad_urls_file = open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'r+')
+bad_urls_list = list(bad_urls_file)
+bad_urls_file.close()
+
+
+
 
 # Converting text file to list object to more easily perform operations on it
 urls = list(file_object)
@@ -63,6 +69,8 @@ for submission in submissions:
     except UnicodeError:
         continue
     if submission.url + '\n' in urls:  # Already in urls.txt
+        continue
+    elif submission.url + '\n' in bad_urls_list:
         continue
     # This URL throws a timeout error I don't know how to catch yet
     elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
@@ -77,20 +85,21 @@ for submission in submissions:
     # Imgur 'removed' image is 503 bytes
     elif getsize(submission.url) == 503:
         print '%s is a broken link, skipping...' % submission.url
-        bad_urls.write(str(submission.url) + '\n')
+        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
+            f.write(submission.url + '\n')
         bad_urls += 1
     elif r.getcode() == 404:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
-            f.write(submission.url + '\n')
+        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as h:
+            h.write(submission.url + '\n')
         bad_urls += 1
     # If the image 302s, we're being redirected (bad link)
     elif r.getcode() == 302:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as h:
-            h.write(submission.url + '\n')
+        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as i:
+            i.write(submission.url + '\n')
         bad_urls += 1
     # Some imgur URLs have a ? at the end, here we write the URL up to the ?
     elif '?' in submission.url:
