@@ -63,12 +63,12 @@ for submission in submissions:
     except UnicodeError:
         continue
     if submission.url + '\n' in urls:  # Already in urls.txt
-        pass
+        continue
     # This URL throws a timeout error I don't know how to catch yet
     elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
         continue
     elif '.gif' not in submission.url:  # Not a .gif file
-        pass
+        continue
     elif getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
         # Logging large GIF
         with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
@@ -78,7 +78,7 @@ for submission in submissions:
     elif getsize(submission.url) == 503:
         print '%s is a broken link, skipping...' % submission.url
         bad_urls.write(str(submission.url) + '\n')
-        count += 1
+        bad_urls += 1
     elif r.getcode() == 404:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
