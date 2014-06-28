@@ -58,9 +58,13 @@ urls = list(file_object)
 
 for submission in submissions:
     # First 6 statments determine which URLs to skip
+    r = urllib.urlopen(submission.url)
     try:
         if submission.url + '\n' in urls:  # Already in urls.txt
             pass
+        # This URL throws a timeout error I don't know how to catch yet
+        elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
+            continue
         elif '.gif' not in submission.url:  # Not a .gif file
             pass
         elif getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
@@ -68,12 +72,20 @@ for submission in submissions:
             with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
                 e.write(submission.url + '\n')
             large_urls += 1
-        elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
+        elif r.getcode() == 404:
+            print '%s is a broken link, skipping...' % submission.url
             # Logging bad URL
             with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
                 f.write(submission.url + '\n')
             bad_urls += 1
-         # Some imgur URLs have a ? at the end, here we write the URL up to the ?
+        # If the image 302s, we're being redirected (bad link)
+        elif r.getcode() == 302:
+            print '%s is a broken link, skipping...' % submission.url
+            # Logging bad URL
+            with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as h:
+                h.write(submission.url + '\n')
+            bad_urls += 1
+        # Some imgur URLs have a ? at the end, here we write the URL up to the ?
         elif '?' in submission.url:
             print '? found in URL, snipping and adding...'
             url_snip = submission.url.find('?')
