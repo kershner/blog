@@ -98,7 +98,7 @@ for submission in submissions:
             file_object.write('\n')
             count += 1
     except UnicodeError:
-        pass
+        continue
 
 file_object.close()
 
