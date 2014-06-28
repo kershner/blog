@@ -77,6 +77,10 @@ for submission in submissions:
         continue
     if '.gif' not in submission.url:  # Not a .gif file
         continue
+    if 'sound' in submission.url:  # Don't want gifsound links
+        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
+            f.write(submission.url + '\n')
+        bad_urls += 1
     if getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
         # Logging large GIF
         with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
