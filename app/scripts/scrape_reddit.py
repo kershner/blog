@@ -69,11 +69,6 @@ for submission in submissions:
     except:
         print 'Error requesting %s, skipping...' % submission.url
         continue
-    # Some imgur URLs have a ? at the end, here we snip the URL up to the ?
-    if '?' in submission.url:
-        print '? found in URL, snipping and adding...'
-        url_snip = submission.url.find('?')
-        submission.url = submission.url[:url_snip]
     # Already in urls.txt
     if submission.url + '\n' in urls_list:
         continue
@@ -85,39 +80,46 @@ for submission in submissions:
     elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
         continue
     # Not a .gif file
-    elif '.gif' not in submission.url:
+    if '.gif' not in submission.url:
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
+        continue
     # 404 status code is a broken link
     elif r.getcode() == 404:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
+        continue
     # 302 is redirection, meaning bad link
     elif r.getcode() == 302:
         print '%s is a broken link, skipping...' % submission.url
         # Logging bad URL
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
+        continue
     # Don't want gifsound links
     elif 'sound' in submission.url:
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
+        continue
     try:
         if getsize(submission.url) == 'None':
             print '%s has no length data in HTTP header, adding...' % submission.url
             urls_file.write(str(submission.url) + '\n')
+            continue
         # Imgur 'removed' image is 503 bytes
         elif getsize(submission.url) == 503:
             print '%s is a broken link, skipping...' % submission.url
             urls_file.write(str(submission.url) + '\n')
             count += 1
+            continue
         # The Pi has a hard time with GIFs larger than 8MBs
         elif getsize(submission.url) > 8192000:
             print '%s is larger than 8MBs, skipping...' % submission.url
             large_urls_file.write(str(submission.url) + '\n')
             large_urls += 1
+            continue
     except IOError:
         print 'Error reading HTTP header, skipping...'
         continue
