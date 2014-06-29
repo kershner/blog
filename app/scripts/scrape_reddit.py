@@ -4,12 +4,15 @@ import urllib
 from datetime import datetime
 
 
-# Function to determine size of URL via HTTP header data
+# Function to determine size of URL via HTML header data
 def getsize(uri):
     image_file = urllib.urlopen(uri)
     size = image_file.headers.get("content-length")
     image_file.close()
-    return int(size)
+    if size is None:
+        return 'None'
+    else:
+        return int(size)
 
 
 def log():
@@ -17,7 +20,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
     skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
-    number_of_gifs = '\nTotal number of GIFs: %d' % (len(urls) + count)
+    number_of_gifs = '\n%d GIFs added\nTotal number of GIFs: %d' % (count, len(urls_list) + count)
     with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(skipped)
@@ -50,74 +53,83 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_month(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
-# Opening list of URLs in read + write mode
-file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r+')
-bad_urls_file = open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'r+')
+# Opening files, converting to Python lists
+urls_file = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'a+')
+urls_list = list(urls_file)
+bad_urls_file = open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a+')
 bad_urls_list = list(bad_urls_file)
-bad_urls_file.close()
+large_urls_file = open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a+')
+large_urls_list = list(large_urls_file)
 
-
-
-
-# Converting text file to list object to more easily perform operations on it
-urls = list(file_object)
-
+# Going through reddit submissions from the specified subreddit
 for submission in submissions:
-    # First 6 statments determine which URLs to skip
+    # Skip the URL if there is an error with the connection
     try:
         r = urllib.urlopen(submission.url)
-    except UnicodeError:
+    except:
+        print 'Error requesting %s, skipping...' % submission.url
         continue
-    if submission.url + '\n' in urls:  # Already in urls.txt
-        continue
-    if submission.url + '\n' in bad_urls_list:
-        continue
-    # This URL throws a timeout error I don't know how to catch yet
-    if submission.url == 'http://www.picsarus.com/53FBHN.gif':
-        continue
-    if '.gif' not in submission.url:  # Not a .gif file
-        continue
-    if 'sound' in submission.url:  # Don't want gifsound links
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
-            f.write(submission.url + '\n')
-        bad_urls += 1
-    if getsize(submission.url) > 8192000:  # The Pi has a hard time with GIFs larger than 8MBs
-        # Logging large GIF
-        with open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a') as e:
-            e.write(submission.url + '\n')
-        large_urls += 1
-    # Imgur 'removed' image is 503 bytes
-    if getsize(submission.url) == 503:
-        print '%s is a broken link, skipping...' % submission.url
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
-            f.write(submission.url + '\n')
-        bad_urls += 1
-    if r.getcode() == 404:
-        print '%s is a broken link, skipping...' % submission.url
-        # Logging bad URL
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as h:
-            h.write(submission.url + '\n')
-        bad_urls += 1
-    # If the image 302s, we're being redirected (bad link)
-    if r.getcode() == 302:
-        print '%s is a broken link, skipping...' % submission.url
-        # Logging bad URL
-        with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as i:
-            i.write(submission.url + '\n')
-        bad_urls += 1
-    # Some imgur URLs have a ? at the end, here we write the URL up to the ?
+    # Some imgur URLs have a ? at the end, here we snip the URL up to the ?
     if '?' in submission.url:
         print '? found in URL, snipping and adding...'
         url_snip = submission.url.find('?')
-        file_object.write(submission.url[:url_snip])
-        file_object.write('\n')
-        count += 1
+        submission.url = submission.url[:url_snip]
+    # Already in urls.txt
+    if submission.url + '\n' in urls_list:
+        continue
+    # Known bad URL
+    elif submission.url + '\n' in bad_urls_list:
+        print '%s is a known bad URL, skipping...' % submission.url
+        continue
+    # This URL throws a timeout error I don't know how to catch yet
+    elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
+        continue
+    # Not a .gif file
+    elif '.gif' not in submission.url:
+        bad_urls_file.write(submission.url + '\n')
+        bad_urls += 1
+    # 404 status code is a broken link
+    elif r.getcode() == 404:
+        print '%s is a broken link, skipping...' % submission.url
+        # Logging bad URL
+        bad_urls_file.write(submission.url + '\n')
+        bad_urls += 1
+    # 302 is redirection, meaning bad link
+    elif r.getcode() == 302:
+        print '%s is a broken link, skipping...' % submission.url
+        # Logging bad URL
+        bad_urls_file.write(submission.url + '\n')
+        bad_urls += 1
+    # Don't want gifsound links
+    elif 'sound' in submission.url:
+        bad_urls_file.write(submission.url + '\n')
+        bad_urls += 1
+    try:
+        if getsize(submission.url) == 'None':
+            print '%s has no length data in HTTP header, adding...' % submission.url
+            urls_file.write(str(submission.url) + '\n')
+        # Imgur 'removed' image is 503 bytes
+        elif getsize(submission.url) == 503:
+            print '%s is a broken link, skipping...' % submission.url
+            urls_file.write(str(submission.url) + '\n')
+            count += 1
+        # The Pi has a hard time with GIFs larger than 8MBs
+        elif getsize(submission.url) > 8192000:
+            print '%s is larger than 8MBs, skipping...' % submission.url
+            large_urls_file.write(str(submission.url) + '\n')
+            large_urls += 1
+    except IOError:
+        print 'Error reading HTTP header, skipping...'
+        continue
     else:
         print '%s not found in urls.txt, adding...' % submission.url
-        file_object.write(submission.url)
-        file_object.write('\n')
+        urls_file.write(submission.url)
+        urls_file.write('\n')
         count += 1
 
-file_object.close()
+urls_file.close()
+bad_urls_file.close()
+large_urls_file.close()
+
 
 log()

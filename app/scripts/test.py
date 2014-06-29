@@ -10,12 +10,15 @@ def getsize(uri):
 
 # Opening current URL file for reading
 file_object = open('H:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
+file_object = open('H:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'r')
 
 # Converting text file to list object to more easily perform operations on it
 urls = list(file_object)
 
 count = 0
 url_number = 0
+
+print urls
 
 imgur_404_urls = open('H:/programming/projects/blog/app/templates/pi_display/imgur_404_urls.txt', 'a')
 
