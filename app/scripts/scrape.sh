@@ -1,4 +1,5 @@
 python /home/tylerkershner/app/scripts/scrape_reddit.py gifs
+python /home/tylerkershner/app/scripts/scrape_reddit.py gif
 python /home/tylerkershner/app/scripts/scrape_reddit.py blackpeoplegifs
 python /home/tylerkershner/app/scripts/scrape_reddit.py SpaceGifs
 python /home/tylerkershner/app/scripts/scrape_reddit.py physicsgifs
