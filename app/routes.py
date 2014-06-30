@@ -87,7 +87,7 @@ def pi_display():
 
 
 @app.route('/pi_display_newest')
-def pi_display():
+def pi_display_newest():
     file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r')
     urls = list(file_object)
     last_200 = urls[-200:]
@@ -99,7 +99,7 @@ def pi_display():
 
 
 @app.route('/pi_display_animals')
-def pi_display():
+def pi_display_animals():
     file_object = open('/home/tylerkershner/app/templates/pi_display/animals_urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -110,7 +110,7 @@ def pi_display():
 
 
 @app.route('/pi_display_weird')
-def pi_display():
+def pi_display_weird():
     file_object = open('/home/tylerkershner/app/templates/pi_display/pi_display/weird_urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -121,7 +121,7 @@ def pi_display():
 
 
 @app.route('/pi_display_gaming')
-def pi_display():
+def pi_display_gaming():
     file_object = open('/home/tylerkershner/app/templates/pi_display/gaming_urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
@@ -132,7 +132,7 @@ def pi_display():
 
 
 @app.route('/pi_display_educational')
-def pi_display():
+def pi_display_educational():
     file_object = open('/home/tylerkershner/app/templates/pi_display/educational_urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
