@@ -79,12 +79,68 @@ def piproject2():
 ## Raspberry Pi GIF Display ##
 @app.route('/pi_display')
 def pi_display():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r+')
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display",
+                           gif_url=gif_url)
+
+
+@app.route('/pi_display_newest')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
+    urls = list(file_object)
+    last_200 = urls[-200:]
+    gif_url = random.choice(last_200)
+    file_object.close()
+    return render_template("/pi_display/pi_display.html",
+                           title="Raspberry PI GIF Display - Newest 200 GIFs",
+                           gif_url=gif_url)
+
+
+@app.route('/pi_display_animals')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/animals_urls.txt', 'r')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/pi_display/pi_display.html",
+                           title="Raspberry PI GIF Display - Animal GIFs",
+                           gif_url=gif_url)
+
+
+@app.route('/pi_display_weird')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/pi_display/weird_urls.txt', 'r')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/pi_display/pi_display.html",
+                           title="Raspberry PI GIF Display - Weird GIFs",
+                           gif_url=gif_url)
+
+
+@app.route('/pi_display_gaming')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/gaming_urls.txt', 'r')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/pi_display/pi_display.html",
+                           title="Raspberry PI GIF Display - Gaming GIFs",
+                           gif_url=gif_url)
+
+
+@app.route('/pi_display_educational')
+def pi_display():
+    file_object = open('e:/programming/projects/blog/app/templates/pi_display/educational_urls.txt', 'r')
+    urls = list(file_object)
+    gif_url = random.choice(urls)
+    file_object.close()
+    return render_template("/pi_display/pi_display.html",
+                           title="Raspberry PI GIF Display - Educational GIFs",
                            gif_url=gif_url)
 
 

@@ -20,7 +20,7 @@ def log():
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
     skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
-    number_of_gifs = '\n%d GIFs added\nTotal number of GIFs: %d' % (count, len(urls_list) + count)
+    number_of_gifs = 'Total number of GIFs: %d' % (len(urls_list) + count)
     with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(skipped)
@@ -113,7 +113,7 @@ for submission in submissions:
         elif getsize(submission.url) == 503:
             print '%s is a broken link, skipping...' % submission.url
             urls_file.write(str(submission.url) + '\n')
-            count += 1
+            bad_urls += 1
             continue
         # The Pi has a hard time with GIFs larger than 8MBs
         elif getsize(submission.url) > 8192000:
