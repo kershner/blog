@@ -74,13 +74,13 @@ for submission in submissions:
         continue
     # Known bad URL
     elif submission.url + '\n' in bad_urls_list:
-        print '%s is a known bad URL, skipping...' % submission.url
         continue
     # This URL throws a timeout error I don't know how to catch yet
     elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
         continue
     # Not a .gif file
     if '.gif' not in submission.url:
+        print '%s is not a GIF file, skipping...' % submission.url
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
         continue
@@ -100,6 +100,7 @@ for submission in submissions:
         continue
     # Don't want gifsound links
     elif 'sound' in submission.url:
+        print '%s is a gifsound link, skipping...' % submission.url
         bad_urls_file.write(submission.url + '\n')
         bad_urls += 1
         continue
