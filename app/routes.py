@@ -111,7 +111,7 @@ def pi_display_animals():
 
 @app.route('/pi_display_weird')
 def pi_display_weird():
-    file_object = open('/home/tylerkershner/app/templates/pi_display/pi_display/weird_urls.txt', 'r')
+    file_object = open('/home/tylerkershner/app/templates/pi_display/weird_urls.txt', 'r')
     urls = list(file_object)
     gif_url = random.choice(urls)
     file_object.close()
