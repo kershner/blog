@@ -8,15 +8,16 @@ from datetime import datetime
 def getsize(uri):
     image_file = urllib.urlopen(uri)
     size = image_file.headers.get("content-length")
-    image_file.close()
     if size is None:
+        image_file.close()
         return 'None'
     else:
+        image_file.close()
         return int(size)
 
 
+# Logs files being added and total number of GIFs to /reddit_scraper_log.txt
 def log():
-    # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
     time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
     log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
     skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
@@ -75,6 +76,9 @@ for submission in submissions:
     # Known bad URL
     elif submission.url + '\n' in bad_urls_list:
         continue
+    # Known Large URL
+    elif submission.url + '\n' in large_urls_list:
+        continue
     # Not a .gif file
     if '.gif' not in submission.url:
         print '%s is not a GIF file, skipping...' % submission.url
@@ -101,25 +105,17 @@ for submission in submissions:
         bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
-    try:
-        if getsize(submission.url) == 'None':
-            print '%s has no length data in HTTP header, adding...' % submission.url
-            urls_file.write(str(submission.url) + '\n')
-            continue
-        # Imgur 'removed' image is 503 bytes
-        if getsize(submission.url) == 503:
-            print '%s is a broken link (503 bytes), skipping...' % submission.url
-            urls_file.write(str(submission.url) + '\n')
-            bad_urls += 1
-            continue
-        # The Pi has a hard time with GIFs larger than 8MBs
-        if getsize(submission.url) > 8192000:
-            print '%s is larger than 8MBs, skipping...' % submission.url
-            large_urls_file.write(str(submission.url) + '\n')
-            large_urls += 1
-            continue
-    except IOError:
-        print 'Error reading HTTP header, skipping...'
+    # The Pi has a hard time with GIFs larger than 8MBs
+    if getsize(submission.url) > 8192000:
+        print '%s is larger than 8MBs, skipping...' % submission.url
+        large_urls_file.write(str(submission.url) + '\n')
+        large_urls += 1
+        continue
+    # Imgur 'removed' image is 503 bytes
+    elif getsize(submission.url) == 503:
+        print '%s is a broken link (503 bytes), skipping...' % submission.url
+        urls_file.write(str(submission.url) + '\n')
+        bad_urls += 1
         continue
     else:
         print '%s not found in urls.txt, adding...' % submission.url

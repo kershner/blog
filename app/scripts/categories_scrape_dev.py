@@ -7,10 +7,11 @@ from datetime import datetime
 def getsize(uri):
     image_file = urllib.urlopen(uri)
     size = image_file.headers.get("content-length")
-    image_file.close()
     if size is None:
+        image_file.close()
         return 'None'
     else:
+        image_file.close()
         return int(size)
 
 
