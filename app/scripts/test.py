@@ -2,11 +2,8 @@ import praw
 import requests
 import urllib
 
-target_subreddit = 'gaming_gifs'
-
-r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
-
-submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
+file_object = open('E:/programming/projects/blog/app/templates/pi_display/test.txt', 'r')
+file_object_list = list(file_object)
 
 
 def getsize(uri):
@@ -19,6 +16,13 @@ def getsize(uri):
         image_file.close()
         return (int(size) / 1024) / 1024
 
+count = 0
 
-for submission in submissions:
-    print '%s - %d MBs' % (submission.url, getsize(submission.url))
+for url in file_object_list:
+    if getsize(url) is 'None':
+        count += 1
+
+print '%d out of %d' % (count, len(file_object_list))
+
+
+file_object.close()

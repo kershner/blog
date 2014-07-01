@@ -117,6 +117,10 @@ for submission in submissions:
         urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
+    elif getsize(submission.url) == 'None':
+        print '%s has no length data in HTTP header, skipping...' % submission.url
+        bad_urls_file.write(str(submission.url) + '\n')
+        continue
     else:
         print '%s not found in urls.txt, adding...' % submission.url
         urls_file.write(str(submission.url) + '\n')
