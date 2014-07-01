@@ -66,25 +66,22 @@ for url in urls:
         bad_urls.write(str(url) + '\n')
         count += 1
         continue
-    try:
-        if getsize(url) == 'None':
-            print '%s has no length data in HTTP header, adding...' % url
-            clean_urls.write(str(url) + '\n')
-            continue
-        # Imgur 'removed' image is 503 bytes
-        if getsize(url) == 503:
-            print '%s is a broken link (503 bytes), skipping...' % url
-            bad_urls.write(str(url) + '\n')
-            count += 1
-            continue
-        # The Pi has a hard time with GIFs larger than 8MBs
-        if getsize(url) > 8192000:
-            print '%s is larger than 8MBs, skipping...' % url
-            large_gifs += 1
-            large_urls.write(str(url) + '\n')
-            continue
-    except IOError:
-        print 'Error reading HTTP header, skipping...'
+    # The Pi has a hard time with GIFs larger than 8MBs
+    if getsize(url) > 8192000:
+        print '%s is larger than 8MBs, skipping...' % url
+        large_gifs += 1
+        large_urls.write(str(url) + '\n')
+        continue
+    # Imgur 'removed' image is 503 bytes
+    elif getsize(url) == 503:
+        print '%s is a broken link (503 bytes), skipping...' % url
+        bad_urls.write(str(url) + '\n')
+        count += 1
+        continue
+    elif getsize(url) == 'None':
+        print '%s has no length data in HTTP header, skipping...' % url
+        bad_urls.write(str(url) + '\n')
+        count += 1
         continue
     else:
         print 'Clean URL, adding...'
@@ -118,7 +115,6 @@ urls = list(file_object)
 urls_list = []
 print 'Removing duplicates...'
 for url in urls:
-    url_number += 1
     if url in urls_list:
         print '%s already found, skipping...' % url
         duplicates += 1

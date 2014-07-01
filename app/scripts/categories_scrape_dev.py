@@ -110,25 +110,22 @@ def scrape(target_subreddit):
             bad_urls_file.write(str(submission.url) + '\n')
             bad_urls += 1
             continue
-        try:
-            if getsize(submission.url) == 'None':
-                print '%s has no length data in HTTP header, adding...' % submission.url
-                urls_file.write(str(submission.url) + '\n')
-                continue
-            # Imgur 'removed' image is 503 bytes
-            if getsize(submission.url) == 503:
-                print '%s is a broken link, skipping...' % submission.url
-                urls_file.write(str(submission.url) + '\n')
-                bad_urls += 1
-                continue
-            # The Pi has a hard time with GIFs larger than 8MBs
-            if getsize(submission.url) > 8192000:
-                print '%s is larger than 8MBs, skipping...' % submission.url
-                large_urls_file.write(str(submission.url) + '\n')
-                large_urls += 1
-                continue
-        except IOError:
-            print 'Error reading HTTP header, skipping...'
+        # The Pi has a hard time with GIFs larger than 8MBs
+        if getsize(submission.url) > 8192000:
+            print '%s is larger than 8MBs, skipping...' % submission.url
+            large_urls += 1
+            large_urls_file.write(str(submission.url) + '\n')
+            continue
+        # Imgur 'removed' image is 503 bytes
+        elif getsize(submission.url) == 503:
+            print '%s is a broken link (503 bytes), skipping...' % submission.url
+            bad_urls_file.write(str(submission.url) + '\n')
+            bad_urls += 1
+            continue
+        elif getsize(submission.url) == 'None':
+            print '%s has no length data in HTTP header, skipping...' % submission.url
+            bad_urls_file.write(str(submission.url) + '\n')
+            bad_urls += 1
             continue
         else:
             print '%s not found in %s_urls.txt, adding...' % (submission.url, target_subreddit)

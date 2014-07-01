@@ -75,9 +75,11 @@ for submission in submissions:
         continue
     # Known bad URL
     elif submission.url + '\n' in bad_urls_list:
+        bad_urls += 1
         continue
     # Known Large URL
     elif submission.url + '\n' in large_urls_list:
+        large_urls += 1
         continue
     # Not a .gif file
     if '.gif' not in submission.url:
@@ -120,6 +122,7 @@ for submission in submissions:
     elif getsize(submission.url) == 'None':
         print '%s has no length data in HTTP header, skipping...' % submission.url
         bad_urls_file.write(str(submission.url) + '\n')
+        bad_urls += 1
         continue
     else:
         print '%s not found in urls.txt, adding...' % submission.url
