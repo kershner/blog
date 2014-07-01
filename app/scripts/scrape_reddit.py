@@ -75,33 +75,30 @@ for submission in submissions:
     # Known bad URL
     elif submission.url + '\n' in bad_urls_list:
         continue
-    # This URL throws a timeout error I don't know how to catch yet
-    elif submission.url == 'http://www.picsarus.com/53FBHN.gif':
-        continue
     # Not a .gif file
     if '.gif' not in submission.url:
         print '%s is not a GIF file, skipping...' % submission.url
-        bad_urls_file.write(submission.url + '\n')
+        bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
     # 404 status code is a broken link
-    elif r.getcode() == 404:
-        print '%s is a broken link, skipping...' % submission.url
+    if r.getcode() == 404:
+        print '%s is a broken link (404), skipping...' % submission.url
         # Logging bad URL
-        bad_urls_file.write(submission.url + '\n')
+        bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
     # 302 is redirection, meaning bad link
-    elif r.getcode() == 302:
-        print '%s is a broken link, skipping...' % submission.url
+    if r.getcode() == 302:
+        print '%s is a broken link (302), skipping...' % submission.url
         # Logging bad URL
-        bad_urls_file.write(submission.url + '\n')
+        bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
     # Don't want gifsound links
-    elif 'sound' in submission.url:
+    if 'sound' in submission.url:
         print '%s is a gifsound link, skipping...' % submission.url
-        bad_urls_file.write(submission.url + '\n')
+        bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
     try:
@@ -110,13 +107,13 @@ for submission in submissions:
             urls_file.write(str(submission.url) + '\n')
             continue
         # Imgur 'removed' image is 503 bytes
-        elif getsize(submission.url) == 503:
-            print '%s is a broken link, skipping...' % submission.url
+        if getsize(submission.url) == 503:
+            print '%s is a broken link (503 bytes), skipping...' % submission.url
             urls_file.write(str(submission.url) + '\n')
             bad_urls += 1
             continue
         # The Pi has a hard time with GIFs larger than 8MBs
-        elif getsize(submission.url) > 8192000:
+        if getsize(submission.url) > 8192000:
             print '%s is larger than 8MBs, skipping...' % submission.url
             large_urls_file.write(str(submission.url) + '\n')
             large_urls += 1
@@ -126,8 +123,7 @@ for submission in submissions:
         continue
     else:
         print '%s not found in urls.txt, adding...' % submission.url
-        urls_file.write(submission.url)
-        urls_file.write('\n')
+        urls_file.write(str(submission.url) + '\n')
         count += 1
 
 urls_file.close()
