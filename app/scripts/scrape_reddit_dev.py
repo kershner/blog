@@ -1,17 +1,14 @@
 import praw
 import sys
-import requests
+import urllib2
 from datetime import datetime
 
 
-# Function to determine size of URL via HTML header data
+# Function to determine size of URL via HTTP header data
 def getsize(url):
-    try:
-        r = requests.get(url, stream=True)
-        size = int(r.headers['content-length'])
-        return size
-    except KeyError:
-        return 'None'
+    url = urllib2.urlopen(url)
+    size = int(url.info()['content-length'])
+    return size
 
 
 # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
@@ -20,7 +17,7 @@ def log():
     log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
     skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
     number_of_gifs = 'Total number of GIFs: %d' % (len(urls_list) + count)
-    with open('/home/tylerkershner/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
+    with open('E:/programming/projects/blog/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
         log_file.write(log_data)
         log_file.write(skipped)
         log_file.write(number_of_gifs)
@@ -53,18 +50,20 @@ submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
 #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
 # Opening files, converting to Python lists
-urls_file = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'a+')
+urls_file = open('E:/programming/projects/blog/app/templates/pi_display/urls.txt', 'a+')
+#urls_file = open('H:/programming/projects/blog/app/templates/pi_display/urls.txt', 'a+')
 urls_list = list(urls_file)
-bad_urls_file = open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a+')
+bad_urls_file = open('E:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'a+')
+#bad_urls_file = open('H:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'a+')
 bad_urls_list = list(bad_urls_file)
-large_urls_file = open('/home/tylerkershner/app/templates/pi_display/large_urls.txt', 'a+')
+large_urls_file = open('E:/programming/projects/blog/app/templates/pi_display/large_urls.txt', 'a+')
+#large_urls_file = open('H:/programming/projects/blog/app/templates/pi_display/large_urls.txt', 'a+')
 large_urls_list = list(large_urls_file)
 
 # Going through reddit submissions from the specified subreddit
 for submission in submissions:
-    # Wait 2 seconds, retry the URL if there is an error with the connection
     try:
-        r = requests.get(submission.url)
+        r = urllib2.urlopen(submission.url)
     except:
         print 'Error requesting %s, skipping...' % submission.url
         continue
@@ -86,14 +85,14 @@ for submission in submissions:
         bad_urls += 1
         continue
     # 404 status code is a broken link
-    if r.status_code == 404:
+    if r.getcode == 404:
         print '%s is a broken link (404), skipping...' % submission.url
         # Logging bad URL
         bad_urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
         continue
     # 302 is redirection, meaning bad link
-    if r.status_code == 302:
+    if r.getcode == 302:
         print '%s is a broken link (302), skipping...' % submission.url
         # Logging bad URL
         bad_urls_file.write(str(submission.url) + '\n')
@@ -114,6 +113,7 @@ for submission in submissions:
     # The Pi has a hard time with GIFs larger than 8MBs
     if getsize(submission.url) > 8192000:
         print '%s is larger than 8MBs, skipping...' % submission.url
+        large_urls += 1
         continue
     # Imgur 'removed' image is 503 bytes
     if getsize(submission.url) == 503:
