@@ -26,3 +26,4 @@ e:\programming\projects\blog\venv\scripts\python E:/programming/projects/blog/ap
 e:\programming\projects\blog\venv\scripts\python E:/programming/projects/blog/app/scripts/scrape_reddit_dev.py cinemagraphs
 e:\programming\projects\blog\venv\scripts\python E:/programming/projects/blog/app/scripts/scrape_reddit_dev.py wtf_gifs
 e:\programming\projects\blog\venv\scripts\python E:/programming/projects/blog/app/scripts/scrape_reddit_dev.py MichaelBayGifs
+pause
