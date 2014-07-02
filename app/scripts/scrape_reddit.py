@@ -1,6 +1,7 @@
 import praw
 import sys
 import requests
+import time
 from datetime import datetime
 
 
@@ -62,21 +63,26 @@ large_urls_list = list(large_urls_file)
 
 # Going through reddit submissions from the specified subreddit
 for submission in submissions:
-    # Skip the URL if there is an error with the connection
+    # Wait 2 seconds, retry the URL if there is an error with the connection
     try:
         r = requests.get(submission.url)
     except:
-        print 'Error requesting %s, skipping...' % submission.url
-        continue
+        try:
+            print 'Retrying connection...'
+            time.sleep(2)
+            r = requests.get(submission.url)
+        except:
+            print 'Error requesting %s, skipping...' % submission.url
+            continue
     # Already in urls.txt
     if submission.url + '\n' in urls_list:
         continue
     # Known bad URL
-    elif submission.url + '\n' in bad_urls_list:
+    if submission.url + '\n' in bad_urls_list:
         bad_urls += 1
         continue
     # Known Large URL
-    elif submission.url + '\n' in large_urls_list:
+    if submission.url + '\n' in large_urls_list:
         large_urls += 1
         continue
     # Not a .gif file
@@ -112,11 +118,11 @@ for submission in submissions:
         bad_urls += 1
         continue
     # The Pi has a hard time with GIFs larger than 8MBs
-    elif getsize(submission.url) > 8192000:
+    if getsize(submission.url) > 8192000:
         print '%s is larger than 8MBs, skipping...' % submission.url
         continue
     # Imgur 'removed' image is 503 bytes
-    elif getsize(submission.url) == 503:
+    if getsize(submission.url) == 503:
         print '%s is a broken link (503 bytes), skipping...' % submission.url
         urls_file.write(str(submission.url) + '\n')
         bad_urls += 1
