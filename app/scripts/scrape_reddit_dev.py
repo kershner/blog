@@ -15,7 +15,7 @@ class Gif(object):
 gif = Gif(0)
 
 
-def scrape_reddit_dev(target_subreddit):
+def scrape_reddit_dev(target_subreddit, path):
     # Function to determine size of URL via HTTP header data
     def getsize(url):
         url = urllib2.urlopen(url)
@@ -26,16 +26,16 @@ def scrape_reddit_dev(target_subreddit):
             print '%s has no content-length data in HTTP header, skipping...' % submission.url
             return 'None'
 
-        # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
+    # Logs files being added and total number of GIFs to /reddit_scraper_log.txt
     def log():
         time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
         log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
         skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
         number_of_gifs = 'Total number of GIFs: %d' % (len(urls_list) + count)
-        with open('e:/programming/projects/blog/app/templates/pi_display/reddit_scraper_log.txt', 'a') as log_file:
-            log_file.write(log_data)
-            log_file.write(skipped)
-            log_file.write(number_of_gifs)
+        with open('%s/programming/projects/blog/app/templates/pi_display/reddit_scraper_log.txt' % path, 'a') as logfile:
+            logfile.write(log_data)
+            logfile.write(skipped)
+            logfile.write(number_of_gifs)
         print log_data
         print skipped
         print number_of_gifs
@@ -57,15 +57,11 @@ def scrape_reddit_dev(target_subreddit):
     #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
     # Opening files, converting to Python lists
-    # Two different paths for home/work PCs
-    urls_file = open('E:/programming/projects/blog/app/templates/pi_display/urls.txt', 'a+')
-    #urls_file = open('H:/programming/projects/blog/app/templates/pi_display/urls.txt', 'a+')
+    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
     urls_list = list(urls_file)
-    bad_urls_file = open('E:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'a+')
-    #bad_urls_file = open('H:/programming/projects/blog/app/templates/pi_display/bad_urls.txt', 'a+')
+    bad_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/bad_urls.txt' % path, 'a+')
     bad_urls_list = list(bad_urls_file)
-    large_urls_file = open('E:/programming/projects/blog/app/templates/pi_display/large_urls.txt', 'a+')
-    #large_urls_file = open('H:/programming/projects/blog/app/templates/pi_display/large_urls.txt', 'a+')
+    large_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/large_urls.txt' % path, 'a+')
     large_urls_list = list(large_urls_file)
 
     # Going through reddit submissions from the specified subreddit
@@ -153,10 +149,16 @@ subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'edu
 # 'naturegifs' - was throwing a timeout error on 7/2, can try again later
 
 if __name__ == '__main__':
+    prompt = raw_input('Are you scraping from work or home? > ').lower()
+    if prompt == 'work':
+        current_path = 'E:'
+    elif prompt == 'home':
+        current_path = 'H:'
+
     time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 
     for subreddit in subreddits:
-        scrape_reddit_dev(subreddit)
+        scrape_reddit_dev(subreddit, current_path)
 
     time_end = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 
