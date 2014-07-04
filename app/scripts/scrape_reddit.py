@@ -91,11 +91,14 @@ def scrape_reddit(target_subreddit, path):
             continue
         # This URL causes an ASCII -> Unicode error
         elif 'Von_Karman' in submission.url:
+            bad_urls += 1
             continue
         try:
             r = urllib2.urlopen(submission.url)
         except (urllib2.HTTPError, urllib2.URLError):
+            bad_urls += 1
             print '%s returns 403 forbidden or timed out, skipping...' % submission.url
+            bad_urls_file.write(str(submission.url) + '\n')
             continue
         # 404 status code is a broken link
         if r.getcode == 404:
@@ -120,12 +123,13 @@ def scrape_reddit(target_subreddit, path):
         # The Pi has a hard time with GIFs larger than 8MBs
         elif getsize(submission.url) > 8192000:
             print '%s is larger than 8MBs, skipping...' % submission.url
+            large_urls_file.write(str(submission.url) + '\n')
             large_urls += 1
             continue
         # Imgur 'removed' image is 503 bytes
         elif getsize(submission.url) == 503:
             print '%s is a broken link (503 bytes), skipping...' % submission.url
-            urls_file.write(str(submission.url) + '\n')
+            bad_urls_file.write(str(submission.url) + '\n')
             bad_urls += 1
             continue
         else:

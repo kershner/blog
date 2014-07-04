@@ -28,12 +28,11 @@ log = Log(0, 0, 0, 0)
 def clean_up_urls(path):
     # Function to determine size of URL via HTTP header data
     def getsize(image_url):
-        image_url = urllib2.urlopen(image_url)
         try:
+            image_url = urllib2.urlopen(image_url)
             size = int(image_url.info()['content-length'])
             return size
-        except KeyError:
-            print '%s has no content-length data in HTTP header, skipping...' % url
+        except(KeyError, urllib2.HTTPError, urllib2.URLError):
             return 'None'
 
     url_number = 0
@@ -94,14 +93,8 @@ def clean_up_urls(path):
             bad_urls_file.write(str(url) + '\n')
             log.bad_urls_counter()
             continue
-        # If the getsize function returned None, there was an error
-        if getsize(url) == 'None':
-            print '%s has no length data in HTTP header, skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
-            log.bad_urls_counter()
-            continue
         # The Pi has a hard time with GIFs larger than 8MBs
-        elif getsize(url) > 8192000:
+        if getsize(url) > 8192000:
             print '%s is larger than 8MBs, skipping...' % url
             large_urls_file.write(str(url) + '\n')
             log.large_urls_counter()
@@ -109,12 +102,17 @@ def clean_up_urls(path):
         # Imgur 'removed' image is 503 bytes
         elif getsize(url) == 503:
             print '%s is a broken link (503 bytes), skipping...' % url
-            urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url) + '\n')
+            log.bad_urls_counter()
+            continue
+        # If the getsize function returned None, there was an error
+        elif getsize(url) == 'None':
+            print '%s has no length data in HTTP header, skipping...' % url
+            bad_urls_file.write(str(url) + '\n')
             log.bad_urls_counter()
             continue
         else:
             print 'Clean URL, adding...'
-            urls_file.write(str(url) + '\n')
             log.counter()
             clean_urls_file.write(str(url) + '\n')
 
@@ -189,7 +187,7 @@ if __name__ == '__main__':
     print 'URL cleanup finished at %s' % time_end
 
     # Opening updated file, printing # of URLs
-    with open('E:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r') as f:
+    with open('%s/programming/projects/blog/app/templates/pi_display/urls.txt', 'r') % current_path as f:
         number_of_gifs = len(list(f))
         print '\nTotal number of GIFS: %d' % number_of_gifs
     print '%d bad links removed' % log.bad_urls
