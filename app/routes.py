@@ -7,6 +7,8 @@ import random
 from app import app
 
 
+##########################################################################################
+## Blog ##################################################################################
 @app.route('/home')
 def home():
     return render_template("/blog/home.html",
@@ -73,14 +75,49 @@ def piproject2():
                            title="GIF Picture Frame Writeup Part 2")
 
 
-#############################
-## Raspberry Pi GIF Display ##
+##########################################################################################
+## Raspberry Pi GIF Display ##############################################################
 @app.route('/pi_display')
 def pi_display():
-    file_object = open('/home/tylerkershner/app/templates/pi_display/urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
+    path = '/home/tylerkershner/app/templates/pi_display'
+
+    # Opening files, converting to lists
+    urls_file = open('%s/urls.txt' % path, 'r')
+    urls_list = list(urls_file)
+    urls_file.close()
+
+    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+    urls_toplay_list = list(urls_toplay_file)
+    urls_toplay_file.close()
+
+    # If there are no more URLs in the to_play file, create a new one
+    if len(urls_toplay_list) > 1:
+        pass
+    else:
+        urls_toplay_file = open('%s/urls_to_play.txt' % path, 'a+')
+        for entry in urls_list:
+            urls_toplay_file.write(entry)
+            urls_toplay_file.close()
+
+    # Re-opening files to be used below
+    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+    urls_toplay_list = list(urls_toplay_file)
+    urls_toplay_file.close()
+
+    # Choose random URL from to_play list
+    gif_url = random.choice(urls_toplay_list)
+
+    # Opening/closing urls.txt (taking advantage of side effect to erase contents)
+    open('%s/urls_to_play.txt' % path, 'w').close()
+
+    # Rewrite to_play.txt without current gif URL (won't play twice)
+    with open('%s/urls_to_play.txt' % path, 'a+') as urls_to_play:
+        for entry in urls_toplay_list:
+            if entry == gif_url:
+                pass
+            else:
+                urls_to_play.write(entry)
+
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display",
                            gif_url=gif_url)
@@ -142,8 +179,8 @@ def pi_display_educational():
                            gif_url=gif_url)
 
 
-####################
-##  CS Tools Apps ##
+#######################################################################################
+#####  CS Tools Apps ##################################################################
 @app.route('/')
 @app.route('/index')
 def index():
@@ -458,8 +495,8 @@ def dea_verify():
                                form=form)
 
 
-# ############################
-# ## Reddit Slideshow Pages ##
+# #########################################################################################
+# ## Reddit Slideshow Pages ###############################################################
 # @app.route('/reddit_slideshow')
 # def reddit_slideshow():
 #     path = '/home/tylerkershner/app/templates/reddit_slideshow/'

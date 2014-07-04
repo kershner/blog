@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.secret_key = 'development key'
 
 
+##########################################################################################
+## Blog ##################################################################################
 @app.route('/home')
 def home():
     return render_template("/blog/home.html",
@@ -75,14 +77,47 @@ def piproject2():
                            title="GIF Picture Frame Writeup Part 2")
 
 
-#############################
-## Raspberry Pi GIF Display ##
+##########################################################################################
+## Raspberry Pi GIF Display ##############################################################
 @app.route('/pi_display')
 def pi_display():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
+    path = 'h:/programming/projects/blog/app/templates/pi_display'
+
+    urls_file = open('%s/urls.txt' % path, 'r')
+    urls_list = list(urls_file)
+    urls_file.close()
+
+    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+    urls_toplay_list = list(urls_toplay_file)
+    urls_toplay_file.close()
+
+    # If there are no more URLs in the to_play file, create a new one
+    if len(urls_toplay_list) > 1:
+        pass
+    else:
+        urls_toplay_file = open('%s/urls_to_play.txt' % path, 'a+')
+        for entry in urls_list:
+            urls_toplay_file.write(entry)
+            urls_toplay_file.close()
+
+    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+    urls_toplay_list = list(urls_toplay_file)
+    urls_toplay_file.close()
+
+    # Choose random URL from to_play list
+    gif_url = random.choice(urls_toplay_list)
+
+    # Opening/closing urls.txt (taking advantage of side effect to erase contents)
+    open('%s/urls_to_play.txt' % path, 'w').close()
+
+    # Rewrite to_play.txt without current gif URL (won't play twice)
+    with open('%s/urls_to_play.txt' % path, 'a+') as urls_to_play:
+        for entry in urls_toplay_list:
+            if entry == gif_url:
+                pass
+            else:
+                urls_to_play.write(entry)
+
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display",
                            gif_url=gif_url)
@@ -90,7 +125,7 @@ def pi_display():
 
 @app.route('/pi_display_newest')
 def pi_display_newest():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
+    file_object = open('h:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
     urls = list(file_object)
     last_200 = urls[-200:]
     gif_url = random.choice(last_200)
@@ -102,10 +137,11 @@ def pi_display_newest():
 
 @app.route('/pi_display_animals')
 def pi_display_animals():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/animals_urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
+    urls_file = open('%s/animals_urls.txt' % path, 'r')
+    urls_list = list(urls_file)
+    gif_url = random.choice(urls_list)
+    urls_file.close()
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display - Animal GIFs",
                            gif_url=gif_url)
@@ -144,8 +180,8 @@ def pi_display_educational():
                            gif_url=gif_url)
 
 
-##########################
-#####  CS Tools Apps #####
+#######################################################################################
+#####  CS Tools Apps ##################################################################
 @app.route('/')
 @app.route('/index')
 def index():
@@ -458,8 +494,8 @@ def dea_verify():
                                form=form)
 
 
-# ############################
-# ## Reddit Slideshow Pages ##
+# #########################################################################################
+# ## Reddit Slideshow Pages ###############################################################
 # @app.route('/reddit_slideshow')
 # def reddit_slideshow():
 #     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'

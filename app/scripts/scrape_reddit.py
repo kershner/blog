@@ -32,7 +32,7 @@ def scrape_reddit(target_subreddit, path):
         log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
         skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
         number_of_gifs = 'Total number of GIFs: %d' % (len(urls_list) + count)
-        with open('%s/programming/projects/blog/app/templates/pi_display/reddit_scraper_log.txt' % path, 'a') as logfile:
+        with open('%s/reddit_scraper_log.txt' % path, 'a') as logfile:
             logfile.write(log_data)
             logfile.write(skipped)
             logfile.write(number_of_gifs)
@@ -57,11 +57,11 @@ def scrape_reddit(target_subreddit, path):
     #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
 
     # Opening files, converting to Python lists
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
+    urls_file = open('%s/urls.txt' % path, 'a+')
     urls_list = list(urls_file)
-    bad_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/bad_urls.txt' % path, 'a+')
+    bad_urls_file = open('%s/bad_urls.txt' % path, 'a+')
     bad_urls_list = list(bad_urls_file)
-    large_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/large_urls.txt' % path, 'a+')
+    large_urls_file = open('%s/large_urls.txt' % path, 'a+')
     large_urls_list = list(large_urls_file)
 
     # Going through reddit submissions from the specified subreddit
@@ -155,9 +155,9 @@ subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'edu
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()
     if prompt == 'work':
-        current_path = 'E:'
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display'
     elif prompt == 'home':
-        current_path = 'H:'
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display'
 
     time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 
