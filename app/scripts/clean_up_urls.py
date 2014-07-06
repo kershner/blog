@@ -187,7 +187,7 @@ if __name__ == '__main__':
     print 'URL cleanup finished at %s' % time_end
 
     # Opening updated file, printing # of URLs
-    with open('%s/programming/projects/blog/app/templates/pi_display/urls.txt', 'r') % current_path as f:
+    with open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % current_path, 'r') as f:
         number_of_gifs = len(list(f))
         print '\nTotal number of GIFS: %d' % number_of_gifs
     print '%d bad links removed' % log.bad_urls
