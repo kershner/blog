@@ -7,8 +7,8 @@ import random
 from app import app
 
 
-##########################################################################################
-## Blog ##################################################################################
+##############################################################################
+## Blog ######################################################################
 @app.route('/home')
 def home():
     return render_template("/blog/home.html",
@@ -75,8 +75,8 @@ def piproject2():
                            title="GIF Picture Frame Writeup Part 2")
 
 
-##########################################################################################
-## Raspberry Pi GIF Display ##############################################################
+##############################################################################
+## Raspberry Pi GIF Display ##################################################
 @app.route('/pi_display')
 def pi_display():
     path = '/home/tylerkershner/app/templates/pi_display'
@@ -97,7 +97,7 @@ def pi_display():
         urls_toplay_file = open('%s/urls_to_play.txt' % path, 'a+')
         for entry in urls_list:
             urls_toplay_file.write(entry)
-            urls_toplay_file.close()
+        urls_toplay_file.close()
 
     # Re-opening files to be used below
     urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
@@ -179,8 +179,8 @@ def pi_display_educational():
                            gif_url=gif_url)
 
 
-#######################################################################################
-#####  CS Tools Apps ##################################################################
+##############################################################################
+#####  CS Tools Apps #########################################################
 @app.route('/')
 @app.route('/index')
 def index():
@@ -495,8 +495,8 @@ def dea_verify():
                                form=form)
 
 
-# #########################################################################################
-# ## Reddit Slideshow Pages ###############################################################
+# ##############################################################################
+# ## Reddit Slideshow Pages ####################################################
 # @app.route('/reddit_slideshow')
 # def reddit_slideshow():
 #     path = '/home/tylerkershner/app/templates/reddit_slideshow/'
