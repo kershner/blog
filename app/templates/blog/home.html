@@ -6,201 +6,78 @@
 	    <div class="row">
 		    <div class="col-lg-8 col-lg-offset-2">
 			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Iteration</h2>
-                <bd>June 24th, 2014</bd>
+				<h2>Slow and Steady</h2>
+                <bd>July 7th, 2014</bd>
                 <hr>
 				<p>
-                    The GIF Display won't be completed until it's set inside a frame and looks all nice and presentable,
-                    but unfortunately that stage depends largely on both mine and Kerry's schedules, so I'm hoping to get a real start
-                    on it this weekend.<br><br>
-                    In the meantime I'm going to work on optimizing the GIF scraping algorithm.  Right now there are two
-                    things I want to handle better: broken links and image size, since I suspect large GIF file sizes
-                    are causing the Pi to choke occasionally and possibly run out of memory.  It turns out both cases
-                    can be handled using data included in the URL's <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">HTTP header fields</a>.<br><br>
-                    Using the <a href="https://docs.python.org/2/library/urllib.html">urllib</a> module I can find the
-                    GIF's file size in bytes from the <strong>content-length</strong> field:
+                    <b>Work continues steadily on my GIF display</b>.  I'm gradually learning that when it comes to
+                    software development side projects it might not always be wise to set a deadline or ETA before starting.
+                    Even though life continually gets in the way I've still managed to get some work done on
+                    the project.<br><br>
+                    First, and most importantly, I think I'm <em>finally</em> somewhat happy with my reddit scraping
+                    code.  You can check out the completed bit on my <a href="https://github.com/kershner/blog/blob/master/app/scripts/scrape_reddit.py">Github</a>.
+                    The important modifications are mostly in the logic flow of the loop through the subreddit's
+                    submissions, but there's also my discovery of the <a href="https://docs.python.org/2/library/stdtypes.html#str.endswith">endswith()</a>
+                    function, which makes checking for a .gif file much cleaner.  I also added an <b>if __name__ == '__main__'</b>
+                    clause to make running the script easier between my work and home PCs.  It works pretty well, and I
+                    also made similar modifications to my URL clean-up script, located <a href="https://github.com/kershner/blog/blob/master/app/scripts/clean_up_urls.py">here</a>.<br><br>
+                    I also added a small bit of code on my server to ensure that the same GIF doesn't play twice until all
+                    the GIFs from my urls.txt file have played.<br><br>
+                    The basic idea is to now maintain two lists of URLs.  One is the master file that contains all my
+                    scraped URLs (and gets added to when I run the scraper), and another that serves as the current
+                    'playlist' of GIFs, removing the URL that has just played each time.
                 </p>
-<pre><code data-language="python"># Function to determine size of URL via HTML header data
-def getsize(uri):
-    image_file = urllib.urlopen(uri)
-    size = image_file.headers.get("content-length")
-    image_file.close()
-    return int(size)</code></pre>
-                <p>
-                    While running some diagnostics
-                    on my accumulated list of GIF urls I noticed that all the broken links had the same filesize, 503 bytes.
-                    This just happens to be the size of imgur's placeholder broken-link image.  Using this information
-                    it became a simple matter of adjusting my code to ignore those links:
-                </p>
-<pre><code data-language="python">if submission.url + '\n' in urls:  # Already in urls.txt
+<pre><code data-language="python">path = '/home/tylerkershner/app/templates/pi_display'
+
+urls_file = open('%s/urls.txt' % path, 'r')
+urls_list = list(urls_file)
+urls_file.close()
+
+urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+urls_toplay_list = list(urls_toplay_file)
+urls_toplay_file.close()
+
+# If there are no more URLs in the to_play file, create a new one
+if len(urls_toplay_list) > 1:
     pass
-elif '.gif' not in submission.url:  # Not a .gif file
-    pass
-elif getsize(submission.url) == 503:  # Imgur 'removed' image is 503 bytes
-    # Logging bad URL
-    with open('/home/tylerkershner/app/templates/pi_display/bad_urls.txt', 'a') as f:
-        f.write(submission.url + '\n')
-    bad_urls += 1
-    pass</code></pre>
+else:
+    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'a+')
+    for entry in urls_list:
+        urls_toplay_file.write(entry)
+        urls_toplay_file.close()
+
+urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
+urls_toplay_list = list(urls_toplay_file)
+urls_toplay_file.close()
+
+# Choose random URL from to_play list
+gif_url = random.choice(urls_toplay_list)
+
+# Opening/closing urls.txt (taking advantage of side effect to erase contents)
+open('%s/urls_to_play.txt' % path, 'w').close()
+
+# Rewrite to_play.txt without current gif URL (won't play twice)
+with open('%s/urls_to_play.txt' % path, 'a+') as urls_to_play:
+    for entry in urls_toplay_list:
+        if entry == gif_url:
+            pass
+        else:
+            urls_to_play.write(entry)</code></pre>
                 <p>
-                    I also added in some logging functionality.  I should note that I first attempted this functionality
-                    with the <a href="http://docs.python-requests.org/en/latest/">requests</a> module, using the
-                    <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP
-                    response code</a> for redirects, but it was much slower than the urllib solution.<br><br>
-                    Great!  Now my scraper won't pull in any broken links,
-                    and I have a self-contained script I can run to remove broken links from my existing collection of
-                    URLs.  Next up I'll be testing my Pi for the next few days to see what its ideal GIF size is for
-                    smooth playback.
-				</p>
+                    As you can see 'removing' a line from a text file isn't really a concept within programming.  Instead
+                    I needed to loop through my stored urls.txt file, add every URL found to a new file (urls_to_play.txt)
+                    <b>unless</b> we come across the currently selected URL, in which case it is skipped leaving us with
+                    a new file that is identical except for the URL that just played.  If the list of urls_to_play is
+                    empty, a new one is generated using the URLs master list and the process starts over.  A little
+                    simplistic, but it works just fine!<br><br>
+                    Kerry and I have been scoping out some frames in some thrift stores, but so far we haven't found
+                    many to be ideal for this project.  I'll probably go with an Ikea frame I saw that I'm quite sure
+                    would work, so hopefully we'll get underway this week!
+                </p>
+
 			</div>
         </div><!-- /row -->
 	</div> <!-- /container -->
 </div>
-
-<div id="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Nearing the Finish Line</h2>
-                <bd>June 23rd, 2014</bd>
-                <hr>
-				<p>
-                    <b>It's been a while since I've posted an update.</b> I've had a few setbacks with the project, mostly
-                    due to my complete ineptness with electronic devices I'm unfamiliar with, and partly to do with waiting
-                    for parts ordered from Amazon to arrive.  I had issues with getting the right
-                    <a href="https://www.google.com/search?q=barrel+jack&es_sm=93&source=lnms&tbm=isch&sa=X&ei=UW-oU6L9D4OLyASp7IDACg&ved=0CAkQ_AUoAg&biw=1342&bih=967">barrel jack</a>
-                    for my tiny LCD screen's DC input as well as finding the right settings on my Rasberry Pi's Linux
-                    distro to enable composite video.  Everything looks to be solved now, though, so the project can continue
-                    moving forward.<br><br>
-                    Here's a low-quality video of my contraption booting up.<br></p>
-                    <div class="video">
-                        <iframe width="560" height="315" src="//www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
-                    </div><br>
-                <p>
-                    It's glorious!  It takes about a minute for it to boot fully into Midori to start displaying the GIF
-                    slideshow.  Eventually I'll look into optimizing that boot time, but I doubt <em>too</em> much can be
-                    done due to the Pi's limited hardware.<br><br>
-                    Things appear to be shaping up nicely.  The final leg of the project won't be as rough as I initially
-                    imagined as my infinitely crafty girlfriend will be helping me pick a frame and convert it to my
-                    purposes.  Once we get that part done I'll post the final part of my project write-up, and will probably
-                    re-write the whole thing to be a little more consumable, weeding out the unimportant bits to make for
-                    a more useful how-to guide.<br><br>
-                    For the time being I'm re-working my reddit scraper code a bit.  I'm working on adding functionality to detect
-                    and erase broken links, as well as get rid of files that are too large, since they'll choke the poor
-                    Raspberry Pi and lead to choppy playback.<br><br>
-                    More updates soon!
-                </p>
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div id="grey">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Success!</h2>
-                <bd>June 12th, 2014</bd>
-                <hr>
-				<p>
-                    The software side of my Raspberry Pi GIF Display project is now complete.  You can read about it
-                    in the second part of my project writeup, <a href="/piproject2">here</a>.  I never got around to
-                    posting about the Pi itself, so here are some pictures from my unboxing.<br><br>
-                </p>
-                    <div id="pi-images">
-                        <a href="/static/images/Pi_1.jpg"><img src="/static/images/Pi_1_thumb.jpg"></a>
-                        <a href="/static/images/Pi_2.jpg"><img src="/static/images/Pi_2_thumb.jpg"></a>
-                        <a href="/static/images/Pi_3.jpg"><img src="/static/images/Pi_3_thumb.jpg"></a>
-                    </div><br><br>
-                <p>
-                    Just look at it!  The Pi is so cool!  I'm onto the final stage of my project, which may or may not
-                    be the hardest - finding a way to package the Pi together with a small LCD screen in an aesthetically
-                    pleasing (and functional) way.  I'll have to start on that phase next week, as I'm heading to my
-                    parent's place this weekend for Father's day.<br><br>
-                    I'm very close to completing this little project, it's very exciting.  Until next time!<br><br>
-                    <a class="top-link" href="/piproject2">GIF Picture Frame Writeup Part 2</a>
-                </p>
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div id="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Back from the Drawing Board</h2>
-                <bd>June 10th, 2014</bd>
-                <hr>
-				<p>
-                    <b>Well, my Pi arrived last week.</b>  It was a snap to set everything up, which genuinely surprised me.
-                    I ordered <a href="http://www.amazon.com/gp/product/B00GGM0Y66/ref=oh_details_o01_s00_i01?ie=UTF8&psc=1">this</a> starter kit from Amazon and complemented
-                    it with a cheap <a href="http://www.amazon.com/gp/product/B00BWF5U0M/ref=oh_details_o01_s00_i00?ie=UTF8&psc=1">USB Hub</a> for the initial setup.  The SD card
-                    came preloaded with <a href="http://www.raspbian.org/">Raspbian</a>, so all I had to do was slot the card in, power on the Pi, select Raspian, and wait.  I had a
-                    fully usable Linux box in about 15 minutes.<br><br>
-                    It's taken a little getting used to, but Linux isn't so scary.  I do miss the simplicity and consistency of Windows.  It's a little disconcerting when programs
-                    and their documentation are sometimes abandoned, forcing your plans to unexpectedly evolve, but such is the Linux way, I suppose.<br><br>
-                    I overestimated the Pi's hardware capabilities, so I had to find a new solution for my project.  That whole process will be the subject of the next part of my
-                    writeup, but...<b>SPOILER</b> I solved the problem and came up with a working solution.  Now I'm just waiting for the final technological component to arrive, a
-                    <a href="http://www.amazon.com/gp/product/B0045IIZKU/ref=oh_details_o00_s00_i01?ie=UTF8&psc=1">tiny LCD screen.</a>  Once that arrives and is properly configured
-                    it'll be time to figure out how best to set this whole thing into a frame without it looking like amateur garbage.
-                </p>
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div id="grey">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Moving Along</h2>
-                <bd>June 5th, 2014</bd>
-                <hr>
-				<p>
-                    <b>I'm well underway with my new project - </b> a Raspberry Pi powered digital picture frame.  The Python
-                    side of things is pretty much complete, and you can read about the development process in my new
-                    <a href="/piproject-part1">writeup</a>.<br><br>
-                    The code's not quite ready for primetime, but it's very nearly there.  I'll keep working on it, but it'll
-                    be difficult because my Raspberry Pi is being delivered <em>today</em>.  That means I'm in for a busy
-                    couple of days as I try to get the little guy up and running and then try to master Linux at the same time.
-                    I'll be sure to post my impressions later in the week.<br><br>
-                    <a class="top-link" href="/piproject1">GIF Picture Frame Writeup Part 1</a>
-                </p>
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div id="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
-				<h2>Back At It</h2>
-                <bd>June 2nd, 2014</bd>
-                <hr>
-				<p>
-                    <b>I'm back from a healthy week long vacation.</b>  It's been a busy three months since I started learning to program.  My day job keeps a pretty consistently hectic
-                    pace and then adding as much programming learning as I could find time for on top of that meant that I was more than overdue for some time off.  One of the best strategies I've learned
-                    when confronted with a really tricky programming problem is to simply walk away for a while.  This could mean literally walking away (I usually take Bacon on a walk) or just focusing
-                    on something else.  The answer is usually much more apparent after you've taken your eyes off of it for a time and returned.<br><br>
-                    I decided to take this approach with programming in general.  Nearly every minute of my free time had been soaked up by some technology or another since I started down this path in
-                    early March and I was beginning to feel the earliest twinge of burnout, manifesting mainly in a lack of interest in starting another large project.  So I took a week vacation from both
-                    work and programming.  It was a glorious week of video games, friends, and relaxation, and I returned from the break refreshed and with ideas for new projects.<br><br>
-                    After my last post (nearly three weeks ago) I took a break from projects to just focus on my actual Python knowledge.  I've been maintaining a consistent regimen of daily practice problems
-                    and I feel more confident every day, though there is of course still so much to learn.  Now, after my break, I'm ready for another big project and I've decided to start experimenting
-                    with the <a href="http://www.raspberrypi.org/">Raspberry Pi</a>!  I'll write up some more details on my specific application of the device this week, which might also serve as a
-                    rough outline of the project for myself.  Of course, I'll be documenting the whole process here on my blog.  Right now, though, it's time for research!
-                </p>
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
 
 {% endblock %}

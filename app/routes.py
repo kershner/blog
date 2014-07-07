@@ -21,6 +21,12 @@ def archive():
                            title="Blog Archive")
 
 
+@app.route('/jun14')
+def jun14():
+    return render_template("/blog/blog_archive/jun14.html",
+                           title="June 2014")
+
+
 @app.route('/may14')
 def may14():
     return render_template("/blog/blog_archive/may14.html",
