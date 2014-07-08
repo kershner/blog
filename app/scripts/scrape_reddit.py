@@ -148,9 +148,7 @@ subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'edu
               'SurrealGifs', 'Puggifs', 'slothgifs', 'asianpeoplegifs', 'gaming_gifs', 'Movie_GIFs', 'funnygifs',
               'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
               'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
-              'MichaelBayGifs', 'naturegifs']
-
-# 'naturegifs' - was throwing a timeout error on 7/2, can try again later
+              'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming']
 
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()
