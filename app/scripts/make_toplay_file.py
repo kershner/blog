@@ -24,4 +24,5 @@ if __name__ == '__main__':
         current_path = 'E:/programming/projects/blog/app/templates/pi_display'
     elif prompt == 'home':
         current_path = 'H:/programming/projects/blog/app/templates/pi_display'
+
     make_toplay_file(current_path)

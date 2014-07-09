@@ -89,35 +89,46 @@ def piproject2():
 def pi_display():
     path = 'h:/programming/projects/blog/app/templates/pi_display'
 
-    urls_file = open('%s/urls.txt' % path, 'r')
-    urls_list = list(urls_file)
-    urls_file.close()
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
 
-    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
-    urls_toplay_list = list(urls_toplay_file)
-    urls_toplay_file.close()
+    gif_width = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('x')]
+    gif_height = config_file_list[0][config_file_list[0].find('x') + 1:config_file_list[0].find('\n')]
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+
+    if category == 'all':
+        filename = 'urls.txt'
+        toplay_filename = 'urls_to_play.txt'
+    elif category == 'animals':
+        filename = 'animals_urls.txt'
+        toplay_filename = 'animals_urls_to_play.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    with open('%s/%s' % (path, toplay_filename), 'r') as urls_toplay_file:
+        urls_toplay_list = list(urls_toplay_file)
 
     # If there are no more URLs in the to_play file, create a new one
     if len(urls_toplay_list) > 1:
         pass
     else:
-        urls_toplay_file = open('%s/urls_to_play.txt' % path, 'a+')
+        urls_toplay_file = open('%s/%s' % (path, toplay_filename), 'a+')
         for entry in urls_list:
             urls_toplay_file.write(entry)
-            urls_toplay_file.close()
+        urls_toplay_file.close()
 
-    urls_toplay_file = open('%s/urls_to_play.txt' % path, 'r')
-    urls_toplay_list = list(urls_toplay_file)
-    urls_toplay_file.close()
+    with open('%s/%s' % (path, toplay_filename), 'r') as urls_toplay_file:
+        urls_toplay_list = list(urls_toplay_file)
 
     # Choose random URL from to_play list
     gif_url = random.choice(urls_toplay_list)
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
-    open('%s/urls_to_play.txt' % path, 'w').close()
+    open('%s/%s' % (path, toplay_filename), 'w').close()
 
     # Rewrite to_play.txt without current gif URL (won't play twice)
-    with open('%s/urls_to_play.txt' % path, 'a+') as urls_to_play:
+    with open('%s/%s' % (path, toplay_filename), 'a+') as urls_to_play:
         for entry in urls_toplay_list:
             if entry == gif_url:
                 pass
@@ -126,7 +137,49 @@ def pi_display():
 
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display",
-                           gif_url=gif_url)
+                           gif_url=gif_url,
+                           width=gif_width,
+                           height=gif_height)
+
+
+@app.route('/pi_display_config')
+def pi_display_config():
+    return render_template("/pi_display/pi_display_config.html",
+                           title="Raspberry Pi GIF Display Configuration")
+
+
+@app.route('/pi_display_config_animals')
+def pi_display_config_animals():
+    path = 'h:/programming/projects/blog/app/templates/pi_display'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = animals' + '\n')
+
+    message = 'Changed Category to Animals'
+
+    return render_template("/pi_display/pi_display_config.html",
+                           title="Raspberry Pi GIF Display Configuration",
+                           message=message)
+
+
+@app.route('/pi_display_config_small')
+def pi_display_config_small():
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file_list = list(config_file)
+        config_file.write('GIF_SIZE = 320x240')
+        config_file.write(config_file_list[1])
+
+    message = 'Changed GIF display size to Small (320x240)'
+
+    return render_template("/pi_display/pi_display_config.html",
+                           title="Raspberry Pi GIF Display Configuration",
+                           message=message)
 
 
 @app.route('/pi_display_newest')

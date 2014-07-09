@@ -1,0 +1,2 @@
+GIF_SIZE = 320x240
+CATEGORY = animals
