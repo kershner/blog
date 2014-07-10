@@ -70,3 +70,8 @@ class DeaVerify(Form):
     order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
     institution = TextField("Institution", [validators.Required("Please enter the institution's name.")])
     submit = SubmitField("Submit")
+
+
+class SlideshowDelay(Form):
+    delay = TextField("", [validators.Required("Please enter a valid time (in seconds).")])
+    submit = SubmitField("Submit")

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify
+    StillNeed, LicenseNeeded, DeaVerify, SlideshowDelay
 from urllib import quote
 import datetime
 import random
@@ -87,14 +87,17 @@ def piproject2():
 ## Raspberry Pi GIF Display ##############################################################
 @app.route('/pi_display')
 def pi_display():
-    path = 'h:/programming/projects/blog/app/templates/pi_display'
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
 
-    gif_width = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('x')]
-    gif_height = config_file_list[0][config_file_list[0].find('x') + 1:config_file_list[0].find('\n')]
+    # Will use these later for general purpose GIF display site
+    # gif_width = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('x')]
+    # gif_height = config_file_list[0][config_file_list[0].find('x') + 1:config_file_list[0].find('\n')]
+
     category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
 
     if category == 'all':
         filename = 'urls.txt'
@@ -102,6 +105,15 @@ def pi_display():
     elif category == 'animals':
         filename = 'animals_urls.txt'
         toplay_filename = 'animals_urls_to_play.txt'
+    elif category == 'gaming':
+        filename = 'gaming_urls.txt'
+        toplay_filename = 'gaming_urls_to_play.txt'
+    elif category == 'strange':
+        filename = 'strange_urls.txt'
+        toplay_filename = 'strange_urls_to_play.txt'
+    elif category == 'educational':
+        filename = 'educational_urls.txt'
+        toplay_filename = 'educational_urls_to_play.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -121,8 +133,13 @@ def pi_display():
     with open('%s/%s' % (path, toplay_filename), 'r') as urls_toplay_file:
         urls_toplay_list = list(urls_toplay_file)
 
-    # Choose random URL from to_play list
+    # Choose random URL from to_play list, writing to config file
     gif_url = random.choice(urls_toplay_list)
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write('CURRENT_GIF = %s' % gif_url + '\n')
+        config_file.write(config_file_list[3])
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
     open('%s/%s' % (path, toplay_filename), 'w').close()
@@ -138,19 +155,74 @@ def pi_display():
     return render_template("/pi_display/pi_display.html",
                            title="Raspberry PI GIF Display",
                            gif_url=gif_url,
-                           width=gif_width,
-                           height=gif_height)
+                           delay=delay)
 
 
-@app.route('/pi_display_config')
+@app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
+    form = SlideshowDelay()
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('Enter a time delay (in seconds)')
+            return render_template("/pi_display/pi_display_config.html",
+                                   title="Raspberry Pi GIF Display Configuration",
+                                   current_gif=current_gif,
+                                   form=form)
+        else:
+            delay = str(form.delay.data)
+            with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+                config_file.write(config_file_list[0])
+                config_file.write(config_file_list[1])
+                config_file.write(config_file_list[2])
+                config_file.write('DELAY = %s' % delay + '\n')
+            delay_message = 'Changed slideshow delay to %s seconds' % delay
+            return render_template("/pi_display/pi_display_config.html",
+                                   title="Raspberry Pi GIF Display Configuration",
+                                   current_gif=current_gif,
+                                   form=form,
+                                   delay_message=delay_message)
+    elif request.method == 'GET':
+        return render_template("/pi_display/pi_display_config.html",
+                               title="Raspberry Pi GIF Display Configuration",
+                               current_gif=current_gif,
+                               form=form)
+
+
+@app.route('/pi_display_config_all')
+def pi_display_config_all():
+    form = SlideshowDelay()
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = all' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    message = 'Changed Category to All'
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+
     return render_template("/pi_display/pi_display_config.html",
-                           title="Raspberry Pi GIF Display Configuration")
+                           title="Raspberry Pi GIF Display Configuration",
+                           message=message,
+                           current_gif=current_gif,
+                           form=form)
 
 
-@app.route('/pi_display_config_animals')
+@app.route('/pi_display_config_animals', methods=['GET', 'POST'])
 def pi_display_config_animals():
-    path = 'h:/programming/projects/blog/app/templates/pi_display'
+    form = SlideshowDelay()
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -158,85 +230,89 @@ def pi_display_config_animals():
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
         config_file.write(config_file_list[0])
         config_file.write('CATEGORY = animals' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
 
     message = 'Changed Category to Animals'
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
-                           message=message)
+                           message=message,
+                           current_gif=current_gif,
+                           form=form)
 
 
-@app.route('/pi_display_config_small')
-def pi_display_config_small():
+@app.route('/pi_display_config_gaming', methods=['GET', 'POST'])
+def pi_display_config_gaming():
+    form = SlideshowDelay()
     path = 'e:/programming/projects/blog/app/templates/pi_display'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
 
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file_list = list(config_file)
-        config_file.write('GIF_SIZE = 320x240')
-        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = gaming' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
 
-    message = 'Changed GIF display size to Small (320x240)'
+    message = 'Changed Category to Gaming'
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
-                           message=message)
+                           message=message,
+                           current_gif=current_gif,
+                           form=form)
 
 
-@app.route('/pi_display_newest')
-def pi_display_newest():
-    file_object = open('h:/programming/projects/blog/app/templates/pi_display/urls.txt', 'r')
-    urls = list(file_object)
-    last_200 = urls[-200:]
-    gif_url = random.choice(last_200)
-    file_object.close()
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display - Newest 200 GIFs",
-                           gif_url=gif_url)
-
-
-@app.route('/pi_display_animals')
-def pi_display_animals():
+@app.route('/pi_display_config_strange', methods=['GET', 'POST'])
+def pi_display_config_strange():
+    form = SlideshowDelay()
     path = 'e:/programming/projects/blog/app/templates/pi_display'
-    urls_file = open('%s/animals_urls.txt' % path, 'r')
-    urls_list = list(urls_file)
-    gif_url = random.choice(urls_list)
-    urls_file.close()
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display - Animal GIFs",
-                           gif_url=gif_url)
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = strange' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    message = 'Changed Category to Strange'
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+
+    return render_template("/pi_display/pi_display_config.html",
+                           title="Raspberry Pi GIF Display Configuration",
+                           message=message,
+                           current_gif=current_gif,
+                           form=form)
 
 
-@app.route('/pi_display_weird')
-def pi_display_weird():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/pi_display/weird_urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display - Weird GIFs",
-                           gif_url=gif_url)
+@app.route('/pi_display_config_educational', methods=['GET', 'POST'])
+def pi_display_config_educational():
+    form = SlideshowDelay()
+    path = 'e:/programming/projects/blog/app/templates/pi_display'
 
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
 
-@app.route('/pi_display_gaming')
-def pi_display_gaming():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/gaming_urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display - Gaming GIFs",
-                           gif_url=gif_url)
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = educational' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
 
+    message = 'Changed Category to Educational'
+    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
-@app.route('/pi_display_educational')
-def pi_display_educational():
-    file_object = open('e:/programming/projects/blog/app/templates/pi_display/educational_urls.txt', 'r')
-    urls = list(file_object)
-    gif_url = random.choice(urls)
-    file_object.close()
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display - Educational GIFs",
-                           gif_url=gif_url)
+    return render_template("/pi_display/pi_display_config.html",
+                           title="Raspberry Pi GIF Display Configuration",
+                           message=message,
+                           current_gif=current_gif,
+                           form=form)
 
 
 #######################################################################################
@@ -551,138 +627,6 @@ def dea_verify():
         return render_template("/CSTools/deaverify.html",
                                title="DEA Documents Verification Template",
                                form=form)
-
-
-# #########################################################################################
-# ## Reddit Slideshow Pages ###############################################################
-# @app.route('/reddit_slideshow')
-# def reddit_slideshow():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     # Path when not at work PC
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     aww_gifs = len(list(open(path + 'aww_gifs_urls.txt', 'r+')))
-#     highqualitygifs = len(list(open(path + 'highqualitygifs_urls.txt', 'r+')))
-#     interestinggifs = len(list(open(path + 'interestinggifs_urls.txt', 'r+')))
-#     naturegifs = len(list(open(path + 'naturegifs_urls.txt', 'r+')))
-#     perfectloops = len(list(open(path + 'perfectloops_urls.txt', 'r+')))
-#     spacegifs = len(list(open(path + 'spacegifs_urls.txt', 'r+')))
-#     surrealgifs = len(list(open(path + 'surrealgifs_urls.txt', 'r+')))
-#     cinemagraphs = len(list(open(path + 'cinemagraphs_urls.txt', 'r+')))
-#     return render_template("/reddit_slideshow/home.html",
-#                            title="Reddit Slideshow",
-#                            aww_gifs=aww_gifs,
-#                            highqualitygifs=highqualitygifs,
-#                            interestinggifs=interestinggifs,
-#                            naturegifs=naturegifs,
-#                            perfectloops=perfectloops,
-#                            spacegifs=spacegifs,
-#                            surrealgifs=surrealgifs,
-#                            cinemagraphs=cinemagraphs)
-#
-#
-# @app.route('/aww_gifs')
-# def aww_gifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'aww_gifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/aww_gifs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/highqualitygifs')
-# def highqualitygifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'highqualitygifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/highqualitygifs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/interestinggifs')
-# def interestinggifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'interestinggifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/interestinggifs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/naturegifs')
-# def naturegifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'naturegifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/naturegifs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/perfectloops')
-# def perfectloops():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'perfectloops_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/perfectloops",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/spacegifs')
-# def spacegifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'spacegifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/spacegifs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/cinemagraphs')
-# def cinemagraphs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'cinemagraphs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/cinemagraphs",
-#                            gif_url=gif_url)
-#
-#
-# @app.route('/surrealgifs')
-# def surrealgifs():
-#     path = 'e:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     #path = 'h:/programming/projects/blog/app/templates/reddit_slideshow/'
-#     file_object = open(path + 'surrealgifs_urls.txt', 'r+')
-#     urls = list(file_object)
-#     gif_url = random.choice(urls)
-#     file_object.close()
-#     return render_template("/reddit_slideshow/gif_viewer.html",
-#                            title="Reddit Slideshow - /r/surrealgifs",
-#                            gif_url=gif_url)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

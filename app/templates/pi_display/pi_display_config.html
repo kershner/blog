@@ -2,23 +2,71 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/static/pi_display_config.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="/static/js/imgcentering.min.js"></script>
     <title>{{ title }}</title>
 </head>
 <body>
-<h1>Raspberry Pi GIF Display Configuration</h1>
-{% if message %}
-    <h4>{{ message }}</h4>
-{% endif %}
-<h2>Category</h2>
-<a href="/pi_display_config_animals">Animals</a>
-<a href="#">Gaming</a>
-<a href="#">Strange</a>
-<a href="#">Educational</a>
+<div id="wrapper">
+    <div id="header">
+        <a href="/pi_display_config"><h1>Raspberry Pi GIF Display Configuration</h1></a>
+    </div>
 
-<h2>GIF Size:</h2>
-<a href="/pi_display_config_small">320x240</a>
-<a href="#">640x480</a>
-<a href="#">800x600</a>
-<a href="#">1024x768</a>
+    <div id="categories">
+        <h2>Category</h2>
+        <div class="message">
+            {% if message %}
+                <h4>{{ message }}</h4>
+            {% endif %}
+        </div>
+        <div id="buttons">
+            <div class="button red"><a href="/pi_display_config_all"><p class="text">All</p></a></div>
+            <div class="button blue"><a href="/pi_display_config_animals"><p class="text">Animals</p></a></div>
+            <div class="button purple"><a href="/pi_display_config_gaming"><p class="text">Gaming</p></a></div>
+            <div class="button orange"><a href="/pi_display_config_strange"><p class="text">Strange</p></a></div>
+            <div class="button green"><a href="/pi_display_config_educational"><p class="text">Educational</p></a></div>
+        </div>
+    </div>
+
+    <div id="current">
+        <h2>Currently Playing GIF</h2>
+        <div id="image">
+            <img src="{{ current_gif }}"><br>
+        </div>
+        <p>{{ current_gif }}</p>
+    </div>
+
+    <div id="form">
+        <div id="form-inner">
+            <h3>Set Slideshow Delay (in seconds)</h3>
+            {% if delay_message %}
+                <div class="message">
+                    <h4>{{ delay_message }}</h4>
+                </div>
+            {% endif %}
+
+            {% for message in form.delay.errors %}
+                        <p>{{ message }}</p>
+            {% endfor %}
+
+            <form action="{{ url_for('pi_display_config') }}" method=POST>
+                {{ form.hidden_tag() }}
+
+                {{ form.delay(class_="backorder-form-top") }}
+
+                {{ form.submit(class_='btn btn-lg btn-danger') }}
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
+<script>
+$(document).ready(function() {
+   $("#image img").imgCentering();
+});
+</script>
 </html>
