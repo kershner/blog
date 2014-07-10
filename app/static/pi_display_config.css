@@ -1,5 +1,6 @@
 body {
 	font-family: 'Open Sans', sans-serif;
+	overflow: hidden;
 }
 
 a {
@@ -63,7 +64,7 @@ a {
 	position: relative;
 	margin: 5px 5px 5px 5px;
 	bottom: 10px;
-	
+
 }
 
 #categories .button a {
@@ -110,7 +111,7 @@ a {
 #form {
 	background-color: #FF9999;
 	position: relative;
-	top: -35px;
+	top: -40px;
 	width: 750px;
 	height: 125px;
 	border-radius: 0 0 35px 35px;

@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
 CATEGORY = all
-CURRENT_GIF = http://i.imgur.com/gvaY8U2.gif
+CURRENT_GIF = http://24.media.tumblr.com/6a400360d118693db9320b41cc1eaebe/tumblr_mfc8oneFk71rbniaxo1_400.gif
 DELAY = 20
