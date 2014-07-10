@@ -1,6 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 	overflow: hidden;
+	background-image: url('https://www.pythonanywhere.com/user/tylerkershner/files/home/tylerkershner/app/static/images/cyberspace.png');
 }
 
 a {
@@ -18,10 +19,10 @@ a {
 	position: relative;
 	left: -7px;
 	top: -20px;
-	margin: 0 0 0 0;
+	margin: auto;
 	width: 600px;
 	height: 25%;
-	border-radius: 0 0 55px 0;
+	border-radius: 0 0 55px 55px;
 	font-family: 'Lobster', cursive;
 }
 
@@ -34,7 +35,7 @@ a {
 
 #categories {
 	position: relative;
-	margin-top: 0;
+	margin: auto;
 	top: -25px;
 	width: 750px;
 	height: 125px;
@@ -84,6 +85,7 @@ a {
 #current {
 	background-color: #CCE5FF;
 	position: relative;
+	margin: auto;
 	width: 750px;
 	height: 580px;
 	top: -35px;
@@ -111,6 +113,7 @@ a {
 #form {
 	background-color: #FF9999;
 	position: relative;
+	margin: auto;
 	top: -40px;
 	width: 750px;
 	height: 125px;

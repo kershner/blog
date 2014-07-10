@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
 CATEGORY = all
-CURRENT_GIF = http://24.media.tumblr.com/6a400360d118693db9320b41cc1eaebe/tumblr_mfc8oneFk71rbniaxo1_400.gif
+CURRENT_GIF = http://giant.gfycat.com/VastFilthyEuropeanpolecat.gif
 DELAY = 20
