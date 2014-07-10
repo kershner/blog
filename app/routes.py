@@ -136,7 +136,7 @@ def pi_display():
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
         config_file.write(config_file_list[0])
         config_file.write(config_file_list[1])
-        config_file.write('CURRENT_GIF = %s' % gif_url + '\n')
+        config_file.write('CURRENT_GIF = %s' % gif_url)
         config_file.write(config_file_list[3])
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
