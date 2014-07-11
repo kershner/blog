@@ -161,9 +161,32 @@ def pi_display_config():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
 
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
 
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
+        config_file_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
+
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     if request.method == 'POST':
@@ -172,7 +195,14 @@ def pi_display_config():
             return render_template("/pi_display/pi_display_config.html",
                                    title="Raspberry Pi GIF Display Configuration",
                                    current_gif=current_gif,
-                                   form=form)
+                                   form=form,
+                                   main_urls_count=main_urls_count,
+                                   animals_urls_count=animals_urls_count,
+                                   gaming_urls_count=gaming_urls_count,
+                                   strange_urls_count=strange_urls_count,
+                                   educational_urls_count=educational_urls_count,
+                                   category=category,
+                                   delay=delay)
         else:
             delay = str(form.delay.data)
             with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
@@ -185,18 +215,53 @@ def pi_display_config():
                                    title="Raspberry Pi GIF Display Configuration",
                                    current_gif=current_gif,
                                    form=form,
-                                   delay_message=delay_message)
+                                   delay_message=delay_message,
+                                   main_urls_count=main_urls_count,
+                                   animals_urls_count=animals_urls_count,
+                                   gaming_urls_count=gaming_urls_count,
+                                   strange_urls_count=strange_urls_count,
+                                   educational_urls_count=educational_urls_count,
+                                   category=category,
+                                   delay=delay)
     elif request.method == 'GET':
         return render_template("/pi_display/pi_display_config.html",
                                title="Raspberry Pi GIF Display Configuration",
                                current_gif=current_gif,
-                               form=form)
+                               form=form,
+                               main_urls_count=main_urls_count,
+                               animals_urls_count=animals_urls_count,
+                               gaming_urls_count=gaming_urls_count,
+                               strange_urls_count=strange_urls_count,
+                               educational_urls_count=educational_urls_count,
+                               category=category,
+                               delay=delay)
 
 
 @app.route('/pi_display_config_all')
 def pi_display_config_all():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
+
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
+
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -208,19 +273,49 @@ def pi_display_config_all():
         config_file.write(config_file_list[3])
 
     message = 'Changed Category to All'
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
                            message=message,
                            current_gif=current_gif,
-                           form=form)
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category,
+                           delay=delay)
 
 
 @app.route('/pi_display_config_animals')
 def pi_display_config_animals():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
+
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
+
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -232,19 +327,49 @@ def pi_display_config_animals():
         config_file.write(config_file_list[3])
 
     message = 'Changed Category to Animals'
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
                            message=message,
                            current_gif=current_gif,
-                           form=form)
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category,
+                           delay=delay)
 
 
 @app.route('/pi_display_config_gaming')
 def pi_display_config_gaming():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
+
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
+
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -256,19 +381,49 @@ def pi_display_config_gaming():
         config_file.write(config_file_list[3])
 
     message = 'Changed Category to Gaming'
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
                            message=message,
                            current_gif=current_gif,
-                           form=form)
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category,
+                           delay=delay)
 
 
 @app.route('/pi_display_config_strange')
 def pi_display_config_strange():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
+
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
+
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -280,19 +435,49 @@ def pi_display_config_strange():
         config_file.write(config_file_list[3])
 
     message = 'Changed Category to Strange'
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
                            message=message,
                            current_gif=current_gif,
-                           form=form)
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category,
+                           delay=delay)
 
 
 @app.route('/pi_display_config_educational')
 def pi_display_config_educational():
     form = SlideshowDelay()
     path = '/home/tylerkershner/app/templates/pi_display'
+
+    with open('%s/urls.txt' % path, 'r') as urls_file:
+        main_urls_list = list(urls_file)
+
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
+
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(main_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -304,13 +489,22 @@ def pi_display_config_educational():
         config_file.write(config_file_list[3])
 
     message = 'Changed Category to Educational'
+    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            title="Raspberry Pi GIF Display Configuration",
                            message=message,
                            current_gif=current_gif,
-                           form=form)
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category,
+                           delay=delay)
 
 
 ##############################################################################
