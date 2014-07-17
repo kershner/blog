@@ -162,4 +162,3 @@ if __name__ == '__main__':
         print '%d GIFs added to %s_urls.txt.' % (gif.count, entry)
         gif.count = 0
         count += 1
-        raw_input('Press any key to continue...')
