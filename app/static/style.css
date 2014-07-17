@@ -1,61 +1,41 @@
 body {
-	-webkit-font-smoothing: antialiased;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
 }
 
 p {
-	font-family: 'Open Sans';
+  font-family: 'Open Sans';
 }
 
-#face-name {
-	position: relative;
-	bottom: 10px;
-}
-
-body div.navbar.navbar-inverse.navbar-static-top div div.navbar-header button {
-	padding-top: 85px;
-	z-index: 2;
-	background-color: #1abc9c;
-}
-
-body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collapse ul {
-	padding-top: 85px;
-}
-
-body div.navbar.navbar-inverse.navbar-static-top div div.navbar-collapse.collapse.in ul {
-	padding-top: 0;
-}
-
-.brand {
-	display: inline-block;
-	position: absolute;
-	font-weight: 700;
-	font-size: 20px;
-	color: #FFFFFF;
-	letter-spacing: 2px;
-	bottom: 25px;
-	left: 6px;
-	z-index: 1;
+#face {
+  position: relative;
+  float: left;
+  bottom: 25px;
 }
 
 .button {
-	display: inline-block;
+  display: inline-block;
 }
 
 .buttons {
-	margin: 0 auto;
-	width: 65%;
-	height: 50%;
-	text-align: center;
+  margin: 0 auto;
+  width: 65%;
+  height: 50%;
+  text-align: center;
+}
+
+body div.container-fluid.big-logo-row div div div h1 {
+  position: relative;
+  left: 15px;
 }
 
 .date {
-	font-family: Arial;
-	font-size: 12px;
+  font-family: Arial;
+  font-size: 12px;
 }
 
 h1 {
-	margin: 0 0;
+  margin: 0 0;
 }
 
 pre code{
@@ -64,25 +44,162 @@ pre code{
 }
 
 .function {
-	color: #66B2FF;
+  color: #66B2FF;
 }
 
 #continue-link {
-	float: right;
+  float: right;
 }
 
 .top-link {
-	float: right;
+  float: right;
 }
 
 #pi-images {
-	text-align: center;
+  text-align: center;
 }
 
 #pi-images img {
-	display: inline-block;
+  display: inline-block;
 }
 
 .video {
+  text-align: center;
+}
+
+/* *********************************
+   Parallax Navbar
+   credit to DesignMite 
+   http://www.designmite.com/responsive-parallax-navbar-tutorial/ 
+   ********************************* */
+   
+.navbar-inverse {
+  background: rgba(62, 195, 246, 0);
+  border-bottom: none;
+}
+
+.navbar-collapse {
+  z-index: 1;
+}
+
+.navbar-inverse .navbar-toggle {
+  border: 1px solid #333;
+  border-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: transparent;
+}
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    background: rgba(255, 255, 255, 0.75);
+  }
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+  text-shadow: 0px 2px 3px rgba(0,0,0,0.4),
+             0px 4px 13px rgba(0,0,0,0.1),
+             0px 9px 23px rgba(0,0,0,0.1);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: #bc1a3a;
+}
+
+/* *********************************
+           Toolbar Logo
+  ********************************** */
+.small-logo-container {
+  padding-top: 50px;
+  padding-left: 25px;
+  height: 50px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.small-logo:hover {
+  color: #bc1a3a;
+}
+
+.small-logo {
+  color: white;
+  font-size: 2.5em;
+  padding-bottom: 2px;
+  text-shadow: 0px 2px 3px rgba(0,0,0,0.4),
+             0px 4px 13px rgba(0,0,0,0.1),
+             0px 9px 23px rgba(0,0,0,0.1);
+}
+@media (min-width: 300px) {
+  .small-logo {
+    font-size: 1.5em;
+  }
+}
+@media (min-width: 430px) {
+  .small-logo {
+    font-size: 2.5em;
+  }
+}
+
+/* *********************************
+           Big Logo
+  ********************************** */
+.big-logo-row {
+  background-color: #1abc9c;
+}
+
+.big-logo-row .big-logo-container {
+  padding-top: 50px;
+}
+
+.big-logo-row h1 {
+  font-size: 2em;
+  margin: 30px 0 0 0;
+  padding: 0 0 15px 0;
+  color: #FFFFFF;
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
+}
+@media (min-width: 300px) {
+  .big-logo-row h1 {
+    font-size: 2.5em;
 	text-align: center;
+	padding-right: 70px;
+  }
+}
+@media (min-width: 400px) {
+  .big-logo-row h1 {
+    font-size: 2.25em;
+	padding-right: 0;
+	float: left;
+  }
+}
+@media (min-width: 440px) {
+  .big-logo-row h1 {
+    font-size: 2.75em;
+  }
+}
+@media (min-width: 500px) {
+  .big-logo-row h1 {
+    font-size: 3.25em;
+  }
+}
+@media (min-width: 630px) {
+  .big-logo-row h1 {
+    font-size: 3.75em;
+	float: none;
+  }
+}
+@media (min-width: 768px) {
+  .big-logo-row h1 {
+    font-size: 4.5em;
+    padding-bottom: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .big-logo-row h1 {
+    font-size: 6em;
+  }
 }
