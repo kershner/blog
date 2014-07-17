@@ -2,25 +2,28 @@
 {% block content %}
 
 <div id="grey">
-    <div class="container pt">
-        <div class="row mt">
-            <div class="col-lg-6 col-lg-offset-3 centered">
-                <h3>Projects</h3>
-                <hr>
-                <p>My programming projects so far...</p>
-            </div>
-        </div>
-        <div class="buttons">
-            <div class="button">
-                <a href="/pta"><img class="img-responsive" src="/static/images/ptabutton.png"></a><br>
-                <p class="project-link">Python Text Adventure</p>
-            </div>
-            <div class="button">
-                <a href="/cstools"><img src="/static/images/cstoolsbutton.png" class="img-responsive"></a><br>
-                <p class="project-link">CSTools</p>
-            </div>
-        </div>
+    <div id="projects-title">
+        <h3>Projects</h3>
+        <hr id="hr">
+        <p>Some of my programming projects so far...</p>
     </div>
+    <ul class="rig columns-3">
+        <li class="project-blue">
+            <a href="/pta"><img src="/static/images/ptabutton.png" /></a>
+            <h3>Python Text Adventure</h3>
+            <p>My first project, a simple text adventure.</p>
+        </li>
+        <li class="project-purple">
+            <a href="/cstools"><img src="/static/images/cstoolsbutton.png" /></a>
+            <h3>CS Tools</h3>
+            <p>A small but useful set of programs I use daily at work.</p>
+        </li>
+        <li class="project-green">
+            <a href="/#"><img src="/static/images/ptabutton.png" /></a>
+            <h3>Raspberry Pi GIF Display</h3>
+            <p>A nice combination of hardware and code.</p>
+        </li>
+    </ul>
 </div>
 
 {% endblock %}
