@@ -57,6 +57,12 @@ def project2():
                            title="CSTools")
 
 
+@app.route('/gif_display')
+def gif_display():
+    return render_template("/blog/projects/project03.html",
+                           title="Raspberry Pi GIF Display")
+
+
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
     return render_template("/blog/writeups/project02-part1.html",
