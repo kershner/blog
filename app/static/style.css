@@ -1,3 +1,6 @@
+/* *********************************
+   Blog Stylesheet
+   ********************************* */
 body {
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
@@ -13,7 +16,6 @@ p {
   float: left;
   bottom: 25px;
 }
-
 
 #projects-title {
   text-align: center;
@@ -34,6 +36,7 @@ ul.rig {
 	margin-left: -2.5%; /* should match li left margin */
 	margin-right: 2.5%;
 }
+
 ul.rig li {
 	text-align: center;
 	background: #fff;
@@ -55,22 +58,27 @@ ul.rig li img {
 	height: auto;
 	margin: 0 0 10px;
 }
+
 ul.rig li h3 {
 	margin: 0 0 5px;
 }
+
 ul.rig li p {
 	font-size: 1.60em;
 	line-height: 1.5em;
 	color: #999;
 }
+
 /* class for 2 columns */
 ul.rig.columns-2 li {
 	width: 47.5%; /* this value + 2.5 should = 50% */
 }
+
 /* class for 3 columns */
 ul.rig.columns-3 li {
 	width: 30.83%; /* this value + 2.5 should = 33% */
 }
+
 /* class for 4 columns */
 ul.rig.columns-4 li {
 	width: 22.5%; /* this value + 2.5 should = 25% */
@@ -107,11 +115,6 @@ ul.rig .project-images {
 
 #project-screenshots {
 	text-align: center;
-}
-
-body div.container-fluid.big-logo-row div div div h1 {
-  position: relative;
-  left: 15px;
 }
 
 .date {
@@ -176,6 +179,7 @@ pre code{
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border-color: transparent;
 }
+
 @media (max-width: 767px) {
   .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
     background: rgba(255, 255, 255, 0.75);
@@ -216,11 +220,13 @@ pre code{
              0px 4px 13px rgba(0,0,0,0.1),
              0px 9px 23px rgba(0,0,0,0.1);
 }
+
 @media (min-width: 300px) {
   .small-logo {
     font-size: 1.5em;
   }
 }
+
 @media (min-width: 430px) {
   .small-logo {
     font-size: 2.5em;
@@ -247,44 +253,37 @@ pre code{
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
 }
+
 @media (min-width: 300px) {
   .big-logo-row h1 {
-    font-size: 2.5em;
+    font-size: 3.5em;
 	text-align: center;
 	padding-right: 70px;
+	margin: 0 0 0 0;
   }
 }
-@media (min-width: 400px) {
-  .big-logo-row h1 {
-    font-size: 2.25em;
-	padding-right: 0;
-	float: left;
-  }
-}
+
 @media (min-width: 440px) {
   .big-logo-row h1 {
-    font-size: 2.75em;
-  }
-}
-@media (min-width: 500px) {
-  .big-logo-row h1 {
-    font-size: 3.25em;
-  }
-}
-@media (min-width: 630px) {
-  .big-logo-row h1 {
-    font-size: 3.75em;
-	float: none;
-  }
-}
-@media (min-width: 768px) {
-  .big-logo-row h1 {
     font-size: 4.5em;
-    padding-bottom: 30px;
+	float:right;
+	position: relative;
+	bottom: 80px;
   }
 }
-@media (min-width: 1200px) {
+
+@media (min-width: 760px) {
+  .big-logo-row h1 {
+    position: relative;
+	font-size: 4.5em;
+	bottom: 160px;
+	left: 40px;
+  }
+}
+
+@media (min-width: 990px) {
   .big-logo-row h1 {
     font-size: 6em;
+	bottom: 0;
   }
 }
