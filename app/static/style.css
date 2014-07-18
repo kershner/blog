@@ -224,12 +224,15 @@ pre code{
 @media (min-width: 300px) {
   .small-logo {
     font-size: 1.5em;
+	position: relative;
+	top: 10px;
   }
 }
 
 @media (min-width: 430px) {
   .small-logo {
     font-size: 2.5em;
+	top: auto;
   }
 }
 
@@ -256,19 +259,33 @@ pre code{
 
 @media (min-width: 300px) {
   .big-logo-row h1 {
-    font-size: 3.5em;
+    position: absolute;
+	font-size: 1.5em;
 	text-align: center;
-	padding-right: 70px;
+	top: 190px;
+	left: 48px;
 	margin: 0 0 0 0;
+  }
+  .big-logo-container {
+	height: 200px;
   }
 }
 
-@media (min-width: 440px) {
+@media (min-width: 370px) {
   .big-logo-row h1 {
-    font-size: 4.5em;
-	float:right;
+    font-size: 2em;
+	float: right;
 	position: relative;
-	bottom: 80px;
+	top: auto;
+	bottom: 110px;
+	left: auto;
+  }
+}
+
+@media (min-width: 505px) {
+  .big-logo-row h1 {
+    font-size: 2em;
+	bottom: -110px;
   }
 }
 
@@ -276,8 +293,7 @@ pre code{
   .big-logo-row h1 {
     position: relative;
 	font-size: 4.5em;
-	bottom: 160px;
-	left: 40px;
+	bottom: auto;
   }
 }
 
