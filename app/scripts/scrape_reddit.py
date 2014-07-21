@@ -154,9 +154,9 @@ subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'edu
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()
     if prompt == 'work':
-        current_path = 'E:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
     elif prompt == 'home':
-        current_path = 'H:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
 
     time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 

@@ -143,9 +143,9 @@ def scrape_reddit(target_subreddit, path, category):
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()
     if prompt == 'work':
-        current_path = 'E:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
     elif prompt == 'home':
-        current_path = 'H:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
 
     categories = ['animals', 'gaming', 'strange', 'educational']
 

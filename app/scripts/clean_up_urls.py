@@ -38,13 +38,13 @@ def clean_up_urls(path):
     url_number = 0
 
     # Opening files, converting to Python lists
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
+    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
     urls_list = list(urls_file)
-    bad_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/bad_urls.txt' % path, 'a+')
+    bad_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/bad_urls.txt' % path, 'a+')
     bad_urls_list = list(bad_urls_file)
-    large_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/large_urls.txt' % path, 'a+')
+    large_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/large_urls.txt' % path, 'a+')
     large_urls_list = list(large_urls_file)
-    clean_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/clean_urls.txt' % path, 'a+')
+    clean_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'a+')
 
     # Going through reddit submissions from the specified subreddit
     for url in urls_list:
@@ -123,28 +123,28 @@ def clean_up_urls(path):
     clean_urls_file.close()
 
     # Creating Python list from newly populated clean_urls.txt
-    updated_clean_urls = open('%s/programming/projects/blog/app/templates/pi_display/clean_urls.txt' % path, 'r')
+    updated_clean_urls = open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'r')
     clean_urls_list = list(updated_clean_urls)
     updated_clean_urls.close()
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
-    open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'w').close()
+    open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'w').close()
 
     # Re-opening urls.txt, appending with contents of the clean_urls.txt list, closing the file
-    url_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
+    url_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
     for url in clean_urls_list:
         url_file.write(url)
     url_file.close()
 
     # Opening and closing the clean_urls.txt file.  Side effect to erase contents of file.
     print '\n\n\n\nErasing contents of clean_urls.txt...'
-    open('%s/programming/projects/blog/app/templates/pi_display/clean_urls.txt' % path, 'w').close()
+    open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'w').close()
 
 
 def remove_duplicates(path):
     print '\nRemoving duplicates...'
     # Opening files, converting to Python lists
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
+    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
     urls_list = list(urls_file)
     urls_file.close()
 
@@ -160,9 +160,9 @@ def remove_duplicates(path):
             continue
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
-    open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'w').close()
+    open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'w').close()
 
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % path, 'a+')
+    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
 
     for url in unique_urls:
         urls_file.write(str(url))
@@ -187,7 +187,7 @@ if __name__ == '__main__':
     print 'URL cleanup finished at %s' % time_end
 
     # Opening updated file, printing # of URLs
-    with open('%s/programming/projects/blog/app/templates/pi_display/urls.txt' % current_path, 'r') as f:
+    with open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % current_path, 'r') as f:
         number_of_gifs = len(list(f))
         print '\nTotal number of GIFS: %d' % number_of_gifs
     print '%d bad links removed' % log.bad_urls
