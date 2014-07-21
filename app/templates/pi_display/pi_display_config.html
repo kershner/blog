@@ -25,13 +25,23 @@
             </p>
     </div>
 
+    <div id="last-played">
+        <ul>
+            <li>
+                <a href="{{ last_played_1 }}"><img src="{{ last_played_1 }}"></a>
+            </li>
+            <li>
+                <a href="{{ last_played_2 }}"><img src="{{ last_played_2 }}"></a>
+            </li>
+            <li>
+                <a href="{{ last_played_3 }}"><img src="{{ last_played_3 }}"></a>
+            </li>
+        </ul>
+        <h3>Last Played GIFs</h3>
+    </div>
+
     <div id="categories">
         <h2>Category</h2>
-        <div class="message">
-            {% if message %}
-                <h4>{{ message }}</h4>
-            {% endif %}
-        </div>
         <div id="buttons">
             <div class="button red"><a href="/pi_display_config_all"><p class="text">All</p></a></div>
             <div class="button blue"><a href="/pi_display_config_animals"><p class="text">Animals</p></a></div>
@@ -59,16 +69,6 @@
     <div id="form">
         <div id="form-inner">
             <h3>Set Slideshow Delay (in seconds)</h3>
-            {% if delay_message %}
-                <div class="message">
-                    <h4>{{ delay_message }}</h4>
-                </div>
-            {% endif %}
-
-            {% for message in form.delay.errors %}
-                        <p>{{ message }}</p>
-            {% endfor %}
-
             <form action="{{ url_for('pi_display_config') }}" method=POST>
                 {{ form.hidden_tag() }}
 

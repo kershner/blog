@@ -1,17 +1,84 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 	overflow: hidden;
-	background-image: url('https://www.pythonanywhere.com/user/tylerkershner/files/home/tylerkershner/app/static/images/cyberspace.png');
+	background-image: url('/../static/images/cyberspace.png');
+}
+
+div {
+	-webkit-box-shadow: -1px 3px 4px 0px rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0px rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0px rgba(50, 50, 50, 1);
 }
 
 a {
 	text-decoration: none;
 }
 
+#last-played {
+	position: absolute;
+	left: -10px;
+	top: 165px;
+	height: 400px;
+	width: 120px;
+	background-color: red;
+	border-radius: 0 35px 35px 0;
+}
+
+#last-played ul {
+	list-style: none;
+}
+
+#last-played h3 {
+	position: relative;
+	margin-left: 8px;
+	bottom: 8px;
+	left: -8px;
+}
+
+#last-played img {
+	position: relative;
+	max-width: 75px;
+	max-height: 75px;
+	min-width: 75px;
+	min-height: 75px;
+	left: -28px;
+	padding-top: 15px;
+}
+
+#current-settings {
+	position: absolute;
+	background-color: #CCCCFF;
+	left: -10px;
+	top: 60px;
+	width: 210px;
+	height: 90px;
+	border-radius: 0 45px 45px 0;
+}
+
+#current-settings p {
+	position: relative;
+	font-family: 'Lato', sans-serif;
+	text-align: right;
+	left: -25px;
+	bottom: 8px;
+}
+
+#settings-title {
+	font-size: 1.5em;
+}
+
+.settings-name {
+	position: relative;
+	float: left;
+	font-size: 1em;
+	left: 55px;
+}
+
 #wrapper {
 	position: relative;
 	text-align: center;
 	width: 100%;
+	box-shadow: none;
 }
 
 #header {
@@ -32,35 +99,6 @@ a {
 	text-align: left;
 	left: 45px;
 	text-shadow: 0 .1px 1px #000000;
-}
-
-#current-settings {
-	position: relative;
-	background-color: #CCCCFF;
-	float: right;
-	width: 210px;
-	height: 90px;
-	right: -10px;
-	border-radius: 45px 0 0 45px;
-}
-
-#current-settings p {
-	position: relative;
-	font-family: 'Lato', sans-serif;
-	text-align: right;
-	right: 10px;
-	bottom: 8px;
-}
-
-#settings-title {
-	font-size: 1.5em;
-}
-
-.settings-name {
-	position: relative;
-	float: left;
-	font-size: 1em;
-	left: 55px;
 }
 
 #categories {
@@ -116,6 +154,7 @@ a {
 	margin-top: 5px;
 	left: 75px;
 	bottom: 15px;
+	box-shadow: none;
 }
 
 .count {
@@ -126,6 +165,7 @@ a {
 	margin-right: 30px;
 	left: 95px;
 	bottom: 15px;
+	box-shadow: none;
 }
 
 .text {
@@ -178,6 +218,7 @@ a {
 	top: 5px;
 	position: relative;
 	text-align: center;
+	box-shadow: none;
 }
 
 .red {
