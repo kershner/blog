@@ -37,12 +37,15 @@ a {
 
 #last-played img {
 	position: relative;
+	margin-top: 20px;
 	max-width: 75px;
 	max-height: 75px;
 	min-width: 75px;
 	min-height: 75px;
 	left: -28px;
-	padding-top: 15px;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
 }
 
 #current-settings {
