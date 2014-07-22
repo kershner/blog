@@ -1,0 +1,318 @@
+/*
+Setup a basic body
+*/
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x:hidden;
+	overflow-y:hidden;
+    font-family: Arial;
+    font-size: 18px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: #000000;
+}
+
+a:visited {
+	color: #000000;
+}
+
+/*
+Header is relative so z-index: 1 guarantees always displayed on top
+*/
+header {
+    padding: 10px;
+	/*background-image: -webkit-linear-gradient(top, #9933FF 0%, #5D097A 100%);*/
+    background-color: #80c0ff;
+	color: white;
+	text-decoration: none;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+	-webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+ul {
+	list-style: none;
+}
+
+#title {
+	position: absolute;
+	top: -13px;
+	left: 75px;
+	text-shadow: 1px 1px 1px #000;
+}
+
+/*
+using background color is important to cover the menu
+position absolute is set to cover the whole viewport
+*/
+#content {
+	background-image: -ms-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
+	background-image: -moz-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
+	background-image: -o-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #3E3C3D), color-stop(1, #656263));
+	background-image: -webkit-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
+	background-image: linear-gradient(to bottom right, #3E3C3D 0%, #656263 100%);
+    padding: 52px 10px 10px 10px;
+    position: relative;
+    width: auto;
+    min-height: 1000px;
+    -webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+#current {
+	background-color: #ffff80;
+	position: relative;
+	margin-left: 75px;
+	width: 700px;
+	height: 580px;
+	border-radius: 25px 0 0 25px;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+}
+
+#current h2 {
+	position: relative;
+	text-align: center;
+	top: 10px;
+	color: white;
+	text-shadow: 1px 1px 4px black;
+}
+
+#image {
+	position: relative;
+	margin: 0 auto;
+	width: 640px;
+	height: 480px;
+	bottom: 5px;
+}
+
+#last-played {
+	background-color: #ffff80;
+	position: relative;
+	float: right;
+	right: 554px;
+	bottom: 580px;
+	width: 175px;
+	height: 580px;
+	border-radius: 0 25px 0 0;
+	
+}
+
+#last-played a {
+	position: relative;
+	color: white;
+	text-shadow: 1px 0 3px black;
+}
+
+#last-played ul {
+	position: relative;
+	bottom: 20px;
+}
+
+#last-played img {
+	position: relative;
+	margin-top: 20px;
+	max-width: 75px;
+	max-height: 75px;
+	min-width: 75px;
+	min-height: 75px;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+}
+
+#message {
+	position: relative;
+	float: left;
+	margin-top: 10px;
+	left: 125px;
+	width: 400px;
+	height: 150px;
+	color: white;
+}
+
+#settings {
+	background-color: #80c1ff;
+	float: right;
+	position: relative;
+	right: 379px;
+	width: 200px;
+	height: 100px;
+	border-radius: 0 0 25px 25px;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+}
+
+#settings p {
+	text-align: left, justify;
+	margin-left: 35px;
+	color: white;
+	text-shadow: 1px 1px 1px black;
+}
+
+#settings p #settings-title {
+	position: relative;
+	left: -10px;
+	top: -10px;
+	color: white;
+	text-shadow: 1px 1px 1px black;
+}
+
+/*
+the hamburger button with a little gradient effect
+*/
+#hamburger {
+    border: 1px solid #374C77;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    padding: 3px 4px 3px;
+    position: relative;
+    width: 25px;
+    background: #3399ff;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4569b2', endColorstr='#4062a5',GradientType=0 );
+}
+
+/*
+The white stripes in the hamburger button
+*/
+#hamburger div {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 2px 2px 2px 2px;
+    height: 2px;
+    margin-top: 3px;
+    width: 90%;
+}
+
+/*
+The navigation container in the background
+*/
+nav {
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    z-index: 0;
+    width: 25%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow-x:hidden;
+    overflow-y:auto ;
+    background: #3e3c3d;
+    background: -moz-linear-gradient(top,  #3e3c3d 0%, #2d2c2d 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3e3c3d), color-stop(100%,#2d2c2d));
+    background: -webkit-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: -o-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: -ms-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: linear-gradient(to bottom,  #3e3c3d 0%,#2d2c2d 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e3c3d', endColorstr='#2d2c2d',GradientType=0 );
+}
+
+#settings-header {
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	color: white;
+	text-shadow: 1px 1px 1px #000;
+}
+
+
+.categories {
+	margin-top: 50px;
+}
+
+.categories h3 {
+	color: white;
+	text-shadow: 1px 1px 1px #000;
+	padding-left: 10px;
+}
+
+.row {
+	position: relative;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	background-color: white;
+	height: 35px;
+	text-shadow: .5px .5px 3px #000;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	
+}
+
+#lightblue {
+	background-color: #8080ff;
+}
+
+#salmon {
+	background-color: #ff8080;
+}
+
+#blue {
+	background-color: #4da7ff;
+}
+
+#green {
+	background-color: #c0ff80;
+}
+
+#orange {
+	background-color: #ffbf80;
+}
+
+.row:hover {
+	color: #ffff80;
+}
+
+.row h3 {
+	position: relative;
+	bottom: 15px;
+}
+
+.count {
+	float: right;
+	margin-right: 20px;
+}
+
+#form {
+	margin-top: 75px;
+	position: relative;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	background-color: #80ffbf;
+	width: 100%;
+	text-align: center;
+}
+
+/*
+The Layer that will be laid over the content
+so that the content is unclickable while menu is shown
+*/
+#contentLayer {
+    display: none;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 75%;
+    z-index: 5;
+    min-height: 1062px;
+}
