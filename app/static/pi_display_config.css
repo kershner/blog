@@ -16,7 +16,7 @@ a:link {
 }
 
 a:visited {
-	color: #000000;
+	color: #FFFFFF;
 }
 
 a:hover {
@@ -250,7 +250,7 @@ nav {
 	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
 	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
 	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
-	
+
 }
 
 #lightblue {
