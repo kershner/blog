@@ -72,7 +72,9 @@ header {
 
 .previous-gifs {
 	text-align: center;
-	width: 100%;
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .image {
@@ -86,9 +88,10 @@ header {
 }
 
 .next {
+	width: 280px;
+	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 25%;
 	text-align: center;
 }
 
