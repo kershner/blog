@@ -170,157 +170,9 @@ def pi_display():
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
-    with open('%s/urls.txt' % path, 'r') as urls_file:
-        main_urls_list = list(urls_file)
-
-    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
-        animals_urls_list = list(urls_file)
-
-    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
-        gaming_urls_list = list(urls_file)
-
-    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
-        strange_urls_list = list(urls_file)
-
-    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
-        educational_urls_list = list(urls_file)
-
-    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
-        config_file_list = list(urls_file)
-
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
-
-    main_urls_count = len(main_urls_list)
-    animals_urls_count = len(animals_urls_list)
-    gaming_urls_count = len(gaming_urls_list)
-    strange_urls_count = len(strange_urls_list)
-    educational_urls_count = len(educational_urls_list)
-    last_played_1 = last_played_list[-4]
-    last_played_2 = last_played_list[-3]
-    last_played_3 = last_played_list[-2]
-
-    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
-    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
-    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('Enter a time delay (in seconds)')
-            return redirect(url_for('pi_display_config'))
-
-        else:
-            delay = str(form.delay.data)
-            with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-                config_file.write(config_file_list[0])
-                config_file.write(config_file_list[1])
-                config_file.write(config_file_list[2])
-                config_file.write('DELAY = %s' % delay + '\n')
-            return redirect(url_for('pi_display_config'))
-
-    elif request.method == 'GET':
-        return render_template("/pi_display/pi_display_config.html",
-                               title="Raspberry Pi GIF Display Configuration",
-                               current_gif=current_gif,
-                               form=form,
-                               main_urls_count=main_urls_count,
-                               animals_urls_count=animals_urls_count,
-                               gaming_urls_count=gaming_urls_count,
-                               strange_urls_count=strange_urls_count,
-                               educational_urls_count=educational_urls_count,
-                               last_played_1=last_played_1,
-                               last_played_2=last_played_2,
-                               last_played_3=last_played_3,
-                               category=category,
-                               delay=delay)
-
-
-@app.route('/pi_display_config_all')
-def pi_display_config_all():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = all' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_animals')
-def pi_display_config_animals():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = animals' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_gaming')
-def pi_display_config_gaming():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = gaming' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_strange')
-def pi_display_config_strange():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = strange' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_educational')
-def pi_display_config_educational():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = educational' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_test', methods=['GET', 'POST'])
-def pi_display_config_test():
-    form = SlideshowDelay()
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/urls.txt' % path, 'r') as urls_file:
         main_urls_list = list(urls_file)
@@ -361,19 +213,21 @@ def pi_display_config_test():
     if request.method == 'POST':
         if not form.validate():
             flash('Enter a time delay (in seconds)')
-            return redirect(url_for('pi_display_config_test'))
+            return redirect(url_for('pi_display_config'))
 
         else:
             delay = str(form.delay.data)
+
             with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
                 config_file.write(config_file_list[0])
                 config_file.write(config_file_list[1])
                 config_file.write(config_file_list[2])
                 config_file.write('DELAY = %s' % delay + '\n')
+
             return redirect(url_for('pi_display_config'))
 
     elif request.method == 'GET':
-        return render_template("/pi_display/pi_display_config_test.html",
+        return render_template("/pi_display/pi_display_config.html",
                                current_gif=current_gif,
                                form=form,
                                main_urls_count=main_urls_count,
@@ -388,6 +242,92 @@ def pi_display_config_test():
                                last_played_5=last_played_5,
                                category=category,
                                delay=delay)
+
+
+@app.route('/pi_display_config_all')
+def pi_display_config_all():
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = all' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('pi_display_config'))
+
+
+@app.route('/pi_display_config_animals')
+def pi_display_config_animals():
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = animals' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('pi_display_config'))
+
+
+@app.route('/pi_display_config_gaming')
+def pi_display_config_gaming():
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = gaming' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('pi_display_config'))
+
+
+@app.route('/pi_display_config_strange')
+def pi_display_config_strange():
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = strange' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('pi_display_config'))
+
+
+@app.route('/pi_display_config_educational')
+def pi_display_config_educational():
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write('CATEGORY = educational' + '\n')
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('pi_display_config'))
+
 
 #######################################################################################
 #####  CS Tools Apps ##################################################################

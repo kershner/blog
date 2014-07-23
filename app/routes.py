@@ -196,9 +196,11 @@ def pi_display_config():
     gaming_urls_count = len(gaming_urls_list)
     strange_urls_count = len(strange_urls_list)
     educational_urls_count = len(educational_urls_list)
-    last_played_1 = last_played_list[-4]
-    last_played_2 = last_played_list[-3]
-    last_played_3 = last_played_list[-2]
+    last_played_1 = last_played_list[-6]
+    last_played_2 = last_played_list[-5]
+    last_played_3 = last_played_list[-4]
+    last_played_4 = last_played_list[-3]
+    last_played_5 = last_played_list[-2]
 
     category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
     delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
@@ -231,6 +233,8 @@ def pi_display_config():
                                last_played_1=last_played_1,
                                last_played_2=last_played_2,
                                last_played_3=last_played_3,
+                               last_played_4=last_played_4,
+                               last_played_5=last_played_5,
                                category=category,
                                delay=delay)
 

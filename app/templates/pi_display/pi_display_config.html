@@ -1,89 +1,143 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/static/images/mcp.png">
-    <link type="text/css" rel="stylesheet" href="/static/pi_display_config.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<head>
+    <title>Raspberry Pi GIF Display Config</title>
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--Using jQuery and jQuery UI for display effects-->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <!-- Image center/resize JS -->
     <script src="/static/js/imgcentering.min.js"></script>
-    <title>{{ title }}</title>
+
+    <!--Using the hamburger menu display code-->
+    <script src="/static/js/hamburger.js"></script>
+
+    <!--Using Media Queries, if the viewport is smaller than 700px use another stylesheet-->
+    <link rel="stylesheet" type="text/css" media="all" href="/static/pi_display_config.css" />
 </head>
+
 <body>
-<div id="wrapper">
-    <div id="header">
-        <a href="/pi_display_config"><h1>Raspberry Pi GIF Display Configuration</h1></a>
-    </div>
 
-    <div id="current-settings">
-            <p>
-                <span id="settings-title">Current Settings</span><br>
-                <span class="settings-name">Category:</span> {{ category }}<br>
-                <span class="settings-name">&nbsp;Delay:</span> {{ delay }}
-            </p>
-    </div>
+    <!--This wrapping container is used to get the width of the whole content-->
+    <div id="container">
 
-    <div id="last-played">
-        <ul>
-            <li>
+        <!--The Hamburger Button in the Header-->
+        <header>
+            <div id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div id="title"><h2>Raspberry Pi GIF Display Config</h2></div>
+
+            <div id="settings">
+                <span id="settings-title">Current Settings</span><hr>
+                Category: <span class="setting">{{ category }}</span><br>
+                &nbsp;Delay: <span class="setting">{{ delay }}</span>
+            </div>
+
+        </header>
+
+        <!--The mobile navigation Markup hidden via css-->
+        <nav class="mobileNav">
+
+            <div id="menu">
+
+                <div id="settings-header">
+                    <h1>Settings</h1>
+                </div>
+
+                <div class="categories">
+
+                    <h3>Categories</h3>
+
+                    <a href="/pi_display_config_all">
+                        <div class="row" id="lightblue">
+                            All <span class="count">{{ main_urls_count }} GIFs</span>
+                        </div>
+                    </a>
+
+                    <a href="/pi_display_config_animals">
+                        <div class="row" id="salmon">
+                            Animals<span class="count">{{ animals_urls_count }} GIFs</span>
+                        </div>
+                    </a>
+
+                    <a href="/pi_display_config_gaming">
+                        <div class="row" id="green">
+                            Gaming<span class="count">{{ gaming_urls_count }} GIFs</span>
+                        </div>
+                    </a>
+
+                    <a href="/pi_display_config_strange">
+                        <div class="row" id="blue">
+                            Strange<span class="count">{{ strange_urls_count }} GIFs</span>
+                        </div>
+                    </a>
+
+                    <a href="/pi_display_config_educational">
+                        <div class="row" id="orange">
+                            Educational<span class="count">{{ educational_urls_count }} GIFs</span>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div id="form">
+                    <h3>Slideshow Delay (in seconds)</h3>
+                    <form action="{{ url_for('pi_display_config') }}" method=POST>
+                        {{ form.hidden_tag() }}
+
+                        {{ form.delay(class_='') }}<br>
+
+                        {{ form.submit(class_='button') }}
+                    </form>
+                </div>
+
+
+            </div>
+
+        </nav>
+
+        <!--The layer that will be laid over the content
+        so that the content is unclickable while menu is shown-->
+        <div id="contentLayer"></div>
+
+        <!--The content of the site-->
+        <div id="content">
+
+            <div id="current">
+                <h2>Currently Playing GIF</h2>
+                <a href="{{ current_gif }}">
+                    <div id="image"><img src="{{ current_gif }}"><br></div>
+                </a>
+            </div>
+
+            <div id="last-played">
+                <a href="#"><h3>Previously...</h3></a>
                 <a href="{{ last_played_1 }}"><img src="{{ last_played_1 }}"></a>
-            </li>
-            <li>
                 <a href="{{ last_played_2 }}"><img src="{{ last_played_2 }}"></a>
-            </li>
-            <li>
                 <a href="{{ last_played_3 }}"><img src="{{ last_played_3 }}"></a>
-            </li>
-        </ul>
-        <h3>Last Played GIFs</h3>
-    </div>
+                <a href="{{ last_played_4 }}"><img src="{{ last_played_4 }}"></a>
+                <a href="{{ last_played_5 }}"><img src="{{ last_played_5 }}"></a>
+            </div>
 
-    <div id="categories">
-        <h2>Category</h2>
-        <div id="buttons">
-            <div class="button red"><a href="/pi_display_config_all"><p class="text">All</p></a></div>
-            <div class="button blue"><a href="/pi_display_config_animals"><p class="text">Animals</p></a></div>
-            <div class="button purple"><a href="/pi_display_config_gaming"><p class="text">Gaming</p></a></div>
-            <div class="button orange"><a href="/pi_display_config_strange"><p class="text">Strange</p></a></div>
-            <div class="button green"><a href="/pi_display_config_educational"><p class="text">Educational</p></a></div>
-        </div><br>
-        <div id="gifcount">
-            <div id="main-count">{{ main_urls_count }} GIFs</div>
-            <div class="count">{{ animals_urls_count }} GIFs</div>
-            <div class="count">{{ gaming_urls_count }} GIFs</div>
-            <div class="count">{{ strange_urls_count }} GIFs</div>
-            <div class="count">{{ educational_urls_count }} GIFs</div>
+            {% if message %}
+            <div id="message">
+                <p>{{ message }}</p>
+            </div>
+            {% endif %}
         </div>
+
     </div>
 
-    <div id="current">
-        <h2>Currently Playing GIF</h2>
-        <div id="image">
-            <img src="{{ current_gif }}"><br>
-        </div>
-        <p>{{ current_gif }}</p>
-    </div>
-
-    <div id="form">
-        <div id="form-inner">
-            <h3>Set Slideshow Delay (in seconds)</h3>
-            <form action="{{ url_for('pi_display_config') }}" method=POST>
-                {{ form.hidden_tag() }}
-
-                {{ form.delay(class_="backorder-form-top") }}
-
-                {{ form.submit(class_='btn btn-lg btn-danger') }}
-            </form>
-        </div>
-    </div>
-</div>
-
-</body>
 <script>
 $(document).ready(function() {
    $("#image img").imgCentering();
 });
 </script>
+
+</body>
 </html>
