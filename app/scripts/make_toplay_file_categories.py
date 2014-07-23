@@ -21,9 +21,9 @@ def make_toplay_file(path, filename):
 if __name__ == '__main__':
     prompt = raw_input('Are you running this script from home or work? > ').lower()
     if prompt == 'work':
-        current_path = 'E:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
     elif prompt == 'home':
-        current_path = 'H:/programming/projects/blog/app/templates/pi_display'
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
 
     categories = ['animals', 'gaming', 'strange', 'educational']
     for category in categories:
