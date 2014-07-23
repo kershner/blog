@@ -171,8 +171,8 @@ def pi_display():
 def pi_display_config():
     form = SlideshowDelay()
 
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/urls.txt' % path, 'r') as urls_file:
         main_urls_list = list(urls_file)
@@ -246,8 +246,8 @@ def pi_display_config():
 
 @app.route('/pi_display_config_all')
 def pi_display_config_all():
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -263,8 +263,8 @@ def pi_display_config_all():
 
 @app.route('/pi_display_config_animals')
 def pi_display_config_animals():
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -280,8 +280,8 @@ def pi_display_config_animals():
 
 @app.route('/pi_display_config_gaming')
 def pi_display_config_gaming():
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -297,8 +297,8 @@ def pi_display_config_gaming():
 
 @app.route('/pi_display_config_strange')
 def pi_display_config_strange():
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -314,8 +314,8 @@ def pi_display_config_strange():
 
 @app.route('/pi_display_config_educational')
 def pi_display_config_educational():
-    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -327,6 +327,75 @@ def pi_display_config_educational():
         config_file.write(config_file_list[3])
 
     return redirect(url_for('pi_display_config'))
+
+
+@app.route('/previously/1-20')
+def previously():
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           number=20)
+
+
+@app.route('/previously/21-40')
+def previously_2():
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
+    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           next_ten1=next_ten1,
+                           next_ten2=next_ten2,
+                           number=40)
+
+
+@app.route('/previously/41-60')
+def previously_3():
+    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
+    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
+    next_ten3 = ''.join(last_played_list[-41:-51:-1]).split()
+    next_ten4 = ''.join(last_played_list[-51:-61:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           next_ten1=next_ten1,
+                           next_ten2=next_ten2,
+                           next_ten3=next_ten3,
+                           next_ten4=next_ten4,
+                           number=60)
 
 
 #######################################################################################

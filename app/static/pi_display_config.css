@@ -12,11 +12,15 @@ a {
 }
 
 a:link {
-	color: #000000;
+	color: #FFFFFF;
 }
 
 a:visited {
 	color: #000000;
+}
+
+a:hover {
+	color: red;
 }
 
 header {
@@ -163,6 +167,7 @@ position absolute is set to cover the whole viewport
 	text-align: center;
 	margin: 0;
 	padding: 0;
+	text-shadow: 1px 1px 4px #000;
 }
 
 #last-played img {
@@ -268,8 +273,20 @@ nav {
 	background-color: #ffbf80;
 }
 
-.row:hover {
-	color: #ffff80;
+#lightblue:hover {
+	background-color: red;
+}
+#salmon:hover {
+	background-color: red;
+}
+#green:hover {
+	background-color: red;
+}
+#blue:hover {
+	background-color: red;
+}
+#orange:hover {
+	background-color: red;
 }
 
 .row h3 {

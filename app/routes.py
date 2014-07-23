@@ -319,6 +319,72 @@ def pi_display_config_educational():
     return redirect(url_for('pi_display_config'))
 
 
+@app.route('/previously/1-20')
+def previously():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           number=20)
+
+
+@app.route('/previously/21-40')
+def previously_2():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
+    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           next_ten1=next_ten1,
+                           next_ten2=next_ten2,
+                           number=40)
+
+
+@app.route('/previously/41-60')
+def previously_3():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    list_length = len(last_played_list)
+    last_ten = ''.join(last_played_list[:-11:-1]).split()
+    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
+    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
+    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
+    next_ten3 = ''.join(last_played_list[-41:-51:-1]).split()
+    next_ten4 = ''.join(last_played_list[-51:-61:-1]).split()
+
+    return render_template('/pi_display/previously.html',
+                           list_length=list_length,
+                           last_ten=last_ten,
+                           next_ten=next_ten,
+                           next_ten1=next_ten1,
+                           next_ten2=next_ten2,
+                           next_ten3=next_ten3,
+                           next_ten4=next_ten4,
+                           number=60)
+
+
 ##############################################################################
 #####  CS Tools Apps #########################################################
 @app.route('/')
