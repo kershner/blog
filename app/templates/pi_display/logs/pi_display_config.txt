@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
 CATEGORY = all
-CURRENT_GIF = https://lh6.googleusercontent.com/-LXAGL5aBuxw/U7R7AoyCatI/AAAAAAAAIZA/QzDPx4wA-Lo/w426-h240/Amazing+Cute+Dog+Tricks+with+Tiny+Dog+Misa+Minnie.gif
+CURRENT_GIF = http://cdn.makeagif.com/media/6-26-2014/vTwYUl.gif
 DELAY = 20
