@@ -3,6 +3,23 @@ $(document).ready(function() {
     animateDiv($('.a'));
     animateDiv($('.b'));
     animateDiv($('.c'));
+    animateDiv($('.d'));
+    animateDiv($('.e'));
+    animateDiv($('.f'));
+    animateDiv($('.g'));
+    animateDiv($('.h'));
+    animateDiv($('.i'));
+    animateDiv($('.j'));
+    animateDiv($('.k'));
+    animateDiv($('.l'));
+    animateDiv($('.m'));
+    animateDiv($('.n'));
+    animateDiv($('.o'));
+    animateDiv($('.p'));
+    animateDiv($('.q'));
+    animateDiv($('.r'));
+    animateDiv($('.s'));
+    animateDiv($('.t'));
 
 });
 
