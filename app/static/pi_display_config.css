@@ -184,6 +184,33 @@ position absolute is set to cover the whole viewport
 	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
 }
 
+#party {
+	position: relative;
+	top: -25px;
+	border-radius: 0 0 40px 40px;
+	text-align: center;
+	text-shadow: 1px 1px #000;
+	margin-left: auto;
+	margin-right: auto;
+	height: 75px;
+	width: 200px;
+	background-color: #80ffbf;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	background: -moz-linear-gradient(45deg, rgba(128,255,191,1) 0%, rgba(0,191,191,1) 100%); /* ff3.6+ */
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(128,255,191,1)), color-stop(100%, rgba(0,191,191,1))); /* safari4+,chrome */
+	background: -webkit-linear-gradient(45deg, rgba(128,255,191,1) 0%, rgba(0,191,191,1) 100%); /* safari5.1+,chrome10+ */
+	background: -o-linear-gradient(45deg, rgba(128,255,191,1) 0%, rgba(0,191,191,1) 100%); /* opera 11.10+ */
+	background: -ms-linear-gradient(45deg, rgba(128,255,191,1) 0%, rgba(0,191,191,1) 100%); /* ie10+ */
+	background: linear-gradient(45deg, rgba(128,255,191,1) 0%, rgba(0,191,191,1) 100%); /* w3c */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00BFBF', endColorstr='#80ffbf',GradientType=1 ); /* ie6-9 */
+}
+
+#party h1 {
+	padding-top: 15px;
+}
+
 #message {
 	position: relative;
 	text-align: center;
