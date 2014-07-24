@@ -385,6 +385,57 @@ def previously_3():
                            number=60)
 
 
+@app.route('/gif_party')
+def gif_party():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'r') as last_played_file:
+        last_played_list = list(last_played_file)
+
+    gif_url_1 = last_played_list[-21]
+    gif_url_2 = last_played_list[-20]
+    gif_url_3 = last_played_list[-19]
+    gif_url_4 = last_played_list[-18]
+    gif_url_5 = last_played_list[-17]
+    gif_url_6 = last_played_list[-16]
+    gif_url_7 = last_played_list[-15]
+    gif_url_8 = last_played_list[-14]
+    gif_url_9 = last_played_list[-13]
+    gif_url_10 = last_played_list[-12]
+    gif_url_11 = last_played_list[-11]
+    gif_url_12 = last_played_list[-10]
+    gif_url_13 = last_played_list[-9]
+    gif_url_14 = last_played_list[-8]
+    gif_url_15 = last_played_list[-7]
+    gif_url_16 = last_played_list[-6]
+    gif_url_17 = last_played_list[-5]
+    gif_url_18 = last_played_list[-4]
+    gif_url_19 = last_played_list[-3]
+    gif_url_20 = last_played_list[-2]
+
+    return render_template('/pi_display/gif_party.html',
+                           gif_url_1=gif_url_1,
+                           gif_url_2=gif_url_2,
+                           gif_url_3=gif_url_3,
+                           gif_url_4=gif_url_4,
+                           gif_url_5=gif_url_5,
+                           gif_url_6=gif_url_6,
+                           gif_url_7=gif_url_7,
+                           gif_url_8=gif_url_8,
+                           gif_url_9=gif_url_9,
+                           gif_url_10=gif_url_10,
+                           gif_url_11=gif_url_11,
+                           gif_url_12=gif_url_12,
+                           gif_url_13=gif_url_13,
+                           gif_url_14=gif_url_14,
+                           gif_url_15=gif_url_15,
+                           gif_url_16=gif_url_16,
+                           gif_url_17=gif_url_17,
+                           gif_url_18=gif_url_18,
+                           gif_url_19=gif_url_19,
+                           gif_url_20=gif_url_20)
+
+
 ##############################################################################
 #####  CS Tools Apps #########################################################
 @app.route('/')
