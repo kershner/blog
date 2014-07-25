@@ -133,27 +133,5 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-var clicked = false
-
-$('#party').click(function() {
-
-    if(clicked == true){
-
-     $(".hidden").animate({
-            top: '500px'
-    }, 500);
-        clicked = false;
-
-
-    }else{
-    $(".hidden").animate({
-            top: '0px'
-    }, 2000);
-        clicked = true;
-        }
-    });
-</script>
-
 </body>
 </html>
