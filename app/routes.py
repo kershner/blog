@@ -385,55 +385,397 @@ def previously_3():
                            number=60)
 
 
+##############################################################################
+## Gif Party #################################################################
 @app.route('/gif_party')
 def gif_party():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
+    with open('%s/gif_party_config.txt' % path, 'r') as config:
+            config_file_list = list(config)
+
+    category = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('\n')]
+    delay = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+    number = int(config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')])
+    randomize = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+
+    if category == 'all':
+        filename = 'urls.txt'
+    elif category == 'animals':
+        filename = 'animals_urls.txt'
+    elif category == 'gaming':
+        filename = 'gaming_urls.txt'
+    elif category == 'strange':
+        filename = 'strange_urls.txt'
+    elif category == 'educational':
+        filename = 'educational_urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    with open('%s/urls.txt' % path, 'r') as last_played_file:
+        all_urls_list = list(last_played_file)
+
     with open('%s/last_played.txt' % path, 'r') as last_played_file:
         last_played_list = list(last_played_file)
 
-    gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
-    gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
-    gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
-    gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
-    gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
-    gif_url_6 = last_played_list[-16][:last_played_list[-16].find('\n')]
-    gif_url_7 = last_played_list[-15][:last_played_list[-15].find('\n')]
-    gif_url_8 = last_played_list[-14][:last_played_list[-14].find('\n')]
-    gif_url_9 = last_played_list[-13][:last_played_list[-13].find('\n')]
-    gif_url_10 = last_played_list[-12][:last_played_list[-12].find('\n')]
-    gif_url_11 = last_played_list[-11][:last_played_list[-11].find('\n')]
-    gif_url_12 = last_played_list[-10][:last_played_list[-10].find('\n')]
-    gif_url_13 = last_played_list[-9][:last_played_list[-9].find('\n')]
-    gif_url_14 = last_played_list[-8][:last_played_list[-8].find('\n')]
-    gif_url_15 = last_played_list[-7][:last_played_list[-7].find('\n')]
-    gif_url_16 = last_played_list[-6][:last_played_list[-6].find('\n')]
-    gif_url_17 = last_played_list[-5][:last_played_list[-5].find('\n')]
-    gif_url_18 = last_played_list[-4][:last_played_list[-4].find('\n')]
-    gif_url_19 = last_played_list[-3][:last_played_list[-3].find('\n')]
-    gif_url_20 = last_played_list[-2][:last_played_list[-2].find('\n')]
+    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
+        animals_urls_list = list(urls_file)
 
-    return render_template('/pi_display/gif_party.html',
-                           gif_url_1=gif_url_1,
-                           gif_url_2=gif_url_2,
-                           gif_url_3=gif_url_3,
-                           gif_url_4=gif_url_4,
-                           gif_url_5=gif_url_5,
-                           gif_url_6=gif_url_6,
-                           gif_url_7=gif_url_7,
-                           gif_url_8=gif_url_8,
-                           gif_url_9=gif_url_9,
-                           gif_url_10=gif_url_10,
-                           gif_url_11=gif_url_11,
-                           gif_url_12=gif_url_12,
-                           gif_url_13=gif_url_13,
-                           gif_url_14=gif_url_14,
-                           gif_url_15=gif_url_15,
-                           gif_url_16=gif_url_16,
-                           gif_url_17=gif_url_17,
-                           gif_url_18=gif_url_18,
-                           gif_url_19=gif_url_19,
-                           gif_url_20=gif_url_20)
+    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
+        gaming_urls_list = list(urls_file)
+
+    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
+        strange_urls_list = list(urls_file)
+
+    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
+        educational_urls_list = list(urls_file)
+
+    main_urls_count = len(all_urls_list)
+    animals_urls_count = len(animals_urls_list)
+    gaming_urls_count = len(gaming_urls_list)
+    strange_urls_count = len(strange_urls_list)
+    educational_urls_count = len(educational_urls_list)
+
+    if number == 5:
+        if randomize == 'yes':
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
+        else:
+            gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
+            gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
+            gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
+            gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
+            gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
+
+        return render_template('/pi_display/gif_party.html',
+                               urls_count=main_urls_count,
+                               animals_urls_count=animals_urls_count,
+                               gaming_urls_count=gaming_urls_count,
+                               strange_urls_count=strange_urls_count,
+                               educational_urls_count=educational_urls_count,
+                               category=category,
+                               randomize=randomize,
+                               gif_url_1=gif_url_1,
+                               gif_url_2=gif_url_2,
+                               gif_url_3=gif_url_3,
+                               gif_url_4=gif_url_4,
+                               gif_url_5=gif_url_5,
+                               number=number)
+    elif number == 10:
+        if randomize == 'yes':
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
+            gif_url_6 = random.choice(urls_list)
+            urls_list.remove(gif_url_6)
+            gif_url_7 = random.choice(urls_list)
+            urls_list.remove(gif_url_7)
+            gif_url_8 = random.choice(urls_list)
+            urls_list.remove(gif_url_8)
+            gif_url_9 = random.choice(urls_list)
+            urls_list.remove(gif_url_9)
+            gif_url_10 = random.choice(urls_list)
+            urls_list.remove(gif_url_10)
+        else:
+            gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
+            gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
+            gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
+            gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
+            gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
+            gif_url_6 = last_played_list[-16][:last_played_list[-16].find('\n')]
+            gif_url_7 = last_played_list[-15][:last_played_list[-15].find('\n')]
+            gif_url_8 = last_played_list[-14][:last_played_list[-14].find('\n')]
+            gif_url_9 = last_played_list[-13][:last_played_list[-13].find('\n')]
+            gif_url_10 = last_played_list[-12][:last_played_list[-12].find('\n')]
+
+        return render_template('/pi_display/gif_party.html',
+                               urls_count=main_urls_count,
+                               animals_urls_count=animals_urls_count,
+                               gaming_urls_count=gaming_urls_count,
+                               strange_urls_count=strange_urls_count,
+                               educational_urls_count=educational_urls_count,
+                               category=category,
+                               randomize=randomize,
+                               gif_url_1=gif_url_1,
+                               gif_url_2=gif_url_2,
+                               gif_url_3=gif_url_3,
+                               gif_url_4=gif_url_4,
+                               gif_url_5=gif_url_5,
+                               gif_url_6=gif_url_6,
+                               gif_url_7=gif_url_7,
+                               gif_url_8=gif_url_8,
+                               gif_url_9=gif_url_9,
+                               gif_url_10=gif_url_10,
+                               number=number)
+    elif number == 20:
+        if randomize == 'yes':
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
+            gif_url_6 = random.choice(urls_list)
+            urls_list.remove(gif_url_6)
+            gif_url_7 = random.choice(urls_list)
+            urls_list.remove(gif_url_7)
+            gif_url_8 = random.choice(urls_list)
+            urls_list.remove(gif_url_8)
+            gif_url_9 = random.choice(urls_list)
+            urls_list.remove(gif_url_9)
+            gif_url_10 = random.choice(urls_list)
+            urls_list.remove(gif_url_10)
+            gif_url_11 = random.choice(urls_list)
+            urls_list.remove(gif_url_11)
+            gif_url_12 = random.choice(urls_list)
+            urls_list.remove(gif_url_12)
+            gif_url_13 = random.choice(urls_list)
+            urls_list.remove(gif_url_13)
+            gif_url_14 = random.choice(urls_list)
+            urls_list.remove(gif_url_14)
+            gif_url_15 = random.choice(urls_list)
+            urls_list.remove(gif_url_15)
+            gif_url_16 = random.choice(urls_list)
+            urls_list.remove(gif_url_16)
+            gif_url_17 = random.choice(urls_list)
+            urls_list.remove(gif_url_17)
+            gif_url_18 = random.choice(urls_list)
+            urls_list.remove(gif_url_18)
+            gif_url_19 = random.choice(urls_list)
+            urls_list.remove(gif_url_19)
+            gif_url_20 = random.choice(urls_list)
+            urls_list.remove(gif_url_20)
+        else:
+            gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
+            gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
+            gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
+            gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
+            gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
+            gif_url_6 = last_played_list[-16][:last_played_list[-16].find('\n')]
+            gif_url_7 = last_played_list[-15][:last_played_list[-15].find('\n')]
+            gif_url_8 = last_played_list[-14][:last_played_list[-14].find('\n')]
+            gif_url_9 = last_played_list[-13][:last_played_list[-13].find('\n')]
+            gif_url_10 = last_played_list[-12][:last_played_list[-12].find('\n')]
+            gif_url_11 = last_played_list[-11][:last_played_list[-11].find('\n')]
+            gif_url_12 = last_played_list[-10][:last_played_list[-10].find('\n')]
+            gif_url_13 = last_played_list[-9][:last_played_list[-9].find('\n')]
+            gif_url_14 = last_played_list[-8][:last_played_list[-8].find('\n')]
+            gif_url_15 = last_played_list[-7][:last_played_list[-7].find('\n')]
+            gif_url_16 = last_played_list[-6][:last_played_list[-6].find('\n')]
+            gif_url_17 = last_played_list[-5][:last_played_list[-5].find('\n')]
+            gif_url_18 = last_played_list[-4][:last_played_list[-4].find('\n')]
+            gif_url_19 = last_played_list[-3][:last_played_list[-3].find('\n')]
+            gif_url_20 = last_played_list[-2][:last_played_list[-2].find('\n')]
+
+        return render_template('/pi_display/gif_party.html',
+                               urls_count=main_urls_count,
+                               animals_urls_count=animals_urls_count,
+                               gaming_urls_count=gaming_urls_count,
+                               strange_urls_count=strange_urls_count,
+                               educational_urls_count=educational_urls_count,
+                               category=category,
+                               randomize=randomize,
+                               gif_url_1=gif_url_1,
+                               gif_url_2=gif_url_2,
+                               gif_url_3=gif_url_3,
+                               gif_url_4=gif_url_4,
+                               gif_url_5=gif_url_5,
+                               gif_url_6=gif_url_6,
+                               gif_url_7=gif_url_7,
+                               gif_url_8=gif_url_8,
+                               gif_url_9=gif_url_9,
+                               gif_url_10=gif_url_10,
+                               gif_url_11=gif_url_11,
+                               gif_url_12=gif_url_12,
+                               gif_url_13=gif_url_13,
+                               gif_url_14=gif_url_14,
+                               gif_url_15=gif_url_15,
+                               gif_url_16=gif_url_16,
+                               gif_url_17=gif_url_17,
+                               gif_url_18=gif_url_18,
+                               gif_url_19=gif_url_19,
+                               gif_url_20=gif_url_20,
+                               number=number)
+
+
+@app.route('/gif_party_all')
+def gif_party_all():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write('CATEGORY = all' + '\n')
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_animals')
+def gif_party_animals():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write('CATEGORY = animals' + '\n')
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_gaming')
+def gif_party_gaming():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write('CATEGORY = gaming' + '\n')
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_strange')
+def gif_party_strange():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write('CATEGORY = strange' + '\n')
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_educational')
+def gif_party_educational():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write('CATEGORY = educational' + '\n')
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_5')
+def gif_party_5():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write('NUMBER = 5' + '\n')
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_10')
+def gif_party_10():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write('NUMBER = 10' + '\n')
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_20')
+def gif_party_20():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write('NUMBER = 20' + '\n')
+        config_file.write(config_file_list[3])
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_randomize')
+def gif_party_randomize():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write('RANDOMIZE = yes' + '\n')
+
+    return redirect(url_for('gif_party'))
+
+
+@app.route('/gif_party_feed')
+def gif_party_feed():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
+        config_file_list = list(config_file)
+
+    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
+        config_file.write(config_file_list[0])
+        config_file.write(config_file_list[1])
+        config_file.write(config_file_list[2])
+        config_file.write('RANDOMIZE = no' + '\n')
+
+    return redirect(url_for('gif_party'))
 
 
 ##############################################################################

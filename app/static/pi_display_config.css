@@ -106,6 +106,7 @@ using background color is important to cover the menu
 position absolute is set to cover the whole viewport
 */
 #content {
+	z-index: 0;
 	background-image: -ms-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
 	background-image: -moz-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
 	background-image: -o-linear-gradient(top left, #3E3C3D 0%, #656263 100%);
@@ -185,13 +186,15 @@ position absolute is set to cover the whole viewport
 }
 
 #party {
+	color: #FFF;
+	z-index: 2;
 	position: relative;
 	top: -25px;
+	margin-left: auto;
+	margin-right: auto;
 	border-radius: 0 0 40px 40px;
 	text-align: center;
 	text-shadow: 1px 1px #000;
-	margin-left: auto;
-	margin-right: auto;
 	height: 75px;
 	width: 200px;
 	background-color: #80ffbf;
@@ -346,7 +349,7 @@ so that the content is unclickable while menu is shown
     overflow-x: hidden;
     overflow-y: auto;
     position: absolute;
-    right: 0;
+    right: 68px;
     top: 0;
     width: 75%;
     z-index: 5;

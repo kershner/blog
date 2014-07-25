@@ -1,10 +1,28 @@
 body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+	overflow-y: hidden;
+    font-family: Arial;
+    font-size: 18px;
+	color: white;
 	background-color: black;
 }
 
-div #container {
-	height: 800px;
-	width: 800px;
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: #FFFFFF;
+}
+
+a:visited {
+	color: #FFFFFF;
+}
+
+a:hover {
+	color: red;
 }
 
 img {
@@ -13,122 +31,274 @@ img {
 	max-width: 400px;
 }
 
-div .a {
+/*
+using background color is important to cover the menu
+position absolute isset to cover the whole viewport
+*/
+#content {
+    background-color: black;
+    position: relative;
+	top: -53px;
+	width: auto;
+    min-height: 1000px;
+	-webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+/*
+the hamburger button with a little gradient effekt
+*/
+#hamburger {
+    border: 1px solid #374C77;
+    z-index: 1;
+	border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    padding: 3px 4px 3px;
+    position: relative;
+    top: 10px;
+	left: 10px;
+	width: 25px;
+    background: #4569b2;
+    background: -moz-linear-gradient(top,  #4569b2 0%, #4062a5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4569b2), color-stop(100%,#4062a5));
+    background: -webkit-linear-gradient(top,  #4569b2 0%,#4062a5 100%);
+    background: -o-linear-gradient(top,  #4569b2 0%,#4062a5 100%);
+    background: -ms-linear-gradient(top,  #4569b2 0%,#4062a5 100%);
+    background: linear-gradient(to bottom,  #4569b2 0%,#4062a5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4569b2', endColorstr='#4062a5',GradientType=0 );
+}
+
+/*
+The white stripes in the hamburger button
+*/
+#hamburger div {
+    z-index: 1;
+	background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 2px 2px 2px 2px;
+    height: 2px;
+    margin-top: 3px;
+    width: 90%;
+}
+
+/*
+The navigation container in the background
+*/
+nav {
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    z-index: 0;
+    width: 300px;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow-x:hidden;
+    overflow-y:auto ;
+    background: #3e3c3d;
+    background: -moz-linear-gradient(top,  #3e3c3d 0%, #2d2c2d 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3e3c3d), color-stop(100%,#2d2c2d));
+    background: -webkit-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: -o-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: -ms-linear-gradient(top,  #3e3c3d 0%,#2d2c2d 100%);
+    background: linear-gradient(to bottom,  #3e3c3d 0%,#2d2c2d 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e3c3d', endColorstr='#2d2c2d',GradientType=0 );
+}
+
+.settings-header {
+	text-align: center;
+	padding-top: 25px;
+	color: white;
+	text-shadow: 1px 1px 1px #000;
+}
+
+
+.categories {
+	margin-top: 50px;
+}
+
+.categories h3 {
+	color: white;
+	text-shadow: 1px 1px 1px #000;
+	padding-left: 10px;
+}
+
+.row {
+	position: relative;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	background-color: white;
+	height: 35px;
+	text-shadow: .5px .5px 3px #000;
+	-webkit-box-shadow: -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	-moz-box-shadow:    -1px 3px 4px 0 rgba(50, 50, 50, 1);
+	box-shadow:         -1px 3px 4px 0 rgba(50, 50, 50, 1);
+
+}
+
+#lightblue {
+	background-color: #8080ff;
+}
+
+#salmon {
+	background-color: #ff8080;
+}
+
+#blue {
+	background-color: #4da7ff;
+}
+
+#green {
+	background-color: #c0ff80;
+}
+
+#orange {
+	background-color: #ffbf80;
+}
+
+#lightblue:hover {
+	background-color: red;
+}
+#salmon:hover {
+	background-color: red;
+}
+#green:hover {
+	background-color: red;
+}
+#blue:hover {
+	background-color: red;
+}
+#orange:hover {
+	background-color: red;
+}
+
+.row h3 {
+	position: relative;
+	bottom: 15px;
+}
+
+.count {
+	float: right;
+	margin-right: 20px;
+}
+
+#current-settings {
+	height: 135px;
+	width: 300px;
+	background-color: red;
+	position: relative;
+	bottom: -20px;
+	border-radius: 45px 45px 0 0;
+	text-shadow: 1px 1px 1px #000;
+	background-image: -ms-linear-gradient(top left, #FF0000 0%, #450000 100%);
+	background-image: -moz-linear-gradient(top left, #FF0000 0%, #450000 100%);
+	background-image: -o-linear-gradient(top left, #FF0000 0%, #450000 100%);
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #FF0000), color-stop(1, #450000));
+	background-image: -webkit-linear-gradient(top left, #FF0000 0%, #450000 100%);
+	background-image: linear-gradient(to bottom right, #FF0000 0%, #450000 100%);
+	-webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+hr {
+	width: 50%;
+}
+
+#current-settings h3 {
+	position: relative;
+	top: 5px;
+	text-align: center;
+	margin: 0;
+}
+
+#settings-title {
+	float: left;
+	margin-left: 25px;
+}
+
+#settings-values {
+	float: right;
+	margin-right: 25px;
+}
+
+#number {
+  height: 125px;
+  width: 300px;
+  text-align: center;
+  margin-top: 50px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+#number h1 {
+	margin-bottom: 0;
+}
+
+#number div {
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 40px;
+  width: 70px;
+  border-radius: 35px 35px 35px 35px;
+  -webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+#number div h1 {
+	position: relative;
+	bottom: 17px;
+}
+
+#\35 {
+	background-color: #4d4eff;
+}
+
+#\31 0 {
+	background-color: #ff4da7;
+}
+
+#\32 0 {
+	background-color: #fffe4d;
+}
+
+#number:after {
+  content: '';
+  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+  display: inline-block;
+}
+
+#randomize {
+	text-shadow: 1px 1px 1px #000;
+	text-align: center;
+	margin-top: 75px;
+}
+
+/*
+The Layer that will be layed over the content
+so that the content is unclickable while menu is shown
+*/
+#contentLayer {
+    display: none;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    right: -245px;
+    top: 0;
+    width: 1500px;
+    z-index: 5;
+    min-height: 1062px;
+}
+
+#content div {
 	width: 50px;
 	height: 50px;
-	position: fixed;
-}
-
-div .b {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .c {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .d {
-	width: 50px;
-	height: 50px;
-	position: fixed;
-}
-
-div .e {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .f {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .g {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .h {
-	width: 50px;
-	height: 50px;
-	position: fixed;
-}
-
-div .i {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .j {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .k {
-	width: 50px;
-	height: 50px;
-	position: fixed;
-}
-
-div .l {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .m {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .n {
-	width: 50px;
-	height: 50px;
-	position: fixed;
-}
-
-div .o {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .p {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .q {
-	width: 50px;
-	height:50px;
-	position:fixed;
-}
-
-div .r {
-	width: 50px;
-	height: 50px;
-	position: fixed;
-}
-
-div .s {
-	width: 50px;
-	height: 50px;
-	position:fixed;
-}
-
-div .t {
-	width: 50px;
-	height:50px;
-	position:fixed;
+	position: relative;
 }

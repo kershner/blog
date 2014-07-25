@@ -114,8 +114,8 @@
                 <a href="{{ last_played_1 }}"><img src="{{ last_played_1 }}"></a>
             </div>
 
-            <div id="party">
-                <a href="/gif_party"><h1>GIF Party!</h1></a>
+            <div id="party" class="hidden">
+                <a href="/gif_party"><h1>GIF Party</h1></a>
             </div>
 
             {% if message %}
@@ -131,6 +131,28 @@
 $(document).ready(function() {
    $("#image img").imgCentering();
 });
+</script>
+
+<script>
+var clicked = false
+
+$('#party').click(function() {
+
+    if(clicked == true){
+
+     $(".hidden").animate({
+            top: '500px'
+    }, 500);
+        clicked = false;
+
+
+    }else{
+    $(".hidden").animate({
+            top: '0px'
+    }, 2000);
+        clicked = true;
+        }
+    });
 </script>
 
 </body>
