@@ -1145,7 +1145,7 @@ def forms_without_orders():
 
             entries = models.Entry.query.all()
 
-            message = 'Successfully added entry for %s' % institution
+            message = 'Successfully added entry for %s.' % institution
 
             return render_template("/CSTools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",

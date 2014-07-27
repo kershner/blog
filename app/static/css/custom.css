@@ -84,9 +84,10 @@ a:hover {
 }
 
 form {
-	padding: 20px 0;
 	text-align: center;
-	margin: 0 auto;
+	margin-top: 0;
+	margin-left:auto;
+	margin-right: auto;
 	position: relative;
 	width: 50%;
 	z-index: 1;
@@ -96,18 +97,19 @@ form {
 	position: relative;
 	margin: 0 auto;
 	font-size: 20px;
-	height: 2%;
-	width: 50%;
+	height: 35px;
+	width: 125px;
 	top: 5px;
+	padding-bottom: 35px;
 }
 
 input  {
 	width: 100%;
 	display:block;
 	border: 1px solid #999;
-	height: 75px;
+	height: 55px;
 	color: #000000;
-	font-size: 22px;
+	font-size: 20px;
 	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
@@ -116,12 +118,17 @@ input  {
 
 .backorder-form-top {
 	border-radius: 15px 15px 0 0;
+	height: 55px;
+	width: 350px;
+	
 }
 
 .backorder-form-bottom {
 	border-radius: 0 0 15px 15px;
 	margin: 0;
 	position: relative;
+	height: 55px;
+	width: 350px;
 }
 
 #template-blurb {
@@ -168,8 +175,7 @@ input  {
 /* 222 Form Date Checker */
 #date-checker-input {
 	position: relative;
-	bottom: 15px;
-	bottom: 25px;
+	top: 15px;
 }
 
 .form-date {
@@ -367,4 +373,48 @@ ul.rig li button {
 
 #entry h3 {
 	margin-top: 10px;
+}
+
+#back {
+	margin-top: 100px;
+}
+
+#back:hover {
+	color: red;
+}
+
+#name {
+	height: 55px;	
+	width: 350px;
+	margin: 0 auto;
+}
+
+#email {
+	height: 55px;
+	width: 350px;
+	margin: 0 auto:
+}
+
+#po {
+	height: 55px;
+	width: 350px;
+	margin: 0 auto:
+}
+
+#item_number {
+	height: 55px;
+	width: 350px;
+	margin: 0 auto:
+}
+
+#acct {
+	height: 55px;
+	width: 350px;
+	margin: 0 auto:
+}
+
+#given_price {
+	height: 55px;
+	width: 350px;
+	margin: 0 auto:
 }

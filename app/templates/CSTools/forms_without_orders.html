@@ -2,7 +2,7 @@
 {% block content %}
 
 <div id="row">
-    <h1>DEA Forms Without Orders</h1>
+    <h1 id="dea-forms-title">DEA Forms Without Orders</h1>
 </div>
 
 {% if entries %}
@@ -28,6 +28,7 @@
     </ul>
 {% endif %}
 
+<div id="backorder-form" class="cover-container">
 {% if message %}
     <h3>{{ message }}</h3>
 {% endif %}
@@ -56,20 +57,25 @@
     <form action="{{ url_for('forms_without_orders') }}" method=POST>
         {{ form.hidden_tag() }}
 
-        {{ form.institution(placeholder="Institution's Name") }}
+        {{ form.institution(placeholder="Institution's Name", class="backorder-form-top") }}
 
         {{ form.name(placeholder="Contact's Name") }}
 
         {{ form.email(placeholder="Contact's Email") }}
 
-        {{ form.csr_name(placeholder="Your name") }}
+        {{ form.csr_name(placeholder="Your name", class="backorder-form-bottom") }}
 
         {{form.submit(class_='btn btn-lg btn-danger') }}
     </form>
+    <br>
+    <br>
+    <br>
+    <a href="/forms-without-orders"><h3 id="back">Back</h3></a>
 {% endif %}
 
 {% if not new_entry %}
     <a href="/forms-without-orders/new-entry"><button class="btn btn-success">New Entry</button></a>
 {% endif %}
 
+</div>
 {% endblock %}
