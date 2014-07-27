@@ -1,5 +1,8 @@
 from flask.ext.wtf import Form, TextField, SubmitField, validators
 
+#############################################
+# CSTools Forms
+
 
 class BackorderForm(Form):
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
@@ -70,6 +73,14 @@ class DeaVerify(Form):
     order_no = TextField("Sales Order Number", [validators.Required("Please enter the sales order number.")])
     institution = TextField("Institution", [validators.Required("Please enter the institution's name.")])
     submit = SubmitField("Submit")
+
+
+class DeaForms(Form):
+    institution = TextField("Institution", [validators.Required("Enter the name of the institution.")])
+    submit = SubmitField("Submit")
+
+#############################################
+# Raspberry Pi GIF Display forms
 
 
 class SlideshowDelay(Form):

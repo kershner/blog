@@ -149,7 +149,7 @@ subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'edu
               'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
               'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
               'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
-              'opticalillusions']
+              'opticalillusions', 'wrestlinggifs']
 
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()

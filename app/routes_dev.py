@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, SlideshowDelay
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay
 from urllib import quote
 import datetime
 import random
-
-app = Flask(__name__)
-app.secret_key = 'development key'
+from app import app
 
 
 ##############################################################################
@@ -1118,5 +1116,28 @@ def dea_verify():
                                title="DEA Documents Verification Template",
                                form=form)
 
+
+@app.route('/forms-without-orders', methods=['GET', 'POST'])
+def forms_without_orders():
+    form = DeaForms()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   form=form)
+        else:
+            text = 'This worked just fine!'
+            return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   form=form,
+                                   text=text)
+    elif request.method == 'GET':
+        return render_template("/CSTools/forms_without_orders.html",
+                               title="DEA Forms Without Orders",
+                               form=form)
+
+
 if __name__ == '__main__':
+    from app import app
     app.run(debug=True)
