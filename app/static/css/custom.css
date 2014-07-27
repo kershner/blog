@@ -243,13 +243,14 @@ ul.rig {
 
 ul.rig li {
 	text-align: center;
-	background: #fff;
+	background: #66b3ff;
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 350px;
-	min-height: 300px;
+	min-width: 450px;
+	min-height: 175px;
 	border: 1px solid #ddd;
+	border-radius: 55px 25px 55px 0;
 	font-size: 16px;
 	font-size: 1rem;
 	vertical-align: top;
@@ -257,6 +258,12 @@ ul.rig li {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+
+ul.rig li div {
+	color: #FFF;
+	font-size: 1.5em;
+	text-shadow: 1px 1px 2px #000;
 }
 
 ul.rig li img {
@@ -308,11 +315,56 @@ ul.rig.columns-4 li {
 }
 
 ul.rig li button {
-	float: right;
+	display: block;
+	vertical-align: baseline;
 	width: 50px;
 	height: 25px;
 	position: relative;
-	bottom: -115px;
-	right: 0;
+	bottom: -100px;
+	right: 115px;
 	font-size: 14px;
+	margin-right: 15px;
+}
+
+#data-titles {
+	float: left;
+	text-align: justify;
+}
+
+#data {
+	float: right;
+	text-align: justify;
+}
+
+#csr-name {
+	color: #ff6666;
+}
+
+#entry {
+	text-align: center;
+	background: #66b3ff;
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 2.5% 2.5%;
+	min-width: 450px;
+	min-height: 175px;
+	border: 1px solid #ddd;
+	border-radius: 55px 25px 55px 0;
+	font-size: 16px;
+	font-size: 1rem;
+	vertical-align: top;
+	box-shadow: 0 0 5px #ddd;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+#entry div {
+	color: #FFF;
+	font-size: 1.5em;
+	text-shadow: 1px 1px 2px #000;
+}
+
+#entry h3 {
+	margin-top: 10px;
 }

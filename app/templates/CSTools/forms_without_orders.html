@@ -1,57 +1,75 @@
 {% extends "/CSTools/base1.html" %}
 {% block content %}
 
+<div id="row">
+    <h1>DEA Forms Without Orders</h1>
+</div>
+
 {% if entries %}
     <ul class="rig columns-3">
         {% for entry in entries %}
             <li>
                 <h3>{{ entry.institution }}</h3>
-                <p>
+                <div id="data-titles">
+                    Contact's Name:<br>
+                    Contact's Email:<br>
+                    Posted:<br>
+                    Posted By:<br>
+                </div>
+                <div id="data">
                     {{ entry.contact_name }}<br>
                     {{ entry.contact_email }}<br>
-                    Posted {{ entry.timestamp }}<br>
-                    {{ entry.image_url }}
-                </p>
-            <a href="/#"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
+                    {{ entry.timestamp }}<br>
+                    <span id="csr-name">{{ entry.csr_name }}</span><br>
+                </div>
+            <a href="/forms-without-orders/edit-entry/{{ entry.id }}"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
             </li>
         {% endfor %}
     </ul>
 {% endif %}
 
 {% if message %}
-    <p>{{ message }}</p>
+    <h3>{{ message }}</h3>
 {% endif %}
 
-<div class="alert">
-    {% for message in form.institution.errors %}
-        <p>{{ message }}</p>
-    {% endfor %}
+{% if form %}
+    <div class="alert">
+        {% for message in form.institution.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
 
-    {% for message in form.name.errors %}
-        <p>{{ message }}</p>
-    {% endfor %}
+        {% for message in form.name.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
 
-    {% for message in form.email.errors %}
-        <p>{{ message }}</p>
-    {% endfor %}
+        {% for message in form.email.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
 
-    {% for message in form.url.errors %}
-        <p>{{ message }}</p>
-    {% endfor %}
-</div>
+        {% for message in form.csr_name.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
 
-<form action="{{ url_for('forms_without_orders') }}" method=POST>
-    {{ form.hidden_tag() }}
+{% if form %}
+    <form action="{{ url_for('forms_without_orders') }}" method=POST>
+        {{ form.hidden_tag() }}
 
-    {{ form.institution(placeholder="Institution's Name") }}
+        {{ form.institution(placeholder="Institution's Name") }}
 
-    {{ form.name(placeholder="Contact's Name") }}
+        {{ form.name(placeholder="Contact's Name") }}
 
-    {{ form.email(placeholder="Contact's Email") }}
+        {{ form.email(placeholder="Contact's Email") }}
 
-    {{ form.url(placeholder="URL for 222 Image") }}
+        {{ form.csr_name(placeholder="Your name") }}
 
-    {{form.submit(class_='btn btn-lg btn-danger') }}
-</form>
+        {{form.submit(class_='btn btn-lg btn-danger') }}
+    </form>
+{% endif %}
+
+{% if not new_entry %}
+    <a href="/forms-without-orders/new-entry"><button class="btn btn-success">New Entry</button></a>
+{% endif %}
 
 {% endblock %}

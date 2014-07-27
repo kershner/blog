@@ -1130,28 +1130,66 @@ def forms_without_orders():
             institution = form.institution.data
             name = form.name.data
             email = form.email.data
-            url = form.url.data
+            csr_name = form.csr_name.data
+            now = datetime.datetime.utcnow()
+            date_nice = now.strftime('%m/%d/%Y')
 
             entry = models.Entry(institution=institution,
                                  contact_name=name,
                                  contact_email=email,
-                                 timestamp=datetime.datetime.utcnow(),
-                                 image_url=url)
+                                 timestamp=date_nice,
+                                 csr_name=csr_name)
 
             db.session.add(entry)
             db.session.commit()
 
-            text = '%s\n%s\n%s\n%s' % (institution, name, email, url)
+            entries = models.Entry.query.all()
+
             message = 'Successfully added entry for %s' % institution
 
             return render_template("/CSTools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
-                                   form=form,
-                                   text=text,
+                                   entries=entries,
                                    message=message)
     elif request.method == 'GET':
         entries = models.Entry.query.all()
         return render_template("/CSTools/forms_without_orders.html",
                                title="DEA Forms Without Orders",
-                               form=form,
                                entries=entries)
+
+
+@app.route('/forms-without-orders/new-entry')
+def new_entry():
+    form = DeaForms()
+    entries = models.Entry.query.all()
+    return render_template("/CSTools/forms_without_orders.html",
+                           title="DEA Forms Without Orders",
+                           form=form,
+                           entries=entries,
+                           new_entry=True)
+
+
+@app.route('/forms-without-orders/edit-entry/<id>')
+def edit_entry(id):
+    entry = models.Entry.query.get(id)
+
+    return render_template("/CSTools/forms_without_orders_delete.html",
+                           title="DEA Forms Without Orders - Edit Entry",
+                           entry=entry)
+
+
+@app.route('/forms-without-orders/delete-entry/<id>')
+def delete_entry(id):
+    entry = models.Entry.query.get(id)
+
+    db.session.delete(entry)
+    db.session.commit()
+
+    entries = models.Entry.query.all()
+
+    message = "Successfully deleted entry for %s." % entry.institution
+
+    return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   message=message,
+                                   entries=entries)
