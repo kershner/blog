@@ -4,7 +4,7 @@ from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewA
 from urllib import quote
 import datetime
 import random
-from app import app
+from app import app, db, models
 
 
 ##############################################################################
@@ -1127,17 +1127,31 @@ def forms_without_orders():
                                    title="DEA Forms Without Orders",
                                    form=form)
         else:
-            text = 'This worked just fine!'
+            institution = form.institution.data
+            name = form.name.data
+            email = form.email.data
+            url = form.url.data
+
+            entry = models.Entry(institution=institution,
+                                 contact_name=name,
+                                 contact_email=email,
+                                 timestamp=datetime.datetime.utcnow(),
+                                 image_url=url)
+
+            db.session.add(entry)
+            db.session.commit()
+
+            text = '%s\n%s\n%s\n%s' % (institution, name, email, url)
+            message = 'Successfully added entry for %s' % institution
+
             return render_template("/CSTools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
                                    form=form,
-                                   text=text)
+                                   text=text,
+                                   message=message)
     elif request.method == 'GET':
+        entries = models.Entry.query.all()
         return render_template("/CSTools/forms_without_orders.html",
                                title="DEA Forms Without Orders",
-                               form=form)
-
-
-if __name__ == '__main__':
-    from app import app
-    app.run(debug=True)
+                               form=form,
+                               entries=entries)

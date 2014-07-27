@@ -1,7 +1,7 @@
 # Script by Miguel Grinberg
 # http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database
 
-#!flask/bin/python
+#!venv/bin/python
 import imp
 from migrate.versioning import api
 from app import db

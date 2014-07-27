@@ -228,3 +228,91 @@ input  {
     margin: 0 auto;
     border-radius: 15px;
 }
+
+/* *********************************
+   Projects Image Grid
+   ********************************* */
+ul.rig {
+	list-style: none;
+	font-size: 0px;
+	margin-top: 35px;
+	margin-left: -2.5%; /* should match li left margin */
+	margin-right: 2.5%;
+	margin-bottom: 0;
+}
+
+ul.rig li {
+	text-align: center;
+	background: #fff;
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 2.5% 2.5%;
+	min-width: 350px;
+	min-height: 300px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	font-size: 1rem;
+	vertical-align: top;
+	box-shadow: 0 0 5px #ddd;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+ul.rig li img {
+	max-width: 100%;
+	height: auto;
+	margin: 0 0 10px;
+}
+
+ul.rig li h3 {
+	margin: 0 0 5px;
+}
+
+ul.rig li p {
+	font-size: 1.60em;
+	line-height: 1.5em;
+	color: #999;
+}
+
+/* class for 2 columns */
+ul.rig.columns-2 li {
+	width: 47.5%; /* this value + 2.5 should = 50% */
+}
+
+/* class for 3 columns */
+ul.rig.columns-3 li {
+	width: 30.83%; /* this value + 2.5 should = 33% */
+}
+
+/* class for 4 columns */
+ul.rig.columns-4 li {
+	width: 22.5%; /* this value + 2.5 should = 25% */
+}
+ 
+@media (max-width: 480px) {
+	ul.grid-nav li {
+		display: block;
+		margin: 0 0 5px;
+	}
+	ul.grid-nav li a {
+		display: block;
+	}
+	ul.rig {
+		margin-left: 0;
+	}
+	ul.rig li {
+		width: 50%; /*!important;  over-ride all li styles */
+		margin: 0 0 20px;
+	}
+}
+
+ul.rig li button {
+	float: right;
+	width: 50px;
+	height: 25px;
+	position: relative;
+	bottom: -115px;
+	right: 0;
+	font-size: 14px;
+}

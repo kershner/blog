@@ -77,6 +77,9 @@ class DeaVerify(Form):
 
 class DeaForms(Form):
     institution = TextField("Institution", [validators.Required("Enter the name of the institution.")])
+    name = TextField("Contact's Name", [validators.Required("Enter the contact's name.")])
+    email = TextField("Contact's Email", [validators.Required("Enter the contact's email.")])
+    url = TextField("URL for 222 form image", [validators.Required("Enter a valid URL.")])
     submit = SubmitField("Submit")
 
 #############################################
