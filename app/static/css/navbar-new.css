@@ -1,0 +1,73 @@
+body {
+	background-color: #6666FF;
+}
+
+a:link {
+    text-decoration: none;
+	color: #FFF;
+}
+
+a:visited {
+    text-decoration: none;
+	color: #FFF;
+}
+
+a:hover {
+    text-decoration: underline;
+	color: #FFF;
+}
+
+#navbar-new {
+	position: fixed;
+	z-index: 1;
+	height: 100px;
+	width: 100%;
+	background: rgb(96,108,136); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(96,108,136,1)), color-stop(100%,rgba(63,76,107,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+}
+
+#navbar-new-title {
+	height: 100px;
+	width: 400px;
+	position: absolute;
+	top: 9px;
+}
+
+#navbar-new-menu {
+	height: 100px;
+	width: 400px;
+	position: fixed;
+	right: 25px;
+}
+
+
+#navbar-home {
+	position: absolute;
+	top: 25px;
+	right: 230px;
+}
+
+#navbar-sharepoint {
+	position: absolute;
+	top: 25px;
+	right: 125px;
+}
+
+#navbar-directory {
+	position: absolute;
+	top: 25px;
+	right: 0;
+}
+
+@media (max-width: 705px) {
+  #navbar-new-menu {
+    top: 35px;
+	left: -55px;
+  }
+}

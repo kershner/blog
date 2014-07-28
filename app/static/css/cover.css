@@ -41,12 +41,6 @@ body {
   margin-left: auto;
 }
 
-/* Padding for spacing */
-.inner {
-  padding: 30px;
-}
-
-
 /*
  * Header
  */
@@ -107,9 +101,6 @@ body {
  * Cover
  */
 
-.cover {
-  padding: 0 20px;
-}
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;

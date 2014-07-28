@@ -34,7 +34,7 @@ while keep_going:
             print 'You paid rent, loan, and utilities this period.'
         else:
             print 'You paid your rent and utilities this period.'
-        print 'On %s you will have roughly $%d.' % (today.strftime('%B %d \'%y'), total)
+        print '\nOn %s you will have roughly $%d.' % (today.strftime('%B %d \'%y'), total)
         if loan:
             prompt = raw_input('Continue? [Yes] [No] [Make] Loan Payment > ').lower()
         else:

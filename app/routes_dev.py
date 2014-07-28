@@ -1193,3 +1193,8 @@ def delete_entry(id):
                                    title="DEA Forms Without Orders",
                                    message=message,
                                    entries=entries)
+
+
+@app.route('/navbar-test')
+def navbar_test():
+    return render_template('/CSTools/navbar-test.html')
