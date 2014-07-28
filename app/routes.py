@@ -1,10 +1,10 @@
-from flask import render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, SlideshowDelay
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay
 from urllib import quote
 import datetime
 import random
-from app import app
+from app import app, db, models
 
 
 ##############################################################################
@@ -1092,3 +1092,80 @@ def dea_verify():
         return render_template("/CSTools/deaverify.html",
                                title="DEA Documents Verification Template",
                                form=form)
+
+@app.route('/forms-without-orders', methods=['GET', 'POST'])
+def forms_without_orders():
+    form = DeaForms()
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   form=form)
+        else:
+            institution = form.institution.data
+            name = form.name.data
+            email = form.email.data
+            csr_name = form.csr_name.data
+            now = datetime.datetime.utcnow()
+            date_nice = now.strftime('%m/%d/%Y')
+
+            entry = models.Entry(institution=institution,
+                                 contact_name=name,
+                                 contact_email=email,
+                                 timestamp=date_nice,
+                                 csr_name=csr_name)
+
+            db.session.add(entry)
+            db.session.commit()
+
+            entries = models.Entry.query.all()
+
+            message = 'Successfully added entry for %s.' % institution
+
+            return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   entries=entries,
+                                   message=message)
+    elif request.method == 'GET':
+        entries = models.Entry.query.all()
+        return render_template("/CSTools/forms_without_orders.html",
+                               title="DEA Forms Without Orders",
+                               entries=entries)
+
+
+@app.route('/forms-without-orders/new-entry')
+def new_entry():
+    form = DeaForms()
+    entries = models.Entry.query.all()
+    return render_template("/CSTools/forms_without_orders.html",
+                           title="DEA Forms Without Orders",
+                           form=form,
+                           entries=entries,
+                           new_entry=True)
+
+
+@app.route('/forms-without-orders/edit-entry/<id>')
+def edit_entry(id):
+    entry = models.Entry.query.get(id)
+
+    return render_template("/CSTools/forms_without_orders_delete.html",
+                           title="DEA Forms Without Orders - Edit Entry",
+                           entry=entry)
+
+
+@app.route('/forms-without-orders/delete-entry/<id>')
+def delete_entry(id):
+    entry = models.Entry.query.get(id)
+
+    db.session.delete(entry)
+    db.session.commit()
+
+    entries = models.Entry.query.all()
+
+    message = "Successfully deleted entry for %s." % entry.institution
+
+    return render_template("/CSTools/forms_without_orders.html",
+                                   title="DEA Forms Without Orders",
+                                   message=message,
+                                   entries=entries)
