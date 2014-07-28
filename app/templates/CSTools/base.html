@@ -6,6 +6,7 @@
     <link href="/static/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/cover.css" rel="stylesheet">
     <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="/static/jquery.hoverGrid.css" rel="stylesheet">
     <link href="/static/css/navbar-new.css" rel="stylesheet">
 
     <!-- Favicon -->
@@ -18,6 +19,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
     {% if title %}
     <title>{{title}} - Customer Service Tools</title>
@@ -28,11 +30,11 @@
 <body>
 
 <div id="navbar-new">
-    <div id="navbar-new-title"><a href="#"><h1>Customer Service Tools</h1></a></div>
+    <div id="navbar-new-title"><a href="/"><h1>Customer Service Tools</h1></a></div>
     <div id="navbar-new-menu">
-        <a href="#" id="navbar-home"><h4>Home</h4></a>
-        <a href="#" id="navbar-sharepoint"><h4>Sharepoint</h4></a>
-        <a href="#" id="navbar-directory"><h4>Staff Directory</h4></a>
+        <a href="/" id="navbar-home"><h3>Home</h3></a>
+        <a href="#" id="navbar-sharepoint"><h3>Sharepoint</h3></a>
+        <a href="#" id="navbar-directory"><h3>Staff Directory</h3></a>
     </div>
 </div>
 
@@ -43,9 +45,16 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/static/js/jquery.hoverGrid.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.whatever').hoverGrid();
+    });
+</script>
 
 </body>
 </html>

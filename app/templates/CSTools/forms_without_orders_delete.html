@@ -1,26 +1,30 @@
-{% extends "/CSTools/base1.html" %}
+{% extends "/CSTools/base.html" %}
 {% block content %}
 
-<div id="entry">
-    <h3>{{ entry.institution }}</h3>
-        <div id="data-titles">
-            Contact's Name:<br>
-            Contact's Email:<br>
-            Posted:<br>
-            Posted By:<br>
-        </div>
-        <div id="data">
-            {{ entry.contact_name }}<br>
-            {{ entry.contact_email }}<br>
-            {{ entry.timestamp }}<br>
-            <span id="csr-name">{{ entry.csr_name }}</span><br>
-        </div>
+<div id="container">
+
+    <div id="entry">
+        <h3>{{ entry.institution }}</h3>
+            <div id="data-titles">
+                Contact's Name:<br>
+                Contact's Email:<br>
+                Posted:<br>
+                Posted By:<br>
+            </div>
+            <div id="data">
+                {{ entry.contact_name }}<br>
+                {{ entry.contact_email }}<br>
+                {{ entry.timestamp }}<br>
+                <span id="csr-name">{{ entry.csr_name }}</span><br>
+            </div>
+    </div>
+    <br>
+    <br>
+
+    <a href="/forms-without-orders/delete-entry/{{ entry.id }}"><button class="btn btn-danger">Delete Entry?</button></a>
+
+    <a href="/forms-without-orders"><h3 id="back">Back</h3></a>
+
 </div>
-<br>
-<br>
-
-<a href="/forms-without-orders/delete-entry/{{ entry.id }}"><button class="btn btn-danger">Delete Entry?</button></a>
-
-<a href="/forms-without-orders"><h3 id="back">Back</h3></a>
 
 {% endblock %}

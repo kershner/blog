@@ -249,11 +249,16 @@ ul.rig {
 
 ul.rig li {
 	text-align: center;
-	background: #66b3ff;
+	background: rgb(179, 102, 255);
+	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 450px;
+	min-width: 480px;
 	min-height: 175px;
 	border: 1px solid #ddd;
 	border-radius: 55px 25px 55px 0;
@@ -343,16 +348,21 @@ ul.rig li button {
 }
 
 #csr-name {
-	color: #ff6666;
+	color: #66ff66;
 }
 
 #entry {
 	text-align: center;
-	background: #66b3ff;
+	background: rgb(179, 102, 255);
+	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 450px;
+	min-width: 480px;
 	min-height: 175px;
 	border: 1px solid #ddd;
 	border-radius: 55px 25px 55px 0;
