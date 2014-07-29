@@ -282,11 +282,21 @@ input  {
     -webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+	background: rgb(33, 141, 151);
+	background: -moz-linear-gradient(30deg, rgb(33, 141, 151) 20%, rgb(0, 121, 125) 72%);
+	background: -webkit-linear-gradient(30deg, rgb(33, 141, 151) 20%, rgb(0, 121, 125) 72%);
+	background: -o-linear-gradient(30deg, rgb(33, 141, 151) 20%, rgb(0, 121, 125) 72%);
+	background: -ms-linear-gradient(30deg, rgb(33, 141, 151) 20%, rgb(0, 121, 125) 72%);
+	background: linear-gradient(120deg, rgb(33, 141, 151) 20%, rgb(0, 121, 125) 72%);
 }
 
 #application h5 {
 	position: relative;
 	top: -37px;
+}
+
+#template-blurb a:hover {
+	text-decoration: none;
 }
 
 /* *********************************
