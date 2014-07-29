@@ -258,13 +258,15 @@ input  {
 	width: 525px;
 	height: 75px;
 	position: relative;
-	bottom: 0;
+	bottom: 4px;
 	margin: 0 auto;
 	border-radius: 25px 25px 0 0;
 }
 
 .date-checker-message {
 	font-size: 20px;
+	position: relative;
+	top: 20px;
 }
 
 /* The application/DEA protocol download button */
