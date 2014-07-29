@@ -221,7 +221,7 @@ nav {
 	height: 135px;
 	width: 300px;
 	position: relative;
-	bottom: -30px;
+	bottom: -135px;
 	border-radius: 45px 45px 0 0;
 	text-shadow: 1px 1px 1px #000;
 }
@@ -247,8 +247,8 @@ nav {
   height: 125px;
   width: 300px;
   text-align: center;
-  margin-top: 50px;
   text-shadow: 1px 1px 1px #000;
+  margin-top: -20px;
 }
 
 #number h1 {
@@ -257,18 +257,18 @@ nav {
 
 #number div {
   display: inline-block;
+  position: relative;
+  bottom: 20px;
   margin-left: 15px;
   margin-right: 15px;
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 40px;
-  width: 70px;
-  border-radius: 35px 35px 35px 35px;
+  height: 30px;
+  width: 50px;
+  border-radius: 10px;
   -webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
     box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
 }
 
-#number div h1 {
+#number div h3 {
 	position: relative;
 	bottom: 17px;
 }
@@ -310,9 +310,10 @@ nav {
 }
 
 #randomize {
+	position: relative;
+	top: 125px;
 	text-shadow: 1px 1px 1px #000;
 	text-align: center;
-	margin-top: 75px;
 }
 
 .randomize-button1, .randomize-button2 {

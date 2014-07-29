@@ -32,10 +32,10 @@
 
             <div id="title"><h2>Raspberry Pi GIF Display Config</h2></div>
 
-            <div id="settings">
-                <span id="settings-title">Current Settings</span><hr>
-                Category: <span class="setting">{{ category }}</span><br>
-                &nbsp;Delay: <span class="setting">{{ delay }}</span>
+            <div id="settings-div">
+                <div id="settings-title">Current Settings</div>
+                <span class="settings">Category:</span> <span class="setting">{{ category }}</span><br>
+                <span class="settings">&nbsp;Delay: </span><span class="setting">{{ delay }}</span>
             </div>
 
         </header>
@@ -112,10 +112,6 @@
                 <a href="{{ last_played_3 }}"><img src="{{ last_played_3 }}"></a>
                 <a href="{{ last_played_2 }}"><img src="{{ last_played_2 }}"></a>
                 <a href="{{ last_played_1 }}"><img src="{{ last_played_1 }}"></a>
-            </div>
-
-            <div id="party" class="hidden">
-                <a href="/gif_party"><h1>GIF Party</h1></a>
             </div>
 
             {% if message %}
