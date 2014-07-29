@@ -75,6 +75,7 @@ a:hover {
 #smaller {
     color: #000000;
     color: white;
+    margin: 10px;
     text-shadow: 1px 1px 1px #000;
 }
 
