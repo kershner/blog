@@ -74,13 +74,12 @@
             </div>
 
             <div id="randomize">
-                <a href="/gif_party_randomize"><h1>Randomize</h1></a>
-                <a href="/gif_party_feed"><h1>Pull from Feed</h1></a>
+                <div class="randomize-button1"><a href="/gif_party_randomize"><h1>Randomize</h1></a></div>
+                <div class="randomize-button2"><a href="/gif_party_feed"><h1>Pull from Feed</h1></a></div>
             </div>
 
             <div id="current-settings">
                 <h3>Current Settings</h3>
-                <hr>
                 <div id="settings-title">
                     Category:<br>
                     Source:<br>
@@ -129,7 +128,6 @@
             {% endif %}
 
             {% if number == 20 %}
-                <div class='a'><img src='{{ gif_url_1 }}'></div>
                 <div class='b'><img src='{{ gif_url_2 }}'></div>
                 <div class='c'><img src='{{ gif_url_3 }}'></div>
                 <div class='d'><img src='{{ gif_url_4 }}'></div>
