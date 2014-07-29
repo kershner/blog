@@ -94,7 +94,7 @@ The navigation container in the background
 */
 nav {
     left: 0px;
-    top: 0px;
+    top: -0;
     position: fixed;
     z-index: 0;
     width: 300px;
@@ -115,15 +115,16 @@ nav {
 }
 
 .settings-header {
+	position: relative;
+	top: -15px;
 	text-align: center;
-	padding-top: 25px;
 	color: white;
 	text-shadow: 1px 1px 1px #000;
 }
 
 
 .categories {
-	margin-top: 50px;
+
 }
 
 .categories h3 {
@@ -221,7 +222,7 @@ nav {
 	height: 135px;
 	width: 300px;
 	position: relative;
-	bottom: -135px;
+	bottom: -145px;
 	border-radius: 45px 45px 0 0;
 	text-shadow: 1px 1px 1px #000;
 }
@@ -311,7 +312,7 @@ nav {
 
 #randomize {
 	position: relative;
-	top: 125px;
+	top: 105px;
 	text-shadow: 1px 1px 1px #000;
 	text-align: center;
 }
