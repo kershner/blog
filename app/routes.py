@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay
 from urllib import quote
 import datetime
 import random
+from functools import wraps
 from app import app, db, models
 
 ##############################################################################
@@ -1092,7 +1093,45 @@ def dea_verify():
                                title="DEA Documents Verification Template",
                                form=form)
 
+
+# Wrapping function for routes that require a password
+def login_required(test):
+    @wraps(test)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return test(*args, **kwargs)
+        else:
+            error = 'You need to log in first.'
+            return render_template('/CSTools/login.html',
+                                   title='Login',
+                                   error=error)
+    return wrap
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'cs'or request.form['password'] != 'cayman':
+            error = 'Invalid credentials, please try again.'
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('forms_without_orders'))
+    return render_template('/CSTools/login.html',
+                           title='Login',
+                           error=error)
+
+@app.route('/logout')
+def logout():
+    if 'logged_in' in session:
+        session.pop('logged_in', None)
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
+
+
 @app.route('/forms-without-orders', methods=['GET', 'POST'])
+@login_required
 def forms_without_orders():
     form = DeaForms()
     if request.method == 'POST':
@@ -1134,6 +1173,7 @@ def forms_without_orders():
 
 
 @app.route('/forms-without-orders/new-entry')
+@login_required
 def new_entry():
     form = DeaForms()
     entries = models.Entry.query.all()
@@ -1145,6 +1185,7 @@ def new_entry():
 
 
 @app.route('/forms-without-orders/edit-entry/<id>')
+@login_required
 def edit_entry(id):
     entry = models.Entry.query.get(id)
 
@@ -1154,6 +1195,7 @@ def edit_entry(id):
 
 
 @app.route('/forms-without-orders/delete-entry/<id>')
+@login_required
 def delete_entry(id):
     entry = models.Entry.query.get(id)
 

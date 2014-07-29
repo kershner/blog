@@ -1,0 +1,21 @@
+{% extends "/CSTools/base.html" %}
+{% block content %}
+
+<div id="login">
+<h1>Login</h1>
+    {% if error %}
+        <h3>{{ error }}</h3>
+    {% endif %}
+</div>
+
+<form action="" method=POST>
+    <dl>
+        <dt class="login-text">Username
+        <dd><input class="login" type="text" name="username" value="{{ request.form.username }}">
+        <dt class="login-text">Password
+        <dd><input class="login" type="text" name="password">
+    </dl>
+    <p><input class="btn-danger login-button" type="submit" value="Login"></p>
+</form>
+
+{% endblock %}

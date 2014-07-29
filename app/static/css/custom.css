@@ -158,13 +158,21 @@ input  {
     width: 75%;
 }
 
+#template-blurb p {
+	position: relative;
+	top: 5px;
+}
+
 #template-div {
     position: relative;
     width: 65%;
     height: 65px;
     z-index: 1;
-    top: 40px;
+    top: 105px;
     padding: 10px 5px;
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #backorder-link {
@@ -264,13 +272,18 @@ input  {
     position: relative;
     padding: 5px 0;
     background-color: #218d97;
-    height: 55px;
+    height: 65px;
     width: 190px;
     margin: 0 auto;
     border-radius: 15px;
     -webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+}
+
+#application h5 {
+	position: relative;
+	top: -37px;
 }
 
 /* *********************************
@@ -452,4 +465,32 @@ ul.rig li button {
 	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+}
+
+#login {
+	position: relative;
+	bottom: 55px;
+}
+
+.login {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+}
+
+.login-button {
+	width: 125px;
+	height: 55px;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+}
+
+.login-text {
+	font-size: 22px;
 }
