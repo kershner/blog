@@ -44,11 +44,11 @@
     <form action="{{ url_for('backorder') }}" method=POST>
         {{ form.hidden_tag() }}
 
-        {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-top") }}
+        {{ form.name(placeholder="Contact Name", class_="backorder-form-top") }}
+
+        {{ form.email(placeholder="Contact's Email Address") }}
 
         {{ form.po(placeholder="Purchase Order or Sales Order") }}
-
-        {{ form.name(placeholder="Contact Name") }}
 
         {{ form.item_number(placeholder="Item Number") }}
 
