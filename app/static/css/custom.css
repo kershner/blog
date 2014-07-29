@@ -1,5 +1,6 @@
-/* Custom styles */
-
+/* ***************************** */
+/* Custom styles ************** */
+/* *************************** */
 body {
 	font-family: 'Open Sans';
 	background-color: #6666FF;
@@ -55,19 +56,31 @@ a:hover {
     position: relative;
     margin: 0 auto;
     padding: 0 0;
-    background-color: #ffff66;
+    background-color: #989898;
     width: 100%;
     height: 200px;
     overflow: auto;
     text-align: left;
+    background: rgb(152, 152, 152);
+    background: -moz-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
+    background: -webkit-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
+    background: -o-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
+    background: -ms-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
+    background: linear-gradient(120deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
+    -webkit-box-shadow: -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #smaller {
     color: #000000;
-    text-shadow: 1px 0 0 #FFFFFF;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
 }
 
+/* *************************** */
 /* Backorder Notification Form */
+/* *************************** */
 #backorder-form {
 	position: relative;
 	margin: 0 auto;
@@ -101,6 +114,9 @@ form {
 	width: 125px;
 	top: 5px;
 	padding-bottom: 35px;
+	-webkit-box-shadow: -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 input  {
@@ -120,7 +136,9 @@ input  {
 	border-radius: 15px 15px 0 0;
 	height: 55px;
 	width: 350px;
-	
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 .backorder-form-bottom {
@@ -129,6 +147,9 @@ input  {
 	position: relative;
 	height: 55px;
 	width: 350px;
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #template-blurb {
@@ -150,6 +171,12 @@ input  {
     position: relative;
     bottom: 10px;
     text-shadow: 1px 1px 1px #000;
+}
+
+#backorder-form a button {
+    -webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 ::-webkit-input-placeholder {
@@ -181,6 +208,10 @@ input  {
 .form-date {
 	position:relative;
 	margin: 0 auto;
+	-webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+
 }
 
 .container #example-form {
@@ -202,6 +233,9 @@ input  {
 	width: 555px;
 	border-radius: 65px 65px 0 0;
 	padding: 30px 15px;
+	-webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #demo-text {
@@ -225,6 +259,7 @@ input  {
 	font-size: 20px;
 }
 
+/* The application/DEA protocol download button */
 #application {
     position: relative;
     padding: 5px 0;
@@ -233,10 +268,13 @@ input  {
     width: 190px;
     margin: 0 auto;
     border-radius: 15px;
+    -webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 /* *********************************
-   Projects Image Grid
+   Grid for Froms Without Orders Data Display
    ********************************* */
 ul.rig {
 	list-style: none;
@@ -269,6 +307,9 @@ ul.rig li {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+	-webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 ul.rig li div {
@@ -293,6 +334,10 @@ ul.rig li p {
 	color: #999;
 }
 
+ul.rig li a {
+	text-decoration: none;
+}
+
 /* class for 2 columns */
 ul.rig.columns-2 li {
 	width: 47.5%; /* this value + 2.5 should = 50% */
@@ -307,7 +352,7 @@ ul.rig.columns-3 li {
 ul.rig.columns-4 li {
 	width: 22.5%; /* this value + 2.5 should = 25% */
 }
- 
+
 @media (max-width: 480px) {
 	ul.grid-nav li {
 		display: block;
@@ -337,6 +382,9 @@ ul.rig li button {
 	margin-right: 15px;
 }
 
+/* ******************** */
+/* Forms Without Orders */
+/* ******************** */
 #data-titles {
 	float: left;
 	text-align: justify;
@@ -362,7 +410,7 @@ ul.rig li button {
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 480px;
+	min-width: 500px;
 	min-height: 175px;
 	border: 1px solid #ddd;
 	border-radius: 55px 25px 55px 0;
@@ -373,6 +421,9 @@ ul.rig li button {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #entry div {
@@ -393,38 +444,12 @@ ul.rig li button {
 	color: red;
 }
 
-#name {
-	height: 55px;	
+/* Various forms for template apps */
+#name, #email, #po, #item_number, #acct, #given_price {
+	height: 55px;
 	width: 350px;
 	margin: 0 auto;
-}
-
-#email {
-	height: 55px;
-	width: 350px;
-	margin: 0 auto:
-}
-
-#po {
-	height: 55px;
-	width: 350px;
-	margin: 0 auto:
-}
-
-#item_number {
-	height: 55px;
-	width: 350px;
-	margin: 0 auto:
-}
-
-#acct {
-	height: 55px;
-	width: 350px;
-	margin: 0 auto:
-}
-
-#given_price {
-	height: 55px;
-	width: 350px;
-	margin: 0 auto:
+	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
