@@ -1159,15 +1159,20 @@ def forms_without_orders():
     form = DeaForms()
     if request.method == 'POST':
         if not form.validate():
+            entries = models.Entry.query.all()
             flash('All fields are required.')
             return render_template("/CSTools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
-                                   form=form)
+                                   form=form,
+                                   entries=entries,
+                                   new_entry=True)
         else:
             institution = form.institution.data
             name = form.name.data
             email = form.email.data
             csr_name = form.csr_name.data
+            item_numbers = form.item_numbers.data
+            notes = form.notes.data
             now = datetime.datetime.utcnow()
             date_nice = now.strftime('%m/%d/%Y')
 
@@ -1175,6 +1180,8 @@ def forms_without_orders():
                                  contact_name=name,
                                  contact_email=email,
                                  timestamp=date_nice,
+                                 item_numbers=item_numbers,
+                                 notes=notes,
                                  csr_name=csr_name)
 
             db.session.add(entry)

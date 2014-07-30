@@ -4,36 +4,13 @@
 <div id="container">
     <h1 id="dea-forms-title">DEA Forms Without Orders</h1>
 
-    {% if entries %}
-        <ul class="rig columns-3">
-            {% for entry in entries %}
-                <li>
-                    <h3>{{ entry.institution }}</h3>
-                    <div id="data-titles">
-                        Contact's Name:<br>
-                        Contact's Email:<br>
-                        Posted:<br>
-                        Posted By:<br>
-                    </div>
-                    <div id="data">
-                        {{ entry.contact_name }}<br>
-                        {{ entry.contact_email }}<br>
-                        {{ entry.timestamp }}<br>
-                        <span id="csr-name">{{ entry.csr_name }}</span><br>
-                    </div>
-                <a href="/forms-without-orders/edit-entry/{{ entry.id }}"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
     <div id="backorder-form" class="cover-container">
     {% if message %}
         <h3>{{ message }}</h3>
     {% endif %}
 
     {% if form %}
-        <div class="alert">
+        <div class="entry alert">
             {% for message in form.institution.errors %}
                 <p>{{ message }}</p>
             {% endfor %}
@@ -46,13 +23,15 @@
                 <p>{{ message }}</p>
             {% endfor %}
 
+            {% for message in form.item_numbers.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+
             {% for message in form.csr_name.errors %}
                 <p>{{ message }}</p>
             {% endfor %}
         </div>
-    {% endif %}
 
-    {% if form %}
         <form action="{{ url_for('forms_without_orders') }}" method=POST>
             {{ form.hidden_tag() }}
 
@@ -62,13 +41,14 @@
 
             {{ form.email(placeholder="Contact's Email") }}
 
+            {{ form.item_numbers(placeholder="Item Numbers") }}
+
+            {{ form.notes(placeholder="Notes (Optional)") }}
+
             {{ form.csr_name(placeholder="Your name", class="backorder-form-bottom") }}
 
             {{form.submit(class_='btn btn-lg btn-danger') }}
         </form>
-        <br>
-        <br>
-        <br>
         <a href="/forms-without-orders"><h3 id="back">Back</h3></a>
     {% endif %}
 
@@ -77,5 +57,34 @@
     {% endif %}
 
     </div>
+
+    {% if entries %}
+        <ul class="rig columns-3">
+            {% for entry in entries %}
+                <li>
+                    <h3>{{ entry.institution }}</h3>
+                    <div id="data-titles">
+                        Contact's Name:<br>
+                        Contact's Email:<br>
+                        Item Numbers:<br>
+                        Posted:<br>
+                        Posted By:<br>
+                        Notes:<br>
+                        <a href="/forms-without-orders/edit-entry/{{ entry.id }}"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
+                    </div>
+                    <div id="data">
+                        {{ entry.contact_name }}<br>
+                        {{ entry.contact_email }}<br>
+                        {{ entry.item_numbers }}<br>
+                        {{ entry.timestamp }}<br>
+                        <span id="csr-name">{{ entry.csr_name }}</span><br>
+                        <div id="entry-notes">{{ entry.notes }}</div><br>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
 </div>
 {% endblock %}

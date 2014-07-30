@@ -92,9 +92,10 @@ a:hover {
 .alert {
     position: relative;
     text-align: justify;
-	width: 50%;
 	margin: 0 auto;
-    padding: 15px 0;
+	margin-right: 100px;
+	width: 50%;
+	padding: 15px 0;
 }
 
 form {
@@ -322,8 +323,9 @@ ul.rig li {
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 480px;
-	min-height: 175px;
+	min-width: 525px;
+	min-height: 160px;
+	max-height: 350px;
 	border: 1px solid #ddd;
 	border-radius: 55px 25px 55px 0;
 	font-size: 16px;
@@ -398,13 +400,12 @@ ul.rig.columns-4 li {
 
 ul.rig li button {
 	display: block;
-	vertical-align: baseline;
+	float: left;
 	width: 50px;
 	height: 25px;
-	position: relative;
-	bottom: -100px;
-	right: 115px;
 	font-size: 14px;
+	position: relative;
+	margin-top: 30%;
 	margin-right: 15px;
 }
 
@@ -419,6 +420,13 @@ ul.rig li button {
 #data {
 	float: right;
 	text-align: justify;
+}
+
+#entry-notes {
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	width: 200px;
 }
 
 #csr-name {
@@ -436,8 +444,9 @@ ul.rig li button {
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	min-width: 480px;
+	min-width: 525px;
 	min-height: 175px;
+	max-height: 350px;
 	border: 1px solid #ddd;
 	border-radius: 55px 25px 55px 0;
 	font-size: 16px;
@@ -471,7 +480,7 @@ ul.rig li button {
 }
 
 /* Various forms for template apps */
-#name, #email, #po, #item_number, #acct, #given_price {
+#name, #email, #po, #item_number, #acct, #given_price, #item_numbers, #notes, #institution {
 	height: 55px;
 	width: 350px;
 	margin: 0 auto;
@@ -506,4 +515,8 @@ ul.rig li button {
 
 .login-text {
 	font-size: 22px;
+}
+
+#backorder-form a button {
+	margin-bottom: 30px;
 }

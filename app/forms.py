@@ -79,6 +79,8 @@ class DeaForms(Form):
     institution = TextField("Institution", [validators.Required("Enter the name of the institution.")])
     name = TextField("Contact's Name", [validators.Required("Enter the contact's name.")])
     email = TextField("Contact's Email", [validators.Required("Enter the contact's email.")])
+    item_numbers = TextField("Item #s.", [validators.Required("Enter the item numbers from the 222 form.")])
+    notes = TextField("Notes.")
     csr_name = TextField("Your name.", [validators.Required("Enter your name.")])
     submit = SubmitField("Submit")
 

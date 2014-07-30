@@ -5,18 +5,22 @@
 
     <div id="entry">
         <h3>{{ entry.institution }}</h3>
-            <div id="data-titles">
-                Contact's Name:<br>
-                Contact's Email:<br>
-                Posted:<br>
-                Posted By:<br>
-            </div>
-            <div id="data">
-                {{ entry.contact_name }}<br>
-                {{ entry.contact_email }}<br>
-                {{ entry.timestamp }}<br>
-                <span id="csr-name">{{ entry.csr_name }}</span><br>
-            </div>
+        <div id="data-titles">
+            Contact's Name:<br>
+            Contact's Email:<br>
+            Item Numbers:<br>
+            Posted:<br>
+            Posted By:<br>
+            Notes:<br>
+        </div>
+        <div id="data">
+            {{ entry.contact_name }}<br>
+            {{ entry.contact_email }}<br>
+            {{ entry.item_numbers }}<br>
+            {{ entry.timestamp }}<br>
+            <span id="csr-name">{{ entry.csr_name }}</span><br>
+            <div class="notes">{{ entry.notes }}</div><br>
+        </div>
     </div>
     <br>
     <br>
