@@ -783,7 +783,7 @@ def gif_party_feed():
 @app.route('/cstools')
 @app.route('/cstools/index')
 def index():
-    return render_template("/CSTools/index.html",
+    return render_template("/cstools/index.html",
                            title="Home")
 
 
