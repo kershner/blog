@@ -1,0 +1,39 @@
+{% extends "/CSTools/base.html" %}
+{% block content %}
+<div id="datechecker" class="container">
+    <h2>222 Form Date Checker</h2>
+    <div class="row">
+        <div id="example-form" class="container">
+            <div id="demo-text-div" class="container">
+                <img id="demo" src="/static/images/222 demo.PNG">
+                <p id="demo-text">
+                Enter the 222 form's issue date (section B in the above image).<br>
+                Make sure the issue date is in the format MM/DD/YY.
+                </p>
+                {% for i in form.form_date.errors %}
+                    <div class="date-checker-message-div"><h4 class="date-checker-message">{{ i }}</h4></div>
+                {% endfor %}
+
+                {% if message %}
+                <div class="date-checker-message-div">
+                    <h4 class="date-checker-message">{{ message }}</h4>
+                </div>
+                {% endif %}
+
+                <div id="date-checker-input">
+                    <form action="{{ url_for('datechecker') }}" method=POST>
+                    {{ form.hidden_tag() }}
+
+                    {{ form.form_date(placeholder="MM/DD/YY", class_="form-date") }}
+
+                    {{form.submit(class_='btn btn-lg btn-danger') }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

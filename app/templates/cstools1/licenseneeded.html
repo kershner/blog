@@ -1,0 +1,48 @@
+{% extends "/CSTools/base.html" %}
+{% block content %}
+
+<div id="backorder-form" class="cover-container">
+    <div id="template-blurb" class="container">
+        <h2>DEA License  Needed</h2>
+        <div class="well">
+            <p id="smaller">Subject: DEA License Still Needed Order #[PO/SO Number]<br><br>
+                Hello [Contact's Name],<br><br>We have received your 222 form but we still need an updated copy
+                of your DEA registration before the order can be processed.  Unlike the 222 form, the registration
+                does not need to be an original - you can simply scan your license and email it to me.  Please send
+                us your license as soon as possible to ensure prompt delivery of your order.
+            </p>
+        </div>
+        <p>You will need to manually add your signature.</p><br>
+    </div>
+        {% if link %}
+            <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your DEA License Needed Template</h3></div></a>
+        {% endif %}
+
+    <div class="alert">
+        {% for message in form.name.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
+        {% for message in form.email.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
+        {% for message in form.order_no.errors %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+
+    <form action="{{ url_for('license_needed') }}" method=POST>
+        {{ form.hidden_tag() }}
+
+        {{ form.name(placeholder="Contact's Name", class_="backorder-form-top") }}
+
+        {{ form.email(placeholder="Contact's Email Address") }}
+
+        {{ form.order_no(placeholder="Purchase Order or Sales Order", class_="backorder-form-bottom") }}
+
+        {{form.submit(class_='btn btn-lg btn-danger') }}
+    </form>
+</div>
+
+{% endblock %}
