@@ -93,7 +93,8 @@ a:hover {
     position: relative;
     text-align: justify;
 	margin: 0 auto;
-	margin-right: 100px;
+	margin-right: 140px;
+	margin-top: 75px;
 	width: 50%;
 	padding: 15px 0;
 }
@@ -279,7 +280,9 @@ input  {
     height: 65px;
     width: 190px;
     margin: 0 auto;
-    border-radius: 15px;
+    margin-top: 15px;
+	margin-bottom: 15px;
+	border-radius: 15px;
     -webkit-box-shadow: -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -7px 4px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -7px 4px 13px 0px rgba(50, 50, 50, 0.75);

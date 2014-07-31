@@ -9,7 +9,7 @@ from app import app, db, models
 
 ##############################################################################
 ## Blog ######################################################################
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template("/blog/home.html",
                            title="Home")
@@ -21,16 +21,16 @@ def archive():
                            title="Blog Archive")
 
 
-@app.route('/jun14')
-def jun14():
-    return render_template("/blog/blog_archive/jun14.html",
-                           title="June 2014")
-
-
 @app.route('/may14')
 def may14():
     return render_template("/blog/blog_archive/may14.html",
                            title="May 2014")
+
+
+@app.route('/jun14')
+def jun14():
+    return render_template("/blog/blog_archive/jun14.html",
+                           title="June 2014")
 
 
 @app.route('/about')
@@ -51,7 +51,7 @@ def project1():
                            title="Python Text Adventure")
 
 
-@app.route('/cstools')
+@app.route('/cstools-project')
 def project2():
     return render_template("/blog/projects/project02.html",
                            title="CSTools")
@@ -778,16 +778,16 @@ def gif_party_feed():
     return redirect(url_for('gif_party'))
 
 
-##############################################################################
-#####  CS Tools Apps #########################################################
-@app.route('/')
-@app.route('/index')
+#######################################################################################
+#####  CS Tools Apps ##################################################################
+@app.route('/cstools')
+@app.route('/cstools/index')
 def index():
     return render_template("/CSTools/index.html",
                            title="Home")
 
 
-@app.route('/datechecker', methods=['GET', 'POST'])
+@app.route('/cstools/datechecker', methods=['GET', 'POST'])
 def datechecker():
     form = DateCheckerForm()
     if request.method == 'POST':
@@ -825,7 +825,7 @@ def datechecker():
                                form=form)
 
 
-@app.route('/backorder', methods=['GET', 'POST'])
+@app.route('/cstools/backorder', methods=['GET', 'POST'])
 def backorder():
     form = BackorderForm()
     if request.method == 'POST':
@@ -839,9 +839,7 @@ def backorder():
             subject = "Cayman Chemical Backorder Notification %s" % form.po.data
             body = "Hello %s,\n\nUnfortunately we need to inform you that one "\
                    "of your items is currently not available.  Item # %s is " \
-                   "in production with an approximate lead time of %s.  If " \
-                   "there are additional items on your order, please let me " \
-                   "know if you would like to authorize partial shipment.\n\nI " \
+                   "in production with an approximate lead time of %s.\n\nI " \
                    "apologize for the inconvenience.  Please let me know if " \
                    "you have any questions.\n\nHave a great day,\n\n" % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
@@ -857,7 +855,7 @@ def backorder():
                                form=form)
 
 
-@app.route('/application', methods=['GET', 'POST'])
+@app.route('/cstools/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
     if request.method == 'POST':
@@ -885,7 +883,7 @@ def application():
                                form=form)
 
 
-@app.route('/dea', methods=['GET', 'POST'])
+@app.route('/cstools/dea', methods=['GET', 'POST'])
 def dea():
     form = DeaForm()
     if request.method == 'POST':
@@ -915,7 +913,7 @@ def dea():
                                form=form)
 
 
-@app.route('/newaccount', methods=['GET', 'POST'])
+@app.route('/cstools/newaccount', methods=['GET', 'POST'])
 def newaccount():
     form = NewAccountForm()
     if request.method == 'POST':
@@ -946,7 +944,7 @@ def newaccount():
                                form=form)
 
 
-@app.route('/shadyblurb', methods=['GET', 'POST'])
+@app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
 def shadyblurb():
     form = ShadyForm()
     if request.method == 'POST':
@@ -980,7 +978,7 @@ def shadyblurb():
                                form=form)
 
 
-@app.route('/pricediscrepancy', methods=['GET', 'POST'])
+@app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
 def price_discrepancy():
     form = DiscrepancyForm()
     if request.method == 'POST':
@@ -1009,7 +1007,7 @@ def price_discrepancy():
                                form=form)
 
 
-@app.route('/stillneed', methods=['GET', 'POST'])
+@app.route('/cstools/stillneed', methods=['GET', 'POST'])
 def still_need():
     form = StillNeed()
     if request.method == 'POST':
@@ -1039,7 +1037,7 @@ def still_need():
                                form=form)
 
 
-@app.route('/licenseneeded', methods=['GET', 'POST'])
+@app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
 def license_needed():
     form = LicenseNeeded()
     if request.method == 'POST':
@@ -1068,7 +1066,7 @@ def license_needed():
                                form=form)
 
 
-@app.route('/deaverify', methods=['GET', 'POST'])
+@app.route('/cstools/deaverify', methods=['GET', 'POST'])
 def dea_verify():
     form = DeaVerify()
     if request.method == 'POST':
@@ -1094,7 +1092,6 @@ def dea_verify():
                                form=form)
 
 
-# Wrapping function for routes that require a password
 def login_required(test):
     @wraps(test)
     def wrap(*args, **kwargs):
@@ -1108,7 +1105,7 @@ def login_required(test):
     return wrap
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/cstools/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -1121,7 +1118,7 @@ def login():
                            title='Login',
                            error=error)
 
-@app.route('/logout')
+@app.route('/cstools/logout')
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
@@ -1130,21 +1127,26 @@ def logout():
         return redirect(url_for('index'))
 
 
-@app.route('/forms-without-orders', methods=['GET', 'POST'])
+@app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
 @login_required
 def forms_without_orders():
     form = DeaForms()
     if request.method == 'POST':
         if not form.validate():
+            entries = models.Entry.query.all()
             flash('All fields are required.')
             return render_template("/CSTools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
-                                   form=form)
+                                   form=form,
+                                   entries=entries,
+                                   new_entry=True)
         else:
             institution = form.institution.data
             name = form.name.data
             email = form.email.data
             csr_name = form.csr_name.data
+            item_numbers = form.item_numbers.data
+            notes = form.notes.data
             now = datetime.datetime.utcnow()
             date_nice = now.strftime('%m/%d/%Y')
 
@@ -1152,6 +1154,8 @@ def forms_without_orders():
                                  contact_name=name,
                                  contact_email=email,
                                  timestamp=date_nice,
+                                 item_numbers=item_numbers,
+                                 notes=notes,
                                  csr_name=csr_name)
 
             db.session.add(entry)
@@ -1172,7 +1176,7 @@ def forms_without_orders():
                                entries=entries)
 
 
-@app.route('/forms-without-orders/new-entry')
+@app.route('/cstools/forms-without-orders/new-entry')
 @login_required
 def new_entry():
     form = DeaForms()
@@ -1184,7 +1188,7 @@ def new_entry():
                            new_entry=True)
 
 
-@app.route('/forms-without-orders/edit-entry/<id>')
+@app.route('/cstools/forms-without-orders/edit-entry/<id>')
 @login_required
 def edit_entry(id):
     entry = models.Entry.query.get(id)
@@ -1194,7 +1198,7 @@ def edit_entry(id):
                            entry=entry)
 
 
-@app.route('/forms-without-orders/delete-entry/<id>')
+@app.route('/cstools/forms-without-orders/delete-entry/<id>')
 @login_required
 def delete_entry(id):
     entry = models.Entry.query.get(id)

@@ -3,7 +3,7 @@ import calendar
 
 total = int(raw_input('Current total: > '))
 loan = 24041
-income = 1080
+income = 1060
 two_week_expenses = 100 + 30 + 30 + 20
 endofmonth_expenses = 400 + 29
 

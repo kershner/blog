@@ -49,11 +49,11 @@
 
             {{form.submit(class_='btn btn-lg btn-danger') }}
         </form>
-        <a href="/forms-without-orders"><h3 id="back">Back</h3></a>
+        <a href="/cstools/forms-without-orders"><h3 id="back">Back</h3></a>
     {% endif %}
 
     {% if not new_entry %}
-        <a href="/forms-without-orders/new-entry"><button class="btn btn-success">New Entry</button></a>
+        <a href="/cstools/forms-without-orders/new-entry"><button class="btn btn-success">New Entry</button></a>
     {% endif %}
 
     </div>
@@ -70,7 +70,7 @@
                         Posted:<br>
                         Posted By:<br>
                         Notes:<br>
-                        <a href="/forms-without-orders/edit-entry/{{ entry.id }}"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
+                        <a href="/cstools/forms-without-orders/edit-entry/{{ entry.id }}"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
                     </div>
                     <div id="data">
                         {{ entry.contact_name }}<br>

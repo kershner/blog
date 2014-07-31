@@ -10,7 +10,7 @@ from app import app, db, models
 
 ##############################################################################
 ## Blog ######################################################################
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template("/blog/home.html",
                            title="Home")
@@ -52,7 +52,7 @@ def project1():
                            title="Python Text Adventure")
 
 
-@app.route('/cstools')
+@app.route('/cstools-project')
 def project2():
     return render_template("/blog/projects/project02.html",
                            title="CSTools")
@@ -806,14 +806,14 @@ def gif_party_feed():
 
 #######################################################################################
 #####  CS Tools Apps ##################################################################
-@app.route('/')
-@app.route('/index')
+@app.route('/cstools')
+@app.route('/cstools/index')
 def index():
     return render_template("/CSTools/index.html",
                            title="Home")
 
 
-@app.route('/datechecker', methods=['GET', 'POST'])
+@app.route('/cstools/datechecker', methods=['GET', 'POST'])
 def datechecker():
     form = DateCheckerForm()
     if request.method == 'POST':
@@ -851,7 +851,7 @@ def datechecker():
                                form=form)
 
 
-@app.route('/backorder', methods=['GET', 'POST'])
+@app.route('/cstools/backorder', methods=['GET', 'POST'])
 def backorder():
     form = BackorderForm()
     if request.method == 'POST':
@@ -881,7 +881,7 @@ def backorder():
                                form=form)
 
 
-@app.route('/application', methods=['GET', 'POST'])
+@app.route('/cstools/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
     if request.method == 'POST':
@@ -909,7 +909,7 @@ def application():
                                form=form)
 
 
-@app.route('/dea', methods=['GET', 'POST'])
+@app.route('/cstools/dea', methods=['GET', 'POST'])
 def dea():
     form = DeaForm()
     if request.method == 'POST':
@@ -939,7 +939,7 @@ def dea():
                                form=form)
 
 
-@app.route('/newaccount', methods=['GET', 'POST'])
+@app.route('/cstools/newaccount', methods=['GET', 'POST'])
 def newaccount():
     form = NewAccountForm()
     if request.method == 'POST':
@@ -970,7 +970,7 @@ def newaccount():
                                form=form)
 
 
-@app.route('/shadyblurb', methods=['GET', 'POST'])
+@app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
 def shadyblurb():
     form = ShadyForm()
     if request.method == 'POST':
@@ -1004,7 +1004,7 @@ def shadyblurb():
                                form=form)
 
 
-@app.route('/pricediscrepancy', methods=['GET', 'POST'])
+@app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
 def price_discrepancy():
     form = DiscrepancyForm()
     if request.method == 'POST':
@@ -1033,7 +1033,7 @@ def price_discrepancy():
                                form=form)
 
 
-@app.route('/stillneed', methods=['GET', 'POST'])
+@app.route('/cstools/stillneed', methods=['GET', 'POST'])
 def still_need():
     form = StillNeed()
     if request.method == 'POST':
@@ -1063,7 +1063,7 @@ def still_need():
                                form=form)
 
 
-@app.route('/licenseneeded', methods=['GET', 'POST'])
+@app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
 def license_needed():
     form = LicenseNeeded()
     if request.method == 'POST':
@@ -1092,7 +1092,7 @@ def license_needed():
                                form=form)
 
 
-@app.route('/deaverify', methods=['GET', 'POST'])
+@app.route('/cstools/deaverify', methods=['GET', 'POST'])
 def dea_verify():
     form = DeaVerify()
     if request.method == 'POST':
@@ -1131,7 +1131,7 @@ def login_required(test):
     return wrap
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/cstools/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -1144,7 +1144,7 @@ def login():
                            title='Login',
                            error=error)
 
-@app.route('/logout')
+@app.route('/cstools/logout')
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
@@ -1153,7 +1153,7 @@ def logout():
         return redirect(url_for('index'))
 
 
-@app.route('/forms-without-orders', methods=['GET', 'POST'])
+@app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
 @login_required
 def forms_without_orders():
     form = DeaForms()
@@ -1202,7 +1202,7 @@ def forms_without_orders():
                                entries=entries)
 
 
-@app.route('/forms-without-orders/new-entry')
+@app.route('/cstools/forms-without-orders/new-entry')
 @login_required
 def new_entry():
     form = DeaForms()
@@ -1214,7 +1214,7 @@ def new_entry():
                            new_entry=True)
 
 
-@app.route('/forms-without-orders/edit-entry/<id>')
+@app.route('/cstools/forms-without-orders/edit-entry/<id>')
 @login_required
 def edit_entry(id):
     entry = models.Entry.query.get(id)
@@ -1224,7 +1224,7 @@ def edit_entry(id):
                            entry=entry)
 
 
-@app.route('/forms-without-orders/delete-entry/<id>')
+@app.route('/cstools/forms-without-orders/delete-entry/<id>')
 @login_required
 def delete_entry(id):
     entry = models.Entry.query.get(id)

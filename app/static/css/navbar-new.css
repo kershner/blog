@@ -89,10 +89,6 @@ a:hover {
 	top: 90px;
 }
 
-form {
-	margin-top: 10px;
-}
-
 #example-form {
 	margin-left: auto;
 	margin-right: auto;
@@ -169,58 +165,39 @@ ul.rig .main-menu {
 }
 
 #dark-purple {
-	background: rgb(225, 41, 41);
-	background: -moz-linear-gradient(30deg, rgb(225, 41, 41) 30%, rgb(136, 60, 67) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(225, 41, 41) 30%, rgb(136, 60, 67) 70%);
-	background: -o-linear-gradient(30deg, rgb(225, 41, 41) 30%, rgb(136, 60, 67) 70%);
-	background: -ms-linear-gradient(30deg, rgb(225, 41, 41) 30%, rgb(136, 60, 67) 70%);
-	background: linear-gradient(120deg, rgb(225, 41, 41) 30%, rgb(136, 60, 67) 70%);
+	background: rgb(179, 102, 255);
+	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 }
 
 #lime {
-	background: rgb(255, 57, 71);
-	background: -moz-linear-gradient(30deg, rgb(255, 57, 71) 30%, rgb(165, 62, 71) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 57, 71) 30%, rgb(165, 62, 71) 70%);
-	background: -o-linear-gradient(30deg, rgb(255, 57, 71) 30%, rgb(165, 62, 71) 70%);
-	background: -ms-linear-gradient(30deg, rgb(255, 57, 71) 30%, rgb(165, 62, 71) 70%);
-	background: linear-gradient(120deg, rgb(255, 57, 71) 30%, rgb(165, 62, 71) 70%);
+	background: rgb(179, 255, 102);
+	background: -moz-linear-gradient(52deg, rgb(179, 255, 102) 24%, rgb(110, 216, 117) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(179, 255, 102) 24%, rgb(110, 216, 117) 88%);
+	background: -o-linear-gradient(52deg, rgb(179, 255, 102) 24%, rgb(110, 216, 117) 88%);
+	background: -ms-linear-gradient(52deg, rgb(179, 255, 102) 24%, rgb(110, 216, 117) 88%);
+	background: linear-gradient(142deg, rgb(179, 255, 102) 24%, rgb(110, 216, 117) 88%);
 }
 
-#green {
-	background: rgb(255, 101, 119);
-	background: -moz-linear-gradient(30deg, rgb(255, 101, 119) 30%, rgb(181, 83, 83) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 101, 119) 30%, rgb(181, 83, 83) 70%);
-	background: -o-linear-gradient(30deg, rgb(255, 101, 119) 30%, rgb(181, 83, 83) 70%);
-	background: -ms-linear-gradient(30deg, rgb(255, 101, 119) 30%, rgb(181, 83, 83) 70%);
-	background: linear-gradient(120deg, rgb(255, 101, 119) 30%, rgb(181, 83, 83) 70%);
+#salmon {
+	background: rgb(255, 102, 102);
+	background: -moz-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -o-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -ms-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: linear-gradient(142deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
 }
 
 #light-green {
-	background: rgb(255, 147, 149);
-	background: -moz-linear-gradient(30deg, rgb(255, 147, 149) 30%, rgb(186, 129, 145) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 147, 149) 30%, rgb(186, 129, 145) 70%);
-	background: -o-linear-gradient(30deg, rgb(255, 147, 149) 30%, rgb(186, 129, 145) 70%);
-	background: -ms-linear-gradient(30deg, rgb(255, 147, 149) 30%, rgb(186, 129, 145) 70%);
-	background: linear-gradient(120deg, rgb(255, 147, 149) 30%, rgb(186, 129, 145) 70%);
-}
-
-#pink {
-	background: rgb(102, 179, 255);
-	background: -moz-linear-gradient(30deg, rgb(102, 179, 255) 0%, rgb(51, 115, 200) 65%);
-	background: -webkit-linear-gradient(30deg, rgb(102, 179, 255) 0%, rgb(51, 115, 200) 65%);
-	background: -o-linear-gradient(30deg, rgb(102, 179, 255) 0%, rgb(51, 115, 200) 65%);
-	background: -ms-linear-gradient(30deg, rgb(102, 179, 255) 0%, rgb(51, 115, 200) 65%);
-	background: linear-gradient(120deg, rgb(102, 179, 255) 0%, rgb(51, 115, 200) 65%);
-}
-
-
-#salmon {
-background: rgb(102, 217, 255);
-background: -moz-linear-gradient(30deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%);
-background: -webkit-linear-gradient(30deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%);
-background: -o-linear-gradient(30deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%);
-background: -ms-linear-gradient(30deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%);
-background: linear-gradient(120deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%);
+	background: rgb(102, 255, 178);
+	background: -moz-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -o-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -ms-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: linear-gradient(142deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
 }
 
 #light-purple {
@@ -257,6 +234,24 @@ background: linear-gradient(120deg, rgb(102, 217, 255) 0%, rgb(76, 159, 255) 65%
 	background: -o-linear-gradient(52deg, rgb(183, 207, 232) 24%, rgb(140, 191, 225) 88%);
 	background: -ms-linear-gradient(52deg, rgb(183, 207, 232) 24%, rgb(140, 191, 225) 88%);
 	background: linear-gradient(142deg, rgb(183, 207, 232) 24%, rgb(140, 191, 225) 88%);
+}
+
+#pink {
+	background: rgb(232, 183, 207);
+	background: -moz-linear-gradient(52deg, rgb(232, 183, 207) 24%, rgb(239, 136, 181) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(232, 183, 207) 24%, rgb(239, 136, 181) 88%);
+	background: -o-linear-gradient(52deg, rgb(232, 183, 207) 24%, rgb(239, 136, 181) 88%);
+	background: -ms-linear-gradient(52deg, rgb(232, 183, 207) 24%, rgb(239, 136, 181) 88%);
+	background: linear-gradient(142deg, rgb(232, 183, 207) 24%, rgb(239, 136, 181) 88%);
+}
+
+#green {
+	background: rgb(183, 232, 184);
+	background: -moz-linear-gradient(52deg, rgb(183, 232, 184) 24%, rgb(136, 188, 172) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(183, 232, 184) 24%, rgb(136, 188, 172) 88%);
+	background: -o-linear-gradient(52deg, rgb(183, 232, 184) 24%, rgb(136, 188, 172) 88%);
+	background: -ms-linear-gradient(52deg, rgb(183, 232, 184) 24%, rgb(136, 188, 172) 88%);
+	background: linear-gradient(142deg, rgb(183, 232, 184) 24%, rgb(136, 188, 172) 88%);
 }
 
 #magenta {
