@@ -792,7 +792,7 @@ def datechecker():
     form = DateCheckerForm()
     if request.method == 'POST':
         if not form.validate():
-            return render_template("/CSTools/datechecker.html",
+            return render_template("/cstools/datechecker.html",
                                    title="222 Form Date Checker",
                                    form=form)
         else:
@@ -809,18 +809,18 @@ def datechecker():
                     message = "The form expired on %s, %s days ago." % \
                               (str(form_expiry_date_nice), str(days_expired.days))
 
-                return render_template("/CSTools/datechecker.html",
+                return render_template("/cstools/datechecker.html",
                                        title="222 Form Date Checker",
                                        form=form,
                                        message=message)
             except ValueError:
                 message = "Enter the form's issue date in the format MM/DD/YY."
-                return render_template("/CSTools/datechecker.html",
+                return render_template("/cstools/datechecker.html",
                                        title="222 Form Date Checker",
                                        form=form,
                                        message=message)
     elif request.method == 'GET':
-        return render_template("/CSTools/datechecker.html",
+        return render_template("/cstools/datechecker.html",
                                title="222 Form Date Checker",
                                form=form)
 
@@ -831,7 +831,7 @@ def backorder():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/backorder.html",
+            return render_template("/cstools/backorder.html",
                                    title="Backorder Template",
                                    form=form)
         else:
@@ -844,13 +844,13 @@ def backorder():
                    "you have any questions.\n\nHave a great day,\n\n" % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/backorder.html",
+            return render_template("/cstools/backorder.html",
                                    title="Backorder Template",
                                    link=link,
                                    form=form)
 
     elif request.method == 'GET':
-        return render_template("/CSTools/backorder.html",
+        return render_template("/cstools/backorder.html",
                                title="Backorder Template",
                                form=form)
 
@@ -861,7 +861,7 @@ def application():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/application.html",
+            return render_template("/cstools/application.html",
                                    title="Account Application Template3",
                                    form=form)
         else:
@@ -873,12 +873,12 @@ def application():
                    "attached our customer account application which has all the instructions you will need, " \
                    "though please don't hesitate to call if you have any questions.\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/application.html",
+            return render_template("/cstools/application.html",
                                    title="Account Application Template1",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/application.html",
+        return render_template("/cstools/application.html",
                                title="Account Application Template2",
                                form=form)
 
@@ -889,7 +889,7 @@ def dea():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/dea.html",
+            return render_template("/cstools/dea.html",
                                    title="DEA Protocol Template",
                                    form=form)
         else:
@@ -903,12 +903,12 @@ def dea():
                    "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
                    "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % (name, items)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/dea.html",
+            return render_template("/cstools/dea.html",
                                    title="DEA Protocol Template",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/dea.html",
+        return render_template("/cstools/dea.html",
                                title="DEA Protocol Template",
                                form=form)
 
@@ -919,7 +919,7 @@ def newaccount():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/newaccount.html",
+            return render_template("/cstools/newaccount.html",
                                    title="New Account Template",
                                    form=form)
         else:
@@ -934,12 +934,12 @@ def newaccount():
                    "Fax:order please reference customer account number %s.\n\nWe look forward to doing business with " \
                    "you!\n\n" % (name, acct_number)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/newaccount.html",
+            return render_template("/cstools/newaccount.html",
                                    title="New Account Template",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/newaccount.html",
+        return render_template("/cstools/newaccount.html",
                                title="New Account Template",
                                form=form)
 
@@ -950,7 +950,7 @@ def shadyblurb():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/shadyblurb.html",
+            return render_template("/cstools/shadyblurb.html",
                                    title="Shady Customer Blurb",
                                    form=form)
         else:
@@ -968,12 +968,12 @@ def shadyblurb():
                    "businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please " \
                    "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/shadyblurb.html",
+            return render_template("/cstools/shadyblurb.html",
                                    title="Shady Customer Blurb",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/shadyblurb.html",
+        return render_template("/cstools/shadyblurb.html",
                                title="Shady Customer Blurb",
                                form=form)
 
@@ -984,7 +984,7 @@ def price_discrepancy():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/pricediscrepancy.html",
+            return render_template("/cstools/pricediscrepancy.html",
                                    title="Price Discrepancy Template",
                                    form=form)
         else:
@@ -996,13 +996,13 @@ def price_discrepancy():
                    "Please let me know if you have any questions,\n\n" % \
                    (form.name.data, form.item_number.data, form.given_price.data, form.actual_price.data)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/pricediscrepancy.html",
+            return render_template("/cstools/pricediscrepancy.html",
                                    title="Price Discrepancy Template",
                                    link=link,
                                    form=form)
 
     elif request.method == 'GET':
-        return render_template("/CSTools/pricediscrepancy.html",
+        return render_template("/cstools/pricediscrepancy.html",
                                title="Price Discrepancy Template",
                                form=form)
 
@@ -1013,7 +1013,7 @@ def still_need():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/stillneed.html",
+            return render_template("/cstools/stillneed.html",
                                    title="Still Need Item? Template",
                                    form=form)
         else:
@@ -1027,12 +1027,12 @@ def still_need():
                    "would like it to be shipped as soon as possible.  Please let me know how you would like " \
                    "to proceed.\n\n" % (name, item)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/stillneed.html",
+            return render_template("/cstools/stillneed.html",
                                    title="Still Need Item? Template",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/stillneed.html",
+        return render_template("/cstools/stillneed.html",
                                title="Still Need Item? Template",
                                form=form)
 
@@ -1043,7 +1043,7 @@ def license_needed():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/licenseneeded.html",
+            return render_template("/cstools/licenseneeded.html",
                                    title="DEA License Needed Template",
                                    form=form)
         else:
@@ -1056,12 +1056,12 @@ def license_needed():
                    "need to be an original - you can simply scan your license and email it to me.  Please send us " \
                    "your license as soon as possible to ensure prompt delivery of your order.\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/licenseneeded.html",
+            return render_template("/cstools/licenseneeded.html",
                                    title="DEA License Needed Template",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/licenseneeded.html",
+        return render_template("/cstools/licenseneeded.html",
                                title="DEA License Needed Template",
                                form=form)
 
@@ -1072,7 +1072,7 @@ def dea_verify():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/CSTools/deaverify.html",
+            return render_template("/cstools/deaverify.html",
                                    title="DEA Documents Verification Template",
                                    form=form)
         else:
@@ -1082,12 +1082,12 @@ def dea_verify():
             subject = "%s / %s" % (order_no, institution)
             body = "Hello,\n\nPlease verify these documents.\n\n"
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/CSTools/deaverify.html",
+            return render_template("/cstools/deaverify.html",
                                    title="DEA Documents Verification Template",
                                    link=link,
                                    form=form)
     elif request.method == 'GET':
-        return render_template("/CSTools/deaverify.html",
+        return render_template("/cstools/deaverify.html",
                                title="DEA Documents Verification Template",
                                form=form)
 
@@ -1099,7 +1099,7 @@ def login_required(test):
             return test(*args, **kwargs)
         else:
             error = 'You need to log in first.'
-            return render_template('/CSTools/login.html',
+            return render_template('/cstools/login.html',
                                    title='Login',
                                    error=error)
     return wrap
@@ -1114,7 +1114,7 @@ def login():
         else:
             session['logged_in'] = True
             return redirect(url_for('forms_without_orders'))
-    return render_template('/CSTools/login.html',
+    return render_template('/cstools/login.html',
                            title='Login',
                            error=error)
 
@@ -1135,7 +1135,7 @@ def forms_without_orders():
         if not form.validate():
             entries = models.Entry.query.all()
             flash('All fields are required.')
-            return render_template("/CSTools/forms_without_orders.html",
+            return render_template("/cstools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
                                    form=form,
                                    entries=entries,
@@ -1165,13 +1165,13 @@ def forms_without_orders():
 
             message = 'Successfully added entry for %s.' % institution
 
-            return render_template("/CSTools/forms_without_orders.html",
+            return render_template("/cstools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
                                    entries=entries,
                                    message=message)
     elif request.method == 'GET':
         entries = models.Entry.query.all()
-        return render_template("/CSTools/forms_without_orders.html",
+        return render_template("/cstools/forms_without_orders.html",
                                title="DEA Forms Without Orders",
                                entries=entries)
 
@@ -1181,7 +1181,7 @@ def forms_without_orders():
 def new_entry():
     form = DeaForms()
     entries = models.Entry.query.all()
-    return render_template("/CSTools/forms_without_orders.html",
+    return render_template("/cstools/forms_without_orders.html",
                            title="DEA Forms Without Orders",
                            form=form,
                            entries=entries,
@@ -1193,7 +1193,7 @@ def new_entry():
 def edit_entry(id):
     entry = models.Entry.query.get(id)
 
-    return render_template("/CSTools/forms_without_orders_delete.html",
+    return render_template("/cstools/forms_without_orders_delete.html",
                            title="DEA Forms Without Orders - Edit Entry",
                            entry=entry)
 
@@ -1210,7 +1210,7 @@ def delete_entry(id):
 
     message = "Successfully deleted entry for %s." % entry.institution
 
-    return render_template("/CSTools/forms_without_orders.html",
+    return render_template("/cstools/forms_without_orders.html",
                                    title="DEA Forms Without Orders",
                                    message=message,
                                    entries=entries)
