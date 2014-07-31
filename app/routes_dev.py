@@ -807,8 +807,7 @@ def gif_party_feed():
 #######################################################################################
 #####  CS Tools Apps ##################################################################
 @app.route('/cstools')
-@app.route('/cstools/index')
-def index():
+def cstools():
     return render_template("/cstools/index.html",
                            title="Home")
 
@@ -1148,9 +1147,9 @@ def login():
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
-        return redirect(url_for('index'))
+        return redirect(url_for('cstools'))
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('cstools'))
 
 
 @app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])

@@ -136,7 +136,7 @@ input  {
 }
 
 .backorder-form-top {
-	border-radius: 15px 15px 0 0;
+	border-radius: 5px 5px 0 0;
 	height: 55px;
 	width: 350px;
 	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
@@ -145,7 +145,7 @@ input  {
 }
 
 .backorder-form-bottom {
-	border-radius: 0 0 15px 15px;
+	border-radius: 0 0 5px 5px;
 	margin: 0;
 	position: relative;
 	height: 55px;
@@ -168,7 +168,8 @@ input  {
 
 #template-div {
     position: relative;
-    width: 65%;
+    margin-bottom: 25px;
+	width: 65%;
     height: 65px;
     z-index: 1;
     top: 105px;
@@ -181,7 +182,7 @@ input  {
 #backorder-link {
     position: relative;
     bottom: 10px;
-    text-shadow: 1px 1px 1px #000;
+	text-shadow: 1px 1px 1px #000;
 }
 
 #backorder-form a button {
@@ -425,7 +426,7 @@ ul.rig li button {
 	text-align: justify;
 }
 
-#entry-notes {
+#data #entry-notes {
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
@@ -492,6 +493,8 @@ ul.rig li button {
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
+
+/* Forms Without Orders Login Page */
 #login {
 	position: relative;
 	bottom: 55px;
@@ -501,6 +504,7 @@ ul.rig li button {
 	width: 300px;
 	margin-left: auto;
 	margin-right: auto;
+	border-radius: 5px;
 	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
@@ -518,6 +522,12 @@ ul.rig li button {
 
 .login-text {
 	font-size: 18px;
+	font-weight: normal;
+}
+
+/* Login Input Button */
+body form p input {
+	border-radius: 5px;
 }
 
 #backorder-form a button {
