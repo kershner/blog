@@ -1,0 +1,49 @@
+{% extends "/blog/base.html" %}
+{% block content %}
+
+<div id="grey">
+    <div class="container pt">
+		<div class="row mt">
+			<div class="centered"><h1>GIF Party!</h1>
+                <a href="/warning" class="link-right">Live Site</a>&emsp;
+                <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L388" class="link-left">Github</a><br><br><br>
+            <h4>Technologies Used:</h4>
+            <p>Python, HTML, CSS, JavaScript, jQuery, Flask</p>
+            </div>
+            <div class="col-lg-8 col-lg-offset-2">
+				<hr>
+				<p>
+                    GIF Party is my current pet project.  I have all these GIF links optimized and readily available
+                    from my previous GIF Display project
+                    and I wanted a fun way to display them.  I came up with the idea for a full-screen web app where
+                    GIFs pulled from my master list will randomly fly around the screen creating a ridiculous cacophony
+                    of internet madness.  The app is in a very early state as I can only devote a small chunk of my spare
+                    time to its development, but it works!<br><br>
+                    One of the main reasons I'm so invested in this app is that it's going to serve as my JavaScript
+                    trial by fire.  Currently I have some copy-pasta JS controlling the GIFs' movements around the page
+                    but there are some serious problems with it.  I'll need to dig deep into JavaScript and jQuery
+                    to get my bearings and start making progress with this thing.  Can't wait!<br><br>
+                    <strong>Bandwidth warning</strong>: the maximum number of GIFs the app can display at one time is 20, which averages
+                    out to about 50 MB of data.  Keep in mind that the JavaScript to control the GIFs' movements doesn't
+                    load until the entire page has finished loading, so if you're displaying 20 GIFs it might take a moment
+                    for the images to start moving around as they are still downloading.
+
+				</p>
+			</div>
+		</div>
+
+        <div id="project-screenshots">
+            <ul class="rig columns-3">
+                <li class="project-images">
+                    <a href="/static/images/gif_party1.png"><img src="/static/images/gif_party1thumb.png" class="img-responsive rounded-images"></a>
+                </li>
+                <li class="project-images">
+                    <a href="/static/images/gif_party2.png"><img src="/static/images/gif_party2thumb.png" class="img-responsive rounded-images"></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

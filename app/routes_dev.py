@@ -16,6 +16,12 @@ def home():
                            title="Home")
 
 
+@app.route('/warning')
+def warning():
+    return render_template("/blog/warning.html",
+                           title="Warning")
+
+
 @app.route('/archive')
 def archive():
     return render_template("/blog/archive.html",
@@ -62,6 +68,12 @@ def project2():
 def gif_display():
     return render_template("/blog/projects/project03.html",
                            title="Raspberry Pi GIF Display")
+
+
+@app.route('/gif-party')
+def gif_party_project():
+    return render_template("/blog/projects/project04.html",
+                    title="Gif Party!")
 
 
 @app.route('/cstoolswriteup-part1')

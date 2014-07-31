@@ -153,8 +153,8 @@ a:after {
 	position: relative;
 	bottom: 0;
 	background-color: #2f2f2f;
-	padding-top: 50px;
-	padding-bottom: 50px; 
+	height: 100px;
+	max-height: 100px;
 }
 
 #footer p {

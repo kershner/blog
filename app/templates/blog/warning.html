@@ -1,0 +1,31 @@
+{% extends "/blog/base.html" %}
+{% block content %}
+
+<div id="grey">
+    <div class="container">
+	    <div class="row">
+		    <div class="col-lg-8 col-lg-offset-2">
+			    <h1 id="warning">Warning!</h1><br>
+                <p>
+                    We all know the internet is a vast and strange domain.  Although I only scrape SFW subreddits and
+                    actively try to remove questionable material, sometimes some weird stuff makes its way onto my
+                    GIF display feed.  Please keep in mind that there are thousands of GIFs in rotation, and probably
+                    less than 20 or so 'iffy' ones, so the chance of a really NSFW GIF popping up are slim, but definitely
+                    there.<br><br>
+                    Beyond the occasional explicit NSFW GIF this whole project was built around my love
+                    of the internet's sheer chaos and randomness, and as such there will be plenty of GIFs that might not
+                    get you fired, but are still pretty disturbing nonetheless.  So while you might be enjoying a delicious
+                    Kanye West GIF one moment, the next might bring you a guy falling off a building or something.<br><br>
+                    You've been warned!<br><br>
+                </p>
+            </div><!-- /row -->
+	    </div> <!-- /container -->
+        <div id="warning-links" class="centered">
+            <a href="/pi_display" class="link-right">Pi GIF Display</a>&emsp;
+            <a href="/pi_display_config" class="link-left">GIF Display Config</a>&emsp;
+            <a href="/gif_party" class="link-left">GIF Party</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

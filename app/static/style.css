@@ -83,6 +83,14 @@ ul.rig.columns-3 li {
 ul.rig.columns-4 li {
 	width: 22.5%; /* this value + 2.5 should = 25% */
 }
+
+/* Hidden li elements to help center singular elements */
+#grey .hidden-li {
+	box-shadow: none;
+	height: 0;
+	border: none;
+	background-color: #f2f2f2;
+}
  
 @media (max-width: 480px) {
 	ul.grid-nav li {
@@ -237,7 +245,7 @@ pre code{
 }
 
 /* *********************************
-           Big Logo
+           Big Logo on Header
   ********************************** */
 .big-logo-row {
   background-color: #1abc9c;
@@ -257,7 +265,7 @@ pre code{
              0px 18px 23px rgba(0,0,0,0.1);
 }
 
-@media (min-width: 300px) {
+@media (min-width: 0) {
   .big-logo-row h1 {
     position: absolute;
 	font-size: 1.5em;
@@ -271,7 +279,7 @@ pre code{
   }
 }
 
-@media (min-width: 370px) {
+@media (min-width: 500px) {
   .big-logo-row h1 {
     font-size: 2em;
 	float: right;
@@ -302,4 +310,19 @@ pre code{
     font-size: 6em;
 	bottom: 0;
   }
+}
+
+/* Warning Page */
+#warning {
+	text-align: center;
+}
+
+#warning-links {
+	font-size: 22px;
+	margin-bottom: 60px;
+}
+
+/* Additional class to apply to images to round their corners */
+.rounded-images {
+	border-radius: 15px;
 }
