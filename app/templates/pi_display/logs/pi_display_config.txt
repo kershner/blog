@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
-CATEGORY = animals
-CURRENT_GIF = http://i.imgur.com/V66AAVg.gif
+CATEGORY = all
+CURRENT_GIF = http://i.imgur.com/kGm6U4n.gif
 DELAY = 20
