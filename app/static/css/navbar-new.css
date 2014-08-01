@@ -104,12 +104,12 @@ body > div.container > h2 {
 	margin-top: 150px;
 }
 
-.backorder-form-top-new {
+/*.backorder-form-top-new {
 	margin-top: -175px;
 	border-radius: 15px 15px 0 0;
 	height: 55px;
 	width: 350px;
-}
+}*/
 
 body > div:nth-child(2) {
 	margin-top: 250px;

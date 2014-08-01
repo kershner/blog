@@ -100,6 +100,7 @@ a:hover {
 }
 
 form {
+	display: block !important;
 	text-align: center;
 	margin-top: 0;
 	margin-left:auto;
