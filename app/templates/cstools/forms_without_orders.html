@@ -35,7 +35,7 @@
         <form action="{{ url_for('forms_without_orders') }}" method=POST>
             {{ form.hidden_tag() }}
 
-            {{ form.institution(placeholder="Institution's Name", class="backorder-form-top-new") }}
+            {{ form.institution(placeholder="Institution's Name", class="backorder-form-top") }}
 
             {{ form.name(placeholder="Contact's Name") }}
 
