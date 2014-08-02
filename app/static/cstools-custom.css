@@ -157,6 +157,7 @@ input  {
 }
 
 #template-blurb {
+    margin-bottom: 75px;
     position: relative;
     padding: 0 0;
     width: 75%;
