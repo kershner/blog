@@ -300,12 +300,6 @@ ul.rig {
 
 ul.rig li {
 	text-align: center;
-	background: rgb(179, 102, 255);
-	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
@@ -351,6 +345,45 @@ ul.rig li p {
 ul.rig li a {
 	text-decoration: none;
 }
+
+/* Various colors for entries */
+.purple {
+	background: rgb(179, 102, 255);
+	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
+}
+
+.blue {
+	background: rgb(102, 178, 255);
+	background: -moz-linear-gradient(30deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
+	background: -o-linear-gradient(30deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
+	background: -ms-linear-gradient(30deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
+	background: linear-gradient(120deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
+}
+
+.red {
+	background: rgb(255, 103, 102);
+	background: -moz-linear-gradient(30deg, rgb(255, 103, 102) 30%, rgb(195, 99, 102) 75%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 103, 102) 30%, rgb(195, 99, 102) 75%);
+	background: -o-linear-gradient(30deg, rgb(255, 103, 102) 30%, rgb(195, 99, 102) 75%);
+	background: -ms-linear-gradient(30deg, rgb(255, 103, 102) 30%, rgb(195, 99, 102) 75%);
+	background: linear-gradient(120deg, rgb(255, 103, 102) 30%, rgb(195, 99, 102) 75%);
+}
+
+
+.orange-entry {
+	background: rgb(195, 79, 51);
+	background: -moz-linear-gradient(30deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
+	background: -webkit-linear-gradient(30deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
+	background: -o-linear-gradient(30deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
+	background: -ms-linear-gradient(30deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
+	background: linear-gradient(120deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
+}
+
 
 /* class for 2 columns */
 ul.rig.columns-2 li {
@@ -413,6 +446,7 @@ ul.rig li button {
 	margin: 0;
 	padding: 0;
 	width: 200px;
+	text-shadow: 1px 1px 1px #000;
 }
 
 #csr-name {
@@ -421,12 +455,6 @@ ul.rig li button {
 
 #entry {
 	text-align: center;
-	background: rgb(179, 102, 255);
-	background: -moz-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -o-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: -ms-linear-gradient(52deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
-	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
@@ -642,12 +670,12 @@ body > div.container > h2 {
 	border-radius: 30px 30px 30px 30px;
 }
 
-#main-menu a:hover {
+.main-menu-list a:hover {
 	text-decoration: none;
 }
 
 
-#main-menu {
+.main-menu-list {
 	position: relative;
 	top: 150px;
 }
@@ -684,61 +712,7 @@ ul.rig .main-menu {
 	top: 15px;
 }
 
-#light-purple {
-	background: rgb(217, 179, 255);
-	background: -moz-linear-gradient(30deg, rgb(217, 179, 255) 30%, rgb(193, 154, 255) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(217, 179, 255) 30%, rgb(193, 154, 255) 70%);
-	background: -o-linear-gradient(30deg, rgb(217, 179, 255) 30%, rgb(193, 154, 255) 70%);
-	background: -ms-linear-gradient(30deg, rgb(217, 179, 255) 30%, rgb(193, 154, 255) 70%);
-	background: linear-gradient(120deg, rgb(217, 179, 255) 30%, rgb(193, 154, 255) 70%);
-}
-
-#yellow {
-	background: rgb(255, 255, 179);
-	background: -moz-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
-	background: -o-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
-	background: -ms-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
-	background: linear-gradient(120deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
-}
-
-#light-blue {
-	background: rgb(179, 255, 255);
-	background: -moz-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-	background: -o-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-	background: -ms-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-	background: linear-gradient(120deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-}
-
-#light-green {
-	background: rgb(102, 255, 178);
-	background: -moz-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
-	background: -o-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
-	background: -ms-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
-	background: linear-gradient(142deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
-}
-
-#orange {
-	background: rgb(255, 179, 102);
-	background: -moz-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
-	background: -o-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
-	background: -ms-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
-	background: linear-gradient(120deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
-}
-
-#salmon {
-	background: rgb(255, 102, 102);
-	background: -moz-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -o-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -ms-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: linear-gradient(142deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-}
-
-#light-purple {
+.light-purple {
 	background: rgb(161, 161, 255);
 	background: -moz-linear-gradient(52deg, rgb(161, 161, 255) 24%, rgb(106, 119, 207) 88%);
 	background: -webkit-linear-gradient(52deg, rgb(161, 161, 255) 24%, rgb(106, 119, 207) 88%);
@@ -747,7 +721,52 @@ ul.rig .main-menu {
 	background: linear-gradient(142deg, rgb(161, 161, 255) 24%, rgb(106, 119, 207) 88%);
 }
 
-#dark-red {
+.yellow {
+	background: rgb(255, 255, 179);
+	background: -moz-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
+	background: -o-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
+	background: -ms-linear-gradient(30deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
+	background: linear-gradient(120deg, rgb(255, 255, 179) 30%, rgb(221, 230, 145) 70%);
+}
+
+.light-blue {
+	background: rgb(179, 255, 255);
+	background: -moz-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -o-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -ms-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: linear-gradient(120deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+}
+
+.light-green {
+	background: rgb(102, 255, 178);
+	background: -moz-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -o-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: -ms-linear-gradient(52deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+	background: linear-gradient(142deg, rgb(102, 255, 178) 24%, rgb(102, 184, 145) 88%);
+}
+
+.orange {
+	background: rgb(255, 179, 102);
+	background: -moz-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
+	background: -o-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
+	background: -ms-linear-gradient(30deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
+	background: linear-gradient(120deg, rgb(255, 179, 102) 30%, rgb(214, 142, 102) 70%);
+}
+
+.salmon {
+	background: rgb(255, 102, 102);
+	background: -moz-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -o-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: -ms-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+	background: linear-gradient(142deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
+}
+
+.dark-red {
 	background: rgb(184, 78, 100);
 	background: -moz-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
 	background: -webkit-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
@@ -756,7 +775,7 @@ ul.rig .main-menu {
 	background: linear-gradient(120deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
 }
 
-#dark-blue {
+.dark-blue {
 	background: rgb(69, 108, 152);
 	background: -moz-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 	background: -webkit-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
@@ -765,7 +784,7 @@ ul.rig .main-menu {
 	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 }
 
-#dark-green {
+.dark-green {
 	background: rgb(64, 113, 94);
 	background: -moz-linear-gradient(30deg, rgb(64, 113, 94) 30%, rgb(7, 92, 74) 70%);
 	background: -webkit-linear-gradient(30deg, rgb(64, 113, 94) 30%, rgb(7, 92, 74) 70%);
@@ -774,7 +793,7 @@ ul.rig .main-menu {
 	background: linear-gradient(120deg, rgb(64, 113, 94) 30%, rgb(7, 92, 74) 70%);
 }
 
-#magenta {
+.magenta {
 	background: rgb(156, 99, 156);
 	background: -moz-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
 	background: -webkit-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);

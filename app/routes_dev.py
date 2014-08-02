@@ -1142,6 +1142,13 @@ def login_required(test):
     return wrap
 
 
+class GetClass(object):
+    def __init__(self, count):
+        self.count = count
+
+get_class = GetClass(1)
+
+
 @app.route('/cstools/login', methods=['GET', 'POST'])
 def login():
     error = None
@@ -1179,6 +1186,26 @@ def forms_without_orders():
                                    entries=entries,
                                    new_entry=True)
         else:
+            # Simple logic to determine what color (CSS class) the entry list elements will be
+            if get_class.count == 1:
+                color = 'purple'
+            elif get_class.count == 2:
+                color = 'blue'
+            elif get_class.count == 3:
+                color = 'red'
+            elif get_class.count == 4:
+                color = 'light-purple'
+            elif get_class.count == 5:
+                color = 'dark-green'
+            elif get_class.count == 6:
+                color = 'dark-blue'
+            elif get_class.count == 7:
+                color = 'dark-red'
+            elif get_class.count == 9:
+                color = 'orange-entry'
+                get_class.count = 1
+            get_class.count += 1
+
             institution = form.institution.data
             name = form.name.data
             email = form.email.data
@@ -1194,7 +1221,8 @@ def forms_without_orders():
                                  timestamp=date_nice,
                                  item_numbers=item_numbers,
                                  notes=notes,
-                                 csr_name=csr_name)
+                                 csr_name=csr_name,
+                                 color=color)
 
             db.session.add(entry)
             db.session.commit()

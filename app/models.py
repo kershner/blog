@@ -10,6 +10,7 @@ class Entry(db.Model):
     timestamp = db.Column(db.String(64), index=True)
     item_numbers = db.Column(db.String(64), index=True)
     notes = db.Column(db.String(128), index=True)
+    color = db.Column(db.String(64), index=True)
 
     def __repr__(self):
         return 'Entry %r' % self.institution

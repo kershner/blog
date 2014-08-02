@@ -63,7 +63,7 @@
     {% if entries %}
         <ul class="rig columns-3">
             {% for entry in entries %}
-                <li>
+                <li class="{{ entry.color }}">
                     <h3>{{ entry.institution }}</h3>
                     <div id="data-titles">
                         Contact's Name:<br>
