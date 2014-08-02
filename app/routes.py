@@ -1152,22 +1152,28 @@ def forms_without_orders():
             # Simple logic to determine what color (CSS class) the entry list elements will be
             if get_class.count == 1:
                 color = 'purple'
+                get_class.count += 1
             elif get_class.count == 2:
                 color = 'blue'
+                get_class.count += 1
             elif get_class.count == 3:
                 color = 'red'
+                get_class.count += 1
             elif get_class.count == 4:
                 color = 'light-purple'
+                get_class.count += 1
             elif get_class.count == 5:
                 color = 'dark-green'
+                get_class.count += 1
             elif get_class.count == 6:
                 color = 'dark-blue'
+                get_class.count += 1
             elif get_class.count == 7:
                 color = 'dark-red'
+                get_class.count += 1
             elif get_class.count == 9:
                 color = 'orange-entry'
                 get_class.count = 1
-            get_class.count += 1
 
             institution = form.institution.data
             name = form.name.data
