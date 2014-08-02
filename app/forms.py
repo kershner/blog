@@ -1,4 +1,4 @@
-from flask.ext.wtf import Form, TextField, SubmitField, validators
+from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField, validators
 
 #############################################
 # CSTools Forms
@@ -80,7 +80,7 @@ class DeaForms(Form):
     name = TextField("Contact's Name", [validators.Required("Enter the contact's name.")])
     email = TextField("Contact's Email", [validators.Required("Enter the contact's email.")])
     item_numbers = TextField("Item #s.", [validators.Required("Enter the item numbers from the 222 form.")])
-    notes = TextField("Notes.")
+    notes = TextAreaField("Notes.")
     csr_name = TextField("Your name.", [validators.Required("Enter your name.")])
     submit = SubmitField("Submit")
 

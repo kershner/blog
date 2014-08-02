@@ -10,6 +10,7 @@
     {% endif %}
 
     {% if form %}
+        {% if form.errors %}
         <div class="entry alert">
             {% for message in form.institution.errors %}
                 <p>{{ message }}</p>
@@ -31,6 +32,7 @@
                 <p>{{ message }}</p>
             {% endfor %}
         </div>
+        {% endif %}
 
         <form action="{{ url_for('forms_without_orders') }}" method=POST>
             {{ form.hidden_tag() }}
@@ -43,9 +45,9 @@
 
             {{ form.item_numbers(placeholder="Item Numbers") }}
 
-            {{ form.notes(placeholder="Notes (Optional)") }}
+            {{ form.csr_name(placeholder="Your name") }}
 
-            {{ form.csr_name(placeholder="Your name", class="backorder-form-bottom") }}
+            {{ form.notes(placeholder="Notes (Optional)", class="backorder-form-bottom") }}
 
             {{form.submit(class_='btn btn-lg btn-danger') }}
         </form>

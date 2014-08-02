@@ -94,7 +94,6 @@ a:hover {
     text-align: justify;
 	margin: 0 auto;
 	margin-right: 140px;
-	margin-top: 75px;
 	width: 50%;
 	padding: 15px 0;
 }
@@ -147,10 +146,11 @@ input  {
 
 .backorder-form-bottom {
 	border-radius: 0 0 5px 5px;
-	margin: 0;
-	position: relative;
+	color: #000;
 	height: 55px;
 	width: 350px;
+	max-width: 350px;
+	margin: 0 auto;
 	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
@@ -467,13 +467,18 @@ ul.rig li button {
 }
 
 /* Various forms for template apps */
-#name, #email, #po, #item_number, #acct, #given_price, #item_numbers, #notes, #institution {
+#name, #email, #po, #item_number, #acct, #given_price, #item_numbers, #notes, #institution, #csr_name {
 	height: 55px;
 	width: 350px;
 	margin: 0 auto;
 	-webkit-box-shadow: -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
+}
+
+/* Adding margin to 'Edit Entry' button */
+#edit-entry {
+	margin-bottom: 15px;
 }
 
 
@@ -629,13 +634,6 @@ body > div.container > h2 {
 #container {
 	margin-top: 150px;
 }
-
-/*.backorder-form-top-new {
-	margin-top: -175px;
-	border-radius: 15px 15px 0 0;
-	height: 55px;
-	width: 350px;
-}*/
 
 .item {
 	background-color: auto;

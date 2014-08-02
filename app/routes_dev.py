@@ -73,7 +73,7 @@ def gif_display():
 @app.route('/gif-party')
 def gif_party_project():
     return render_template("/blog/projects/project04.html",
-                    title="Gif Party!")
+                           title="Gif Party!")
 
 
 @app.route('/cstoolswriteup-part1')
@@ -1155,6 +1155,7 @@ def login():
                            title='Login',
                            error=error)
 
+
 @app.route('/cstools/logout')
 def logout():
     if 'logged_in' in session:
@@ -1230,9 +1231,46 @@ def new_entry():
 def edit_entry(id):
     entry = models.Entry.query.get(id)
 
-    return render_template("/cstools/forms_without_orders_delete.html",
+    return render_template("/cstools/forms_without_orders_edit.html",
                            title="DEA Forms Without Orders - Edit Entry",
                            entry=entry)
+
+
+@app.route('/cstools/forms-without-orders/update-entry/<id>', methods=['GET', 'POST'])
+@login_required
+def update_entry(id):
+    form = DeaForms()
+    entry = models.Entry.query.get(id)
+    if form.validate_on_submit():
+        entry = models.Entry.query.get(id)
+        entry.institution = form.institution.data
+        entry.name = form.name.data
+        entry.email = form.email.data
+        entry.csr_name = form.csr_name.data
+        entry.item_numbers = form.item_numbers.data
+        entry.notes = form.notes.data
+
+        db.session.commit()
+
+        entries = models.Entry.query.all()
+        message = 'The entry for %s has been updated.' % entry.institution
+
+        return render_template("/cstools/forms_without_orders.html",
+                               title="DEA Forms Without Orders",
+                               entries=entries,
+                               message=message)
+
+    form.institution.data = entry.institution
+    form.name.data = entry.contact_name
+    form.email.data = entry.contact_email
+    form.item_numbers.data = entry.item_numbers
+    form.notes.data = entry.notes
+    form.csr_name.data = entry.csr_name
+
+    return render_template("/cstools/forms_without_orders_update.html",
+                           title="DEA Forms Without Orders - Update Entry",
+                           entry=entry,
+                           form=form)
 
 
 @app.route('/cstools/forms-without-orders/delete-entry/<id>')

@@ -3,6 +3,7 @@
 
 <div id="container">
 
+    <h1>Edit Entry</h1>
     <div id="entry">
         <h3>{{ entry.institution }}</h3>
         <div id="data-titles">
@@ -25,7 +26,8 @@
     <br>
     <br>
 
-    <a href="/cstools/forms-without-orders/delete-entry/{{ entry.id }}"><button class="btn btn-danger">Delete Entry?</button></a>
+    <a href="/cstools/forms-without-orders/update-entry/{{ entry.id }}"><button id="edit-entry" class="btn btn-info">Update Entry</button></a><br>
+    <a href="/cstools/forms-without-orders/delete-entry/{{ entry.id }}"><button class="btn btn-danger">Delete Entry</button></a>
 
     <a href="/cstools/forms-without-orders"><h3 id="back">Back</h3></a>
 
