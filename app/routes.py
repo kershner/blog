@@ -1239,10 +1239,9 @@ def update_entry(id):
     form = DeaForms()
     entry = models.Entry.query.get(id)
     if form.validate_on_submit():
-        entry = models.Entry.query.get(id)
         entry.institution = form.institution.data
-        entry.name = form.name.data
-        entry.email = form.email.data
+        entry.contact_name = form.name.data
+        entry.contact_email = form.email.data
         entry.csr_name = form.csr_name.data
         entry.item_numbers = form.item_numbers.data
         entry.notes = form.notes.data

@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
 CATEGORY = all
-CURRENT_GIF = http://i.imgur.com/kGm6U4n.gif
-DELAY = 20
+CURRENT_GIF = http://i.imgur.com/p65BtoD.gif
+DELAY = 12
