@@ -1,7 +1,7 @@
 /* *********************************
    Blog Stylesheet
    ********************************* */
-   
+
 body {
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
@@ -92,7 +92,7 @@ ul.rig.columns-4 li {
 	border: none;
 	background-color: #f2f2f2;
 }
- 
+
 @media (max-width: 480px) {
 	ul.grid-nav li {
 		display: block;
@@ -166,10 +166,10 @@ pre code{
 
 /* *********************************
    Parallax Navbar
-   credit to DesignMite 
-   http://www.designmite.com/responsive-parallax-navbar-tutorial/ 
+   credit to DesignMite
+   http://www.designmite.com/responsive-parallax-navbar-tutorial/
    ********************************* */
-   
+
 .navbar-inverse {
   background: rgba(62, 195, 246, 0);
   border-bottom: none;
