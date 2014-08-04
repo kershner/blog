@@ -1,6 +1,7 @@
 /* ***************************** */
 /* Custom styles ************** */
 /* *************************** */
+
 body {
 	font-family: 'Open Sans';
 	background-color: #6666FF;
@@ -54,26 +55,19 @@ a:hover {
 /* Template demo text */
 .well {
     position: relative;
-    margin: 0 auto;
-    padding: 0 0;
-    background-color: #989898;
-    width: 100%;
+    left: -75px;
+	padding: 0 0;
+    background-color: rgb(69, 108, 152);
+	width: 700px;
     height: 200px;
     overflow: auto;
     text-align: left;
-    background: rgb(152, 152, 152);
-    background: -moz-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
-    background: -webkit-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
-    background: -o-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
-    background: -ms-linear-gradient(30deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
-    background: linear-gradient(120deg, rgb(152, 152, 152) 30%, rgb(144, 146, 146) 70%);
     -webkit-box-shadow: -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         -5px 5px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
 #smaller {
-    color: #000000;
     color: white;
     margin: 10px;
     text-shadow: 1px 1px 1px #000;
