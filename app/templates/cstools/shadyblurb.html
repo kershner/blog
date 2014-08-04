@@ -23,20 +23,30 @@
             <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your shady customer blurb</h3></div></a>
         {% endif %}
 
-    <div class="alert">
-        {% for message in form.email.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+    {% if form.errors %}
+        <div class="alert">
+            {% for message in form.email.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.order_no.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
+            {% for message in form.order_no.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <form action="{{ url_for('shadyblurb') }}" method=POST>
         {{ form.hidden_tag() }}
 
-        {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-top") }}
+        {% if not form.errors %}
+            {% if link %}
+                {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-top") }}
+            {% else %}
+                {{ form.email(placeholder="Contact's Email Address", id="name-top", class_="backorder-form-top") }}
+            {% endif %}
+        {% else %}
+            {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-top") }}
+        {% endif %}
 
         {{ form.order_no(placeholder="Sales Order Number", class_="backorder-form-bottom") }}
 

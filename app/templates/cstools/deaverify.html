@@ -15,20 +15,32 @@
             <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your DEA verification template</h3></div></a>
         {% endif %}
 
-    <div class="alert">
-        {% for message in form.order_no.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+    {% if form.errors %}
+        <div class="alert">
+            {% for message in form.order_no.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.institution.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
+            {% for message in form.institution.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <form action="{{ url_for('dea_verify') }}" method=POST>
         {{ form.hidden_tag() }}
 
-        {{ form.order_no(placeholder="Sales Order Number", class_="backorder-form-top") }}
+        {% if not form.errors %}
+            {% if link %}
+                {{ form.order_no(placeholder="Sales Order Number", class_="backorder-form-top") }}
+            {% else %}
+                {{ form.order_no(placeholder="Sales Order Number", class_="backorder-form-top extra-margin-top") }}
+            {% endif %}
+        {% endif %}
+
+        {% if form.errors %}
+            {{ form.order_no(placeholder="Sales Order Number", class_="backorder-form-top") }}
+        {% endif %}
 
         {{ form.institution(placeholder="Company or Institution", class_="backorder-form-bottom") }}
 

@@ -18,33 +18,43 @@
         <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-warning"><h3 id="backorder-link">Your backorder notification template</h3></div></a>
     {% endif %}
 
-    <div class="alert">
-        {% for message in form.email.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+    {% if form.errors %}
+        <div class="alert">
+            {% for message in form.email.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.po.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+            {% for message in form.po.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.name.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+            {% for message in form.name.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.item_number.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
+            {% for message in form.item_number.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {% for message in form.lead_time.errors %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
+            {% for message in form.lead_time.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 
     <form action="{{ url_for('backorder') }}" method=POST>
         {{ form.hidden_tag() }}
 
-        {{ form.name(placeholder="Contact Name", class_="backorder-form-top") }}
+        {% if not form.errors %}
+            {% if link %}
+                {{ form.name(placeholder="Contact's Name", class_="backorder-form-top") }}
+            {% else %}
+                {{ form.name(placeholder="Contact's Name", id="name-top", class_="backorder-form-top") }}
+            {% endif %}
+        {% else %}
+            {{ form.name(placeholder="Contact's Name", class_="backorder-form-top") }}
+        {% endif %}
 
         {{ form.email(placeholder="Contact's Email Address") }}
 
