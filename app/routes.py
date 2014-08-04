@@ -33,6 +33,12 @@ def jun14():
                            title="June 2014")
 
 
+@app.route('/jul14')
+def jul14():
+    return render_template("/blog/blog_archive/jul14.html",
+                           title="July 2014")
+
+
 @app.route('/about')
 def about():
     return render_template("/blog/about.html",
