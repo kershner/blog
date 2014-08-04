@@ -780,9 +780,38 @@ def gif_party_feed():
 
 #######################################################################################
 #####  CS Tools Apps ##################################################################
+class GetClass(object):
+    def __init__(self, count, color):
+        self.count = count
+        self.color = color
+
+    # Simple logic to determine what color (CSS class) the elements will be
+    def get_color(self):
+        if self.count == 1:
+            self.color = 'purple'
+        elif self.count == 2:
+            self.color = 'blue'
+        elif self.count == 3:
+            self.color = 'red'
+        elif self.count == 4:
+            self.color = 'light-purple'
+        elif self.count == 5:
+            self.color = 'dark-green'
+        elif self.count == 6:
+            self.color = 'dark-blue'
+        elif self.count == 7:
+            self.color = 'dark-red'
+        elif self.count == 9:
+            self.color = 'orange-entry'
+            self.count = 1
+        self.count += 1
+
+get_class_li = GetClass(1, 'purple')
+get_class_well = GetClass(1, 'blue')
+
+
 @app.route('/cstools')
-@app.route('/cstools/index')
-def index():
+def cstools():
     return render_template("/cstools/index.html",
                            title="Home")
 
@@ -828,12 +857,16 @@ def datechecker():
 @app.route('/cstools/backorder', methods=['GET', 'POST'])
 def backorder():
     form = BackorderForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/backorder.html",
                                    title="Backorder Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             email = form.email.data
             subject = "Cayman Chemical Backorder Notification %s" % form.po.data
@@ -847,23 +880,29 @@ def backorder():
             return render_template("/cstools/backorder.html",
                                    title="Backorder Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
 
     elif request.method == 'GET':
         return render_template("/cstools/backorder.html",
                                title="Backorder Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/application.html",
                                    title="Account Application Template3",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             name = form.name.data
             email = form.email.data
@@ -876,22 +915,28 @@ def application():
             return render_template("/cstools/application.html",
                                    title="Account Application Template1",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/application.html",
                                title="Account Application Template2",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/dea', methods=['GET', 'POST'])
 def dea():
     form = DeaForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/dea.html",
                                    title="DEA Protocol Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             name = form.name.data
             email = form.email.data
@@ -906,22 +951,29 @@ def dea():
             return render_template("/cstools/dea.html",
                                    title="DEA Protocol Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/dea.html",
                                title="DEA Protocol Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/newaccount', methods=['GET', 'POST'])
 def newaccount():
     form = NewAccountForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/newaccount.html",
                                    title="New Account Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             name = form.name.data
             acct_number = form.acct.data
@@ -937,22 +989,28 @@ def newaccount():
             return render_template("/cstools/newaccount.html",
                                    title="New Account Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/newaccount.html",
                                title="New Account Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
 def shadyblurb():
     form = ShadyForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/shadyblurb.html",
                                    title="Shady Customer Blurb",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             email = form.email.data
             order_no = form.order_no.data
@@ -971,22 +1029,28 @@ def shadyblurb():
             return render_template("/cstools/shadyblurb.html",
                                    title="Shady Customer Blurb",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/shadyblurb.html",
                                title="Shady Customer Blurb",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
 def price_discrepancy():
     form = DiscrepancyForm()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/pricediscrepancy.html",
                                    title="Price Discrepancy Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             email = form.email.data
             subject = "Cayman Chemical Price Discrepancy %s" % form.po.data
@@ -999,23 +1063,29 @@ def price_discrepancy():
             return render_template("/cstools/pricediscrepancy.html",
                                    title="Price Discrepancy Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
 
     elif request.method == 'GET':
         return render_template("/cstools/pricediscrepancy.html",
                                title="Price Discrepancy Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/stillneed', methods=['GET', 'POST'])
 def still_need():
     form = StillNeed()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/stillneed.html",
                                    title="Still Need Item? Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             name = form.name.data
             email = form.email.data
@@ -1030,22 +1100,28 @@ def still_need():
             return render_template("/cstools/stillneed.html",
                                    title="Still Need Item? Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/stillneed.html",
                                title="Still Need Item? Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
 def license_needed():
     form = LicenseNeeded()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/licenseneeded.html",
                                    title="DEA License Needed Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             name = form.name.data
             email = form.email.data
@@ -1059,22 +1135,28 @@ def license_needed():
             return render_template("/cstools/licenseneeded.html",
                                    title="DEA License Needed Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/licenseneeded.html",
                                title="DEA License Needed Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 @app.route('/cstools/deaverify', methods=['GET', 'POST'])
 def dea_verify():
     form = DeaVerify()
+    get_class_well.get_color()
+    color = get_class_well.color
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/deaverify.html",
                                    title="DEA Documents Verification Template",
-                                   form=form)
+                                   form=form,
+                                   color=color)
         else:
             email = "Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com"
             order_no = form.order_no.data
@@ -1085,11 +1167,13 @@ def dea_verify():
             return render_template("/cstools/deaverify.html",
                                    title="DEA Documents Verification Template",
                                    link=link,
-                                   form=form)
+                                   form=form,
+                                   color=color)
     elif request.method == 'GET':
         return render_template("/cstools/deaverify.html",
                                title="DEA Documents Verification Template",
-                               form=form)
+                               form=form,
+                               color=color)
 
 
 def login_required(test):
@@ -1103,13 +1187,6 @@ def login_required(test):
                                    title='Login',
                                    error=error)
     return wrap
-
-
-class GetClass(object):
-    def __init__(self, count):
-        self.count = count
-
-get_class = GetClass(1)
 
 
 @app.route('/cstools/login', methods=['GET', 'POST'])
@@ -1130,9 +1207,9 @@ def login():
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
-        return redirect(url_for('index'))
+        return redirect(url_for('cstools'))
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('cstools'))
 
 
 @app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
@@ -1149,32 +1226,9 @@ def forms_without_orders():
                                    entries=entries,
                                    new_entry=True)
         else:
-            # Simple logic to determine what color (CSS class) the entry list elements will be
-            if get_class.count == 1:
-                color = 'purple'
-                get_class.count += 1
-            elif get_class.count == 2:
-                color = 'blue'
-                get_class.count += 1
-            elif get_class.count == 3:
-                color = 'red'
-                get_class.count += 1
-            elif get_class.count == 4:
-                color = 'light-purple'
-                get_class.count += 1
-            elif get_class.count == 5:
-                color = 'dark-green'
-                get_class.count += 1
-            elif get_class.count == 6:
-                color = 'dark-blue'
-                get_class.count += 1
-            elif get_class.count == 7:
-                color = 'dark-red'
-                get_class.count += 1
-            elif get_class.count == 9:
-                color = 'orange-entry'
-                get_class.count = 1
+            get_class_li.get_color()
 
+            color = get_class_li.color
             institution = form.institution.data
             name = form.name.data
             email = form.email.data

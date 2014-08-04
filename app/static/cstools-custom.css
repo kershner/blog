@@ -552,10 +552,6 @@ body form p input {
 /* ***************************************** */
 /* New Stylesheet - integrate into the above */
 /* ***************************************** */
-body {
-	background-color: #6666FF;
-}
-
 a:link {
     text-decoration: none;
 	color: #FFF;
