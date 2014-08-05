@@ -25,7 +25,7 @@
 
     <div id="backorder_form" class="cover-container">
         {% if form.errors %}
-        <div class="entry alert">
+        <div class="entry alert-lower">
             {% for message in form.institution.errors %}
                 <p>{{ message }}</p>
             {% endfor %}
