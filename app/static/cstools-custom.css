@@ -217,6 +217,16 @@ a:hover {
 	padding: 15px 0;
 }
 
+.alert-lower {
+    position: relative;
+    text-align: justify;
+	margin: 0 auto;
+	margin-top: 0;
+	margin-right: 140px;
+	width: 50%;
+	padding: 15px 0;
+}
+
 form {
 	display: block;
 	text-align: center;
@@ -540,6 +550,7 @@ ul.rig li button {
 }
 
 #data #entry-notes {
+	text-align: left;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
@@ -582,8 +593,8 @@ ul.rig li button {
 }
 
 #back {
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-top: 25px;
+	margin-bottom: 25px;
 }
 
 #back:hover {

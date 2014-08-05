@@ -1,4 +1,4 @@
 CATEGORY = all
 DELAY = none
-NUMBER = 5
+NUMBER = 10
 RANDOMIZE = yes
