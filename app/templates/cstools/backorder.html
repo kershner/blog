@@ -7,8 +7,8 @@
             <p id="smaller">
                 Subject: Cayman Chemical Backorder Notification [PO or SO Number]<br><br>
                 Hello [Contact's Name],<br><br>Unfortunately we need to inform you that the following item(s) from your order are currently on backorder: [Item Number(s)].
-                The item(s) are in production with an approximate lead time of [Lead Time].  If there are additional items on your order, please let me know if you would like
-                to authorize partial shipment.<br><br>I apologize for the inconvenience.  Please let me know if you have any questions.<br><br>Have a great day,
+                The item(s) are in production with an approximate lead time of [Lead Time]. Please let me know if you would like to authorize partial shipment
+                for your remaining items.  You will only be charged freight once.<br><br>I apologize for the inconvenience.  Please let me know if you have any questions.<br><br>Have a great day,
             </p>
         </div>
         <p>You will need to manually add your signature.</p>
@@ -63,6 +63,10 @@
         {{ form.item_number(placeholder="Item Number") }}
 
         {{ form.lead_time(placeholder="Lead Time", class_="backorder-form-bottom") }}
+
+        <div id="partial_checkbox">
+            <p id="partial_text">Ask about partial shipment?</p> {{ form.partial_shipment }}
+        </div>
 
         {{form.submit(class_='btn btn-lg btn-danger') }}
     </form>

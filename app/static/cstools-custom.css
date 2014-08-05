@@ -289,6 +289,27 @@ input  {
     box-shadow:         -8px 1px 13px 0px rgba(50, 50, 50, 0.75);
 }
 
+#partial_checkbox {
+	width: 350px;
+	height: 50px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+#partial_text {
+	position: relative;
+	right: 45px;
+}
+
+#partial_shipment {
+	position: absolute;
+	right: 75px;
+	bottom: -15px;
+	box-shadow: none;
+	width: 25px;
+	height: 200px;
+}
+
 #template-blurb {
     position: relative;
 	padding: 0 0;
