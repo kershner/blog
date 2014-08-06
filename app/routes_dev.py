@@ -822,6 +822,79 @@ def gif_party_feed():
     return redirect(url_for('gif_party'))
 
 
+@app.route('/gif_party_test')
+def gif_party_test():
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    filename = 'urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    gif_url_1 = random.choice(urls_list)
+    urls_list.remove(gif_url_1)
+    gif_url_2 = random.choice(urls_list)
+    urls_list.remove(gif_url_2)
+    gif_url_3 = random.choice(urls_list)
+    urls_list.remove(gif_url_3)
+    gif_url_4 = random.choice(urls_list)
+    urls_list.remove(gif_url_4)
+    gif_url_5 = random.choice(urls_list)
+    urls_list.remove(gif_url_5)
+    gif_url_6 = random.choice(urls_list)
+    urls_list.remove(gif_url_6)
+    gif_url_7 = random.choice(urls_list)
+    urls_list.remove(gif_url_7)
+    gif_url_8 = random.choice(urls_list)
+    urls_list.remove(gif_url_8)
+    gif_url_9 = random.choice(urls_list)
+    urls_list.remove(gif_url_9)
+    gif_url_10 = random.choice(urls_list)
+    urls_list.remove(gif_url_10)
+    gif_url_11 = random.choice(urls_list)
+    urls_list.remove(gif_url_11)
+    gif_url_12 = random.choice(urls_list)
+    urls_list.remove(gif_url_12)
+    gif_url_13 = random.choice(urls_list)
+    urls_list.remove(gif_url_13)
+    gif_url_14 = random.choice(urls_list)
+    urls_list.remove(gif_url_14)
+    gif_url_15 = random.choice(urls_list)
+    urls_list.remove(gif_url_15)
+    gif_url_16 = random.choice(urls_list)
+    urls_list.remove(gif_url_16)
+    gif_url_17 = random.choice(urls_list)
+    urls_list.remove(gif_url_17)
+    gif_url_18 = random.choice(urls_list)
+    urls_list.remove(gif_url_18)
+    gif_url_19 = random.choice(urls_list)
+    urls_list.remove(gif_url_19)
+    gif_url_20 = random.choice(urls_list)
+    urls_list.remove(gif_url_20)
+
+    return render_template('/gif_party/gif_party_test.html',
+                           gif_url_1=gif_url_1,
+                           gif_url_2=gif_url_2,
+                           gif_url_3=gif_url_3,
+                           gif_url_4=gif_url_4,
+                           gif_url_5=gif_url_5,
+                           gif_url_6=gif_url_6,
+                           gif_url_7=gif_url_7,
+                           gif_url_8=gif_url_8,
+                           gif_url_9=gif_url_9,
+                           gif_url_10=gif_url_10,
+                           gif_url_11=gif_url_11,
+                           gif_url_12=gif_url_12,
+                           gif_url_13=gif_url_13,
+                           gif_url_14=gif_url_14,
+                           gif_url_15=gif_url_15,
+                           gif_url_16=gif_url_16,
+                           gif_url_17=gif_url_17,
+                           gif_url_18=gif_url_18,
+                           gif_url_19=gif_url_19,
+                           gif_url_20=gif_url_20,
+                           number=10)
+
+
 #######################################################################################
 #####  CS Tools Apps ##################################################################
 class GetClass(object):

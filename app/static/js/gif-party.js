@@ -1,33 +1,18 @@
-$(window).load(function(){
 $(document).ready(function() {
-    animateDiv($('.a'));
-    animateDiv($('.b'));
-    animateDiv($('.c'));
-    animateDiv($('.d'));
-    animateDiv($('.e'));
-    animateDiv($('.f'));
-    animateDiv($('.g'));
-    animateDiv($('.h'));
-    animateDiv($('.i'));
-    animateDiv($('.j'));
-    animateDiv($('.k'));
-    animateDiv($('.l'));
-    animateDiv($('.m'));
-    animateDiv($('.n'));
-    animateDiv($('.o'));
-    animateDiv($('.p'));
-    animateDiv($('.q'));
-    animateDiv($('.r'));
-    animateDiv($('.s'));
-    animateDiv($('.t'));
-
+	$('img').toggle(function() {
+		$(this).stop(true, true).animate({ width: "+=10%", height: "+=10%" }, 'fast');
+		$(this).css("z-index", 2);
+	}, function() {
+		$(this).animate({ width: "-=10%", height: "-=10%" }, 'fast');
+		$(this).css("z-index", 1);
+	});
 });
 
 function makeNewPosition($container) {
 
     // Get viewport dimensions (remove the dimension of the div)
-    var h = $container.height() - 50;
-    var w = $container.width() - 50;
+    var h = $container.height() - 200;
+    var w = $container.width() - 200;
 
     var nh = Math.floor(Math.random() * h);
     var nw = Math.floor(Math.random() * w);
@@ -44,7 +29,7 @@ function animateDiv($target) {
     $target.animate({
         top: newq[0],
         left: newq[1]
-    }, speed, function() {
+    }, speed, function () {
         animateDiv($target);
     });
 
