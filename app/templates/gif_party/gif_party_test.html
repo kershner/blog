@@ -54,44 +54,17 @@
 <script>
 $(document).ready(function() {
     {% if number == 5 %}
-        animateDiv($('.a'));
-        animateDiv($('.b'));
-        animateDiv($('.c'));
-        animateDiv($('.d'));
-        animateDiv($('.e'));
+        elements = ['.a','.b','.c','.d','.e']
     {% elif number == 10 %}
-        animateDiv($('.a'));
-        animateDiv($('.b'));
-        animateDiv($('.c'));
-        animateDiv($('.d'));
-        animateDiv($('.e'));
-        animateDiv($('.f'));
-        animateDiv($('.g'));
-        animateDiv($('.h'));
-        animateDiv($('.i'));
-        animateDiv($('.j'));
+        elements = ['.a','.b','.c','.d','.e', '.f', '.g', '.h', '.i', '.j']
     {% elif number == 20 %}
-        animateDiv($('.a'));
-        animateDiv($('.b'));
-        animateDiv($('.c'));
-        animateDiv($('.d'));
-        animateDiv($('.e'));
-        animateDiv($('.f'));
-        animateDiv($('.g'));
-        animateDiv($('.h'));
-        animateDiv($('.i'));
-        animateDiv($('.j'));
-        animateDiv($('.k'));
-        animateDiv($('.l'));
-        animateDiv($('.m'));
-        animateDiv($('.n'));
-        animateDiv($('.o'));
-        animateDiv($('.p'));
-        animateDiv($('.q'));
-        animateDiv($('.r'));
-        animateDiv($('.s'));
-        animateDiv($('.t'));
+        elements = ['.a','.b','.c','.d','.e', '.f', '.g', '.h', '.i', '.j', '.k', '.l', '.m', '.n', '.o', '.p', '.q',
+                    '.r', '.s', '.t']
     {% endif %}
+
+    for (i = 0; i < elements.length; i++) {
+            animateDiv($(elements[i]));
+        };
 });
 </script>
 

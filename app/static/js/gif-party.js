@@ -1,13 +1,35 @@
+// Function to click on GIF and 'focus' on it
+// CSS height/width and Z index get larger
+// Another click sets them to normal
 $(document).ready(function() {
 	$('img').toggle(function() {
 		$(this).stop(true, true).animate({ width: "+=10%", height: "+=10%" }, 'fast');
-		$(this).css("z-index", 2);
+		$(this).css("z-index", 20);
 	}, function() {
 		$(this).animate({ width: "-=10%", height: "-=10%" }, 'fast');
 		$(this).css("z-index", 1);
 	});
 });
 
+// Function to call random 'focus' function on GIFs
+$(document).ready(function() {
+	setInterval(focusGif, 5000);
+});
+
+// Function to pick a random element and 'focus' on it for a set
+// amount of time
+function focusGif() {
+	var rand_gif = elements[Math.floor(Math.random() * elements.length)];
+	$(rand_gif).stop(true, true).animate({ width: "+=10%", height: "+=10%" }, 'slow');
+	$(rand_gif).css("z-index", 20);
+	setTimeout(function() {
+		$(rand_gif).stop(true, true).animate({ width: "-=10%", height: "-=10%" }, 'slow');
+		$(rand_gif).css("z-index", 1);
+	}, 5000);
+	
+};
+
+// The functions below define the animation of the images
 function makeNewPosition($container) {
 
     // Get viewport dimensions (remove the dimension of the div)
