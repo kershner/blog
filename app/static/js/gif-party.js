@@ -1,12 +1,21 @@
+// Creating a global dictionary to be used in the on-click 'focus'
+// function (directly below).  I will refactor this at some point when I understand
+// JavaScript better
+var options = {};
+
 // Function to click on GIF and 'focus' on it
 // CSS height/width and Z index get larger
 // Another click sets them to normal
 $(document).ready(function() {
 	$('img').toggle(function() {
-		$(this).stop(true, true).animate({ width: "+=10%", height: "+=10%" }, 'fast');
+		var orig_height = "height";
+		var orig_width = "width";
+		options[orig_height] = $(this).css("height");
+		options[orig_width] = $(this).css("width");
+		$(this).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, 'fast');
 		$(this).css("z-index", 20);
 	}, function() {
-		$(this).animate({ width: "-=10%", height: "-=10%" }, 'fast');
+		$(this).stop(true, true).animate(options, 'fast');
 		$(this).css("z-index", 1);
 	});
 });
@@ -19,28 +28,40 @@ $(document).ready(function() {
 // Function to pick a random element and 'focus' on it for a set
 // amount of time
 function focusGif() {
-	var rand_gif = elements[Math.floor(Math.random() * elements.length)];
-	$(rand_gif).stop(true, true).animate({ width: "+=10%", height: "+=10%" }, 'slow');
+	// Pulling the GIF's original dimensions to revert back to when
+	// 'unfocusing'.  'Pop'ing from an array to make sure an element
+	// isn't focused on twice in a row, which could cause its dimensions to get
+	// messed up.
+	if (elements_array.length === 0) {
+		    elements_array = elements.slice();
+	};
+	
+	var rand_gif = elements_array.pop();
+	console.log(rand_gif);
+	var orig_height = "height";
+	var orig_width = "width";
+	var options1 = {};
+	options1[orig_height] = $(rand_gif).css("height");
+	options1[orig_width] = $(rand_gif).css("width");
+	$(rand_gif).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, 'slow');
 	$(rand_gif).css("z-index", 20);
 	setTimeout(function() {
-		$(rand_gif).stop(true, true).animate({ width: "-=10%", height: "-=10%" }, 'slow');
+		$(rand_gif).stop(true, true).animate(options1, 'slow');
 		$(rand_gif).css("z-index", 1);
 	}, 5000);
-	
 };
 
 // The functions below define the animation of the images
-function makeNewPosition($container) {
+function makeNewPosition($content) {
 
     // Get viewport dimensions (remove the dimension of the div)
-    var h = $container.height() - 200;
-    var w = $container.width() - 200;
+    var h = $content.height() - 200;
+    var w = $content.width() - 200;
 
     var nh = Math.floor(Math.random() * h);
     var nw = Math.floor(Math.random() * w);
 
     return [nh, nw];
-
 }
 
 function animateDiv($target) {
@@ -54,7 +75,6 @@ function animateDiv($target) {
     }, speed, function () {
         animateDiv($target);
     });
-
 };
 
 function calcSpeed(prev, next) {
@@ -69,5 +89,4 @@ function calcSpeed(prev, next) {
     var speed = Math.ceil(greatest / speedModifier);
 
     return speed;
-
 }

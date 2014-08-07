@@ -1,18 +1,12 @@
 body {
-	position: fixed;
-	overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 	overflow-y: hidden;
-	height: 1000px;
-	margin: 0;
-	background-color: black;
-	font-family: Arial;
+    font-family: Arial;
     font-size: 18px;
 	color: white;
-}
-
-#container {
-	max-height: 1000px;
-	top: 0;
+	background-color: black;
 }
 
 a {
@@ -31,95 +25,38 @@ a:hover {
 	color: red;
 }
 
+img {
+    border-radius: 45px;
+	max-height: 400px;
+	max-width: 400px;
+}
+
 /*
-The Layer that will be laid over the content
-so that the content is un-clickable while menu is shown
+using background color is important to cover the menu
+position absolute is set to cover the whole viewport
 */
-#contentLayer {
-    display: none;
-    height: 100%;
-    width: 100%;
-	overflow-x: hidden;
-    overflow-y: auto;
-    position: absolute;
-    right: -300px;
-    top: 0;
-    z-index: 2;
-    min-height: 1000px;
-}
-
-/* Div where the images float around */
 #content {
+    background-color: black;
+    position: relative;
+	top: -53px;
+	width: auto;
+    min-height: 1000px;
+	-webkit-box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+    box-shadow:  -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
+}
+
+#content div {
+	width: 50px;
+	height: 50px;
 	position: relative;
-	top: -40px;
-	left: -8px;
-	margin: 0;
-	background-color: black;
-	height: 990px;
-	z-index: 1;
-}
-
-/* Media queries to adjust the width of the content div relative to the viewport size */
-@media (min-width: 600px) {
-	#content {
-		width: 600px;
-	}
-}
-
-@media (min-width: 800px) {
-	#content {
-		width: 800px;
-	}
-}
-
-@media (min-width: 1000px) {
-	#content {
-		width: 1000px;
-	}
-}
-
-@media (min-width: 1200px) {
-	#content {
-		width: 1200px;
-	}
-}
-
-@media (min-width: 1500px) {
-	#content {
-		width: 1500px;
-	}
-}
-
-@media (min-width: 1800px) {
-	#content {
-		width: 1800px;
-	}
-}
-
-@media (min-width: 2000px) {
-	#content {
-		width: 2000px;
-	}
-}
-
-@media (min-width: 2200px) {
-	#content {
-		width: 2200px;
-	}
-}
-
-@media (min-width: 2400px) {
-	#content {
-		width: 2400px;
-	}
 }
 
 /*
-The hamburger button
+the hamburger button with a little gradient effekt
 */
 #hamburger {
     border: 1px solid #374C77;
-    z-index: 20;
+    z-index: 1;
 	border-radius: 3px 3px 3px 3px;
     cursor: pointer;
     display: block;
@@ -156,12 +93,12 @@ The white stripes in the hamburger button
 The navigation container in the background
 */
 nav {
+    left: 0px;
+    top: -0;
     position: fixed;
-	left: 0px;
-    top: 0;
     z-index: 0;
     width: 300px;
-	height: 1000px;
+    height: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -177,16 +114,6 @@ nav {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e3c3d', endColorstr='#2d2c2d',GradientType=0 );
 }
 
-
-img {
-	position: fixed;
-	z-index: 1;
-	border-radius: 10px;
-	max-height: 400px;
-	max-width: 400px;
-}
-
-/* Stylings for Settings Menu */
 .settings-header {
 	position: relative;
 	top: -15px;
@@ -221,6 +148,66 @@ img {
 
 }
 
+#lightblue {
+	background-color: #8080ff;
+	background: rgb(128, 128, 255);
+	background: -moz-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
+	background: -webkit-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
+	background: -o-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
+	background: -ms-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
+	background: linear-gradient(120deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
+}
+
+#salmon {
+	background-color: #ff8080;
+	background: rgb(255, 128, 128);
+	background: -moz-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
+	background: -o-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
+	background: -ms-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
+	background: linear-gradient(120deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
+}
+
+#green {
+	background-color: #c0ff80;
+	background: rgb(192, 255, 128);
+	background: -moz-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
+	background: -webkit-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
+	background: -o-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
+	background: -ms-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
+	background: linear-gradient(120deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
+}
+
+#blue {
+	background-color: #4da7ff;
+	background: rgb(77, 167, 255);
+	background: -moz-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
+	background: -webkit-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
+	background: -o-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
+	background: -ms-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
+	background: linear-gradient(120deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
+}
+
+#orange {
+	background-color: #ffbf80;
+	background: rgb(255, 191, 128);
+	background: -moz-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
+	background: -o-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
+	background: -ms-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
+	background: linear-gradient(120deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
+}
+
+#lightblue, #salmon, #green, #blue, #orange {
+	-webkit-box-shadow: -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
+}
+
+#lightblue:hover, #salmon:hover, #green:hover, #blue:hover, #orange:hover {
+	background: red;
+}
+
 .row h3 {
 	position: relative;
 	bottom: 15px;
@@ -231,12 +218,38 @@ img {
 	margin-right: 20px;
 }
 
+#current-settings {
+	height: 135px;
+	width: 300px;
+	position: relative;
+	bottom: -145px;
+	border-radius: 45px 45px 0 0;
+	text-shadow: 1px 1px 1px #000;
+}
+
+#current-settings h3 {
+	position: relative;
+	top: 5px;
+	text-align: center;
+	margin: 0;
+}
+
+#settings-title {
+	float: left;
+	margin-left: 25px;
+}
+
+#settings-values {
+	float: right;
+	margin-right: 25px;
+}
+
 #number {
   height: 125px;
   width: 300px;
   text-align: center;
   text-shadow: 1px 1px 1px #000;
-  margin-top: -10px;
+  margin-top: -20px;
 }
 
 #number h1 {
@@ -297,35 +310,9 @@ img {
   display: inline-block;
 }
 
-#auto-refresh {
-	position: relative;
-	top: -45px;
-	text-align: center;
-	margin: 0;
-}
-
-#delay {
-	height: 25px;
-	border-radius: 5px;
-}
-
-#submit {
-	color: white;
-	font-size: 16px;
-	text-shadow: 1px 1px 1px #000;
-	border-radius: 15px;
-	height: 35px;
-	background: rgb(184, 78, 100);
-	background: -moz-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
-	background: -o-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
-	background: -ms-linear-gradient(30deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
-	background: linear-gradient(120deg, rgb(184, 78, 100) 30%, rgb(159, 76, 100) 70%);
-}
-
 #randomize {
 	position: relative;
-	top: -15px;
+	top: 105px;
 	text-shadow: 1px 1px 1px #000;
 	text-align: center;
 }
@@ -360,90 +347,19 @@ img {
 	top: 10px;
 }
 
-#current-settings {
-	height: 135px;
-	width: 300px;
-	position: relative;
-	top: 25px;
-	border-radius: 45px 45px 0 0;
-	text-shadow: 1px 1px 1px #000;
-}
-
-#current-settings h3 {
-	position: relative;
-	top: 5px;
-	text-align: center;
-	margin: 0;
-	margin-bottom: 10px;
-}
-
-#settings-title {
-	float: left;
-	margin-left: 25px;
-}
-
-#settings-values {
-	float: right;
-	margin-right: 25px;
-}
-
-/* Colors for buttons/categories bars */
-#lightblue {
-	background-color: #8080ff;
-	background: rgb(128, 128, 255);
-	background: -moz-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
-	background: -webkit-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
-	background: -o-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
-	background: -ms-linear-gradient(30deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
-	background: linear-gradient(120deg, rgb(128, 128, 255) 20%, rgb(90, 90, 170) 86%);
-}
-
-#salmon {
-	background-color: #ff8080;
-	background: rgb(255, 128, 128);
-	background: -moz-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
-	background: -o-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
-	background: -ms-linear-gradient(30deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
-	background: linear-gradient(120deg, rgb(255, 128, 128) 20%, rgb(175, 92, 92) 86%);
-}
-
-#green {
-	background-color: #c0ff80;
-	background: rgb(192, 255, 128);
-	background: -moz-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
-	background: -webkit-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
-	background: -o-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
-	background: -ms-linear-gradient(30deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
-	background: linear-gradient(120deg, rgb(192, 255, 128) 20%, rgb(122, 186, 90) 86%);
-}
-
-#blue {
-	background-color: #4da7ff;
-	background: rgb(77, 167, 255);
-	background: -moz-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
-	background: -webkit-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
-	background: -o-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
-	background: -ms-linear-gradient(30deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
-	background: linear-gradient(120deg, rgb(77, 167, 255) 20%, rgb(25, 101, 177) 86%);
-}
-
-#orange {
-	background-color: #ffbf80;
-	background: rgb(255, 191, 128);
-	background: -moz-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
-	background: -webkit-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
-	background: -o-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
-	background: -ms-linear-gradient(30deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
-	background: linear-gradient(120deg, rgb(255, 191, 128) 20%, rgb(214, 115, 53) 86%);
-}
-
-#lightblue, #salmon, #green, #blue, #orange {
-	-webkit-box-shadow: -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
-	box-shadow:         -2px 4px 11px 0px rgba(50, 50, 50, 0.75);
-}
-
-#lightblue:hover, #salmon:hover, #green:hover, #blue:hover, #orange:hover {
-	background: red;
+/*
+The Layer that will be layed over the content
+so that the content is unclickable while menu is shown
+*/
+#contentLayer {
+    display: none;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    right: -300px;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+    min-height: 1062px;
 }
