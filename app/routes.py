@@ -451,7 +451,7 @@ def gif_party():
             return redirect(url_for('gif_party'))
         else:
             delay = str(form.delay.data)
-            with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
+            with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
                 config_file.write(config_file_list[0])
                 config_file.write('DELAY = %s' % delay + '\n')
                 config_file.write(config_file_list[2])

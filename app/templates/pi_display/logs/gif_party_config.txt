@@ -1,4 +1,4 @@
 CATEGORY = animals
-DELAY = 60
+DELAY = 180
 NUMBER = 5
 RANDOMIZE = yes
