@@ -33,9 +33,9 @@ function focusGif() {
 	// isn't focused on twice in a row, which could cause its dimensions to get
 	// messed up.
 	if (elements_array.length === 0) {
-		    elements_array = elements.slice();
-	};
-	
+        elements_array = elements.slice();
+}
+
 	var rand_gif = elements_array.pop();
 	console.log(rand_gif);
 	var orig_height = "height";
@@ -48,8 +48,8 @@ function focusGif() {
 	setTimeout(function() {
 		$(rand_gif).stop(true, true).animate(options1, 'slow');
 		$(rand_gif).css("z-index", 1);
-	}, 5000);
-};
+	}, 10000);
+}
 
 // The functions below define the animation of the images
 function makeNewPosition($content) {
@@ -75,7 +75,7 @@ function animateDiv($target) {
     }, speed, function () {
         animateDiv($target);
     });
-};
+}
 
 function calcSpeed(prev, next) {
 
