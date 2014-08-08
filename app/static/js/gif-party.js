@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 // Function to call random 'focus' function on GIFs
 $(document).ready(function() {
-	setInterval(focusGif, 5000);
+	setInterval(focusGif, 10000);
 });
 
 // Function to pick a random element and 'focus' on it for a set
