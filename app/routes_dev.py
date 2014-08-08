@@ -843,6 +843,20 @@ def gif_party_feed():
     return redirect(url_for('gif_party'))
 
 
+@app.route('/gif_party_welcome')
+def gif_party_welcome():
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    filename = 'urls.txt'
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    image_url = random.choice(urls_list)
+    image_url = image_url[:image_url.find('\n')]
+
+    return render_template('/gif_party/welcome.html',
+                           image_url=image_url)
+
+
 #######################################################################################
 #####  CS Tools Apps ##################################################################
 class GetClass(object):
