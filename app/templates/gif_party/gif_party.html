@@ -5,116 +5,88 @@
 
     <link rel="icon" type="image/png" href="/static/images/mcp.png">
 
+    <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/default.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/component.css"/>
     <link type="text/css" rel="stylesheet" href="/static/gif_party.css"/>
 
     <script src="//code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
     <script src="/static/js/gif-party.js"></script>
-    <script src="/static/js/hamburger-modified.js"></script>
+    <script src="/static/GIF Party Menu/js/modernizr.custom.js"></script>
+    <script src="/static/GIF Party Menu/js/jquery.dlmenu.js"></script>
 
     <meta http-equiv="refresh" content="{{ delay }}" charset="UTF-8">
-    <title></title>
 </head>
+
 <body>
-<!--This wrapping container is used to get the width of the whole content-->
-    <div id="container">
-
-        <!--The Hamburger Button in the Header-->
-        <div id="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-
-        <!--The mobile navigation Markup hidden via css-->
-        <nav class="mobileNav">
-
-            <div class="settings-header">
-                    <h1>Settings</h1>
-            </div>
-
-            <div class="categories">
-
-                <h3>Categories</h3>
-
-                <a href="/gif_party_all">
-                    <div class="row" id="lightblue">All <span class="count">{{ urls_count }} GIFs</span></div>
-                </a>
-
-                <a href="/gif_party_animals">
-                    <div class="row" id="salmon">Animals<span class="count">{{ animals_urls_count }} GIFs</span></div>
-                </a>
-
-                <a href="/gif_party_gaming">
-                    <div class="row" id="green">Gaming<span class="count">{{ gaming_urls_count }} GIFs</span></div>
-                </a>
-
-                <a href="/gif_party_strange">
-                    <div class="row" id="blue">Strange<span class="count">{{ strange_urls_count }} GIFs</span></div>
-                </a>
-
-                <a href="/gif_party_educational">
-                    <div class="row" id="orange">Educational<span class="count">{{ educational_urls_count }} GIFs</span></div>
-                </a>
-
-            </div>
-
-            <div id="number">
-                <h1>Number of GIFs</h1><br>
-
-                <div id="5"><a href="/gif_party_5"><h3>5</h3></a></div>
-                <div id="10"><a href="/gif_party_10"><h3>10</h3></a></div>
-                <div id="20"><a href="/gif_party_20"><h3>20</h3></a></div>
-            </div>
-
-            <div id="auto-refresh">
-                <h1>Auto Refresh</h1>
-                {% if form.errors %}
-                    {% for message in form.delay.errors %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-                <form action="" method=POST>
-                    {{ form.hidden_tag() }}
-                    {{ form.delay(placeholder="Seconds") }}
-                    {{ form.submit }}
-                </form>
-            </div>
-
-            <div id="randomize">
-                <div class="randomize-button1"><a href="/gif_party_randomize"><h1>Randomize</h1></a></div>
-                <div class="randomize-button2"><a href="/gif_party_feed"><h1>Pull from Feed</h1></a></div>
-            </div>
-
-            <div id="current-settings">
-                <h3>Current Settings</h3>
-                <div id="settings-title">
-                    Category:<br>
-                    Source:<br>
-                    Number of GIFs:<br>
-                    Auto Refresh:
-                </div>
-
-                <div id="settings-values">
-                    {{ category }} <br>
-                    {% if randomize == 'yes' %}
-                        randomized<br>
-                    {% endif %}
-                    {% if randomize == 'no' %}
-                        feed<br>
-                    {% endif %}
-                    {{ number }}<br>
-                    {{ delay }} seconds
-                </div>
-            </div>
-
-        </nav>
-
-    <!--The Layer that will be layed over the content
-    so that the content is unclickable while menu is shown-->
-    <div id="contentLayer"></div>
-
     <div id="content">
+        <div id="dl-menu" class="dl-menuwrapper">
+            <button class="dl-trigger">Open Menu</button>
+                <ul class="dl-menu">
+                    <li>
+                        <a href="#">Category</a>
+                        <ul class="dl-submenu">
+                            <li><a href="/gif_party_all">All <div class="gif_count">{{ urls_count }} GIFs</div></a></li>
+                            <li><a href="/gif_party_animals">Animals  <div class="gif_count">{{ animals_urls_count }} GIFs</div></a></li>
+                            <li><a href="/gif_party_gaming">Gaming <div class="gif_count">{{ gaming_urls_count }} GIFs</div></a></li>
+                            <li><a href="/gif_party_strange">Strange <div class="gif_count">{{ strange_urls_count }} GIFs</div></a></li>
+                            <li><a href="/gif_party_educational">Educational <div class="gif_count">{{ educational_urls_count }} GIFs</div></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Number of GIFs</a>
+                        <ul class="dl-submenu">
+                            <li><a href="/gif_party_5">5</a></li>
+                            <li><a href="/gif_party_10">10</a></li>
+                            <li><a href="/gif_party_20">20</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Auto Refresh</a>
+                        <ul class="dl-submenu">
+                            <li>
+                                <form action="" method=POST>
+                                    {{ form.hidden_tag() }}
+                                    {{ form.delay(placeholder="Seconds") }}
+                                    {{ form.submit }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Source</a>
+                        <ul class="dl-submenu">
+                            <li><a href="/gif_party_randomize">Randomize</a></li>
+                            <li><a href="/gif_party_feed">Pull From Feed</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Current Settings</a>
+                        <ul class="dl-submenu">
+                            <li>
+                                <div id="settings-title">
+                                    Category:<br>
+                                    Number of GIFs:<br>
+                                    Auto Refresh:<br>
+                                    Source:<br>
+                                </div>
+
+                                <div id="settings-values">
+                                    {{ category }} <br>
+                                    {{ number }}<br>
+                                    {{ delay }} seconds<br>
+                                    {% if randomize == 'yes' %}
+                                        randomized
+                                    {% endif %}
+                                    {% if randomize == 'no' %}
+                                        feed
+                                    {% endif %}
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </div>
         {% if number == 5 %}
             <img class='a' src='{{ gif_url_1 }}'>
             <img class='b' src='{{ gif_url_2 }}'>
@@ -155,8 +127,12 @@
             <img class='t' src='{{ gif_url_20 }}'>
         {% endif %}
     </div>
-</div>
 </body>
+<script>
+$(function() {
+    $( '#dl-menu' ).dlmenu();
+});
+</script>
 <script>
 $(document).ready(function() {
     {% if number == 5 %}
@@ -176,5 +152,4 @@ $(document).ready(function() {
         };
 });
 </script>
-
 </html>
