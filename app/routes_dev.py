@@ -1279,7 +1279,7 @@ def login_required(test):
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'cs'or request.form['password'] != 'cayman':
+        if request.form['username'] != 'cs' or request.form['password'] != 'cayman':
             error = 'Invalid credentials, please try again.'
         else:
             session['logged_in'] = True

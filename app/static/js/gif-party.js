@@ -15,6 +15,7 @@ $(document).ready(function() {
 		options[orig_width] = $(this).css("width");
 		$(this).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, 'fast');
 		$(this).css("z-index", 20);
+		animateDiv($(this));
 	}, function() {
 		$(this).stop().animate(options, 'fast');
 		$(this).css("z-index", 1);
@@ -27,7 +28,6 @@ $(document).ready(function() {
 	setInterval(focusGif, 10000);
 });
 
-// Making images draggable
 $(function() {
 	$("img").draggable({
 		start: function(event, ui) {

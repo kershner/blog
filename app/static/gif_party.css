@@ -17,6 +17,15 @@ body {
 	z-index: 30;
 }
 
+.settings {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-height: 75%;
+	max-width: 75%;
+
+}
+
 
 /* Div where the images float around */
 #content {
