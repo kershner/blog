@@ -86,8 +86,8 @@ img {
 	position: fixed;
 	z-index: 1;
 	border-radius: 10px;
-	max-height: 400px;
-	max-width: 400px;
+	max-height: 450px;
+	max-width: 450px;
 }
 
 /* Number of GIFs displayed next to category */

@@ -3,11 +3,12 @@
 // JavaScript better
 var options = {};
 
-// Function to click on GIF and 'focus' on it
-// CSS height/width and Z index get larger
+// Function to click on GIF and 'focus' on it - animation stops,
+// CSS height/width and Z index get larger.
 // Another click sets them to normal
 $(document).ready(function() {
 	$('img').toggle(function() {
+		$(this).stop();
 		var orig_height = "height";
 		var orig_width = "width";
 		options[orig_height] = $(this).css("height");
@@ -15,8 +16,9 @@ $(document).ready(function() {
 		$(this).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, 'fast');
 		$(this).css("z-index", 20);
 	}, function() {
-		$(this).stop(true, true).animate(options, 'fast');
+		$(this).stop().animate(options, 'fast');
 		$(this).css("z-index", 1);
+		animateDiv($(this));
 	});
 });
 
@@ -25,13 +27,25 @@ $(document).ready(function() {
 	setInterval(focusGif, 10000);
 });
 
+// Making images draggable
+$(function() {
+	$("img").draggable({
+		start: function(event, ui) {
+			$(this).stop();
+		},
+		stop: function(event, ui) {
+			animateDiv($(this));
+		}
+	});
+});
+
 // Function to pick a random element and 'focus' on it for a set
 // amount of time
 function focusGif() {
 	// Pulling the GIF's original dimensions to revert back to when
 	// 'unfocusing'.  'Pop'ing from an array to make sure an element
 	// isn't focused on twice in a row, which could cause its dimensions to get
-	// messed up.
+	// messed up over time.
 	if (elements_array.length === 0) {
         elements_array = elements.slice();
 }
@@ -66,15 +80,15 @@ function makeNewPosition($content) {
 
 function animateDiv($target) {
     var newq = makeNewPosition($target.parent());
-    var oldq = $target.offset();
+    var oldq = $target.position();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
-
+	
     $target.animate({
-        top: newq[0],
-        left: newq[1]
-    }, speed, function () {
-        animateDiv($target);
-    });
+		top: newq[0],
+		left: newq[1]
+	}, speed, function () {
+		animateDiv($target);
+	});
 }
 
 function calcSpeed(prev, next) {
