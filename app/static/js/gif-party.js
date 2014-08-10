@@ -7,17 +7,17 @@ var options = {};
 // CSS height/width and Z index get larger.
 // Another click sets them to normal
 $(document).ready(function() {
-	$('img').toggle(function() {
+	$("img").toggle(function() {
 		$(this).stop();
 		var orig_height = "height";
 		var orig_width = "width";
 		options[orig_height] = $(this).css("height");
 		options[orig_width] = $(this).css("width");
-		$(this).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, 'fast');
+		$(this).stop(true, true).animate({ width: "+=50%", height: "+=50%" }, "fast");
 		$(this).css("z-index", 20);
 		animateDiv($(this));
 	}, function() {
-		$(this).stop().animate(options, 'fast');
+		$(this).stop().animate(options, "fast");
 		$(this).css("z-index", 1);
 		animateDiv($(this));
 	});
@@ -28,6 +28,8 @@ $(document).ready(function() {
 	setInterval(focusGif, 10000);
 });
 
+
+// Making images draggable
 $(function() {
 	$("img").draggable({
 		start: function(event, ui) {
@@ -38,6 +40,9 @@ $(function() {
 		}
 	});
 });
+
+
+
 
 // Function to pick a random element and 'focus' on it for a set
 // amount of time

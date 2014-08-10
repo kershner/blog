@@ -5,6 +5,7 @@
 
     <link rel="icon" type="image/png" href="/static/images/mcp.png">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/default.css"/>
     <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/component.css"/>
     <link type="text/css" rel="stylesheet" href="/static/gif_party.css"/>
@@ -16,6 +17,7 @@
     <script src="/static/GIF Party Menu/js/jquery.dlmenu.js"></script>
 
     <meta http-equiv="refresh" content="{{ delay }}" charset="UTF-8">
+
 </head>
 
 <body>
@@ -24,13 +26,17 @@
             <button class="dl-trigger"></button>
                 <ul class="dl-menu">
                     <li>
-                        <a href="#">Category</a>
+                        <a href="#">Source</a>
                         <ul class="dl-submenu">
-                            <li><a href="/gif_party_all">All <div class="gif_count">{{ urls_count }} GIFs</div></a></li>
-                            <li><a href="/gif_party_animals">Animals  <div class="gif_count">{{ animals_urls_count }} GIFs</div></a></li>
-                            <li><a href="/gif_party_gaming">Gaming <div class="gif_count">{{ gaming_urls_count }} GIFs</div></a></li>
-                            <li><a href="/gif_party_strange">Strange <div class="gif_count">{{ strange_urls_count }} GIFs</div></a></li>
-                            <li><a href="/gif_party_educational">Educational <div class="gif_count">{{ educational_urls_count }} GIFs</div></a></li>
+                            <li><a href="#">GIF Party</a>
+                                <ul class="dl-submenu">
+                                    <li><a href="/gif_party_all">All <div class="gif_count">{{ urls_count }} GIFs</div></a></li>
+                                    <li><a href="/gif_party_animals">Animals  <div class="gif_count">{{ animals_urls_count }} GIFs</div></a></li>
+                                    <li><a href="/gif_party_gaming">Gaming <div class="gif_count">{{ gaming_urls_count }} GIFs</div></a></li>
+                                    <li><a href="/gif_party_strange">Strange <div class="gif_count">{{ strange_urls_count }} GIFs</div></a></li>
+                                    <li><a href="/gif_party_educational">Educational <div class="gif_count">{{ educational_urls_count }} GIFs</div></a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -54,10 +60,16 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Source</a>
+                        <a href="#">GIF Style</a>
                         <ul class="dl-submenu">
-                            <li><a href="/gif_party_randomize">Randomize</a></li>
-                            <li><a href="/gif_party_feed">Pull From Feed</a></li>
+                            <li>
+                                <div id="sliders">
+                                    <p>Roundess</p><br>
+                                    <div id="slider"></div>
+                                    <p>Min-Size</p><br>
+                                    <div id="slider2"></div>
+                               </div>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -65,22 +77,15 @@
                         <ul class="dl-submenu">
                             <li>
                                 <div id="settings-title">
-                                    Category:<br>
+                                    Source:<br>
                                     Number of GIFs:<br>
                                     Auto Refresh:<br>
-                                    Source:<br>
                                 </div>
 
                                 <div id="settings-values">
                                     {{ category }} <br>
                                     {{ number }}<br>
                                     {{ delay }} seconds<br>
-                                    {% if randomize == 'yes' %}
-                                        randomized
-                                    {% endif %}
-                                    {% if randomize == 'no' %}
-                                        feed
-                                    {% endif %}
                                 </div>
                             </li>
                         </ul>
@@ -128,6 +133,7 @@
         {% endif %}
     </div>
 </body>
+
 <script>
 $(function() {
     $( '#dl-menu' ).dlmenu();
@@ -150,6 +156,47 @@ $(document).ready(function() {
     for (i = 0; i < elements.length; i++) {
             animateDiv($(elements[i]));
         };
+
+    // Functions to control the border-radius slider
+    function alterBorderRadius() {
+        var slider = $("#slider").slider("value");
+        $("img").css("border-radius", slider + "%");
+    };
+
+    $(function() {
+        $("#slider").slider({
+          orientation: "horizontal",
+          range: "min",
+          max: 100,
+          min: 5,
+          value: 5,
+          slide: alterBorderRadius,
+          change: alterBorderRadius
+        });
+        $( "#slider" ).slider( "value", {{ border_radius }});
+    });
+
+
+
+    // Functions to control the min-size slider
+    function alterImageSize() {
+        var slider = $("#slider2").slider("value");
+        $("img").css("min-width", slider + "px");
+        $("img").css("min-height", slider + "px");
+    };
+
+    $(function() {
+            $("#slider2").slider({
+              orientation: "horizontal",
+              range: "min",
+              step: 100,
+              max: 400,
+              value: 0,
+              slide: alterImageSize,
+              change: alterImageSize
+            });
+        $( "#slider2" ).slider( "value", 0);
+    });
 });
 </script>
 </html>

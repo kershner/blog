@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty
 from urllib import quote
@@ -137,6 +137,9 @@ def pi_display():
     elif category == 'educational':
         filename = 'educational_urls.txt'
         toplay_filename = 'educational_urls_to_play.txt'
+    else:
+        filename = 'urls.txt'
+        toplay_filename = "urls_to_play.txt"
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -184,9 +187,9 @@ def pi_display():
                            delay=delay)
 
 
-###################
+##############################################################################
 # Pi Display Config
-###################
+##############################################################################
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()
@@ -419,12 +422,22 @@ def previously_3():
 
 
 ##############################################################################
-## Gif Party #################################################################
+## Gif Party
+##############################################################################
 @app.route('/gif_party', methods=['GET', 'POST'])
 def gif_party():
     path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
     #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
     form = GifParty()
+
+    if session.new:
+        session['border-radius'] = '15'
+        border_radius = session['border-radius']
+    else:
+        html_source = request.get('http://www.kershner.org/gif_party').text
+        # Create new test to find code for the border-radius property
+        session['border-radius'] = '5'
+        border_radius = session['border-radius']
 
     with open('%s/gif_party_config.txt' % path, 'r') as config:
             config_file_list = list(config)
@@ -444,6 +457,8 @@ def gif_party():
         filename = 'strange_urls.txt'
     elif category == 'educational':
         filename = 'educational_urls.txt'
+    else:
+        filename = 'urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -520,7 +535,8 @@ def gif_party():
                                    gif_url_5=gif_url_5,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   delay=delay,
+                                   border_radius=border_radius)
         elif number == 10:
             if randomize == 'yes':
                 gif_url_1 = random.choice(urls_list)
@@ -575,7 +591,8 @@ def gif_party():
                                    gif_url_10=gif_url_10,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   delay=delay,
+                                   border_radius=border_radius)
         elif number == 20:
             if randomize == 'yes':
                 gif_url_1 = random.choice(urls_list)
@@ -670,7 +687,8 @@ def gif_party():
                                    gif_url_20=gif_url_20,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   delay=delay,
+                                   border_radius=border_radius)
 
 
 @app.route('/gif_party_all')

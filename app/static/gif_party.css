@@ -183,3 +183,43 @@ img {
 	color: white;
 	margin-right: 10px;
 }
+
+
+/* jQuery Slider stylings */
+#sliders {
+	position: relative;
+	left: 25px;
+	bottom: 10px;
+}
+
+#slider {
+	margin-bottom: 5px;
+}
+
+/* Width of the slider track */
+.dl-menuwrapper .dl-menu li #sliders{
+	width: 80%;
+	margin: 0;
+}
+
+/* Getting rid of inherited padding on the handles */
+#sliders a {
+	padding: 0;
+	top: -2.5px;
+	border-style: none;
+}
+
+#sliders p {
+	position: relative;
+	top: 15px;
+	margin: 0;
+}
+
+#sliders a:hover , #sliders a:active{
+	background: rgb(179, 255, 255);
+	background: -moz-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -o-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: -ms-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+	background: linear-gradient(120deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
+}
