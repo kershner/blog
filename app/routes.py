@@ -426,6 +426,8 @@ def gif_party():
         category = 'all'
         delay = 60
         number = 10
+        border_radius = 5
+        min_size = 0
 
     if category == 'all':
         filename = 'urls.txt'
