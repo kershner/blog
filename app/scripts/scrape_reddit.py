@@ -80,7 +80,11 @@ def scrape_reddit(target_subreddit, path):
         # Not a .gif file
         elif not submission.url.endswith('.gif'):
             print '%s is not a GIF file, skipping...' % submission.url
-            bad_urls_file.write(str(submission.url) + '\n')
+            try:
+                bad_urls_file.write(str(submission.url) + '\n')
+            except UnicodeEncodeError:
+                print 'Unicode Error, skipping...'
+                continue
             bad_urls += 1
             continue
         # Don't want gifsound links

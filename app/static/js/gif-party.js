@@ -52,7 +52,7 @@ $(function() {
 	$("#slider").slider({
 	  orientation: "horizontal",
 	  range: "min",
-	  max: 100,
+	  max: 50,
 	  min: 5,
 	  value: 5,
 	  slide: alterBorderRadius,
