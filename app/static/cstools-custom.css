@@ -458,7 +458,6 @@ input  {
 ul.rig {
 	list-style: none;
 	font-size: 0px;
-	margin-top: 35px;
 	margin-left: -2.5%; /* should match li left margin */
 	margin-right: 2.5%;
 	margin-bottom: 0;

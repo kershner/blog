@@ -94,6 +94,16 @@ class SlideshowDelay(Form):
     submit = SubmitField("Submit")
 
 
+#############################################
+# GIF Party forms
+
+
 class GifParty(Form):
     delay = TextField("", [validators.Required("Please enter a valid time (in seconds).")])
     submit = SubmitField("Submit")
+
+
+class Hidden(Form):
+    border_radius = TextField("")
+    min_size = TextField("")
+    save = SubmitField("Save")

@@ -1,0 +1,3 @@
+CATEGORY = all
+DELAY = 60
+NUMBER = 10

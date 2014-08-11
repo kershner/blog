@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty, Hidden
 from urllib import quote
 import datetime
 import random
 from functools import wraps
 from app import app, db, models
+
 
 ##############################################################################
 ## Blog ######################################################################
@@ -102,10 +103,6 @@ def pi_display():
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
 
-    # Will use these later for general purpose GIF display site
-    # gif_width = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('x')]
-    # gif_height = config_file_list[0][config_file_list[0].find('x') + 1:config_file_list[0].find('\n')]
-
     category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
     delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
 
@@ -124,6 +121,9 @@ def pi_display():
     elif category == 'educational':
         filename = 'educational_urls.txt'
         toplay_filename = 'educational_urls_to_play.txt'
+    else:
+        filename = 'urls.txt'
+        toplay_filename = 'urls_to_play.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -392,20 +392,40 @@ def previously_3():
 
 
 ##############################################################################
-## Gif Party #################################################################
+## Gif Party
+##############################################################################
 @app.route('/gif_party', methods=['GET', 'POST'])
 def gif_party():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
     form = GifParty()
+    form2 = Hidden()
 
-    with open('%s/gif_party_config.txt' % path, 'r') as config:
-            config_file_list = list(config)
-
-    category = config_file_list[0][config_file_list[0].find('=') + 2:config_file_list[0].find('\n')]
-    delay = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
-    number = int(config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')])
-    randomize = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+    if 'active' in session:
+        if 'category' in session:
+            category = session['category']
+        else:
+            category = 'all'
+        if 'delay' in session:
+            delay = session['delay']
+        else:
+            delay = 60
+        if 'number' in session:
+            number = session['number']
+        else:
+            number = 10
+        if 'border_radius' in session:
+            border_radius = session['border_radius']
+        else:
+            border_radius = 5
+        if 'min_size' in session:
+            min_size = session['min_size']
+        else:
+            min_size = 0
+    else:
+        category = 'all'
+        delay = 60
+        number = 10
 
     if category == 'all':
         filename = 'urls.txt'
@@ -417,15 +437,14 @@ def gif_party():
         filename = 'strange_urls.txt'
     elif category == 'educational':
         filename = 'educational_urls.txt'
+    else:
+        filename = 'urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
 
     with open('%s/urls.txt' % path, 'r') as last_played_file:
         all_urls_list = list(last_played_file)
-
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
 
     with open('%s/animals_urls.txt' % path, 'r') as urls_file:
         animals_urls_list = list(urls_file)
@@ -451,32 +470,22 @@ def gif_party():
             return redirect(url_for('gif_party'))
         else:
             delay = str(form.delay.data)
-            with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-                config_file.write(config_file_list[0])
-                config_file.write('DELAY = %s' % delay + '\n')
-                config_file.write(config_file_list[2])
-                config_file.write(config_file_list[3])
+            session['active'] = True
+            session['delay'] = delay
             return redirect(url_for('gif_party'))
 
     elif request.method == 'GET':
         if number == 5:
-            if randomize == 'yes':
-                gif_url_1 = random.choice(urls_list)
-                urls_list.remove(gif_url_1)
-                gif_url_2 = random.choice(urls_list)
-                urls_list.remove(gif_url_2)
-                gif_url_3 = random.choice(urls_list)
-                urls_list.remove(gif_url_3)
-                gif_url_4 = random.choice(urls_list)
-                urls_list.remove(gif_url_4)
-                gif_url_5 = random.choice(urls_list)
-                urls_list.remove(gif_url_5)
-            else:
-                gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
-                gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
-                gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
-                gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
-                gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
 
             return render_template('/gif_party/gif_party.html',
                                    urls_count=main_urls_count,
@@ -485,7 +494,6 @@ def gif_party():
                                    strange_urls_count=strange_urls_count,
                                    educational_urls_count=educational_urls_count,
                                    category=category,
-                                   randomize=randomize,
                                    gif_url_1=gif_url_1,
                                    gif_url_2=gif_url_2,
                                    gif_url_3=gif_url_3,
@@ -493,40 +501,31 @@ def gif_party():
                                    gif_url_5=gif_url_5,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   form2=form2,
+                                   delay=delay,
+                                   min_size=min_size,
+                                   border_radius=border_radius)
         elif number == 10:
-            if randomize == 'yes':
-                gif_url_1 = random.choice(urls_list)
-                urls_list.remove(gif_url_1)
-                gif_url_2 = random.choice(urls_list)
-                urls_list.remove(gif_url_2)
-                gif_url_3 = random.choice(urls_list)
-                urls_list.remove(gif_url_3)
-                gif_url_4 = random.choice(urls_list)
-                urls_list.remove(gif_url_4)
-                gif_url_5 = random.choice(urls_list)
-                urls_list.remove(gif_url_5)
-                gif_url_6 = random.choice(urls_list)
-                urls_list.remove(gif_url_6)
-                gif_url_7 = random.choice(urls_list)
-                urls_list.remove(gif_url_7)
-                gif_url_8 = random.choice(urls_list)
-                urls_list.remove(gif_url_8)
-                gif_url_9 = random.choice(urls_list)
-                urls_list.remove(gif_url_9)
-                gif_url_10 = random.choice(urls_list)
-                urls_list.remove(gif_url_10)
-            else:
-                gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
-                gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
-                gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
-                gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
-                gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
-                gif_url_6 = last_played_list[-16][:last_played_list[-16].find('\n')]
-                gif_url_7 = last_played_list[-15][:last_played_list[-15].find('\n')]
-                gif_url_8 = last_played_list[-14][:last_played_list[-14].find('\n')]
-                gif_url_9 = last_played_list[-13][:last_played_list[-13].find('\n')]
-                gif_url_10 = last_played_list[-12][:last_played_list[-12].find('\n')]
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
+            gif_url_6 = random.choice(urls_list)
+            urls_list.remove(gif_url_6)
+            gif_url_7 = random.choice(urls_list)
+            urls_list.remove(gif_url_7)
+            gif_url_8 = random.choice(urls_list)
+            urls_list.remove(gif_url_8)
+            gif_url_9 = random.choice(urls_list)
+            urls_list.remove(gif_url_9)
+            gif_url_10 = random.choice(urls_list)
+            urls_list.remove(gif_url_10)
 
             return render_template('/gif_party/gif_party.html',
                                    urls_count=main_urls_count,
@@ -535,7 +534,6 @@ def gif_party():
                                    strange_urls_count=strange_urls_count,
                                    educational_urls_count=educational_urls_count,
                                    category=category,
-                                   randomize=randomize,
                                    gif_url_1=gif_url_1,
                                    gif_url_2=gif_url_2,
                                    gif_url_3=gif_url_3,
@@ -548,70 +546,51 @@ def gif_party():
                                    gif_url_10=gif_url_10,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   form2=form2,
+                                   delay=delay,
+                                   min_size=min_size,
+                                   border_radius=border_radius)
         elif number == 20:
-            if randomize == 'yes':
-                gif_url_1 = random.choice(urls_list)
-                urls_list.remove(gif_url_1)
-                gif_url_2 = random.choice(urls_list)
-                urls_list.remove(gif_url_2)
-                gif_url_3 = random.choice(urls_list)
-                urls_list.remove(gif_url_3)
-                gif_url_4 = random.choice(urls_list)
-                urls_list.remove(gif_url_4)
-                gif_url_5 = random.choice(urls_list)
-                urls_list.remove(gif_url_5)
-                gif_url_6 = random.choice(urls_list)
-                urls_list.remove(gif_url_6)
-                gif_url_7 = random.choice(urls_list)
-                urls_list.remove(gif_url_7)
-                gif_url_8 = random.choice(urls_list)
-                urls_list.remove(gif_url_8)
-                gif_url_9 = random.choice(urls_list)
-                urls_list.remove(gif_url_9)
-                gif_url_10 = random.choice(urls_list)
-                urls_list.remove(gif_url_10)
-                gif_url_11 = random.choice(urls_list)
-                urls_list.remove(gif_url_11)
-                gif_url_12 = random.choice(urls_list)
-                urls_list.remove(gif_url_12)
-                gif_url_13 = random.choice(urls_list)
-                urls_list.remove(gif_url_13)
-                gif_url_14 = random.choice(urls_list)
-                urls_list.remove(gif_url_14)
-                gif_url_15 = random.choice(urls_list)
-                urls_list.remove(gif_url_15)
-                gif_url_16 = random.choice(urls_list)
-                urls_list.remove(gif_url_16)
-                gif_url_17 = random.choice(urls_list)
-                urls_list.remove(gif_url_17)
-                gif_url_18 = random.choice(urls_list)
-                urls_list.remove(gif_url_18)
-                gif_url_19 = random.choice(urls_list)
-                urls_list.remove(gif_url_19)
-                gif_url_20 = random.choice(urls_list)
-                urls_list.remove(gif_url_20)
-            else:
-                gif_url_1 = last_played_list[-21][:last_played_list[-21].find('\n')]
-                gif_url_2 = last_played_list[-20][:last_played_list[-20].find('\n')]
-                gif_url_3 = last_played_list[-19][:last_played_list[-19].find('\n')]
-                gif_url_4 = last_played_list[-18][:last_played_list[-18].find('\n')]
-                gif_url_5 = last_played_list[-17][:last_played_list[-17].find('\n')]
-                gif_url_6 = last_played_list[-16][:last_played_list[-16].find('\n')]
-                gif_url_7 = last_played_list[-15][:last_played_list[-15].find('\n')]
-                gif_url_8 = last_played_list[-14][:last_played_list[-14].find('\n')]
-                gif_url_9 = last_played_list[-13][:last_played_list[-13].find('\n')]
-                gif_url_10 = last_played_list[-12][:last_played_list[-12].find('\n')]
-                gif_url_11 = last_played_list[-11][:last_played_list[-11].find('\n')]
-                gif_url_12 = last_played_list[-10][:last_played_list[-10].find('\n')]
-                gif_url_13 = last_played_list[-9][:last_played_list[-9].find('\n')]
-                gif_url_14 = last_played_list[-8][:last_played_list[-8].find('\n')]
-                gif_url_15 = last_played_list[-7][:last_played_list[-7].find('\n')]
-                gif_url_16 = last_played_list[-6][:last_played_list[-6].find('\n')]
-                gif_url_17 = last_played_list[-5][:last_played_list[-5].find('\n')]
-                gif_url_18 = last_played_list[-4][:last_played_list[-4].find('\n')]
-                gif_url_19 = last_played_list[-3][:last_played_list[-3].find('\n')]
-                gif_url_20 = last_played_list[-2][:last_played_list[-2].find('\n')]
+            gif_url_1 = random.choice(urls_list)
+            urls_list.remove(gif_url_1)
+            gif_url_2 = random.choice(urls_list)
+            urls_list.remove(gif_url_2)
+            gif_url_3 = random.choice(urls_list)
+            urls_list.remove(gif_url_3)
+            gif_url_4 = random.choice(urls_list)
+            urls_list.remove(gif_url_4)
+            gif_url_5 = random.choice(urls_list)
+            urls_list.remove(gif_url_5)
+            gif_url_6 = random.choice(urls_list)
+            urls_list.remove(gif_url_6)
+            gif_url_7 = random.choice(urls_list)
+            urls_list.remove(gif_url_7)
+            gif_url_8 = random.choice(urls_list)
+            urls_list.remove(gif_url_8)
+            gif_url_9 = random.choice(urls_list)
+            urls_list.remove(gif_url_9)
+            gif_url_10 = random.choice(urls_list)
+            urls_list.remove(gif_url_10)
+            gif_url_11 = random.choice(urls_list)
+            urls_list.remove(gif_url_11)
+            gif_url_12 = random.choice(urls_list)
+            urls_list.remove(gif_url_12)
+            gif_url_13 = random.choice(urls_list)
+            urls_list.remove(gif_url_13)
+            gif_url_14 = random.choice(urls_list)
+            urls_list.remove(gif_url_14)
+            gif_url_15 = random.choice(urls_list)
+            urls_list.remove(gif_url_15)
+            gif_url_16 = random.choice(urls_list)
+            urls_list.remove(gif_url_16)
+            gif_url_17 = random.choice(urls_list)
+            urls_list.remove(gif_url_17)
+            gif_url_18 = random.choice(urls_list)
+            urls_list.remove(gif_url_18)
+            gif_url_19 = random.choice(urls_list)
+            urls_list.remove(gif_url_19)
+            gif_url_20 = random.choice(urls_list)
+            urls_list.remove(gif_url_20)
 
             return render_template('/gif_party/gif_party.html',
                                    urls_count=main_urls_count,
@@ -620,7 +599,6 @@ def gif_party():
                                    strange_urls_count=strange_urls_count,
                                    educational_urls_count=educational_urls_count,
                                    category=category,
-                                   randomize=randomize,
                                    gif_url_1=gif_url_1,
                                    gif_url_2=gif_url_2,
                                    gif_url_3=gif_url_3,
@@ -643,167 +621,108 @@ def gif_party():
                                    gif_url_20=gif_url_20,
                                    number=number,
                                    form=form,
-                                   delay=delay)
+                                   form2=form2,
+                                   delay=delay,
+                                   min_size=min_size,
+                                   border_radius=border_radius)
 
 
 @app.route('/gif_party_all')
 def gif_party_all():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write('CATEGORY = all' + '\n')
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['category'] = 'all'
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_animals')
 def gif_party_animals():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write('CATEGORY = animals' + '\n')
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['category'] = 'animals'
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_gaming')
 def gif_party_gaming():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write('CATEGORY = gaming' + '\n')
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['category'] = 'gaming'
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_strange')
 def gif_party_strange():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write('CATEGORY = strange' + '\n')
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['category'] = 'strange'
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_educational')
 def gif_party_educational():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write('CATEGORY = educational' + '\n')
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['category'] = 'educational'
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_5')
 def gif_party_5():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write('NUMBER = 5' + '\n')
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['number'] = 5
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_10')
 def gif_party_10():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write('NUMBER = 10' + '\n')
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['number'] = 10
 
     return redirect(url_for('gif_party'))
 
 
 @app.route('/gif_party_20')
 def gif_party_20():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write('NUMBER = 20' + '\n')
-        config_file.write(config_file_list[3])
+    session['active'] = True
+    session['number'] = 10
 
     return redirect(url_for('gif_party'))
 
 
-@app.route('/gif_party_randomize')
-def gif_party_randomize():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
+@app.route('/gif_party_save', methods=['GET', 'POST'])
+def gif_party_save():
+    form2 = Hidden()
+    border_radius = form2.border_radius.data
+    min_size = form2.min_size.data
 
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write('RANDOMIZE = yes' + '\n')
+    session['active'] = True
+    session['border_radius'] = border_radius
+    session['min_size'] = min_size
 
     return redirect(url_for('gif_party'))
 
 
-@app.route('/gif_party_feed')
-def gif_party_feed():
+@app.route('/gif_party_welcome')
+def gif_party_welcome():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
-    with open('%s/gif_party_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
+    filename = 'urls.txt'
 
-    with open('%s/gif_party_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write('RANDOMIZE = no' + '\n')
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
 
-    return redirect(url_for('gif_party'))
+    image_url = random.choice(urls_list)
+    image_url = image_url[:image_url.find('\n')]
+
+    return render_template('/gif_party/welcome.html',
+                           image_url=image_url)
+
+
+@app.route('/gif_party_customize')
+def gif_party_customize():
+    return render_template('/gif_party/customize.html')
 
 
 #######################################################################################

@@ -41,8 +41,44 @@ $(function() {
 	});
 });
 
+// Functions to control the border-radius slider
+function alterBorderRadius() {
+	var slider = $("#slider").slider("value");
+	$("img").css("border-radius", slider + "%");
+	document.getElementById("border_radius").value=slider;
+};
 
+$(function() {
+	$("#slider").slider({
+	  orientation: "horizontal",
+	  range: "min",
+	  max: 100,
+	  min: 5,
+	  value: 5,
+	  slide: alterBorderRadius,
+	  change: alterBorderRadius
+	});
+});
 
+// Functions to control the min-size slider
+function alterImageSize() {
+	var slider = $("#slider2").slider("value");
+	$("img").css("min-width", slider + "px");
+	$("img").css("min-height", slider + "px");
+	document.getElementById("min_size").value=slider;
+};
+
+$(function() {
+	$("#slider2").slider({
+	  orientation: "horizontal",
+	  range: "min",
+	  step: 100,
+	  max: 400,
+	  value: 0,
+	  slide: alterImageSize,
+	  change: alterImageSize
+	});
+});
 
 // Function to pick a random element and 'focus' on it for a set
 // amount of time

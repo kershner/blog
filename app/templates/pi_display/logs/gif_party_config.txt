@@ -1,4 +1,0 @@
-CATEGORY = all
-DELAY = 60
-NUMBER = 20
-RANDOMIZE = yes
