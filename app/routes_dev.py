@@ -1,10 +1,11 @@
-from flask import render_template, request, flash, redirect, url_for, session
+from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty, Hidden
 from urllib import quote
 import datetime
 import random
 from functools import wraps
+import json
 from app import app, db, models
 
 
@@ -753,6 +754,39 @@ def gif_party_welcome():
 @app.route('/gif_party_customize')
 def gif_party_customize():
     return render_template('/gif_party/customize.html')
+
+
+@app.route('/gif_party_json')
+def gif_party_json():
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    filename = 'urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    number = request.args.get('number', 0, type=int)
+    urls = []
+    for i in range(number):
+        choice = random.choice(urls_list)
+        choice = choice[:choice.find('\n')]
+        urls.append(choice)
+
+    obj = {
+        "URLs": urls,
+        "number": number
+    }
+
+    return jsonify(obj)
+
+
+@app.route('/gif_party_test')
+def gif_party_test():
+    form = GifParty()
+    form2 = Hidden()
+
+    return render_template('/gif_party/gif_party_test.html',
+                           form=form,
+                           form2=form2)
 
 
 #######################################################################################

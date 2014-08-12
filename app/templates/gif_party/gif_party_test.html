@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>GIF Party!</title>
+
+    <link rel="icon" type="image/png" href="/static/images/mcp.png">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/default.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/GIF Party Menu/css/component.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/gif_party.css"/>
+
+    <script src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script src="/static/js/gif-party.js"></script>
+    <script src="/static/GIF Party Menu/js/modernizr.custom.js"></script>
+    <script src="/static/GIF Party Menu/js/jquery.dlmenu.js"></script>
+
+    <meta http-equiv="refresh" content="{{ delay }}" charset="UTF-8">
+
+</head>
+
+<body>
+    <div id="content">
+        <div id="dl-menu" class="dl-menuwrapper">
+            <button class="dl-trigger"></button>
+            <ul class="dl-menu">
+                <li>
+                    <a href="#">Category</a>
+                    <ul class="dl-submenu">
+                        <li><a href="/gif_party_all">All <div class="gif_count">6837 GIFs</div></a></li>
+                        <li><a href="/gif_party_animals">Animals  <div class="gif_count">599 GIFs</div></a></li>
+                        <li><a href="/gif_party_gaming">Gaming <div class="gif_count">214 GIFs</div></a></li>
+                        <li><a href="/gif_party_strange">Strange <div class="gif_count">315 GIFs</div></a></li>
+                        <li><a href="/gif_party_educational">Educational <div class="gif_count">455 GIFs</div></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Number of GIFs</a>
+                    <ul class="dl-submenu">
+                        <li><a href="/gif_party_5">5</a></li>
+                        <li><a href="/gif_party_10">10</a></li>
+                        <li><a href="/gif_party_20">20</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Auto Refresh</a>
+                    <ul class="dl-submenu">
+                        <li>
+                            <form action="" method=POST>
+                                {{ form.hidden_tag() }}
+                                {{ form.delay(placeholder="Seconds") }}
+                                {{ form.submit }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">GIF Style</a>
+                    <ul class="dl-submenu">
+                        <li>
+                            <div id="sliders">
+                                <p>Roundess</p><br>
+                                <div id="slider"></div>
+                                <p>Min-Size</p><br>
+                                <div id="slider2"></div>
+                                <form action="{{ url_for('gif_party_save') }}" method=POST>
+                                        {{ form2.hidden_tag() }}
+                                        {{ form2.border_radius(class="hidden") }}
+                                        {{ form2.min_size(class="hidden") }} <br>
+                                        {{ form2.save(id="submit") }}
+                                </form>
+                           </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Current Settings</a>
+                    <ul class="dl-submenu">
+                        <li>
+                            <div id="settings-title">
+                                Category:<br>
+                                Number of GIFs:<br>
+                                Auto Refresh:<br>
+                            </div>
+
+                            <div id="settings-values">
+                                {{ category }} <br>
+                                {{ number }}<br>
+                                {{ delay }} seconds<br>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+$(function() {
+    $( '#dl-menu' ).dlmenu();
+});
+</script>
+<script>
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+elements = ['.a','.b','.c','.d','.e']
+elements_array = elements.slice();
+
+$(function() {
+    getImages();
+
+    //setInterval(getImages, 5000);
+
+    $(function() {
+        $( "#slider" ).slider( "value", 15);
+    });
+
+    $(function() {
+        $( "#slider2" ).slider( "value", 0);
+    });
+
+    for (i = 0; i < elements.length; i++) {
+        animateDiv($(elements[i]));
+    };
+});
+
+</script>
+</html>

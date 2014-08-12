@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Test</title>
+
+    <script src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+
+</head>
+<body>
+<a href="#" id="grab">Grab Images!</a>
+<span id="images"></span>
+</body>
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function(){
+        setInterval(getImages, 5000);
+    });
+
+    function getImages() {
+        $("img").remove();
+        $.getJSON($SCRIPT_ROOT + '/gif_party_json', {
+            number: 5,
+            }, function(data) {
+                number = data["number"];
+                if (number === 5) {
+                    url1 = data["URLs"][0];
+                    url2 = data["URLs"][1];
+                    url3 = data["URLs"][2];
+                    url4 = data["URLs"][3];
+                    url5 = data["URLs"][4];
+                    $("#images").append('<img src="' + url1 + '" class=".a"/>');
+                    $("#images").append('<img src="' + url2 + '" class=".b"/>');
+                    $("#images").append('<img src="' + url3 + '" class=".c"/>');
+                    $("#images").append('<img src="' + url4 + '" class=".d"/>');
+                    $("#images").append('<img src="' + url5 + '" class=".e"/>');
+                }
+                else if (number === 10) {
+                    $("#images").text("The number was 10!");
+                }
+                else if (number === 20) {
+                    $("#images").text("The number was 20!");
+                }
+            });
+        return false;
+    };
+</script>
+</html>

@@ -89,10 +89,8 @@ function focusGif() {
 	// messed up over time.
 	if (elements_array.length === 0) {
         elements_array = elements.slice();
-}
-
+	}
 	var rand_gif = elements_array.pop();
-	console.log(rand_gif);
 	var orig_height = "height";
 	var orig_width = "width";
 	var options1 = {};
@@ -120,7 +118,8 @@ function makeNewPosition($content) {
 }
 
 function animateDiv($target) {
-    var newq = makeNewPosition($target.parent());
+    console.log($target);
+	var newq = makeNewPosition($target.parent());
     var oldq = $target.position();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
 	
@@ -145,3 +144,32 @@ function calcSpeed(prev, next) {
 
     return speed;
 }
+
+// Json Function to Retrieve Images from Server
+function getImages() {
+    $("img").remove();
+    $.getJSON($SCRIPT_ROOT + '/gif_party_json', {
+        number: 5,
+        }, function(data) {
+            number = data["number"];
+            if (number === 5) {
+                url1 = data["URLs"][0];
+                url2 = data["URLs"][1];
+                url3 = data["URLs"][2];
+                url4 = data["URLs"][3];
+                url5 = data["URLs"][4];
+                $('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
+                $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
+                $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
+                $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
+                $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
+            }
+            else if (number === 10) {
+                $("#content").text("The number was 10!");
+            }
+            else if (number === 20) {
+                $("#content").text("The number was 20!");
+            }
+        });
+    return false;
+};
