@@ -6,8 +6,8 @@ var options = {};
 // Function to click on GIF and 'focus' on it - animation stops,
 // CSS height/width and Z index get larger.
 // Another click sets them to normal
-$(document).ready(function() {
-	$("img").toggle(function() {
+function focusClick(target) {
+	$(target).toggle(function() {
 		$(this).stop();
 		var orig_height = "height";
 		var orig_width = "width";
@@ -21,16 +21,10 @@ $(document).ready(function() {
 		$(this).css("z-index", 1);
 		animateDiv($(this));
 	});
-});
-
-// Function to call random 'focus' function on GIFs
-$(document).ready(function() {
-	setInterval(focusGif, 10000);
-});
-
+};
 
 // Making images draggable
-$(function() {
+function draggableImage() {
 	$("img").draggable({
 		start: function(event, ui) {
 			$(this).stop();
@@ -39,7 +33,7 @@ $(function() {
 			animateDiv($(this));
 		}
 	});
-});
+};
 
 // Functions to control the border-radius slider
 function alterBorderRadius() {
@@ -118,8 +112,7 @@ function makeNewPosition($content) {
 }
 
 function animateDiv($target) {
-    console.log($target);
-	var newq = makeNewPosition($target.parent());
+    var newq = makeNewPosition($target.parent());
     var oldq = $target.position();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
 	
@@ -163,6 +156,7 @@ function getImages() {
                 $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
                 $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
                 $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
+				elements = ['.a','.b','.c','.d','.e']
             }
             else if (number === 10) {
                 $("#content").text("The number was 10!");
@@ -170,6 +164,11 @@ function getImages() {
             else if (number === 20) {
                 $("#content").text("The number was 20!");
             }
+			for (i = 0; i < elements.length; i++) {
+				animateDiv($(elements[i]));
+				focusClick($(elements[i]));
+			};
+			draggableImage();
         });
     return false;
 };

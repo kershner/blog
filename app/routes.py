@@ -688,7 +688,7 @@ def gif_party_10():
 @app.route('/gif_party_20')
 def gif_party_20():
     session['active'] = True
-    session['number'] = 10
+    session['number'] = 20
 
     return redirect(url_for('gif_party'))
 

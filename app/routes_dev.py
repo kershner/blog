@@ -187,6 +187,29 @@ def pi_display():
 ##############################################################################
 # Pi Display Config
 ##############################################################################
+@app.route('/pi_display_test')
+def pi_display_test():
+    return render_template('/pi_display/pi_display_test.html')
+
+
+@app.route('/pi_display_json')
+def pi_display_json():
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    filename = 'urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    choice = random.choice(urls_list)
+    choice = choice[:choice.find('\n')]
+
+    obj = {
+        "URL": choice
+    }
+
+    return jsonify(obj)
+
+
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()
@@ -716,7 +739,7 @@ def gif_party_10():
 @app.route('/gif_party_20')
 def gif_party_20():
     session['active'] = True
-    session['number'] = 10
+    session['number'] = 20
 
     return redirect(url_for('gif_party'))
 
