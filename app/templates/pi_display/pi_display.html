@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta http-equiv="refresh" content="{{ delay }}" charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="/static/pi_display.css"/>
     <title>{{title}}</title>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="/static/js/imgcentering.min.js"></script>
+<script src="/static/js/pi_display.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <img id="image" src="{{ gif_url }}">
-    </div>
+    <div class="container"></div>
 </body>
 
 <script>
 $(document).ready(function() {
-   $(".container img").imgCentering();
+    getImage();
 });
+
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
 
 </html>

@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect, url_for, session
+from flask import render_template, jsonify, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty, Hidden
 from urllib import quote
@@ -9,7 +9,8 @@ from app import app, db, models
 
 
 ##############################################################################
-## Blog ######################################################################
+# Blog
+##############################################################################
 @app.route('/')
 def home():
     return render_template("/blog/home.html",
@@ -95,9 +96,15 @@ def piproject2():
 
 
 ##############################################################################
-## Raspberry Pi GIF Display ##################################################
+# Pi Display
+##############################################################################
 @app.route('/pi_display')
 def pi_display():
+    return render_template('/pi_display/pi_display.html')
+
+
+@app.route('/pi_display_json')
+def pi_display_json():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
@@ -123,7 +130,7 @@ def pi_display():
         toplay_filename = 'educational_urls_to_play.txt'
     else:
         filename = 'urls.txt'
-        toplay_filename = 'urls_to_play.txt'
+        toplay_filename = "urls_to_play.txt"
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -151,7 +158,7 @@ def pi_display():
         config_file.write('CURRENT_GIF = %s' % gif_url)
         config_file.write(config_file_list[3])
 
-    # Opening/closing urls.txt (taking advantage of side effect to erase contents)
+    # Opening/closing to_play_urls.txt (taking advantage of side effect to erase contents)
     open('%s/%s' % (path, toplay_filename), 'w').close()
 
     # Rewrite to_play.txt without current gif URL (won't play twice)
@@ -165,12 +172,19 @@ def pi_display():
     with open('%s/last_played.txt' % path, 'a+') as last_played:
         last_played.write(gif_url)
 
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display",
-                           gif_url=gif_url,
-                           delay=delay)
+    delay = str(delay) + '000'
+
+    obj = {
+        "URL": gif_url,
+        "delay": delay
+    }
+
+    return jsonify(obj)
 
 
+##############################################################################
+## Pi Display Config
+##############################################################################
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()

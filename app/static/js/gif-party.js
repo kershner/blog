@@ -138,14 +138,20 @@ function calcSpeed(prev, next) {
     return speed;
 }
 
+function getNumber() {
+	$.getJSON($SCRIPT_ROOT + '/gif_party_json', 
+	function(data) {
+		window.numberOfGifs = data["number"];
+		console.log(window.numberOfGifs);
+	});
+};
+
 // Json Function to Retrieve Images from Server
 function getImages() {
     $("img").remove();
-    $.getJSON($SCRIPT_ROOT + '/gif_party_json', {
-        number: 5,
-        }, function(data) {
-            number = data["number"];
-            if (number === 5) {
+    $.getJSON($SCRIPT_ROOT + '/gif_party_json', 
+		function(data) {
+            if ((data["number"]) === 5) {
                 url1 = data["URLs"][0];
                 url2 = data["URLs"][1];
                 url3 = data["URLs"][2];
@@ -156,19 +162,74 @@ function getImages() {
                 $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
                 $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
                 $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
-				elements = ['.a','.b','.c','.d','.e']
+				elements = ['.a','.b','.c','.d','.e'];
             }
-            else if (number === 10) {
-                $("#content").text("The number was 10!");
+            else if ((data["number"]) === 10) {
+                url1 = data["URLs"][0];
+                url2 = data["URLs"][1];
+                url3 = data["URLs"][2];
+                url4 = data["URLs"][3];
+                url5 = data["URLs"][4];
+                url6 = data["URLs"][5];
+                url7 = data["URLs"][6];
+                url8 = data["URLs"][7];
+                url9 = data["URLs"][8];
+                url10 = data["URLs"][9];
+				$('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
+                $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
+                $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
+                $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
+                $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
+				$('<img src="' + url6 + '"/>').addClass('f').appendTo('#content');
+                $('<img src="' + url7 + '"/>').addClass('g').appendTo('#content');
+                $('<img src="' + url8 + '"/>').addClass('h').appendTo('#content');
+                $('<img src="' + url9 + '"/>').addClass('i').appendTo('#content');
+                $('<img src="' + url10 + '"/>').addClass('j').appendTo('#content');
+				elements = ['.a','.b','.c','.d','.e','.f','.g','.h','.i','.j'];
             }
-            else if (number === 20) {
-                $("#content").text("The number was 20!");
+            else if ((data["number"]) === 20) {
+                console.log("The number was 20");
             }
+			else {
+				console.log("Shit didn't work!");
+			}
 			for (i = 0; i < elements.length; i++) {
 				animateDiv($(elements[i]));
 				focusClick($(elements[i]));
 			};
 			draggableImage();
-        });
+		});
     return false;
 };
+
+$(document).ready(function() {
+	$("#5").click(function() {
+		$.getJSON($SCRIPT_ROOT + '/gif_party_json_5',
+		function(data) {
+			var number = data["number"];
+		});
+		console.log("Clicked 5");
+		getImages();
+	});
+});
+
+$("#10").click(function() {
+	$.getJSON($SCRIPT_ROOT + '/gif_party_json_10',
+	function(data) {
+		getImages();
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+

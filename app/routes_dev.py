@@ -5,7 +5,6 @@ from urllib import quote
 import datetime
 import random
 from functools import wraps
-import json
 from app import app, db, models
 
 
@@ -108,10 +107,16 @@ def piproject2():
 
 
 ##############################################################################
-## Raspberry Pi GIF Display ##################################################
+# Pi Display
+##############################################################################
 @app.route('/pi_display')
 def pi_display():
-    path = 'e:/programming/projects/blog/app/templates/pi_display/logs/'
+    return render_template('/pi_display/pi_display.html')
+
+
+@app.route('/pi_display_json')
+def pi_display_json():
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -164,7 +169,7 @@ def pi_display():
         config_file.write('CURRENT_GIF = %s' % gif_url)
         config_file.write(config_file_list[3])
 
-    # Opening/closing urls.txt (taking advantage of side effect to erase contents)
+    # Opening/closing to_play_urls.txt (taking advantage of side effect to erase contents)
     open('%s/%s' % (path, toplay_filename), 'w').close()
 
     # Rewrite to_play.txt without current gif URL (won't play twice)
@@ -178,38 +183,19 @@ def pi_display():
     with open('%s/last_played.txt' % path, 'a+') as last_played:
         last_played.write(gif_url)
 
-    return render_template("/pi_display/pi_display.html",
-                           title="Raspberry PI GIF Display",
-                           gif_url=gif_url,
-                           delay=delay)
-
-
-##############################################################################
-# Pi Display Config
-##############################################################################
-@app.route('/pi_display_test')
-def pi_display_test():
-    return render_template('/pi_display/pi_display_test.html')
-
-
-@app.route('/pi_display_json')
-def pi_display_json():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-    filename = 'urls.txt'
-
-    with open('%s/%s' % (path, filename), 'r') as urls_file:
-        urls_list = list(urls_file)
-
-    choice = random.choice(urls_list)
-    choice = choice[:choice.find('\n')]
+    delay = str(delay) + '000'
 
     obj = {
-        "URL": choice
+        "URL": gif_url,
+        "delay": delay
     }
 
     return jsonify(obj)
 
 
+##############################################################################
+# Pi Display Config
+##############################################################################
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()
@@ -725,7 +711,9 @@ def gif_party_5():
     session['active'] = True
     session['number'] = 5
 
-    return redirect(url_for('gif_party'))
+    fake_obj = {}
+
+    return jsonify(fake_obj)
 
 
 @app.route('/gif_party_10')
@@ -787,20 +775,44 @@ def gif_party_json():
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
 
-    number = request.args.get('number', 0, type=int)
+    if 'number' in session:
+        number = session['number']
+    else:
+        number = 10
+
     urls = []
     for i in range(number):
         choice = random.choice(urls_list)
         choice = choice[:choice.find('\n')]
         urls.append(choice)
 
-    obj = {
+    data = {
         "URLs": urls,
         "number": number
     }
 
-    return jsonify(obj)
+    return jsonify(data)
 
+
+@app.route('/gif_party_json_5')
+def gif_party_json_5():
+    session['number'] = 5
+
+    data = {
+        "number": session['number']
+    }
+
+    return jsonify(data)
+
+@app.route('/gif_party_json_10')
+def gif_party_json_10():
+    session['number'] = 10
+
+    data = {
+        "number": session['number']
+    }
+
+    return jsonify(data)
 
 @app.route('/gif_party_test')
 def gif_party_test():

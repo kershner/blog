@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
-CATEGORY = all
-CURRENT_GIF = http://i.imgur.com/aY3ajeW.gif
+CATEGORY = animals
+CURRENT_GIF = http://25.media.tumblr.com/133ac21d0cc80bb880c8176b90a05b36/tumblr_mv6c9fnytK1qbyxr0o1_400.gif
 DELAY = 12
