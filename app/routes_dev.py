@@ -433,7 +433,8 @@ def previously_3():
 @app.route('/gif_party', methods=['GET', 'POST'])
 def gif_party():
     form = GifParty()
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/urls.txt' % path, 'r') as last_played_file:
         all_urls_list = list(last_played_file)
@@ -489,7 +490,8 @@ def gif_party_customize():
 
 @app.route('/gif_party_json')
 def gif_party_json():
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     if 'category' in session:
         category = session['category']

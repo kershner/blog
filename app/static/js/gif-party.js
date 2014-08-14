@@ -7,8 +7,8 @@ elements_array = window.elements.slice();
 
 // Setting the initial background color
 $(document).ready(function() {
-	$('body').css('background-color', 'rgb(255, 255, 138)');
-	$('content').css('background-color', 'rgb(255, 255, 138)');
+	$('body').css('background-color', 'rgb(102, 137, 255)');
+	$('content').css('background-color', 'rgb(102, 137, 255)');
 });
 
 // Function to click on GIF and 'focus' on it - animation stops,
@@ -166,7 +166,7 @@ function hexFromRGB(r, g, b) {
     return hex.join( "" ).toUpperCase();
 }
 
-function refreshSwatch() {
+function refreshBackground() {
     var red = $( "#background-red" ).slider( "value" ),
       green = $( "#background-green" ).slider( "value" ),
       blue = $( "#background-blue" ).slider( "value" ),
@@ -181,26 +181,9 @@ $(function() {
       range: "min",
       max: 255,
       value: 255,
-      slide: refreshSwatch,
-      change: refreshSwatch
+      slide: refreshBackground,
+      change: refreshBackground
     });
-});
-
-// Functions to control the box-shadow slider
-function alterBoxShadow() {
-	var slider = $('#slider4').slider('value');
-	$('img').css('box-shadow', slider + 'px ' + slider + 'px ' + slider + 'px #000');
-};
-
-$(function() {
-	$('#slider4').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 10,
-	  value: 0,
-	  slide: alterBoxShadow,
-	  change: alterBoxShadow
-	});
 });
 
 // Function to pick a random element and 'focus' on it for a set
@@ -240,6 +223,19 @@ function makeNewPosition($content) {
     return [nh, nw];
 }
 
+function getStartPos($target) {
+	var h = $("#content").height(); 
+    var w = $("#content").width();
+	console.log(h);
+	console.log(w);
+		
+    $target.css({
+		"top": (Math.random() * h) + 'px',
+		"left": (Math.random() * w) + 'px'
+	});
+	$target.fadeIn(900);
+}
+
 function animateDiv($target) {
     var newq = makeNewPosition($target.parent());
     var oldq = $target.position();
@@ -269,9 +265,10 @@ function calcSpeed(prev, next) {
 
 // Json Function to Retrieve Images from Server
 function getImages() {
-    clearInterval(window.delay);
-	$('img').remove();
-    $.getJSON($SCRIPT_ROOT + '/gif_party_json', 
+    $('img').fadeOut(2000);
+	setTimeout($('img').remove(), 3000);
+	clearInterval(window.delay);
+	$.getJSON($SCRIPT_ROOT + '/gif_party_json', 
 		function(data) {
             var delay = data['delay'];
 			var slider1_1 = $('#slider1-1').slider('option', 'value');
@@ -365,6 +362,7 @@ function getImages() {
 				console.log('Shit didn\'t work!');
 			}
 			for (i = 0; i < elements.length; i++) {
+				getStartPos($(elements[i]));
 				animateDiv($(elements[i]));
 				focusClick($(elements[i]));
 			};

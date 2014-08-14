@@ -207,7 +207,7 @@ img {
 
 /* Width of the slider track */
 #slider1-1, #slider1-2, #slider1-3, #slider1-4, #slider2, #slider3,
-#background-red, #background-green, #background-blue, #slider4 {
+#background-red, #background-green, #background-blue {
 	margin: 0 auto;
 	margin-bottom: 5px;
 	width: 80%;
