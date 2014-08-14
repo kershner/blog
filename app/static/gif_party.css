@@ -26,7 +26,6 @@ body {
 
 }
 
-
 /* Div where the images float around */
 #content {
 	position: relative;
@@ -129,9 +128,12 @@ img {
 
 /* Delay input field */
 #delay {
+	overflow: hidden;
 	float: left;
 	width: 236px;
+	max-width: 236px;
 	height: 44px;
+	max-height: 44px;
 	margin-right: 0;
 }
 

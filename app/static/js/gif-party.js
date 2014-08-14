@@ -321,6 +321,8 @@ $(document).ready(function() {
 	});
 });
 
+
+// Function to display the current settings
 function getSettings() {
 	$('.setting').remove();
 	$.getJSON($SCRIPT_ROOT + '/gif_party_json',
@@ -333,4 +335,12 @@ function getSettings() {
 			$('<p>' + number + '</p><br>').addClass('setting').appendTo('#settings-values');
 			$('<p>' + delay + ' seconds</p><br>').addClass('setting').appendTo('#settings-values');
 		});
-	}
+	};
+
+// Function disable pressing ENTER in the textfield
+// Need user to hit 'submit' to trigger JavaScript function
+$(document).ready(function() {
+	$('#delay').keypress(function(e){
+	   if (e.keyCode == 13) return false
+	});
+});

@@ -626,19 +626,13 @@ def gif_party_json_20():
 
 @app.route('/gif_party_json_delay', methods=['GET', 'POST'])
 def gif_party_json_delay():
-    if request.method == 'POST':
-        delay = request.json
-        delay = str(delay) + '000'
-        session['delay'] = delay
+    delay = request.json
+    delay = str(delay) + '000'
+    session['delay'] = delay
 
-        data = {
-            "delay": session['delay']
-        }
-
-    else:
-        data = {
-            "delay": 60
-        }
+    data = {
+        "delay": session['delay']
+    }
 
     return jsonify(data)
 

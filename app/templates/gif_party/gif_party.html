@@ -45,9 +45,9 @@
                     <a href="#">Auto Refresh</a>
                     <ul class="dl-submenu">
                         <li>
-                            <form action="" method=POST>
+                            <form>
                                 {{ form.hidden_tag() }}
-                                {{ form.delay(placeholder="Seconds") }}
+                                {{ form.delay(placeholder="Seconds")}}
                                 <a id="submit">Submit</a>
                             </form>
                         </li>
