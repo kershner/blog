@@ -1,6 +1,6 @@
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty, Hidden
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty
 from urllib import quote
 import datetime
 import random
@@ -432,55 +432,8 @@ def previously_3():
 ##############################################################################
 @app.route('/gif_party', methods=['GET', 'POST'])
 def gif_party():
-    #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
-    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-
     form = GifParty()
-    form2 = Hidden()
-
-    if 'active' in session:
-        if 'category' in session:
-            category = session['category']
-        else:
-            category = 'all'
-        if 'delay' in session:
-            delay = session['delay']
-        else:
-            delay = 60
-        if 'number' in session:
-            number = session['number']
-        else:
-            number = 10
-        if 'border_radius' in session:
-            border_radius = session['border_radius']
-        else:
-            border_radius = 5
-        if 'min_size' in session:
-            min_size = session['min_size']
-        else:
-            min_size = 0
-    else:
-        category = 'all'
-        delay = 60
-        number = 10
-        border_radius = 5
-        min_size = 0
-
-    if category == 'all':
-        filename = 'urls.txt'
-    elif category == 'animals':
-        filename = 'animals_urls.txt'
-    elif category == 'gaming':
-        filename = 'gaming_urls.txt'
-    elif category == 'strange':
-        filename = 'strange_urls.txt'
-    elif category == 'educational':
-        filename = 'educational_urls.txt'
-    else:
-        filename = 'urls.txt'
-
-    with open('%s/%s' % (path, filename), 'r') as urls_file:
-        urls_list = list(urls_file)
+    path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/urls.txt' % path, 'r') as last_played_file:
         all_urls_list = list(last_played_file)
@@ -503,246 +456,13 @@ def gif_party():
     strange_urls_count = len(strange_urls_list)
     educational_urls_count = len(educational_urls_list)
 
-    if request.method == 'POST':
-        if not form.validate():
-            flash('Enter a time delay (in seconds)')
-            return redirect(url_for('gif_party'))
-        else:
-            delay = str(form.delay.data)
-            session['active'] = True
-            session['delay'] = delay
-            return redirect(url_for('gif_party'))
-
-    elif request.method == 'GET':
-        if number == 5:
-            gif_url_1 = random.choice(urls_list)
-            urls_list.remove(gif_url_1)
-            gif_url_2 = random.choice(urls_list)
-            urls_list.remove(gif_url_2)
-            gif_url_3 = random.choice(urls_list)
-            urls_list.remove(gif_url_3)
-            gif_url_4 = random.choice(urls_list)
-            urls_list.remove(gif_url_4)
-            gif_url_5 = random.choice(urls_list)
-            urls_list.remove(gif_url_5)
-
-            return render_template('/gif_party/gif_party.html',
-                                   urls_count=main_urls_count,
-                                   animals_urls_count=animals_urls_count,
-                                   gaming_urls_count=gaming_urls_count,
-                                   strange_urls_count=strange_urls_count,
-                                   educational_urls_count=educational_urls_count,
-                                   category=category,
-                                   gif_url_1=gif_url_1,
-                                   gif_url_2=gif_url_2,
-                                   gif_url_3=gif_url_3,
-                                   gif_url_4=gif_url_4,
-                                   gif_url_5=gif_url_5,
-                                   number=number,
-                                   form=form,
-                                   form2=form2,
-                                   delay=delay,
-                                   min_size=min_size,
-                                   border_radius=border_radius)
-        elif number == 10:
-            gif_url_1 = random.choice(urls_list)
-            urls_list.remove(gif_url_1)
-            gif_url_2 = random.choice(urls_list)
-            urls_list.remove(gif_url_2)
-            gif_url_3 = random.choice(urls_list)
-            urls_list.remove(gif_url_3)
-            gif_url_4 = random.choice(urls_list)
-            urls_list.remove(gif_url_4)
-            gif_url_5 = random.choice(urls_list)
-            urls_list.remove(gif_url_5)
-            gif_url_6 = random.choice(urls_list)
-            urls_list.remove(gif_url_6)
-            gif_url_7 = random.choice(urls_list)
-            urls_list.remove(gif_url_7)
-            gif_url_8 = random.choice(urls_list)
-            urls_list.remove(gif_url_8)
-            gif_url_9 = random.choice(urls_list)
-            urls_list.remove(gif_url_9)
-            gif_url_10 = random.choice(urls_list)
-            urls_list.remove(gif_url_10)
-
-            return render_template('/gif_party/gif_party.html',
-                                   urls_count=main_urls_count,
-                                   animals_urls_count=animals_urls_count,
-                                   gaming_urls_count=gaming_urls_count,
-                                   strange_urls_count=strange_urls_count,
-                                   educational_urls_count=educational_urls_count,
-                                   category=category,
-                                   gif_url_1=gif_url_1,
-                                   gif_url_2=gif_url_2,
-                                   gif_url_3=gif_url_3,
-                                   gif_url_4=gif_url_4,
-                                   gif_url_5=gif_url_5,
-                                   gif_url_6=gif_url_6,
-                                   gif_url_7=gif_url_7,
-                                   gif_url_8=gif_url_8,
-                                   gif_url_9=gif_url_9,
-                                   gif_url_10=gif_url_10,
-                                   number=number,
-                                   form=form,
-                                   form2=form2,
-                                   delay=delay,
-                                   min_size=min_size,
-                                   border_radius=border_radius)
-        elif number == 20:
-            gif_url_1 = random.choice(urls_list)
-            urls_list.remove(gif_url_1)
-            gif_url_2 = random.choice(urls_list)
-            urls_list.remove(gif_url_2)
-            gif_url_3 = random.choice(urls_list)
-            urls_list.remove(gif_url_3)
-            gif_url_4 = random.choice(urls_list)
-            urls_list.remove(gif_url_4)
-            gif_url_5 = random.choice(urls_list)
-            urls_list.remove(gif_url_5)
-            gif_url_6 = random.choice(urls_list)
-            urls_list.remove(gif_url_6)
-            gif_url_7 = random.choice(urls_list)
-            urls_list.remove(gif_url_7)
-            gif_url_8 = random.choice(urls_list)
-            urls_list.remove(gif_url_8)
-            gif_url_9 = random.choice(urls_list)
-            urls_list.remove(gif_url_9)
-            gif_url_10 = random.choice(urls_list)
-            urls_list.remove(gif_url_10)
-            gif_url_11 = random.choice(urls_list)
-            urls_list.remove(gif_url_11)
-            gif_url_12 = random.choice(urls_list)
-            urls_list.remove(gif_url_12)
-            gif_url_13 = random.choice(urls_list)
-            urls_list.remove(gif_url_13)
-            gif_url_14 = random.choice(urls_list)
-            urls_list.remove(gif_url_14)
-            gif_url_15 = random.choice(urls_list)
-            urls_list.remove(gif_url_15)
-            gif_url_16 = random.choice(urls_list)
-            urls_list.remove(gif_url_16)
-            gif_url_17 = random.choice(urls_list)
-            urls_list.remove(gif_url_17)
-            gif_url_18 = random.choice(urls_list)
-            urls_list.remove(gif_url_18)
-            gif_url_19 = random.choice(urls_list)
-            urls_list.remove(gif_url_19)
-            gif_url_20 = random.choice(urls_list)
-            urls_list.remove(gif_url_20)
-
-            return render_template('/gif_party/gif_party.html',
-                                   urls_count=main_urls_count,
-                                   animals_urls_count=animals_urls_count,
-                                   gaming_urls_count=gaming_urls_count,
-                                   strange_urls_count=strange_urls_count,
-                                   educational_urls_count=educational_urls_count,
-                                   category=category,
-                                   gif_url_1=gif_url_1,
-                                   gif_url_2=gif_url_2,
-                                   gif_url_3=gif_url_3,
-                                   gif_url_4=gif_url_4,
-                                   gif_url_5=gif_url_5,
-                                   gif_url_6=gif_url_6,
-                                   gif_url_7=gif_url_7,
-                                   gif_url_8=gif_url_8,
-                                   gif_url_9=gif_url_9,
-                                   gif_url_10=gif_url_10,
-                                   gif_url_11=gif_url_11,
-                                   gif_url_12=gif_url_12,
-                                   gif_url_13=gif_url_13,
-                                   gif_url_14=gif_url_14,
-                                   gif_url_15=gif_url_15,
-                                   gif_url_16=gif_url_16,
-                                   gif_url_17=gif_url_17,
-                                   gif_url_18=gif_url_18,
-                                   gif_url_19=gif_url_19,
-                                   gif_url_20=gif_url_20,
-                                   number=number,
-                                   form=form,
-                                   form2=form2,
-                                   delay=delay,
-                                   min_size=min_size,
-                                   border_radius=border_radius)
-
-
-@app.route('/gif_party_all')
-def gif_party_all():
-    session['active'] = True
-    session['category'] = 'all'
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_animals')
-def gif_party_animals():
-    session['active'] = True
-    session['category'] = 'animals'
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_gaming')
-def gif_party_gaming():
-    session['active'] = True
-    session['category'] = 'gaming'
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_strange')
-def gif_party_strange():
-    session['active'] = True
-    session['category'] = 'strange'
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_educational')
-def gif_party_educational():
-    session['active'] = True
-    session['category'] = 'educational'
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_5')
-def gif_party_5():
-    session['active'] = True
-    session['number'] = 5
-
-    fake_obj = {}
-
-    return jsonify(fake_obj)
-
-
-@app.route('/gif_party_10')
-def gif_party_10():
-    session['active'] = True
-    session['number'] = 10
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_20')
-def gif_party_20():
-    session['active'] = True
-    session['number'] = 20
-
-    return redirect(url_for('gif_party'))
-
-
-@app.route('/gif_party_save', methods=['GET', 'POST'])
-def gif_party_save():
-    form2 = Hidden()
-    border_radius = form2.border_radius.data
-    min_size = form2.min_size.data
-
-    session['active'] = True
-    session['border_radius'] = border_radius
-    session['min_size'] = min_size
-
-    return redirect(url_for('gif_party'))
+    return render_template('/gif_party/gif_party.html',
+                           form=form,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count)
 
 
 @app.route('/gif_party_welcome')
@@ -770,15 +490,35 @@ def gif_party_customize():
 @app.route('/gif_party_json')
 def gif_party_json():
     path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-    filename = 'urls.txt'
 
-    with open('%s/%s' % (path, filename), 'r') as urls_file:
-        urls_list = list(urls_file)
-
+    if 'category' in session:
+        category = session['category']
+    else:
+        category = 'all'
     if 'number' in session:
         number = session['number']
     else:
         number = 10
+    if 'delay' in session:
+        delay = session['delay']
+    else:
+        delay = 60000
+
+    if category == 'all':
+        filename = 'urls.txt'
+    elif category == 'animals':
+        filename = 'animals_urls.txt'
+    elif category == 'gaming':
+        filename = 'gaming_urls.txt'
+    elif category == 'strange':
+        filename = 'strange_urls.txt'
+    elif category == 'educational':
+        filename = 'educational_urls.txt'
+    else:
+        filename = 'urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
 
     urls = []
     for i in range(number):
@@ -788,7 +528,64 @@ def gif_party_json():
 
     data = {
         "URLs": urls,
-        "number": number
+        "number": number,
+        "delay": delay,
+        "category": category
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_all')
+def gif_party_json_all():
+    session['category'] = 'all'
+
+    data = {
+        'category': session['category']
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_animals')
+def gif_party_json_animals():
+    session['category'] = 'animals'
+
+    data = {
+        'category': session['category']
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_gaming')
+def gif_party_json_gaming():
+    session['category'] = 'gaming'
+
+    data = {
+        'category': session['category']
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_strange')
+def gif_party_json_strange():
+    session['category'] = 'strange'
+
+    data = {
+        'category': session['category']
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_educational')
+def gif_party_json_educational():
+    session['category'] = 'educational'
+
+    data = {
+        'category': session['category']
     }
 
     return jsonify(data)
@@ -804,6 +601,7 @@ def gif_party_json_5():
 
     return jsonify(data)
 
+
 @app.route('/gif_party_json_10')
 def gif_party_json_10():
     session['number'] = 10
@@ -814,14 +612,35 @@ def gif_party_json_10():
 
     return jsonify(data)
 
-@app.route('/gif_party_test')
-def gif_party_test():
-    form = GifParty()
-    form2 = Hidden()
 
-    return render_template('/gif_party/gif_party_test.html',
-                           form=form,
-                           form2=form2)
+@app.route('/gif_party_json_20')
+def gif_party_json_20():
+    session['number'] = 20
+
+    data = {
+        "number": session['number']
+    }
+
+    return jsonify(data)
+
+
+@app.route('/gif_party_json_delay', methods=['GET', 'POST'])
+def gif_party_json_delay():
+    if request.method == 'POST':
+        delay = request.json
+        delay = str(delay) + '000'
+        session['delay'] = delay
+
+        data = {
+            "delay": session['delay']
+        }
+
+    else:
+        data = {
+            "delay": 60
+        }
+
+    return jsonify(data)
 
 
 #######################################################################################

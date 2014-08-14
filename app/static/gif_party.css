@@ -130,8 +130,9 @@ img {
 /* Delay input field */
 #delay {
 	float: left;
-	width: 233px;
+	width: 236px;
 	height: 44px;
+	margin-right: 0;
 }
 
 /* Submit Button */
@@ -183,6 +184,13 @@ img {
 	float: right;
 	color: white;
 	margin-right: 10px;
+	height: 70px;
+	width: 100px;
+}
+
+#settings-values p {
+	margin: 0;
+	float: right;
 }
 
 
@@ -224,14 +232,4 @@ img {
 	background: -o-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
 	background: -ms-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
 	background: linear-gradient(120deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
-}
-
-.hidden{
-	display: none;
-}
-
-#sliders #submit {
-	display: block;
-	float: none;
-	margin: 0 auto;
 }
