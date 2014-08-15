@@ -408,10 +408,43 @@ def previously_3():
 ##############################################################################
 ## Gif Party
 ##############################################################################
-@app.route('/gif_party', methods=['GET', 'POST'])
+@app.route('/gif_party')
 def gif_party():
+    path = '/home/tylerkershner/app/templates/gif_party/'
+    filename = 'welcome_urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    image_url = random.choice(urls_list)
+    image_url = image_url[:image_url.find('\n')]
+
+    return render_template('/gif_party/welcome.html',
+                           image_url=image_url)
+
+
+@app.route('/gif_party_about')
+def gif_party_about():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    filename = 'welcome_urls.txt'
+
+    with open('%s/%s' % (path, filename), 'r') as urls_file:
+        urls_list = list(urls_file)
+
+    image_url = random.choice(urls_list)
+    image_url = image_url[:image_url.find('\n')]
+
+    return render_template('/gif_party/about.html',
+                           image_url=image_url)
+
+
+@app.route('/gif_party_viewer', methods=['GET', 'POST'])
+def gif_party_viewer():
     form = GifParty()
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    session['played'] = []
 
     with open('%s/urls.txt' % path, 'r') as last_played_file:
         all_urls_list = list(last_played_file)
@@ -441,27 +474,6 @@ def gif_party():
                            gaming_urls_count=gaming_urls_count,
                            strange_urls_count=strange_urls_count,
                            educational_urls_count=educational_urls_count)
-
-
-@app.route('/gif_party_welcome')
-def gif_party_welcome():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    filename = 'urls.txt'
-
-    with open('%s/%s' % (path, filename), 'r') as urls_file:
-        urls_list = list(urls_file)
-
-    image_url = random.choice(urls_list)
-    image_url = image_url[:image_url.find('\n')]
-
-    return render_template('/gif_party/welcome.html',
-                           image_url=image_url)
-
-
-@app.route('/gif_party_customize')
-def gif_party_customize():
-    return render_template('/gif_party/customize.html')
 
 
 @app.route('/gif_party_json')
@@ -498,8 +510,26 @@ def gif_party_json():
         urls_list = list(urls_file)
 
     urls = []
+
+    def check_if_played(url):
+        if url + '\n' in session['played']:
+            print 'Already played this URL'
+            return False
+        else:
+            return True
+
     for i in range(number):
         choice = random.choice(urls_list)
+
+        checking = False
+        while not checking:
+            if check_if_played(choice):
+                checking = True
+            else:
+                print 'Choosing different GIF'
+                choice = random.choice(urls_list)
+
+        session['played'].append(choice)
         choice = choice[:choice.find('\n')]
         urls.append(choice)
 

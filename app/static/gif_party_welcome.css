@@ -1,16 +1,45 @@
+body, html {
+	background: rgb(156, 99, 156);
+	background: -moz-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
+	background: -webkit-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
+	background: -o-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
+	background: -ms-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
+	background: linear-gradient(142deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
+	margin:0;
+	padding:0;
+	height: 110%;
+}
+
 body {
+	position: relative;
 	font-family: 'Open Sans';
-	background: rgb(242, 242, 242);
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#main {
+	overflow: hidden;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: 
 }
 
 #container {
-	width: 100%;
-	height: 100%;
+	position: relative;
+	top: 75px;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* Style to create circle div */
 #circle {
-	position: relative;
 	margin-top: 15px;
 	text-align: center;
 	margin-left: auto;
@@ -20,8 +49,8 @@ body {
 }
 
 img {
+	margin-top: 25px;
 	border-radius: 50%;
-	
 	width: 300px;
 	height: 300px;
 }
@@ -195,4 +224,59 @@ nav h1 {
 	background: -o-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 	background: -ms-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+}
+
+#about-container {
+	background-color: #f2f2f2;
+	height: 100%;
+	position: relative;
+	text-align: justify;
+	margin: 0 auto;
+	width: 60%;
+}
+
+#about-inner {
+	color: black;
+	height: 100%;
+	text-shadow: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+#about-inner h1 {
+	position: relative;
+	text-align: center;
+}
+
+.about-header {
+	height: 27px;
+	width: 100%;
+	border-radius: 15px 15px 0 15px;
+	background: rgb(69, 108, 152);
+	background: -moz-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	background: -o-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	background: -ms-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	
+}
+
+.about-header h3 {
+	margin-left: 15px;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#back:link {
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#back:hover {
+	color: red;
+}
+
+#back:visited {
+	color: white;
 }

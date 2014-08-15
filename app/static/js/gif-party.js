@@ -5,10 +5,28 @@ var options = {};
 window.elements = [];
 elements_array = window.elements.slice();
 
-// Setting the initial background color
+// Function disable pressing ENTER in the textfield
+// Need user to hit 'submit' to trigger JavaScript function
 $(document).ready(function() {
-	$('body').css('background-color', 'rgb(102, 137, 255)');
-	$('content').css('background-color', 'rgb(102, 137, 255)');
+	$('#delay').keypress(function(e){
+	   if (e.keyCode == 13) return false
+	});
+});
+
+// Automatic random background color changer
+function backgroundChange() {
+	var color = randomColor();
+	var randomNumber = Math.floor(Math.random() * (6000 - 1000 + 1)) + 1000;
+	$('#content').animate({backgroundColor: color}, {queue: false, duration: randomNumber});
+	$('body').animate({backgroundColor: color}, {queue: false, duration: randomNumber});
+}
+
+// Setting background color initially, calling changer function
+$(document).ready(function() {
+	var color = randomColor();
+	$('#content').animate({backgroundColor: color}, {queue: false, duration: 13});
+	$('body').animate({backgroundColor: color}, {queue: false, duration: 13});
+	setInterval(backgroundChange, 10000);
 });
 
 // Function to click on GIF and 'focus' on it - animation stops,
@@ -29,162 +47,7 @@ function focusClick(target) {
 		$(this).css('z-index', 1);
 		animateDiv($(this));
 	});
-};
-
-// Making images draggable
-function draggableImage() {
-	$('img').draggable({
-		start: function(event, ui) {
-			$(this).stop();
-		},
-		stop: function(event, ui) {
-			animateDiv($(this));
-		}
-	});
-};
-
-// Functions to control the border-radius sliders
-function alterBorderRadiusTopLeft() {
-	var slider = $('#slider1-1').slider('value');
-	$('img').css('border-top-left-radius', slider + '%');
-};
-
-function alterBorderRadiusTopRight() {
-	var slider = $('#slider1-2').slider('value');
-	$('img').css('border-top-right-radius', slider + '%');
-};
-
-function alterBorderRadiusBottomLeft() {
-	var slider = $('#slider1-3').slider('value');
-	$('img').css('border-bottom-left-radius', slider + '%');
-};
-
-function alterBorderRadiusBottomRight() {
-	var slider = $('#slider1-4').slider('value');
-	$('img').css('border-bottom-right-radius', slider + '%');
-};
-
-$(function() {
-	$('#slider1-1').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusTopLeft,
-	  change: alterBorderRadiusTopLeft
-	});
-});
-
-$(function() {
-	$('#slider1-2').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusTopRight,
-	  change: alterBorderRadiusTopRight
-	});
-});
-
-$(function() {
-	$('#slider1-3').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusBottomLeft,
-	  change: alterBorderRadiusBottomLeft
-	});
-});
-
-$(function() {
-	$('#slider1-4').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusBottomRight,
-	  change: alterBorderRadiusBottomRight
-	});
-});
-
-// Functions to control the min-size/max-size slider
-function alterImageSize() {
-	var slider = $('#slider2').slider('value');
-	$('img').css('min-width', slider + 'px');
-	$('img').css('min-height', slider + 'px');
-};
-
-$(function() {
-	$('#slider2').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  step: 100,
-	  max: 400,
-	  value: 0,
-	  slide: alterImageSize,
-	  change: alterImageSize
-	});
-});
-
-function alterImageSize1() {
-	var slider = $('#slider3').slider('value');
-	$('img').css('max-width', slider + 'px');
-	$('img').css('max-height', slider + 'px');
-};
-
-$(function() {
-	$('#slider3').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  step: 100,
-	  max: 400,
-	  min: 100,
-	  value: 400,
-	  slide: alterImageSize1,
-	  change: alterImageSize1
-	});
-});
-
-// Sliders to change background color
-// Code basically lifted wholesale from the jQuery UI tutorial
-function hexFromRGB(r, g, b) {
-    var hex = [
-      r.toString( 16 ),
-      g.toString( 16 ),
-      b.toString( 16 )
-    ];
-    $.each( hex, function( nr, val ) {
-      if ( val.length === 1 ) {
-        hex[ nr ] = "0" + val;
-      }
-    });
-    return hex.join( "" ).toUpperCase();
 }
-
-function refreshBackground() {
-    var red = $( "#background-red" ).slider( "value" ),
-      green = $( "#background-green" ).slider( "value" ),
-      blue = $( "#background-blue" ).slider( "value" ),
-      hex = hexFromRGB( red, green, blue );
-    $( "body" ).css( "background-color", "#" + hex );
-	$( "#content" ).css( "background-color", "#" + hex );
-}
-  
-$(function() {
-    $( "#background-red, #background-green, #background-blue" ).slider({
-      orientation: "horizontal",
-      range: "min",
-      max: 255,
-      value: 255,
-      slide: refreshBackground,
-      change: refreshBackground
-    });
-});
 
 // Function to pick a random element and 'focus' on it for a set
 // amount of time
@@ -210,11 +73,23 @@ function focusGif() {
 	}, 10000);
 }
 
+// Making images draggable
+function draggableImage() {
+	$('img').draggable({
+		start: function(event, ui) {
+			$(this).stop();
+		},
+		stop: function(event, ui) {
+			animateDiv($(this));
+		}
+	});
+}
+
 // The functions below define the animation of the images
 function makeNewPosition($content) {
 
     // Get viewport dimensions (remove the dimension of the div)
-    var h = $content.height() - 200;
+    var h = $content.height() - 300;
     var w = $content.width() - 200;
 
     var nh = Math.floor(Math.random() * h);
@@ -226,10 +101,7 @@ function makeNewPosition($content) {
 function getStartPos($target) {
 	var h = $("#content").height(); 
     var w = $("#content").width();
-	console.log(h);
-	console.log(w);
-		
-    $target.css({
+	$target.css({
 		"top": (Math.random() * h) + 'px',
 		"left": (Math.random() * w) + 'px'
 	});
@@ -361,11 +233,13 @@ function getImages() {
 			else {
 				console.log('Shit didn\'t work!');
 			}
+			
 			for (i = 0; i < elements.length; i++) {
 				getStartPos($(elements[i]));
 				animateDiv($(elements[i]));
 				focusClick($(elements[i]));
 			};
+			
 			draggableImage();
 			window.delay = setInterval(getImages, delay);
 			getSettings();
@@ -377,14 +251,13 @@ function getImages() {
 			$('img').css('min-height', slider2 + 'px');
 			$('img').css('max-width', slider3 + 'px');
 			$('img').css('max-height', slider3 + 'px');
-			$('img').css('max-height', slider3 + 'px');
-			$('img').css('box-shadow', slider4 + 'px ' + slider4 + 'px ' + slider4 + 'px #000');
 		});
     return false;
 };
 
-// Functions to get the number of GIFs requested from the session
+// Functions to alter Flask session data via JSON
 $(document).ready(function() {
+	// Number of GIFs selection
 	$('#5').click(function() {
 		$.getJSON($SCRIPT_ROOT + '/gif_party_json_5',
 		function(data) {
@@ -405,10 +278,8 @@ $(document).ready(function() {
 			getImages();
 		});
 	});
-});
-
-// Functions to select category
-$(document).ready(function() {
+	
+	// Category Selection
 	$('#all').click(function() {
 		$.getJSON($SCRIPT_ROOT + '/gif_party_json_all',
 		function(data) {
@@ -443,13 +314,10 @@ $(document).ready(function() {
 			getImages();
 		});
 	});
-});
-
-// Function to handle auto refresh
-$(document).ready(function() {
+	
+	// Auto Refresh
 	$('#submit').click(function() {
 		var data = $('#delay').val();
-		console.log(data);
 		$.ajax({
 			type: 'POST',
 			url: $SCRIPT_ROOT + '/gif_party_json_delay',
@@ -461,7 +329,6 @@ $(document).ready(function() {
 		});
 	});
 });
-
 
 // Function to display the current settings
 function getSettings() {
@@ -475,13 +342,116 @@ function getSettings() {
 			$('<p>' + category + '</p><br>').addClass('setting').appendTo('#settings-values');
 			$('<p>' + number + '</p><br>').addClass('setting').appendTo('#settings-values');
 			$('<p>' + delay + ' seconds</p><br>').addClass('setting').appendTo('#settings-values');
-		});
-	};
+	});
+}
 
-// Function disable pressing ENTER in the textfield
-// Need user to hit 'submit' to trigger JavaScript function
-$(document).ready(function() {
-	$('#delay').keypress(function(e){
-	   if (e.keyCode == 13) return false
+//////////////////////////////////////////////////
+// Sliders////////////////////////////////////////
+// Border-radius sliders
+function alterBorderRadiusTopLeft() {
+	var slider = $('#slider1-1').slider('value');
+	$('img').css('border-top-left-radius', slider + '%');
+}
+
+function alterBorderRadiusTopRight() {
+	var slider = $('#slider1-2').slider('value');
+	$('img').css('border-top-right-radius', slider + '%');
+}
+
+function alterBorderRadiusBottomLeft() {
+	var slider = $('#slider1-3').slider('value');
+	$('img').css('border-bottom-left-radius', slider + '%');
+}
+
+function alterBorderRadiusBottomRight() {
+	var slider = $('#slider1-4').slider('value');
+	$('img').css('border-bottom-right-radius', slider + '%');
+}
+
+$(function() {
+	$('#slider1-1').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  max: 50,
+	  min: 5,
+	  value: 5,
+	  slide: alterBorderRadiusTopLeft,
+	  change: alterBorderRadiusTopLeft
+	});
+});
+
+$(function() {
+	$('#slider1-2').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  max: 50,
+	  min: 5,
+	  value: 5,
+	  slide: alterBorderRadiusTopRight,
+	  change: alterBorderRadiusTopRight
+	});
+});
+
+$(function() {
+	$('#slider1-3').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  max: 50,
+	  min: 5,
+	  value: 5,
+	  slide: alterBorderRadiusBottomLeft,
+	  change: alterBorderRadiusBottomLeft
+	});
+});
+
+$(function() {
+	$('#slider1-4').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  max: 50,
+	  min: 5,
+	  value: 5,
+	  slide: alterBorderRadiusBottomRight,
+	  change: alterBorderRadiusBottomRight
+	});
+});
+
+// Min-size slider
+function alterImageSize() {
+	var slider = $('#slider2').slider('value');
+	$('img').css('min-width', slider + 'px');
+	$('img').css('min-height', slider + 'px');
+	console.log(slider);
+}
+
+$(function() {
+	$('#slider2').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  step: 100,
+	  max: 500,
+	  value: 0,
+	  slide: alterImageSize,
+	  change: alterImageSize
+	});
+});
+
+// Max-size slider
+function alterImageSize1() {
+	var slider = $('#slider3').slider('value');
+	$('img').css('max-width', slider + 'px');
+	$('img').css('max-height', slider + 'px');
+}
+
+$(function() {
+	$('#slider3').slider({
+	  orientation: 'horizontal',
+	  range: 'min',
+	  step: 100,
+	  max: 500,
+	  min: 100,
+	  value: 500,
+	  slide: alterImageSize1,
+	  change: alterImageSize1
 	});
 });

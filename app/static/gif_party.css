@@ -93,8 +93,6 @@ img {
 	z-index: 1;
 	top: 0;
 	border-radius: 10px;
-	max-height: 450px;
-	max-width: 450px;
 }
 
 /* Number of GIFs displayed next to category */
@@ -206,20 +204,12 @@ img {
 }
 
 /* Width of the slider track */
-#slider1-1, #slider1-2, #slider1-3, #slider1-4, #slider2, #slider3,
-#background-red, #background-green, #background-blue {
+#slider1-1, #slider1-2, #slider1-3, #slider1-4, #slider2, #slider3 {
 	margin: 0 auto;
 	margin-bottom: 5px;
 	width: 80%;
 }
 
-/* Adding colors to the background-color sliders */
-#background-red .ui-slider-range { background: #ef2929; }
-#background-red .ui-slider-handle { border-color: #ef2929; }
-#background-green .ui-slider-range { background: #8ae234; }
-#background-green .ui-slider-handle { border-color: #8ae234; }
-#background-blue .ui-slider-range { background: #729fcf; }
-#background-blue .ui-slider-handle { border-color: #729fcf; }
 
 /* Getting rid of inherited padding on the handles */
 #sliders a {

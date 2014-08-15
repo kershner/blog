@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>GIF Party!</title>
 </head>
-<body>
+<body id="main">
     <div id="container">
 
         <div id="circle"><img src="{{ image_url }}"></div>
@@ -16,7 +16,7 @@
         <div id="logo">
             <h1>GIF Party!</h1>
             <hr>
-            <p>Lorem ipsum dolor sit amet, populo abhorreant expetendis has at. Prima oportere nam in.</p>
+            <p>Watch GIFs float around your screen according to settings you specify.</p>
         </div>
 
         <div id="buttons">
@@ -28,8 +28,8 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dark-red" href="{{url_for('gif_party_customize')}}">
-                          <h1>Customize</h1>
+                      <a class="dark-red" href="{{url_for('gif_party_about')}}">
+                          <h1>About</h1>
                       </a>
                     </li>
                 </ul>

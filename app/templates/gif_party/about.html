@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link type="text/css" rel="stylesheet" href="/static/gif_party_welcome.css"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <title>GIF Party - About</title>
+</head>
+<body>
+    <div id="about-container">
+        <div id="about-inner">
+            <br><br><br>
+            <p>
+                <strong>GIF Party</strong> is a goofy little app I developed to learn some JavaScript to complement my Python.<br><br>
+                If you'd like to see all the code, it's available on Github: <a href="https://github.com/kershner/blog/blob/master/app/static/js/gif-party.js">JavaScripts</a>, <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L408">Python back end.</a><br><br>
+            </p>
+                <div class="about-header"><h3>How It Works</h3></div><br>
+            <p>
+                A Python <a href="https://github.com/kershner/blog/blob/master/app/scripts/scrape_reddit.py">script</a> scrapes a large number of GIF-focused subreddits, extracts GIF URLs according to some pre-set
+                conditions, and places them into a central repository file.<br><br>
+                When using the GIF Party viewer URLs are pulled from
+                the file according to user specifications and are then transmitted back to the client-side JavaScript as part of
+                a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> object.  Once the data is receieved the GIF URLs are placed
+                inside img tags and the JavaScripts go to work on them to create the animations and stylings.<br><br><br><br>
+            </p>
+                <div class="about-header"><h3>Notes On Using GIF Party</h3></div><br>
+            <h3>Content</h3>
+            <p>
+                Although I only scrape SFW subreddits and aggressively weed out questionable GIFs, there is still a
+                chance that you'll come across something offensive. You've been warned!
+            </p><br><br>
+            <h3>Bandwidth</h3>
+            <p>
+                The GIF is a truly inefficient image format.  Some GIFs are extremely large, and I immediately
+                discard GIFs over 6MBs in my initial scrape.  That said, loading 20 GIFs on screen is going to push
+                some bandwidth.<br><br>
+                The default setting of 10 GIFs on screen will consume
+                roughly 20 MB of data, and 20 GIFs will consume approximately 50MB.  Depending on your auto-refresh setting these totals can really start to add up,
+                so please be aware if you are data-capped.<br><br><br><br>
+            <a id="back" href="/gif_party"><h1>Back</h1></a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
