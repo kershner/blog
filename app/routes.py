@@ -417,7 +417,6 @@ def gif_party_welcome():
         urls_list = list(urls_file)
 
     image_url = random.choice(urls_list)
-    image_url = image_url[:image_url.find('\n')]
 
     return render_template('/gif_party/welcome.html',
                            image_url=image_url)

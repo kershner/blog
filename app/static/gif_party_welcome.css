@@ -79,7 +79,6 @@ img {
 	text-align: center;
 	position: relative;
 	width: 50%;
-	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 0;
@@ -121,22 +120,15 @@ nav h1 {
   font-weight: normal; font-style: normal;
 }
 
-[class*="icon-"] {
-  font-family: 'fontello';
-  font-style: normal;
-  font-size: 3em;
-  speak: none;
-}
+.icon-home:after     { content: "\2302"; }
+.icon-cog:after      { content: "\2699"; }
+.icon-cw:after       { content: "\27f3"; }
+.icon-location:after { content: "\e724"; }
 
-.icon-home:after     { content: "\2302"; } 
-.icon-cog:after      { content: "\2699"; } 
-.icon-cw:after       { content: "\27f3"; } 
-.icon-location:after { content: "\e724"; } 
-
-* { 
-  -webkit-box-sizing: border-box; 
-  -moz-box-sizing:    border-box; 
-  box-sizing:         border-box; 
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
   margin: 0;
   padding: 0;
 }
@@ -261,7 +253,7 @@ nav h1 {
 	background: -o-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 	background: -ms-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	
+
 }
 
 .about-header h3 {
@@ -275,7 +267,8 @@ nav h1 {
 }
 
 #back {
-	position: relative;	
+	position: relative;
+	bottom: 15px;
 }
 
 #back:link {
