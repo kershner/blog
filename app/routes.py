@@ -409,8 +409,8 @@ def previously_3():
 ## Gif Party
 ##############################################################################
 @app.route('/gif_party')
-def gif_party():
-    path = '/home/tylerkershner/app/templates/gif_party/'
+def gif_party_welcome():
+    path = '/home/tylerkershner/app/templates/gif_party'
     filename = 'welcome_urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
@@ -425,7 +425,7 @@ def gif_party():
 
 @app.route('/gif_party_about')
 def gif_party_about():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = '/home/tylerkershner/app/templates/gif_party'
 
     filename = 'welcome_urls.txt'
 
@@ -440,7 +440,7 @@ def gif_party_about():
 
 
 @app.route('/gif_party_viewer', methods=['GET', 'POST'])
-def gif_party_viewer():
+def gif_party():
     form = GifParty()
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 

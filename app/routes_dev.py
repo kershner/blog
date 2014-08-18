@@ -432,8 +432,8 @@ def previously_3():
 ##############################################################################
 @app.route('/gif_party')
 def gif_party_welcome():
-    #path = 'H:/programming/projects/blog/app/templates/gif_party/'
-    path = 'E:/programming/projects/blog/app/templates/gif_party/'
+    #path = 'H:/programming/projects/blog/app/templates/gif_party'
+    path = 'E:/programming/projects/blog/app/templates/gif_party'
 
     filename = 'welcome_urls.txt'
 
@@ -449,8 +449,8 @@ def gif_party_welcome():
 
 @app.route('/gif_party_about')
 def gif_party_about():
-    #path = 'H:/programming/projects/blog/app/templates/gif_party/'
-    path = 'E:/programming/projects/blog/app/templates/gif_party/'
+    #path = 'H:/programming/projects/blog/app/templates/gif_party'
+    path = 'E:/programming/projects/blog/app/templates/gif_party'
 
     filename = 'welcome_urls.txt'
 
