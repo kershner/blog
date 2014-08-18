@@ -1,6 +1,74 @@
 {% extends "/blog/base.html" %}
 {% block content %}
 
+<div id="grey">
+    <div class="container">
+	    <div class="row">
+		    <div class="col-lg-8 col-lg-offset-2">
+			    <img src="/static/images/dogsicon.png"><ba>Tyler Kershner</ba>
+				<h2>AJAX</h2>
+                <bd>August 18th, 2014</bd>
+                <hr>
+				<p>
+                    <strong>I've had some breakthroughs in the past few weeks.</strong>  As work continued with my <a href="/gif_party">GIF Party</a>
+                    project I came to the realization that a core aspect of my GIF projects was pretty flawed according to both efficiency
+                    and UX principles.  The auto page refresh using the <strong>http-equiv="refresh"</strong> designation in the <strong>meta</strong> tags was problematic in a number of ways.
+                    First, it's extremely resource intensive to force a hard page reload on a set interval.  Secondly it creates the opportunity for the user to be interrupted
+                    before being able to complete their interaction with the menu.  I also wanted to add sliders for the user to be able to modify the images' CSS properties
+                    and of course any alterations would be lost upon the next page refresh.<br><br>
+                    The solution was to make use of an excellent group of techniques referred to as <a href="http://en.wikipedia.org/wiki/Ajax_(programming)">AJAX</a>.<br><br>
+                    AJAX stands for <em><strong>Asynchronous Javascript and XML</strong></em>.  It's a way to send and receive data from the server without the need
+                    for a client refresh.  Note - technically I'm using <strong>AJAJ</strong>, as the data being transmitted is <a href=http://json.org/">JSON</a> and not <a href="http://en.wikipedia.org/wiki/XML">XML</a>, but the AJAX name persists -
+                    it's definitely catchier!
+                    This concept allows for much of the dynamic content seen around the web, like new status updates appearing on Facebook without you having to reload the browser.<br><br>
+                    AJAX works very well with Flask/Python, especially because of the extremely similar nature of JSON objects and Python dictionaries.  The idea is that you'll have a JavaScript function
+                    point to a route in your Flask app.<br>
+                </p>
+<pre><code data-language="javascript">$(document).ready(function() {
+    $SCRIPT_ROOT = &#123;&#123; request.script_root|tojson|safe &#125;&#125;;
+    $('#5').click(function() {
+		$.getJSON($SCRIPT_ROOT + '/gif_party_json_5',
+		function(data) {
+			getImages();
+    });
+});
+</code></pre>
+                <p>
+                    Above is the new function for selecting '5' as the number of GIFs in GIF Party.  First we include a script-root variable so our web application can find our
+                    route/view functions no matter where our app lives.  Check the <a href="http://flask.pocoo.org/docs/patterns/jquery/#where-is-my-site">Flask docs for more info</a>.
+                    Secondly we're going to bind a <a href="jquery">jQuery</a> event (<strong>click</strong>) to an HTML element ID (<strong>#5</strong>).  When that ID is clicked, the JavaScript function underneath will fire.
+                    This function passes the script root path to the jQuery <a href="http://api.jquery.com/jquery.getjson/">.getJSON</a> method which will follow that route and retrieve the data associated with it.  The returned data is then
+                    passed to my main GIF Party function, <a href="https://github.com/kershner/blog/blob/master/app/static/js/gif-party.js#L139">getImages()</a>.<br><br>
+                    Now lets walk through the code on the Flask side.
+                </p>
+<pre><code data-language="python">@app.route('/gif_party_json_5')
+def gif_party_json_5():
+    session['number'] = 5
+
+    data = {
+        "number": session['number']
+    }
+
+    return jsonify(data)
+</code></pre>
+                <p>
+                    Here I store the user's choice of '5' in their <a href="http://flask.pocoo.org/docs/quickstart/#sessions">session</a> object and return that
+                    value as part of a JSON object.  That object gets passed to the getImages() function and the requested number of GIFs are then updated without the need for
+                    a hard page refresh. That's it!<br><br>
+                    This new way of doing things has vastly reduced the amount of code in my Flask routes file.  It feels much more logical to have the core application functions
+                    be the responsibility of the client and the data that those functions rely on safely stored on the server.  <br><br>
+                    Another benefit is the much more efficient
+                    use of client resources.  I was able to apply this method to my Raspberry Pi Display and the difference it made was remarkable.  By auto-refreshing the page every
+                    20 seconds I was causing a huge amount of strain on the weak Raspberry Pi hardware necessitating a restart of the browser every 10 minutes and a hard reboot of the system
+                    every two hours.  Using AJAX, not only do the individual GIFs load faster, but the hardware itself no longer gets bogged down by unnecessary page loads.  The
+                    ridiculous little device now hums along uninterrupted all night and day, the only hitches caused by the occasional server congestion of my host.<br><br>
+                    Here's to learning new things!
+                </p>
+			</div>
+        </div><!-- /row -->
+	</div> <!-- /container -->
+</div>
+
 <div id="white">
     <div class="container">
 	    <div class="row">

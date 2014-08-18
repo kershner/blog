@@ -818,3 +818,12 @@ body form p input {
 	background: -ms-linear-gradient(30deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
 	background: linear-gradient(120deg, rgb(195, 79, 51) 30%, rgb(179, 79, 51) 75%);
 }
+
+.pink {
+	background: rgb(255, 179, 217);
+	background: -moz-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+	background: -o-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+	background: -ms-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+	background: linear-gradient(120deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+}

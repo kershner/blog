@@ -446,6 +446,7 @@ def gif_party_welcome():
     return render_template('/gif_party/welcome.html',
                            image_url=image_url)
 
+
 @app.route('/gif_party_about')
 def gif_party_about():
     #path = 'H:/programming/projects/blog/app/templates/gif_party/'

@@ -1,13 +1,13 @@
 body, html {
+	margin:0;
+	padding:0;
+	height: 100%;
 	background: rgb(156, 99, 156);
 	background: -moz-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
 	background: -webkit-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
 	background: -o-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
 	background: -ms-linear-gradient(52deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
 	background: linear-gradient(142deg, rgb(156, 99, 156) 24%, rgb(103, 87, 131) 88%);
-	margin:0;
-	padding:0;
-	height: 110%;
 }
 
 body {
@@ -26,21 +26,18 @@ a {
 	text-decoration: none;
 }
 
-a:link {
-	color: 
-}
-
 #container {
 	position: relative;
-	top: 75px;
-	width: 75%;
+	min-width: 50%;
+	width: 100%;
+	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 /* Style to create circle div */
 #circle {
-	margin-top: 15px;
+	margin-bottom: 40px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
@@ -57,42 +54,44 @@ img {
 
 #logo {
 	position: relative;
-	border-radius: 45% 45% 0 0;
 	text-align: center;
 	margin-top: 15px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
-}
-
-hr {
-	position: relative;
-	width: 60%;
-	margin: 0 auto;
-	border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	width: 615px;
 }
 
 #container #logo h1 {
 	position: relative;
-	margin-bottom: 5px;
-	font-size: 400%;
+	margin-left: 0;
+	margin-right: 0;
+	font-size: 800%;
 	color: white;
 	text-shadow: 1px 2px 2px #000;
 }
 
 #container #logo p {
 	position: relative;
-	margin-top: 15px;
+	margin-bottom: 25px;
 }
 
 #buttons {
+	text-align: center;
 	position: relative;
 	width: 50%;
+	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 0;
+
+}
+
+#buttons nav ul li {
+	height: 150px;
+	width: 150px;
+	bottom: 15px;
+	right: 30px;
+	margin-bottom: 30px;
 }
 
 #bottom {
@@ -226,22 +225,25 @@ nav h1 {
 	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
 }
 
+/* About Page */
 #about-container {
 	background-color: #f2f2f2;
-	height: 100%;
+	height: 95%;
 	position: relative;
 	text-align: justify;
 	margin: 0 auto;
-	width: 60%;
+	top: 15px;
+	width: 550px;
+	box-shadow: 1px 2px 3px #000;
 }
 
 #about-inner {
 	color: black;
-	height: 100%;
+	height: 90%;
+	width: 95%;
 	text-shadow: none;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
 }
 
 #about-inner h1 {
@@ -266,6 +268,14 @@ nav h1 {
 	margin-left: 15px;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
+}
+
+#about-inner > p:nth-child(12) {
+	margin-bottom: 15px;
+}
+
+#back {
+	position: relative;	
 }
 
 #back:link {
