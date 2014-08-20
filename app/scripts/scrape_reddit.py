@@ -15,7 +15,7 @@ class Gif(object):
 gif = Gif(0)
 
 
-def scrape_reddit(target_subreddit, path):
+def scrape_reddit(target_subreddit, path, category):
     # Function to determine size of URL via HTTP header data
     def getsize(url):
         url = urllib2.urlopen(url)
@@ -31,11 +31,7 @@ def scrape_reddit(target_subreddit, path):
         time = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
         log_data = '\n\n%d gifs added from /r/%s at %s.' % (count, target_subreddit, time)
         skipped = '\n%d bad links and %d large GIFs skipped.' % (bad_urls, large_urls)
-        number_of_gifs = 'Total number of GIFs: %d' % (len(urls_list) + count)
-        with open('%s/reddit_scraper_log.txt' % path, 'a') as logfile:
-            logfile.write(log_data)
-            logfile.write(skipped)
-            logfile.write(number_of_gifs)
+        number_of_gifs = 'Total number of %s GIFs: %d' % (category, len(urls_list) + count)
         print log_data
         print skipped
         print number_of_gifs
@@ -51,13 +47,13 @@ def scrape_reddit(target_subreddit, path):
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
 
     # Uncomment to scrape top results from year/month/all
-    submissions = r.get_subreddit(target_subreddit).get_hot(limit=50)
+    submissions = r.get_subreddit(target_subreddit).get_hot(limit=100)
     #submissions = r.get_subreddit(target_subreddit).get_top_from_year(limit=50)
     #submissions = r.get_subreddit(target_subreddit).get_top_from_month(limit=50)
-    #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=50)
+    #submissions = r.get_subreddit(target_subreddit).get_top_from_all(limit=100)
 
     # Opening files, converting to Python lists
-    urls_file = open('%s/urls.txt' % path, 'a+')
+    urls_file = open('%s/%s_urls.txt' % (path, category), 'a+')
     urls_list = list(urls_file)
     bad_urls_file = open('%s/bad_urls.txt' % path, 'a+')
     bad_urls_list = list(bad_urls_file)
@@ -83,7 +79,7 @@ def scrape_reddit(target_subreddit, path):
             try:
                 bad_urls_file.write(str(submission.url) + '\n')
             except UnicodeEncodeError:
-                print 'Unicode Error, skipping...'
+                print 'Unicode error, skipping...'
                 continue
             bad_urls += 1
             continue
@@ -137,7 +133,7 @@ def scrape_reddit(target_subreddit, path):
             bad_urls += 1
             continue
         else:
-            print '%s not found in urls.txt, adding...' % submission.url
+            print '%s not found in %s_urls.txt, adding...' % (submission.url, entry)
             urls_file.write(str(submission.url) + '\n')
             count += 1
             gif.counter()
@@ -148,27 +144,35 @@ def scrape_reddit(target_subreddit, path):
 
     log()
 
-subreddits = ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'educationalgifs', 'chemicalreactiongifs',
-              'SurrealGifs', 'Puggifs', 'slothgifs', 'asianpeoplegifs', 'gaming_gifs', 'Movie_GIFs', 'funnygifs',
-              'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
-              'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
-              'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
-              'opticalillusions', 'wrestlinggifs']
-
 if __name__ == '__main__':
     prompt = raw_input('Are you scraping from work or home? > ').lower()
     if prompt == 'work':
         current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
-    elif prompt == 'home':
+    else:
         current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
 
-    time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
+    categories = ['all', 'animals', 'gaming', 'strange', 'educational']
 
-    for subreddit in subreddits:
-        scrape_reddit(subreddit, current_path)
+    subreddits = [
+        ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'educationalgifs', 'chemicalreactiongifs',
+         'SurrealGifs', 'Puggifs', 'slothgifs', 'asianpeoplegifs', 'gaming_gifs', 'Movie_GIFs', 'funnygifs',
+         'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
+         'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
+         'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
+         'opticalillusions', 'wrestlinggifs'],
+        ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs'],
+        ['gaming_gifs', 'gaming', 'GamePhysics'],
+        ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
+        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs','interestinggifs']
+    ]
 
-    time_end = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
-
-    print 'reddit scrape began at %s' % time_start
-    print 'reddit scrape finished at %s' % time_end
-    print '%d GIFs added.' % gif.count
+    count = 0
+    for entry in categories:
+        print '\n####################################'
+        print 'Now scraping %s subreddits' % entry
+        print '####################################'
+        for subreddit in subreddits[int('%d' % count)]:
+            scrape_reddit(subreddit, current_path, entry)
+        print '%d GIFs added to %s_urls.txt.' % (gif.count, entry)
+        gif.count = 0
+        count += 1

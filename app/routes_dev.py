@@ -125,8 +125,8 @@ def pi_display_json():
     delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
 
     if category == 'all':
-        filename = 'urls.txt'
-        toplay_filename = 'urls_to_play.txt'
+        filename = 'all_urls.txt'
+        toplay_filename = 'all_urls_to_play.txt'
     elif category == 'animals':
         filename = 'animals_urls.txt'
         toplay_filename = 'animals_urls_to_play.txt'
@@ -203,7 +203,7 @@ def pi_display_config():
     #path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
     path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
 
-    with open('%s/urls.txt' % path, 'r') as urls_file:
+    with open('%s/all_urls.txt' % path, 'r') as urls_file:
         main_urls_list = list(urls_file)
 
     with open('%s/animals_urls.txt' % path, 'r') as urls_file:
@@ -472,7 +472,7 @@ def gif_party():
 
     session['played'] = []
 
-    with open('%s/urls.txt' % path, 'r') as last_played_file:
+    with open('%s/all_urls.txt' % path, 'r') as last_played_file:
         all_urls_list = list(last_played_file)
 
     with open('%s/animals_urls.txt' % path, 'r') as urls_file:
@@ -521,7 +521,7 @@ def gif_party_json():
         delay = 60000
 
     if category == 'all':
-        filename = 'urls.txt'
+        filename = 'all_urls.txt'
     elif category == 'animals':
         filename = 'animals_urls.txt'
     elif category == 'gaming':
@@ -531,7 +531,7 @@ def gif_party_json():
     elif category == 'educational':
         filename = 'educational_urls.txt'
     else:
-        filename = 'urls.txt'
+        filename = 'all_urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)

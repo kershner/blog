@@ -3,11 +3,10 @@ from datetime import datetime
 
 
 class Log(object):
-    def __init__(self, count, bad_urls, large_urls, duplicates):
+    def __init__(self, count, bad_urls, large_urls):
         self.count = count
         self.bad_urls = bad_urls
         self.large_urls = large_urls
-        self.duplicates = duplicates
 
     def counter(self):
         self.count += 1
@@ -18,14 +17,13 @@ class Log(object):
     def large_urls_counter(self):
         self.large_urls += 1
 
-    def duplicates_counter(self):
-        self.duplicates += 1
-
 # Instantiating Log class
-log = Log(0, 0, 0, 0)
+log = Log(0, 0, 0)
 
 
-def clean_up_urls(path):
+def clean_up_urls(path, urls_file):
+    print '\nBeginning cleanup of %s\n' % urls_file
+
     # Function to determine size of URL via HTTP header data
     def getsize(image_url):
         try:
@@ -38,15 +36,14 @@ def clean_up_urls(path):
     url_number = 0
 
     # Opening files, converting to Python lists
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
-    urls_list = list(urls_file)
-    bad_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/bad_urls.txt' % path, 'a+')
+    with open('%s/%s' % (path, urls_file), 'a+') as temp_file:
+        urls_list = list(temp_file)
+    bad_urls_file = open('%s/bad_urls.txt' % path, 'a+')
     bad_urls_list = list(bad_urls_file)
-    large_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/large_urls.txt' % path, 'a+')
+    large_urls_file = open('%s/large_urls.txt' % path, 'a+')
     large_urls_list = list(large_urls_file)
-    clean_urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'a+')
+    clean_urls_file = open('%s/clean_urls.txt' % path, 'a+')
 
-    # Going through reddit submissions from the specified subreddit
     for url in urls_list:
         end_point = url.find('\n')
         url = url[:end_point]
@@ -117,79 +114,49 @@ def clean_up_urls(path):
             clean_urls_file.write(str(url) + '\n')
 
     # Closing files
-    urls_file.close()
     bad_urls_file.close()
     large_urls_file.close()
     clean_urls_file.close()
 
     # Creating Python list from newly populated clean_urls.txt
-    updated_clean_urls = open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'r')
-    clean_urls_list = list(updated_clean_urls)
-    updated_clean_urls.close()
+    with open('%s/clean_urls.txt' % path, 'r') as updated_clean_urls:
+        clean_urls_list = list(updated_clean_urls)
 
     # Opening/closing urls.txt (taking advantage of side effect to erase contents)
-    open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'w').close()
+    open('%s/%s' % (path, urls_file), 'w').close()
 
     # Re-opening urls.txt, appending with contents of the clean_urls.txt list, closing the file
-    url_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
+    url_file = open('%s/%s' % (path, urls_file), 'a+')
     for url in clean_urls_list:
         url_file.write(url)
     url_file.close()
 
     # Opening and closing the clean_urls.txt file.  Side effect to erase contents of file.
     print '\n\n\n\nErasing contents of clean_urls.txt...'
-    open('%s/programming/projects/blog/app/templates/pi_display/logs/clean_urls.txt' % path, 'w').close()
+    open('%s/clean_urls.txt' % path, 'w').close()
 
+    # Opening updated file, printing # of URLs
+    with open('%s/%s' % (current_path, urls_file), 'r') as f:
+        number_of_gifs = len(list(f))
+        print '\nTotal number of GIFS: %d' % number_of_gifs
+    print '%d bad links removed' % log.bad_urls
+    print '%d large GIFs removed' % log.large_urls
 
-def remove_duplicates(path):
-    print '\nRemoving duplicates...'
-    # Opening files, converting to Python lists
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
-    urls_list = list(urls_file)
-    urls_file.close()
-
-    unique_urls = []
-
-    for url in urls_list:
-        if url in unique_urls:
-            print '%s already found, skipping...' % url
-            log.duplicates_counter()
-            continue
-        else:
-            unique_urls.append(url)
-            continue
-
-    # Opening/closing urls.txt (taking advantage of side effect to erase contents)
-    open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'w').close()
-
-    urls_file = open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % path, 'a+')
-
-    for url in unique_urls:
-        urls_file.write(str(url))
-
-    urls_file.close()
 
 if __name__ == '__main__':
     prompt = raw_input('Are you running this file from work or home? > ').lower()
     if prompt == 'work':
-        current_path = 'E:'
-    elif prompt == 'home':
-        current_path = 'H:'
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    else:
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
 
     time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 
-    clean_up_urls(current_path)
-    remove_duplicates(current_path)
+    files = ['all_urls.txt', 'animals_urls.txt', 'gaming_urls.txt', 'strange_urls.txt', 'educational_urls.txt']
+    for entry in files:
+        clean_up_urls(current_path, entry)
 
     time_end = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 
     print 'URL cleanup began at %s' % time_start
     print 'URL cleanup finished at %s' % time_end
-
-    # Opening updated file, printing # of URLs
-    with open('%s/programming/projects/blog/app/templates/pi_display/logs/urls.txt' % current_path, 'r') as f:
-        number_of_gifs = len(list(f))
-        print '\nTotal number of GIFS: %d' % number_of_gifs
-    print '%d bad links removed' % log.bad_urls
-    print '%d duplicates removed' % log.duplicates
-    print '%d large GIFs removed' % log.large_urls
