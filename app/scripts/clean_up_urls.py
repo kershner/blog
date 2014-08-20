@@ -46,19 +46,19 @@ def clean_up_urls(path, urls_file):
 
     for url in urls_list:
         end_point = url.find('\n')
-        url = url[:end_point]
+        url_test = url[:end_point]
         url_number += 1
         print 'URL %d of %d' % (url_number, len(urls_list))
         # Already in urls.txt
-        if url in bad_urls_list:
+        if url + '\n' in bad_urls_list:
             log.bad_urls_counter()
             continue
         # Known Large URL
-        elif url in large_urls_list:
+        elif url + '\n' in large_urls_list:
             log.large_urls_counter()
             continue
         # Not a .gif file
-        elif not url.endswith('.gif'):
+        elif not url_test.endswith('.gif'):
             print '%s is not a GIF file, skipping...' % url
             bad_urls_file.write(str(url) + '\n')
             log.bad_urls_counter()
@@ -111,7 +111,7 @@ def clean_up_urls(path, urls_file):
         else:
             print 'Clean URL, adding...'
             log.counter()
-            clean_urls_file.write(str(url) + '\n')
+            clean_urls_file.write(str(url))
 
     # Closing files
     bad_urls_file.close()

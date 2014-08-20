@@ -41,7 +41,7 @@ def scrape_reddit(target_subreddit, path, category):
     bad_urls = 0
     large_urls = 0
 
-    print '\n\n\n\nGathering image URLs from /r/%s...' % target_subreddit
+    print '\nGathering image URLs from /r/%s...' % target_subreddit
 
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
@@ -62,29 +62,28 @@ def scrape_reddit(target_subreddit, path, category):
 
     # Going through reddit submissions from the specified subreddit
     for submission in submissions:
-        # Already in urls.txt
-        if submission.url + '\n' in urls_list:
-            continue
-        # Known bad URL
-        elif submission.url + '\n' in bad_urls_list:
-            bad_urls += 1
-            continue
-        # Known Large URL
-        elif submission.url + '\n' in large_urls_list:
-            large_urls += 1
-            continue
-        # Not a .gif file
-        elif not submission.url.endswith('.gif'):
-            print '%s is not a GIF file, skipping...' % submission.url
-            try:
-                bad_urls_file.write(str(submission.url) + '\n')
-            except UnicodeEncodeError:
-                print 'Unicode error, skipping...'
+        try:
+            # Already in urls.txt
+            if str(submission.url) + '\n' in urls_list:
                 continue
-            bad_urls += 1
+            # Known bad URL
+            elif str(submission.url) + '\n' in bad_urls_list:
+                bad_urls += 1
+                continue
+            # Known Large URL
+            elif str(submission.url) + '\n' in large_urls_list:
+                large_urls += 1
+                continue
+            # Not a .gif file
+            elif not submission.url.endswith('.gif'):
+                print '%s is not a GIF file, skipping...' % submission.url
+                bad_urls += 1
+                continue
+        except UnicodeEncodeError:
+            print 'Unicode error, skipping...'
             continue
         # Don't want gifsound links
-        elif 'sound' in submission.url:
+        if 'sound' in str(submission.url):
             print '%s is a gifsound link, skipping...' % submission.url
             bad_urls_file.write(str(submission.url) + '\n')
             bad_urls += 1
@@ -163,7 +162,7 @@ if __name__ == '__main__':
         ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs'],
         ['gaming_gifs', 'gaming', 'GamePhysics'],
         ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
-        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs','interestinggifs']
+        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs']
     ]
 
     count = 0

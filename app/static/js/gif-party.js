@@ -1,16 +1,15 @@
 // Creating a global dictionary to be used in the on-click 'focus'
-// function (directly below).  I will refactor this at some point when I understand
-// JavaScript better
 var options = {};
 window.elements = [];
 elements_array = window.elements.slice();
 
-// Function disable pressing ENTER in the textfield
+// Function to disable pressing ENTER in the text field
 // Need user to hit 'submit' to trigger JavaScript function
 $(document).ready(function() {
-	$('#delay').keypress(function(e){
-	   if (e.keyCode == 13) return false
-	});
+    $('#delay').keypress(function(e){
+        if (e.keyCode == 13) {
+            return false;
+    }});
 });
 
 // Automatic random background color changer
@@ -142,7 +141,7 @@ function getImages() {
 	clearInterval(window.delay);
 	$.getJSON($SCRIPT_ROOT + '/gif_party_json', 
 		function(data) {
-            var delay = data['delay'];
+            var delay = data.delay;
 			var slider1_1 = $('#slider1-1').slider('option', 'value');
 			var slider1_2 = $('#slider1-2').slider('option', 'value');
 			var slider1_3 = $('#slider1-3').slider('option', 'value');
@@ -151,12 +150,12 @@ function getImages() {
 			var slider3 = $('#slider3').slider('option', 'value');
 			var slider4 = $('#slider4').slider('option', 'value');
 			
-			if ((data['number']) === 5) {
-                url1 = data['URLs'][0];
-                url2 = data['URLs'][1];
-                url3 = data['URLs'][2];
-                url4 = data['URLs'][3];
-                url5 = data['URLs'][4];
+			if ((data.number) === 5) {
+                url1 = data.URLs[0];
+                url2 = data.URLs[1];
+                url3 = data.URLs[2];
+                url4 = data.URLs[3];
+                url5 = data.URLs[4];
                 $('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
                 $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
                 $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
@@ -164,17 +163,17 @@ function getImages() {
                 $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
 				window.elements = ['.a','.b','.c','.d','.e'];
             }
-            else if ((data['number']) === 10) {
-                url1 = data['URLs'][0];
-                url2 = data['URLs'][1];
-                url3 = data['URLs'][2];
-                url4 = data['URLs'][3];
-                url5 = data['URLs'][4];
-                url6 = data['URLs'][5];
-                url7 = data['URLs'][6];
-                url8 = data['URLs'][7];
-                url9 = data['URLs'][8];
-                url10 = data['URLs'][9];
+            else if ((data.number) === 10) {
+                url1 = data.URLs[0];
+                url2 = data.URLs[1];
+                url3 = data.URLs[2];
+                url4 = data.URLs[3];
+                url5 = data.URLs[4];
+                url6 = data.URLs[5];
+                url7 = data.URLs[6];
+                url8 = data.URLs[7];
+                url9 = data.URLs[8];
+                url10 = data.URLs[9];
 				$('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
                 $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
                 $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
@@ -187,27 +186,27 @@ function getImages() {
                 $('<img src="' + url10 + '"/>').addClass('j').appendTo('#content');
 				window.elements = ['.a','.b','.c','.d','.e','.f','.g','.h','.i','.j'];
             }
-            else if ((data['number']) === 20) {
-                url1 = data['URLs'][0];
-                url2 = data['URLs'][1];
-                url3 = data['URLs'][2];
-                url4 = data['URLs'][3];
-                url5 = data['URLs'][4];
-                url6 = data['URLs'][5];
-                url7 = data['URLs'][6];
-                url8 = data['URLs'][7];
-                url9 = data['URLs'][8];
-                url10 = data['URLs'][9];
-				url11 = data['URLs'][10];
-                url12 = data['URLs'][11];
-                url13 = data['URLs'][12];
-                url14 = data['URLs'][13];
-                url15 = data['URLs'][14];
-                url16 = data['URLs'][15];
-                url17 = data['URLs'][16];
-                url18 = data['URLs'][17];
-                url19 = data['URLs'][18];
-                url20 = data['URLs'][19];
+            else if ((data.number) === 20) {
+                url1 = data.URLs[0];
+                url2 = data.URLs[1];
+                url3 = data.URLs[2];
+                url4 = data.URLs[3];
+                url5 = data.URLs[4];
+                url6 = data.URLs[5];
+                url7 = data.URLs[6];
+                url8 = data.URLs[7];
+                url9 = data.URLs[8];
+                url10 = data.URLs[9];
+				url11 = data.URLs[10];
+                url12 = data.URLs[11];
+                url13 = data.URLs[12];
+                url14 = data.URLs[13];
+                url15 = data.URLs[14];
+                url16 = data.URLs[15];
+                url17 = data.URLs[16];
+                url18 = data.URLs[17];
+                url19 = data.URLs[18];
+                url20 = data.URLs[19];
 				$('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
                 $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
                 $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
@@ -238,7 +237,7 @@ function getImages() {
 				getStartPos($(elements[i]));
 				animateDiv($(elements[i]));
 				focusClick($(elements[i]));
-			};
+			}
 			
 			draggableImage();
 			window.delay = setInterval(getImages, delay);
@@ -253,7 +252,7 @@ function getImages() {
 			$('img').css('max-height', slider3 + 'px');
 		});
     return false;
-};
+}
 
 // Functions to alter Flask session data via JSON
 $(document).ready(function() {
@@ -335,9 +334,9 @@ function getSettings() {
 	$('.setting').remove();
 	$.getJSON($SCRIPT_ROOT + '/gif_party_json',
 		function(data) {
-			var category = data['category'];
-			var number = data['number'];
-			var delay = data['delay'];
+			var category = data.category;
+			var number = data.number;
+			var delay = data.delay;
 			delay = String(delay).slice(0, 2);
 			$('<p>' + category + '</p><br>').addClass('setting').appendTo('#settings-values');
 			$('<p>' + number + '</p><br>').addClass('setting').appendTo('#settings-values');
@@ -369,50 +368,50 @@ function alterBorderRadiusBottomRight() {
 }
 
 $(function() {
-	$('#slider1-1').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusTopLeft,
-	  change: alterBorderRadiusTopLeft
+    $('#slider1-1').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        max: 50,
+        min: 5,
+        value: 5,
+        slide: alterBorderRadiusTopLeft,
+        change: alterBorderRadiusTopLeft
 	});
 });
 
 $(function() {
-	$('#slider1-2').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusTopRight,
-	  change: alterBorderRadiusTopRight
+    $('#slider1-2').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        max: 50,
+        min: 5,
+        value: 5,
+        slide: alterBorderRadiusTopRight,
+        change: alterBorderRadiusTopRight
 	});
 });
 
 $(function() {
-	$('#slider1-3').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusBottomLeft,
-	  change: alterBorderRadiusBottomLeft
+    $('#slider1-3').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        max: 50,
+        min: 5,
+        value: 5,
+        slide: alterBorderRadiusBottomLeft,
+        change: alterBorderRadiusBottomLeft
 	});
 });
 
 $(function() {
-	$('#slider1-4').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  max: 50,
-	  min: 5,
-	  value: 5,
-	  slide: alterBorderRadiusBottomRight,
-	  change: alterBorderRadiusBottomRight
+    $('#slider1-4').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        max: 50,
+        min: 5,
+        value: 5,
+        slide: alterBorderRadiusBottomRight,
+        change: alterBorderRadiusBottomRight
 	});
 });
 
@@ -421,18 +420,17 @@ function alterImageSize() {
 	var slider = $('#slider2').slider('value');
 	$('img').css('min-width', slider + 'px');
 	$('img').css('min-height', slider + 'px');
-	console.log(slider);
 }
 
 $(function() {
-	$('#slider2').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  step: 100,
-	  max: 500,
-	  value: 0,
-	  slide: alterImageSize,
-	  change: alterImageSize
+    $('#slider2').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        step: 100,
+        max: 500,
+        value: 0,
+        slide: alterImageSize,
+        change: alterImageSize
 	});
 });
 
@@ -444,14 +442,14 @@ function alterImageSize1() {
 }
 
 $(function() {
-	$('#slider3').slider({
-	  orientation: 'horizontal',
-	  range: 'min',
-	  step: 100,
-	  max: 500,
-	  min: 100,
-	  value: 500,
-	  slide: alterImageSize1,
-	  change: alterImageSize1
+    $('#slider3').slider({
+        orientation: 'horizontal',
+        range: 'min',
+        step: 100,
+        max: 500,
+        min: 100,
+        value: 500,
+        slide: alterImageSize1,
+        change: alterImageSize1
 	});
 });
