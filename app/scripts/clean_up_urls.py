@@ -22,6 +22,9 @@ log = Log(0, 0, 0)
 
 
 def clean_up_urls(path, urls_file):
+    log.count = 0
+    log.bad_urls = 0
+    log.large_urls = 0
     print '\nBeginning cleanup of %s\n' % urls_file
 
     # Function to determine size of URL via HTTP header data
@@ -60,52 +63,52 @@ def clean_up_urls(path, urls_file):
         # Not a .gif file
         elif not url_test.endswith('.gif'):
             print '%s is not a GIF file, skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         # Don't want gifsound links
         elif 'sound' in url:
             print '%s is a gifsound link, skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         try:
             r = urllib2.urlopen(url)
         except (urllib2.HTTPError, urllib2.URLError):
             print '%s returns 403 forbidden or timed out, skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         # 404 status code is a broken link
         if r.getcode == 404:
             print '%s is a broken link (404), skipping...' % url
             # Logging bad URL
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         # 302 is redirection, meaning bad link
         elif r.getcode == 302:
             print '%s is a broken link (302), skipping...' % url
             # Logging bad URL
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         # The Pi has a hard time with GIFs larger than 8MBs
         if getsize(url) > 8192000:
             print '%s is larger than 8MBs, skipping...' % url
-            large_urls_file.write(str(url) + '\n')
+            large_urls_file.write(str(url))
             log.large_urls_counter()
             continue
         # Imgur 'removed' image is 503 bytes
         elif getsize(url) == 503:
             print '%s is a broken link (503 bytes), skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         # If the getsize function returned None, there was an error
         elif getsize(url) == 'None':
             print '%s has no length data in HTTP header, skipping...' % url
-            bad_urls_file.write(str(url) + '\n')
+            bad_urls_file.write(str(url))
             log.bad_urls_counter()
             continue
         else:
