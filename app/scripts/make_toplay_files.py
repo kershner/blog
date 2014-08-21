@@ -18,7 +18,12 @@ def make_toplay_file(path, filename):
         print '%s_urls_to_play.txt now contains %d URLs' % (filename, len(temp_list))
 
 if __name__ == '__main__':
-    current_path = '/home/tylerkershner/app/templates/pi_display/logs'
+    prompt = raw_input('Are you running this script from home or work? > ').lower()
+    if prompt == 'work':
+        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
+    else:
+        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
+
     categories = ['all', 'animals', 'gaming', 'strange', 'educational']
     for category in categories:
         make_toplay_file(current_path, category)
