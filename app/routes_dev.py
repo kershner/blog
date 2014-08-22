@@ -880,10 +880,11 @@ def newaccount():
             subject = "New Account with Cayman Chemical"
             body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
                    "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
-                   "transfers.  If you would like net 30 terms, please provide trade references.\n\nTo place an " \
-                   "order, please contact customer service at one of the following:\n\nPhone:\t\t\t 800-364-9897\n" \
-                   "Fax:order please reference customer account number %s.\n\nWe look forward to doing business with " \
-                   "you!\n\n" % (name, acct_number)
+                   "transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo " \
+                   "place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
+                   "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
+                   "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
+                   "business with you!\n\n" % (name, acct_number)
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("/cstools/newaccount.html",
                                    title="New Account Template",
