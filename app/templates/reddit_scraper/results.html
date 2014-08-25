@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <meta charset="UTF-8">
+
+    <link type="text/css" rel="stylesheet" href="/static/welcome.css"/>
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    <title>Reddit Image Scraper - Results</title>
+</head>
+<body>
+    <div id="results-container">
+
+        <div id="results-title">
+            <h1>{{ good_urls_number }} Results</h1>
+            <h3>from last {{ number }} submissions</h3>
+            <h5>from /r/{{ subreddit }} | {{ results_from }} with at least {{ min_score }} Karma</h5><br>
+        </div>
+
+        <ul class="rig columns-4">
+            {% for url in good_urls %}
+                <li>
+                    <a href="{{ url[0] }}"><img src="{{ url[0] }}"></a><br>
+                    {{ url[2] }}<br><br>
+                    <a class="permalink" href="{{ url[1] }}">Permalink</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if indirect_urls %}
+            <div id="indirect-urls">
+                <h3>{{ indirect_urls_number }} Indirect URLs</h3>
+                <ul>
+                    {% for url in indirect_urls %}
+                        <li>
+                            <p>
+                                <a href="{{ url[0] }}">{{ url[0] }}</a><br>
+                                <a class="permalink" href="{{ url[1] }}">Permalink</a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <a href="/scrape_reddit"><h1 id="back">Back</h1></a>
+    </div>
+</body>
+</html>

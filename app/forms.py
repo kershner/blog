@@ -1,4 +1,6 @@
 from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField, validators, BooleanField
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired
 
 #############################################
 # CSTools Forms
@@ -101,3 +103,16 @@ class SlideshowDelay(Form):
 class GifParty(Form):
     delay = TextField("", [validators.Required("Please enter a valid time (in seconds).")])
     submit = SubmitField("Submit")
+
+#############################################
+# Reddit Scraper forms
+
+
+class RedditImageScraper(Form):
+    subreddit_choice = StringField('Subreddit Choice', validators=[DataRequired('Please enter a subreddit.')])
+    minimum_score = StringField('Minimum Score', validators=[DataRequired('Please enter a minimum score.')])
+    results_from = SelectField('Results From', choices=[('1', 'Hot'), ('2', 'All'), ('3', 'Year'),
+                                                                      ('4', 'Month')])
+    number = SelectField('Number of Submissions to Scrape', choices=[('5', '5'), ('10', '10'), ('20', '20'),
+                                                                                 ('50', '50')])
+    submit = SubmitField('Submit')

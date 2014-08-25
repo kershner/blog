@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <link type="text/css" rel="stylesheet" href="/static/welcome.css"/>
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src='/static/js/jquery.customSelect.min.js'></script>
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    <title>Reddit Image Scraper</title>
+</head>
+<body>
+<div id="welcome-container">
+    <div id="welcome-div">
+        <br><br>
+        <h1>Reddit Image Scraper</h1>
+        <p>Use Python to quickly grab images from a specific subreddit</p>
+
+        {% if message %}
+            <div class="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="alert">
+                {% for message in form.subreddit_choice.errors %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+
+                {% for message in form.minimum_score.errors %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div id="form-wrapper">
+
+            <div id="form-container">
+
+                <div id="form-actual">
+                    <form action="{{ url_for('scrape') }}" method=POST>
+
+                        {{ form.hidden_tag() }}
+
+                        <div>{{ form.subreddit_choice(placeholder="/r/ ") }}</div>
+
+                        <div>{{ form.minimum_score(placeholder="Minimum Score", maxlength=3) }}</div>
+
+                        <div>
+                            <h3>Results From</h3>
+                            {{ form.results_from(class="select-box") }}
+                        </div>
+
+                        <div>
+                            <h3>Submissions to Scrape</h3>
+                            {{ form.number(class="select-box") }}
+                        </div><br>
+
+                        {{form.submit() }}
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="suggestions">
+        <h3>Subreddit Suggestions</h3>
+        {% for pick in picks %}
+         <p>{{ pick }}</p>
+        {% endfor %}
+    </div>
+
+</div>
+<script>
+$(document).ready(function(){
+    $('.select-box').customSelect();
+});
+</script>
+
+
+</body>
+</html>
