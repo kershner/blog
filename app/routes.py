@@ -73,6 +73,17 @@ def gif_display():
     return render_template("/blog/projects/project03.html",
                            title="Raspberry Pi GIF Display")
 
+@app.route('/gif-party')
+def gif_party_project():
+    return render_template("/blog/projects/project04.html",
+                           title="Gif Party!")
+
+
+@app.route('/reddit-scraper')
+def reddit_scraper_project():
+    return render_template("/blog/projects/project05.html",
+                           title="Reddit Scraper")
+
 
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():

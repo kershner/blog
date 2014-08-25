@@ -85,6 +85,12 @@ def gif_party_project():
                            title="Gif Party!")
 
 
+@app.route('/reddit-scraper')
+def reddit_scraper_project():
+    return render_template("/blog/projects/project05.html",
+                           title="Reddit Scraper")
+
+
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
     return render_template("/blog/writeups/project02-part1.html",

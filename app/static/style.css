@@ -40,6 +40,8 @@ ul.rig {
 
 ul.rig li {
 	text-align: center;
+	max-height: 400px;
+	width: 300px;
 	background: #fff;
 	display: inline-block;
 	padding: 10px;
@@ -87,11 +89,8 @@ ul.rig.columns-4 li {
 }
 
 /* Hidden li elements to help center singular elements */
-#grey .hidden-li {
-	box-shadow: none;
-	height: 0;
-	border: none;
-	background-color: #f2f2f2;
+.hidden-li {
+	display: none;
 }
 
 @media (max-width: 480px) {
