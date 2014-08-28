@@ -1418,3 +1418,11 @@ def scrape():
     else:
         return render_template('/reddit_scraper/home.html',
                                form=form)
+
+
+##############################################################################
+## Campaign Demo Site
+##############################################################################
+@app.route('/campaign_demo')
+def campaign_demo():
+    return render_template('/campaign/home.html')

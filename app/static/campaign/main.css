@@ -1,0 +1,311 @@
+html,body {
+	width: 99%;
+	height: 100%;
+	/* background-color: #00274D; */
+	background-color: #004081;
+	font-family: 'Lato';
+}
+
+/* div {
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+} */
+
+#wrapper {
+	height: 100%;
+	width: 100%;
+}
+
+#header {
+	margin: -30px auto;
+	height: 300px;
+	width: 75%;
+	background: url(../images/campaign/school.jpg) center -200px;
+	border-radius: 0 0 5px 5px;
+	min-width: 540px;
+}
+
+#name {
+	font-family: 'PT Sans';
+	font-size: 26px;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#name h1 {
+	position: relative;
+	top: 20px;
+	margin: 0;
+}
+
+#slogan {
+	position: relative;
+	top: 15px;
+	margin: 0 auto;
+	width: 75%;
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	min-width: 525px;
+}
+
+#menu-wrapper {
+	width: 75%;
+	height: 70px;
+	margin: 0 auto;
+	min-width: 540px;
+}
+
+#menu {
+	font-family: 'PT Sans';
+	font-size: 22px;
+	position: relative;
+	top: 30px;
+	text-align: center;
+	width: 100%;
+	margin: 0 auto;
+	min-width: 540px;
+}
+
+#menu div {
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	display: inline-block;
+	height: 50px;
+	width: 90px;
+	background-color: none;
+	margin: 0 5px;
+}
+
+#menu div:hover {
+	background-color: #cd0100;
+}
+
+#menu div  p {
+	position: relative;
+	bottom: 10px;
+}
+
+#extras {
+	position: relative;
+	top: 10px;
+	margin: 0 auto;
+	height: 200px;
+	width: 75%;
+	/* background: rgb(69, 108, 152); */
+	background-color: #1b8cff;
+	border-radius: 5px 5px 0 0;
+	min-width: 540px;
+}
+
+#extras-left {
+	float: left;
+	height: 100%;
+	width: 65%;
+}
+
+#election-info {
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#election-info h1, #election-info h2, #election-info h3, 
+#election-info h5 {
+	margin: 0;
+}
+
+#election-info p {
+	margin: 0;
+	font-size: 11px;
+}
+
+
+#extras-right {
+	float: right;
+	height: 100%;
+	width: 35%;
+}
+
+#events {
+	width: 100%;
+	color: white;
+	text-shadow: .5px .5px 6px #000;
+}
+
+#events h5 {
+	margin: 15px auto;
+	text-align: center;
+}
+
+#events p {
+	margin: 0;
+	max-width:  200px;
+	word-wrap: break-word;
+}
+
+/* Lots of break-points to handle extras div text */
+@media (min-width: 0) {
+	#events {
+		position: relative;
+		top: 25px;
+	}
+	
+	#events p {
+		font-size: 11px;
+		max-width:  70px;
+	}
+	
+	.hidden {
+		display: none;
+	}
+	
+	#election-info {
+		position: relative;
+		top: 35px;
+	}
+	
+	#election-info h2, #election-info p,
+	#election-info h1,#election-info h5 {
+		max-width: 400px;
+	}
+	
+	#election-info p {
+		margin-bottom: 15px;
+	}
+}
+
+@media (min-width: 930px) {
+	#events {
+		top: -10px;
+	}
+	
+	/* These are the event date tags, couldn't find another way to affect them */
+	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3), 
+	#events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
+		margin-bottom: 9px;
+	}
+	
+	#events p {
+		font-size: 11px;
+		max-width:  90px;
+	}
+	
+	.hidden {
+		display: block;
+	}
+	
+	#election-info {
+		position: relative;
+		top: 5px;
+	}
+	
+	#election-info h2,#election-info p,
+	#election-info h1,#election-info h5	{
+		max-width: none;
+	}
+	
+	#election-info p {
+		margin-bottom: 10px;
+	}
+}
+
+@media (min-width: 1050px) {
+	#events p {
+		max-width:  125px;
+	}
+}
+
+@media (min-width: 1160px) {
+	#events p {
+		max-width:  175px;
+	}
+	
+	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3), 
+	#events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
+		margin-bottom: 0;
+	}
+	
+	#election-info p {
+		margin-bottom: 20px;
+	}
+}
+
+.left {
+	float: left;
+	margin: 0 10px;
+}
+
+.right {
+	float: right;
+	margin: 0 15px;
+}
+
+#content {
+	color: black;
+	background-color: #f2f2f2;
+	margin: 0 auto;
+	width: 75%;
+	min-width: 540px;
+}
+
+#content p {
+	margin: 10px 10px;
+}
+
+#content img {
+	height: 150px;
+	width: 150px;
+	margin: 10px 15px;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.emphasis {
+	font-family: 'PT Sans';
+	margin: 0 auto;
+	font-size: 24px;
+	width: 75%;
+}
+
+.image-1 {
+	float: left;
+}
+
+#content #image-2 {
+	float: right;
+}
+
+#footer {
+	background-color: #e70100;
+	margin: -12px auto;
+	width: 75%;
+	height: 60px;
+	text-align: center;
+	min-width: 540px;
+	border-radius: 0 0 5px 5px;
+}
+
+#social-media-links {
+	position: relative;
+	top: 5px;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#footer p {
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	display: inline-block;
+	margin: 0 25px;
+}
+
+.icon {
+	max-height: 50px;
+	max-width: 50px;
+}
+
