@@ -1260,7 +1260,7 @@ def scrape_home():
                    'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
                    'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
     picks = []
-    for number in range(0, 5):
+    for number in range(0, 4):
         pick = random.choice(suggestions)
         if pick in picks:
             continue
@@ -1279,7 +1279,7 @@ def scrape():
                    'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
                    'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
     picks = []
-    for number in range(0, 5):
+    for number in range(0, 4):
         pick = random.choice(suggestions)
         if pick in picks:
             continue

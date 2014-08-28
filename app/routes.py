@@ -73,6 +73,7 @@ def gif_display():
     return render_template("/blog/projects/project03.html",
                            title="Raspberry Pi GIF Display")
 
+
 @app.route('/gif-party')
 def gif_party_project():
     return render_template("/blog/projects/project04.html",
@@ -1243,7 +1244,7 @@ def scrape_home():
                    'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
                    'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
     picks = []
-    for number in range(0, 5):
+    for number in range(0, 4):
         pick = random.choice(suggestions)
         if pick in picks:
             continue
@@ -1262,7 +1263,7 @@ def scrape():
                    'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
                    'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
     picks = []
-    for number in range(0, 5):
+    for number in range(0, 4):
         pick = random.choice(suggestions)
         if pick in picks:
             continue
