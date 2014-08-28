@@ -89,7 +89,7 @@ ul.rig.columns-4 li {
 }
 
 /* Hidden li elements to help center singular elements */
-.hidden-li {
+#grey > ul:nth-child(3) > li.hidden-li {
 	display: none;
 }
 
