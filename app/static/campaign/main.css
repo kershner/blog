@@ -1,8 +1,7 @@
 html,body {
 	width: 99%;
 	height: 100%;
-	/* background-color: #00274D; */
-	background-color: #004081;
+	background-color: #f2f2f2;
 	font-family: 'Lato';
 }
 
@@ -24,6 +23,7 @@ html,body {
 	background: url(../images/campaign/school.jpg) center -200px;
 	border-radius: 0 0 5px 5px;
 	min-width: 540px;
+	box-shadow: 1px 1px 3px #000;
 }
 
 #name {
@@ -72,8 +72,8 @@ html,body {
 
 #menu div {
 	text-align: center;
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	color: #e70100;
+	text-shadow: .5px .5px .1px #000;
 	display: inline-block;
 	height: 50px;
 	width: 90px;
@@ -82,7 +82,7 @@ html,body {
 }
 
 #menu div:hover {
-	background-color: #cd0100;
+	background-color: #1b8cff;
 }
 
 #menu div  p {
@@ -96,7 +96,6 @@ html,body {
 	margin: 0 auto;
 	height: 200px;
 	width: 75%;
-	/* background: rgb(69, 108, 152); */
 	background-color: #1b8cff;
 	border-radius: 5px 5px 0 0;
 	min-width: 540px;
@@ -135,7 +134,7 @@ html,body {
 #events {
 	width: 100%;
 	color: white;
-	text-shadow: .5px .5px 6px #000;
+	text-shadow: .5px .5px 1px #000;
 }
 
 #events h5 {
@@ -248,7 +247,7 @@ html,body {
 
 #content {
 	color: black;
-	background-color: #f2f2f2;
+	background-color: white;
 	margin: 0 auto;
 	width: 75%;
 	min-width: 540px;
