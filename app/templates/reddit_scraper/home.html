@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
 
-    <link type="text/css" rel="stylesheet" href="/static/scraper.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/scraper_welcome.css"/>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src='/static/js/jquery.customSelect.min.js'></script>
@@ -54,12 +54,12 @@
                         <div>{{ form.minimum_score(placeholder="Minimum Score", maxlength=3) }}</div>
 
                         <div>
-                            <h3>Results From</h3>
+                            <p>Results From</p>
                             {{ form.results_from(class="select-box") }}
                         </div>
 
                         <div>
-                            <h3>Submissions to Scrape</h3>
+                            <p>Submissions to Scrape</p>
                             {{ form.number(class="select-box") }}
                         </div><br>
 

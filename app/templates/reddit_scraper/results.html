@@ -4,7 +4,7 @@
 
     <meta charset="UTF-8">
 
-    <link type="text/css" rel="stylesheet" href="/static/scraper.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/scraper_welcome.css"/>
 
     <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
@@ -26,8 +26,7 @@
             {% for url in good_urls %}
                 <li>
                     <a href="{{ url[0] }}"><img src="{{ url[0] }}"></a><br>
-                    {{ url[2] }}<br><br>
-                    <a class="permalink" href="{{ url[1] }}">Permalink</a>
+                    <a href="{{ url[1] }}">{{ url[2] }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -37,16 +36,16 @@
                 <ul>
                     {% for url in indirect_urls %}
                         <li>
+                            <a href="{{ url[1] }}"<p id="indirect-title">{{ url[2] }}</p>
                             <p>
-                                <a href="{{ url[0] }}">{{ url[0] }}</a><br>
-                                <a class="permalink" href="{{ url[1] }}">Permalink</a>
+                                <a href="{{ url[0] }}">{{ url[0] }}</a>
                             </p>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
-        <a href="/scrape_reddit"><h1 id="back">Back</h1></a>
+        <a id="back" href="/scrape_reddit"><h1>Back</h1></a>
     </div>
 </body>
 </html>

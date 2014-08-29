@@ -8,12 +8,7 @@ html {
 
 body {
 	font-family: 'Open Sans';
-	background: rgb(144, 172, 205);
-	background: -moz-linear-gradient(30deg, rgb(144, 172, 205) 30%, rgb(119, 156, 184) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(144, 172, 205) 30%, rgb(119, 156, 184) 70%);
-	background: -o-linear-gradient(30deg, rgb(144, 172, 205) 30%, rgb(119, 156, 184) 70%);
-	background: -ms-linear-gradient(30deg, rgb(144, 172, 205) 30%, rgb(119, 156, 184) 70%);
-	background: linear-gradient(120deg, rgb(144, 172, 205) 30%, rgb(119, 156, 184) 70%);
+	background-color: white;
 }
 
 a:link {
@@ -41,18 +36,13 @@ a:visited {
 
 #welcome-container p {
 	text-align: center;
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	color: black;
 }
 
 #welcome-div {
-	background: rgb(255, 102, 102);
-	background: -moz-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -o-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -ms-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: linear-gradient(142deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);	
-	border-radius: 10px;
+	background-color: #f2f2f2;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px #000;
 	height: 675px;
 	min-width: 500px;
 	margin-top: 5%;
@@ -61,11 +51,22 @@ a:visited {
 #welcome-div h1 {
 	position: relative;
 	margin: 0;
-	font-size: 52px;
 	width: 100%;
 	text-align: center;
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	color: #004185;
+	text-shadow: 1px 1px 1px #000;
+}
+
+@media (min-width: 0) {
+	#welcome-div h1 {
+		font-size: 42px;
+	}
+}
+
+@media (min-width: 1000px) {
+	#welcome-div h1 {
+		font-size: 52px;
+	}
 }
 
 .alert {
@@ -73,19 +74,11 @@ a:visited {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	background: rgb(69, 108, 152);
-	background: -moz-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -o-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -ms-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	border-radius: 10px;
+	background-color: rgb(28, 141, 255);
+	border-radius: 5px;
 	width: 400px;
 	height: 75px;
-	padding-top: 25px;
-	border-style: solid;
-	border-width: 2px;
-	border-color: black;	
+	padding-top: 25px;	
 }
 
 #welcome-container .alert p {
@@ -99,15 +92,13 @@ a:visited {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 15px;
 	min-width: 400px;
 	max-width: 400px;
 	height: 400px;
 }
 
 #form-container {
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	color: black;
 	margin-left: auto;
 	margin-right: auto;
 	min-width: 350px;
@@ -118,9 +109,7 @@ a:visited {
 
 #form-container p {
 	text-align: center;
-}
-
-#form-actual h3 {
+	font-size: 20px;
 	margin: 0;
 }
 
@@ -129,10 +118,9 @@ a:visited {
 }
 
 input {
-	background-color: #00b45b;
-	color: white;
-    text-shadow: 1px 1px 1px #000;
-	height: 55px;
+	background-color: white;
+	color: gray;
+    height: 55px;
 	line-height: 55px;
 	font-size: 35px;
 	padding-left: 25px;
@@ -141,55 +129,57 @@ input {
 	border-style: none;
 	border-radius: 5px;
 	box-shadow: .5px .5px 3px #000;
-	box-shadow: inset 0 0 10px 1px #000;
 }
 
 ::-webkit-input-placeholder {
    font-size: 24px;
-   color: white;
-   text-shadow: 1px 1px 1px #000;
+   color: #cccccc;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    font-size: 24px;
-   color: white;
-   text-shadow: 1px 1px 1px #000;
+   color: #cccccc;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    font-size: 24px;
-   color: white;
-   text-shadow: 1px 1px 1px #000;
+   color: #cccccc;
 }
 
 :-ms-input-placeholder {  
    font-size: 24px;
-   color: white;
-   text-shadow: 1px 1px 1px #000;
+   color: #cccccc;
 }
 
 .select-box {
-	color: white;
-	background-color: #66b3ff;
+	color: #cccccc;
+	background-color: white;
 	height: 25px;
-	width: 95%;	
+	width: 25%;	
 	height: 35px;
 	line-height: 35px;
 	font-size: 25px;
-	border-radius: 5px;
+	border-radius: 3px;
 	box-shadow: 1px 1px 3px #000;
-	box-shadow: inset 0 0 3px 1px #000;
 }
 
 .select-box.customSelectHover {
 	background-color: red;
 }
 
+#form-actual > form > div:nth-child(5) > p {
+	margin-top: 15px;
+}
+
 #submit {
-	background-color: #ffb366;
-	box-shadow: none;
+	background-color: #ff5151;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	height: 15px;
+	font-size: 28px;
+	padding-bottom: 55px;
+	border-radius: 3px;
 	box-shadow: 1px 1px 3px #000;
-	box-shadow: inset 0 0 3px 1px #000;
 }
 
 #submit:hover {
@@ -204,15 +194,10 @@ input {
 	color: white;
 	text-shadow: 1px 1px 1px #000;
 	width: 100%;
-	min-width: 400px;
+	min-width: 500px;
 	height: 75px;
-	border-radius: 10px;
-	background: rgb(69, 108, 152);
-	background: -moz-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -webkit-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -o-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: -ms-linear-gradient(30deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
-	background: linear-gradient(120deg, rgb(69, 108, 152) 30%, rgb(64, 87, 149) 70%);
+	border-radius: 3px;
+	background-color: #00cf68;
 	box-shadow: 1px 1px 3px #000;
 }
 
@@ -223,8 +208,8 @@ input {
 
 #suggestions p {
 	display: inline-block;
-	margin-left: 12px;
-	margin-right: 12px;
+	color: white;
+	margin: 0 12px;
 }
 
 
@@ -233,24 +218,22 @@ input {
    ********************************* */
 
 #results-container {
-	background: rgb(255, 102, 102);
-	background: -moz-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -webkit-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -o-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: -ms-linear-gradient(52deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);
-	background: linear-gradient(142deg, rgb(255, 102, 102) 24%, rgb(191, 92, 117) 88%);	
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	background-color: #f2f2f2;
 	box-shadow: 1px 1px 3px #000;
 	padding: 25px;
 	width: 75%;
+	min-width: 900px;
 	margin-left: auto;
 	margin-right: auto;
-	border-radius: 10px;
+	border-radius: 3px;
 }
 
-#results-title h1, h3, h5 {
-	margin: 5px;
+#results-title h1 {
+	margin: -5px 0;
+}
+
+#results-title h3, h5 {
+	margin: 3px 0;
 }
 
 img {
@@ -273,15 +256,12 @@ ul.rig li {
 	text-align: center;
 	color: black;
 	text-shadow: none;
-	background-color: #f2f2f2;
 	display: inline-block;
 	padding: 10px;
 	margin: 0 0 2.5% 2.5%;
-	border: 1px solid #ddd;
 	font-size: 16px;
 	font-size: 1rem;
 	vertical-align: top;
-	box-shadow: 0 0 5px #ddd;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -338,6 +318,11 @@ ul.rig.columns-4 li {
 	border-radius: 10px;
 }
 
+#indirect-urls h3 {
+	color: white;
+	text-shadow: 1px 1px 4px #000;
+}
+
 #indirect-urls ul {
 	list-style: none;
 	margin-left: auto;
@@ -357,6 +342,15 @@ ul.rig.columns-4 li {
 	box-shadow: 1px 1px 3px #000;
 }
 
+#indirect-urls #indirect-title {
+	font-size: 22px;
+	margin: 0;
+}
+#indirect-urls p {
+	font-size: 14px;
+	margin: 0;
+}
+
 #indirect-urls li a {
 	color: black;
 	text-shadow: none;
@@ -367,9 +361,13 @@ ul.rig.columns-4 li {
 	text-shadow: none;
 }
 
+#results-container > a {
+	width: 50
+}
+
 #back {
 	color: white;
-	text-shadow: 1px 1px 3px #000;
+	text-shadow: 1px 1px 5px #000;
 }
 
 #back:visited {

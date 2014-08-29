@@ -1344,14 +1344,14 @@ def scrape():
                             url = 'http://i.imgur.com' + submission.url[endpoint:] + '.jpg'
                             good_urls.append([url, submission.short_link, submission.title])
                         else:
-                            indirect_urls.append([submission.url, submission.short_link])
+                            indirect_urls.append([submission.url, submission.short_link, submission.title])
                     elif find_string('/gallery/')(submission.url):
                         print 'Submission (%s) is an Imgur album link' % submission.url
-                        indirect_urls.append([submission.url, submission.short_link])
+                        indirect_urls.append([submission.url, submission.short_link, submission.title])
                     elif find_string('http://imgur.com/')(submission.url):
                         if find_string('/a/')(submission.url):
                             print 'Submission (%s) is an Imgur album link' % submission.url
-                            indirect_urls.append([submission.url, submission.short_link])
+                            indirect_urls.append([submission.url, submission.short_link, submission.title])
                         else:
                             endpoint = submission.url.find('.com/')
                             url = submission.url[endpoint + 5:]
@@ -1366,13 +1366,13 @@ def scrape():
                                 good_urls.append([new_url, submission.short_link, submission.title])
                     elif find_string('qkme')(submission.url):
                         print 'QKME link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link])
+                        indirect_urls.append([submission.url, submission.short_link, submission.title])
                     elif find_string('youtube')(submission.url):
                         print 'Youtube link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link])
+                        indirect_urls.append([submission.url, submission.short_link, submission.title])
                     elif find_string('twitter')(submission.url):
                         print 'Twitter link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link])
+                        indirect_urls.append([submission.url, submission.short_link, submission.title])
                     elif '?' in submission.url:
                         endpoint = submission.url.find('?')
                         url = submission.url[:endpoint]
@@ -1386,7 +1386,7 @@ def scrape():
                             good_urls.append([url, submission.short_link, submission.title])
                     elif not submission.url.endswith(('.gif', '.png', '.jpg', '.jpeg')):
                         print 'Indirect URL: %s' % submission.url
-                        indirect_urls.append([submission.url, submission.short_link])
+                        indirect_urls.append([submission.url, submission.short_link, submission.title])
                     else:
                         if len(submission.title) > 75:
                             try:

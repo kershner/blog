@@ -111,8 +111,7 @@ class GifParty(Form):
 class RedditImageScraper(Form):
     subreddit_choice = StringField('Subreddit Choice', validators=[DataRequired('Please enter a subreddit.')])
     minimum_score = StringField('Minimum Score', validators=[DataRequired('Please enter a minimum score.')])
-    results_from = SelectField('Results From', choices=[('1', 'Hot'), ('2', 'All'), ('3', 'Year'),
-                                                                      ('4', 'Month')])
+    results_from = SelectField('Results From', choices=[('1', 'Hot'), ('4', 'Month'), ('3', 'Year'), ('2', 'All')])
     number = SelectField('Number of Submissions to Scrape', choices=[('5', '5'), ('10', '10'), ('20', '20'),
-                                                                                 ('50', '50')])
+                                                                                 ('50', '50'), ('100', '100')])
     submit = SubmitField('Submit')
