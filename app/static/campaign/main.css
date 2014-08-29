@@ -23,6 +23,7 @@ html,body {
 	background: url(../images/campaign/school.jpg) center -200px;
 	border-radius: 0 0 5px 5px;
 	min-width: 540px;
+	max-width: 800px;
 	box-shadow: 1px 1px 3px #000;
 }
 
@@ -50,6 +51,7 @@ html,body {
 	color: white;
 	text-shadow: 1px 1px 3px #000;
 	min-width: 525px;
+	max-width: 800px;
 }
 
 #menu-wrapper {
@@ -57,6 +59,7 @@ html,body {
 	height: 70px;
 	margin: 0 auto;
 	min-width: 540px;
+	max-width: 800px;
 }
 
 #menu {
@@ -68,6 +71,7 @@ html,body {
 	width: 100%;
 	margin: 0 auto;
 	min-width: 540px;
+	max-width: 800px;
 }
 
 #menu div {
@@ -99,6 +103,7 @@ html,body {
 	background-color: #1b8cff;
 	border-radius: 5px 5px 0 0;
 	min-width: 540px;
+	max-width: 800px;
 }
 
 #extras-left {
@@ -114,7 +119,7 @@ html,body {
 	text-align: center;
 }
 
-#election-info h1, #election-info h2, #election-info h3, 
+#election-info h1, #election-info h2, #election-info h3,
 #election-info h5 {
 	margin: 0;
 }
@@ -154,26 +159,26 @@ html,body {
 		position: relative;
 		top: 25px;
 	}
-	
+
 	#events p {
 		font-size: 11px;
 		max-width:  70px;
 	}
-	
+
 	.hidden {
 		display: none;
 	}
-	
+
 	#election-info {
 		position: relative;
 		top: 35px;
 	}
-	
+
 	#election-info h2, #election-info p,
 	#election-info h1,#election-info h5 {
 		max-width: 400px;
 	}
-	
+
 	#election-info p {
 		margin-bottom: 15px;
 	}
@@ -183,37 +188,38 @@ html,body {
 	#events {
 		top: -10px;
 	}
-	
+
 	/* These are the event date tags, couldn't find another way to affect them */
-	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3), 
+	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
 	#events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
 		margin-bottom: 9px;
 	}
-	
+
 	#events p {
 		font-size: 11px;
 		max-width:  90px;
 	}
-	
+
 	.hidden {
 		display: block;
 	}
-	
+
 	#election-info {
 		position: relative;
 		top: 5px;
 	}
-	
+
 	#election-info h2,#election-info p,
 	#election-info h1,#election-info h5	{
 		max-width: none;
 	}
-	
+
 	#election-info p {
 		margin-bottom: 10px;
 	}
 }
 
+/*
 @media (min-width: 1050px) {
 	#events p {
 		max-width:  125px;
@@ -224,16 +230,16 @@ html,body {
 	#events p {
 		max-width:  175px;
 	}
-	
-	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3), 
+
+	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
 	#events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
 		margin-bottom: 0;
 	}
-	
+
 	#election-info p {
 		margin-bottom: 20px;
 	}
-}
+}*/
 
 .left {
 	float: left;
@@ -251,6 +257,7 @@ html,body {
 	margin: 0 auto;
 	width: 75%;
 	min-width: 540px;
+	max-width: 800px;
 }
 
 #content p {
@@ -286,6 +293,7 @@ html,body {
 	height: 60px;
 	text-align: center;
 	min-width: 540px;
+	max-width: 800px;
 	border-radius: 0 0 5px 5px;
 }
 
