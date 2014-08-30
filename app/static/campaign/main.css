@@ -1,7 +1,7 @@
 html,body {
 	width: 99%;
 	height: 100%;
-	background-color: #f2f2f2;
+	background-color: #1c1bff;
 	font-family: 'Lato';
 }
 
@@ -76,7 +76,7 @@ html,body {
 
 #menu div {
 	text-align: center;
-	color: #e70100;
+	color: white;
 	text-shadow: .5px .5px .1px #000;
 	display: inline-block;
 	height: 50px;
@@ -162,7 +162,7 @@ html,body {
 
 	#events p {
 		font-size: 11px;
-		max-width:  70px;
+		max-width:  60px;
 	}
 
 	.hidden {
