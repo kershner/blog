@@ -8,6 +8,10 @@
 
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <script src="/static/campaign/js/slogan.js"></script>
+
     <meta charset="UTF-8">
 
     <title>Re-elect Campaign</title>
@@ -25,7 +29,7 @@
         </div>
 
         <div id="slogan">
-            <h1>Your first choice for student success!</h1>
+            <h2 id="slogan-start">Your first choice for </h2>
         </div>
 
     </div>
@@ -120,4 +124,14 @@
 </div>
 
 </body>
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    $(document).ready(function() {
+       getData();
+       setInterval(getData, 10000);
+    });
+</script>
+
 </html>

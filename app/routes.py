@@ -1410,3 +1410,18 @@ def scrape():
 @app.route('/campaign_demo')
 def campaign_demo():
     return render_template('/campaign/home.html')
+
+
+@app.route('/slogan')
+def slogan():
+    try:
+        variable = session['variables'].pop()
+    except IndexError:
+        session['variables'] = ['student success', 'fiscal responsibility', 'another slogan']
+        variable = session['variables'].pop()
+
+    data = {
+        "variable": variable
+    }
+
+    return jsonify(data)

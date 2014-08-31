@@ -54,6 +54,10 @@ html,body {
 	max-width: 800px;
 }
 
+#slogan h2 {
+	display: inline-block;
+}
+
 #menu-wrapper {
 	width: 75%;
 	height: 70px;
