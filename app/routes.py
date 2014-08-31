@@ -1409,16 +1409,13 @@ def scrape():
 ##############################################################################
 @app.route('/campaign_demo')
 def campaign_demo():
+    session['variables'] = ['student success', 'fiscal responsibility', 'another slogan']
     return render_template('/campaign/home.html')
 
 
 @app.route('/slogan')
 def slogan():
-    try:
-        variable = session['variables'].pop()
-    except IndexError:
-        session['variables'] = ['student success', 'fiscal responsibility', 'another slogan']
-        variable = session['variables'].pop()
+    variable = random.choice(session['variables'])
 
     data = {
         "variable": variable

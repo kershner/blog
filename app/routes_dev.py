@@ -1431,11 +1431,7 @@ def campaign_demo():
 
 @app.route('/slogan')
 def slogan():
-    try:
-        variable = session['variables'].pop()
-    except IndexError:
-        session['variables'] = ['student success', 'fiscal responsibility', 'another slogan']
-        variable = session['variables'].pop()
+    variable = random.choice(session['variables'])
 
     data = {
         "variable": variable
