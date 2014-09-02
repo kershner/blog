@@ -5,7 +5,9 @@ html,body {
 }
 
 html {
-	background: url(../images/campaign/ypsi-school.jpg) center -200px;
+	background: url(../images/campaign/ypsi-school.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 /* div {
