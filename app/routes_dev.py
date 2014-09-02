@@ -1253,7 +1253,7 @@ def delete_entry(id):
 ##############################################################################
 ## Reddit Image Scraper
 ##############################################################################
-@app.route('/scrape_reddit', methods=['GET', 'POST'])
+@app.route('/scrape', methods=['GET', 'POST'])
 def scrape_home():
     form = RedditImageScraper()
     suggestions = ['pugs', 'earthporn', 'kittens', 'gaming', 'pics', 'awww', 'funny', 'adviceanimals', 'gifs',
@@ -1272,7 +1272,7 @@ def scrape_home():
                            picks=picks)
 
 
-@app.route('/scrape', methods=['GET', 'POST'])
+@app.route('/scrape-reddit', methods=['GET', 'POST'])
 def scrape():
     form = RedditImageScraper()
     suggestions = ['pugs', 'earthporn', 'kittens', 'gaming', 'pics', 'awww', 'funny', 'adviceanimals', 'gifs',
@@ -1425,7 +1425,8 @@ def scrape():
 ##############################################################################
 @app.route('/campaign_demo')
 def campaign_demo():
-    session['variables'] = ['student success', 'fiscal responsibility', 'another slogan']
+    session['variables'] = ['student success', 'fiscal stability', 'another slogan',
+                            'student achievement', 'community satisfaction']
     return render_template('/campaign/home.html')
 
 
