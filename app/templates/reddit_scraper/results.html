@@ -36,7 +36,7 @@
                 <ul>
                     {% for url in indirect_urls %}
                         <li>
-                            <a href="{{ url[1] }}"<p id="indirect-title">{{ url[2] }}</p>
+                            <a href="{{ url[1] }}"><p id="indirect-title">{{ url[2] }}</p></a>
                             <p>
                                 <a href="{{ url[0] }}">{{ url[0] }}</a>
                             </p>
@@ -45,7 +45,7 @@
                 </ul>
             </div>
         {% endif %}
-        <a id="back" href="/scrape_reddit"><h1>Back</h1></a>
+        <a id="back" href="/scrape"><h1>Back</h1></a>
     </div>
 </body>
 </html>
