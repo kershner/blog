@@ -2,12 +2,14 @@ html,body {
 	width: 99%;
 	height: 100%;
 	font-family: 'Lato';
+	-webkit-font-smoothing: antialiased;
 }
 
 html {
 	background: url(../images/campaign/ypsi-school.jpg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: #3e68b0;
 }
 
 /* div {
@@ -22,10 +24,10 @@ html {
 }
 
 #header {
+	background-color: #113B82;
 	margin: -30px auto;
 	height: 200px;
 	width: 75%;
-	background-color: #e70100;
 	border-radius: 0 0 5px 5px;
 	min-width: 540px;
 	max-width: 800px;
@@ -65,10 +67,14 @@ html {
 	margin: 0 auto;
 	width: 75%;
 	text-align: center;
-	color: white;
+	color: #e9f0f5;
 	text-shadow: 1px 1px 3px #000;
 	min-width: 525px;
 	max-width: 800px;
+}
+
+.prepended {
+	color: #9cd785;
 }
 
 #slogan h2 {
@@ -107,7 +113,7 @@ html {
 }
 
 #menu div:hover {
-	background-color: #e70100;
+	background-color: #113B82;
 }
 
 #menu div  p {
@@ -116,12 +122,12 @@ html {
 }
 
 #extras {
+	background-color: #113B82;
 	position: relative;
 	top: 10px;
 	margin: 0 auto;
 	height: 200px;
 	width: 75%;
-	background-color: #1b8cff;
 	border-radius: 5px 5px 0 0;
 	min-width: 540px;
 	max-width: 800px;
@@ -139,6 +145,14 @@ html {
 	text-shadow: 1px 1px 3px #000;
 	margin: 0 auto;
 	text-align: center;
+}
+
+#register {
+	color: #FFEB97;
+}
+
+#register h5 {
+	color: #FFE36C;
 }
 
 #election-info h1, #election-info h2, #election-info h3,
@@ -161,7 +175,7 @@ html {
 #events {
 	width: 100%;
 	color: white;
-	text-shadow: .5px .5px 1px #000;
+	text-shadow: .5px .5px .5px #000;
 }
 
 #events h5 {
@@ -241,28 +255,6 @@ html {
 	}
 }
 
-/*
-@media (min-width: 1050px) {
-	#events p {
-		max-width:  125px;
-	}
-}
-
-@media (min-width: 1160px) {
-	#events p {
-		max-width:  175px;
-	}
-
-	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
-	#events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
-		margin-bottom: 0;
-	}
-
-	#election-info p {
-		margin-bottom: 20px;
-	}
-}*/
-
 .left {
 	float: left;
 	margin: 0 10px;
@@ -296,6 +288,7 @@ html {
 
 .emphasis {
 	font-family: 'PT Sans';
+	color: #5E84C5;
 	margin: 0 auto;
 	font-size: 24px;
 	width: 75%;
@@ -310,7 +303,7 @@ html {
 }
 
 #footer {
-	background-color: #e70100;
+	background-color: #113B82;
 	margin: -12px auto;
 	width: 75%;
 	height: 60px;
