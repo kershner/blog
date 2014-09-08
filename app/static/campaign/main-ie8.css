@@ -1,0 +1,21 @@
+#election-info {
+	margin-top: 25px;
+}
+
+#register h1 {
+	margin-top: 20px;
+	font-size: 22px;
+}
+
+#events p {
+	max-width: 60px;
+	font-size: 12px;
+}
+
+.hidden {
+	display: none;
+}
+
+#second-headline {
+	color: #9cd785;
+}

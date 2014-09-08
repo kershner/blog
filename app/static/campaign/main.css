@@ -12,6 +12,14 @@ html {
 	background-color: #3e68b0;
 }
 
+/* Eliminating background image for mobile */
+@media screen and (max-device-width: 480px){
+  html {
+    background: none;
+	background-color: #3e68b0;
+  }
+}
+
 /* div {
 	border-style: solid;
 	border-width: 1px;
@@ -95,7 +103,7 @@ html {
 	display: inline-block;
 	height: 50px;
 	width: 150px;
-	background-color: #113B82;
+	background-color: #9cd785;
 	border-radius: 5px 5px 0 0;
 	margin: 0;
 	text-shadow: 1px 1px 2px #000;
@@ -103,7 +111,9 @@ html {
 }
 
 #menu div:hover {
-	background-color: #9cd785;
+	background-color: #113B82;
+	z-index: 3;
+	box-shadow: none;
 }
 
 #menu div  p {
@@ -172,7 +182,7 @@ html {
 
 #register {
 	color: white;
-	width: 75%;
+	width: 60%;
 	margin: 0 auto;
 }
 
@@ -361,14 +371,18 @@ html {
 	width: 75%;
 	min-width: 430px;
 	margin: 0 auto;
-	text-align: justify;
+	text-align: left;
 }
 
 .justify-50 {
 	width: 15%;
-	min-width: 350px;
+	min-width: 300px;
 	text-align: justify;
 	margin: 0 auto;
+}
+
+.justify-50 .emphasis {
+	text-align: center;
 }
 
 #footer {
