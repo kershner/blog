@@ -5,7 +5,7 @@
     <link type="text/css" rel="stylesheet" href="/static/campaign/main.css"/>
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
-
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -23,26 +23,24 @@
 <div id="wrapper">
 
     <div id="header">
+        <img src="../static/images/campaign/YpsiBoard.jpg">
+        <div id="header-text">
 
-        <div id="name">
-            <h1>Committee to Re-Elect Ypsilanti School Board</h1>
-        </div>
-
-        <div id="slogan">
-            <h2 id="slogan-start">Your first choice for </h2>
+            <div id="slogan">
+                <h2 id="slogan-start">Your <span id="first-choice">first choice</span> for </h2>
+            </div>
         </div>
 
     </div>
+    <br>
 
     <div id="menu-wrapper">
 
         <div id="menu">
 
-            <div><p>HOME</p></div>
-            <div><p>ABOUT</p></div>
-            <div><p>ISSUES</p></div>
-            <div><p>EVENTS</p></div>
-            <div><p>CONTACT</p></div>
+            <a href="#"><div><p>HOME</p></div></a>
+            <a href="#"><div><p>MEMBERS</p></div></a>
+            <a href="#"><div><p>CONTACT</p></div></a>
 
         </div>
 
@@ -60,7 +58,7 @@
 
                 <div id="register">
                     <h1>Register Now!</h1>
-                    <h5>Election Info | Where to Vote</h5>
+                    <a href="#"><h5>Election Info</h5></a> <h5>|</h5> <a href="#"><h5>Where to Vote</h5></a>
                 </div>
             </div>
         </div>
@@ -82,7 +80,7 @@
                     <p class="date">Aug 21st, 7pm</p><br>
                     <p class="date">Aug 24th, 7pm</p><br>
                     <p class="date hidden">Aug 28th, 7pm</p><br>
-                    <p class="date hidden">October 19th, 7pm</p>
+                    <p class="date hidden">Oct 19th, 7pm</p>
                 </div>
 
             </div>
@@ -92,28 +90,67 @@
     </div>
 
     <div id="content">
-        <br>
-        <img class="image-1" src="#">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget ipsum in diam maximus luctus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed dictum arcu non risus fermentum euismod. Cras volutpat vel neque sed hendrerit. Sed ligula quam, ultrices eget placerat eu, accumsan et ipsum. Nunc sollicitudin posuere condimentum. Vestibulum nec velit libero. Curabitur vehicula augue sit amet velit ultrices posuere.
-            <br><br>
-        </p>
-            <div class="emphasis">"Ut finibus, libero nec luctus tempor, nunc neque condimentum quam, sit amet porta nisi sapien vel dui."</div>
-        <p>
-            Fusce rutrum semper turpis sed ornare.
-            Praesent vehicula, quam at sagittis mollis, augue tortor elementum velit, at lacinia neque mauris id nulla. Etiam sed ligula non felis facilisis pretium et vel mauris. Donec dui ipsum, ultrices vitae porttitor in, aliquet id nisi. Cras gravida, dui at aliquet euismod, lorem mauris tincidunt neque, et rutrum tellus leo at purus.
-            <br><br>
-            <img id="image-2" src="#">
-            Sed laoreet non enim ut interdum. Donec vel felis tempus, dapibus est at, commodo justo. Proin egestas egestas dolor eu egestas. Proin fringilla, dolor ut sollicitudin congue, lacus lectus tempor libero, quis egestas eros ligula non tellus. Aenean vel eleifend elit. Quisque imperdiet tristique elit vehicula rhoncus. In hac habitasse platea dictumst. Nunc ultricies at dui at pulvinar. Nam scelerisque lectus eu consectetur finibus. Nam vel odio laoreet tellus ornare gravida. Sed a mi sed libero laoreet hendrerit.
-            <br><br>
-            <div class="emphasis">Sed laoreet non enim ut interdum. Donec vel felis tempus, dapibus est at, commodo justo.</div>
-        <p>
-            Proin egestas egestas dolor eu egestas. Proin fringilla, dolor ut sollicitudin congue, lacus lectus tempor libero, quis egestas eros ligula non tellus. Aenean vel eleifend elit. Quisque imperdiet tristique elit vehicula rhoncus. In hac habitasse platea dictumst. Nunc ultricies at dui at pulvinar. Nam scelerisque lectus eu consectetur finibus.
-            Nam vel odio laoreet tellus ornare gravida. Sed a mi sed libero laoreet hendrerit.
-            Sed laoreet non enim ut interdum. Donec vel felis tempus, dapibus est at, commodo justo. Proin egestas egestas dolor eu egestas. Proin fringilla, dolor ut sollicitudin congue, lacus lectus tempor libero, quis egestas eros ligula non tellus. Aenean vel eleifend elit. Quisque imperdiet tristique elit vehicula rhoncus. In hac habitasse platea dictumst. Nunc ultricies at dui at pulvinar. Nam scelerisque lectus eu consectetur finibus. Nam vel odio laoreet tellus ornare gravida. Sed a mi sed libero laoreet hendrerit.
-        <br><br><br>
-        </p>
 
+        <div id="headlines">
+            <h1 id="first-headline">Keep Your Ypsilanti Community Schools on Track!</h1>
+            <h2 id="second-headline">We	have 4500 students in Ypsilanti	who	need your support.</h2>
+            <h1 id="third-headline">Retain the YCS Board of	Education!</h1>
+        </div>
+
+        <br><br>
+        <div id="content-inner">
+
+            <div id="fiscal">
+                <h1 class="emphasis">Fiscal	Stability</h1>
+                <p>
+                    We are <strong>OFF</strong> the deficit list!<br><br>
+                    First balanced budget in <strong>10 years</strong>.<br><br>
+                    We still need a plan for long-range fiscal stability.
+                </p>
+                <br>
+            </div>
+
+            <hr>
+            <br>
+            <h1 class="emphasis">Student Achievement</h1>
+            <br>
+            <div class="justify">
+                <p>
+                    <strong>NEW:</strong> Balanced calendar at Holmes Elementary shortens the summer break, spreading learning more evenly throughout the year.<br><br>
+                    <strong>NEW:</strong> Washtenaw International Middle Academy (WIMA), an International Baccalaureate school, prepares students for the rigor of high school and college.<br><br>
+                    <strong>NEW:</strong> Partnership with Washtenaw Community College offers career certificates in Health and Construction trades, or the option to earn college credit.
+                </p>
+                <br>
+            </div>
+
+            <h3 class="emphasis">We still need:</h3>
+            <div class="justify-50">
+                <p>
+                    <strong>More</strong> Pre-K and Young 5 programs.<br>
+                    <strong>More</strong> career credential programs.<br>
+                    <strong>More</strong> balanced schools.<br>
+                    An IB school at the elementary level.
+                </p>
+                <br>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            <h1 class="emphasis">We Are Working to Change the Culture</h1>
+            <br>
+            <div class="justify">
+                <p>
+                    Small learning communities function as a “school within a school” and help create safe and supportive learning environments.<br><br>
+                    Restorative practices teach students to take responsibility for their actions, and we are committed to teaching cultural proficiency district wide.<br><br>
+                    We still need Family Resource Centers to support families and students.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <img src="#">
+        <br><br>
     </div>
 
     <div id="footer">
