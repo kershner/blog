@@ -14,10 +14,15 @@ html {
 
 /* Eliminating background image for mobile */
 @media screen and (max-device-width: 480px){
-  html {
-    background: none;
-	background-color: #3e68b0;
-  }
+	html {
+		background: none;
+		background-color: #3e68b0;
+	}
+
+	#register h1 {
+		margin-top: 20px;
+		font-size: 22px;
+	}
 }
 
 /* div {

@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
 
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" name="viewport" content="initial-scale=1">
 
     <link rel="stylesheet" href="/static/campaign/main.css"/>
 
@@ -14,9 +14,6 @@
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="/static/campaign/js/slogan.js"></script>
-
     <title>Re-elect Campaign</title>
 
 </head>
@@ -26,7 +23,7 @@
 <div id="wrapper">
 
     <div id="header">
-        <img src="../static/images/campaign/YpsiBoard.jpg">
+        <img alt="The current Ypsilanti School Board" src="../static/images/campaign/YpsiBoard.jpg">
         <div id="header-text">
 
             <div id="slogan">
@@ -155,14 +152,14 @@
         </div>
 
         <br>
-        <img src="#">
+        <img alt="Non-existent image" src="#">
         <br><br>
     </div>
 
     <div id="footer">
         <div id="social-media-links">
-            <img class="icon" src="/static/images/campaign/twitter.png">
-            <img class="icon" src="/static/images/campaign/facebook.png">
+            <img class="icon" alt="Twitter Icon" src="/static/images/campaign/twitter.png">
+            <img class="icon" alt="Facebook Icon" src="/static/images/campaign/facebook.png">
         </div>
     </div>
     <br><br>
@@ -170,6 +167,9 @@
 </div>
 
 </body>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/static/campaign/js/slogan.js"></script>
 
 <script>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
