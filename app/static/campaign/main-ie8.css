@@ -2,9 +2,12 @@
 	margin-top: 25px;
 }
 
-#register h1 {
-	margin-top: 20px;
-	font-size: 22px;
+#election-info p {
+	margin-bottom: 25px;
+}
+
+#election-info h3 {
+	max-width: 500px;
 }
 
 #events p {

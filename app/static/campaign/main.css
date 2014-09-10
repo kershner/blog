@@ -18,18 +18,26 @@ html {
 		background: none;
 		background-color: #3e68b0;
 	}
-
-	#register h1 {
-		margin-top: 20px;
-		font-size: 22px;
-	}
 }
 
-/* div {
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-} */
+a:link, a:visited {
+	color: #3e68b0;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #9cd785;
+}
+
+hr {
+	width: 80%;
+	border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+}
 
 #wrapper {
 	height: 100%;
@@ -50,9 +58,29 @@ html {
 
 #header-text {
 	position: absolute;
+	bottom: 0;
 	width: 100%;
-	bottom: 20px;
 	z-index: 1;
+	color: #e9f0f5;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#header-text h1 {
+	position: relative;
+	top: 50px;
+	font-family: 'Merriweather';
+}
+
+@media (min-width: 0) {
+	#header-text h1 {
+		font-size: 32px;
+	}
+}
+
+@media (min-width: 870px) {
+	#header-text h1 {
+		font-size: 42px;
+	}
 }
 
 #header img {
@@ -68,16 +96,13 @@ html {
 	position: relative;
 	margin: 0 auto;
 	width: 100%;
-	z-index: 1;
-	color: #e9f0f5;
-	text-shadow: 1px 1px 3px #000;
 }
 
 #slogan h2 {
 	display: inline-block;
 }
 
-#first-choice {
+.first-choice {
 	color: #9cd785;
 }
 
@@ -152,7 +177,7 @@ html {
 }
 
 @media (min-width: 0) {
-	#first-headline, #third-headline {
+	#first-headline {
 		font-size: 23px;
 	}
 	
@@ -163,7 +188,7 @@ html {
 }
 
 @media (min-width: 1000px) {
-	#first-headline, #third-headline {
+	#first-headline {
 		font-size: 32px;
 	}
 	
@@ -185,26 +210,18 @@ html {
 	text-align: center;
 }
 
-#register {
-	color: white;
-	width: 60%;
-	margin: 0 auto;
-}
-
-#register h5 {
-	display: inline-block;
-	color: #9cd785;
-}
-
-#register h5:hover {
-	color: red;
-}
-
-#election-info h1, h2, h3, h5 {
+#election-info h2, h3 {
+	position: relative;
 	margin: 0;
+	font-family: 'Merriweather';
+}
+
+#election-info h1 {
+	position: relative;
 }
 
 #election-info p {
+	position: relative;
 	margin: 0;
 	font-size: 11px;
 	color: #9cd785;
@@ -223,8 +240,9 @@ html {
 }
 
 #events h5 {
-	margin: 15px auto;
+	margin: 20px auto;
 	text-align: center;
+	font-family: 'Merriweather';
 }
 
 #events p {
@@ -237,7 +255,7 @@ html {
 @media (min-width: 0) {
 	#events {
 		position: relative;
-		top: 25px;
+		top: 10px;
 	}
 
 	#events p {
@@ -251,7 +269,7 @@ html {
 
 	#election-info {
 		position: relative;
-		top: 35px;
+		top: 25px;
 	}
 
 	#election-info h2, #election-info p,
@@ -291,7 +309,7 @@ html {
 
 	#election-info {
 		position: relative;
-		top: 10px;
+		top: 45px;
 	}
 
 	#election-info h2,#election-info p,
@@ -301,6 +319,16 @@ html {
 
 	#election-info p {
 		margin-bottom: 10px;
+	}
+	
+	#election-info h1, #election-info h2,
+	#election-info p	{
+		position: relative;
+	
+	}
+	
+	#election-info p {
+		margin-bottom: 15px;
 	}
 }
 
@@ -324,16 +352,6 @@ html {
 	min-width: 540px;
 	max-width: 800px;
 	box-shadow: 1px 1px 1px #000;
-}
-
-#content hr {
-	width: 80%;
-	border: 0;
-    height: 1px;
-    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
-    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
-    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
-    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
 }
 
 #content img {
@@ -369,6 +387,7 @@ html {
 
 #fiscal p {
 	font-size: 19px;
+	font-family: 'Lato';
 }
 
 .justify {
@@ -388,6 +407,32 @@ html {
 
 .justify-50 .emphasis {
 	text-align: center;
+}
+
+#retain {
+	width: 100%;
+}
+
+#retain h1 {
+	font-family: 'Merriweather';
+	color: #9cd785;
+	max-width: 100%;
+}
+
+#blue {
+	color: #113B82;
+}
+
+#retain #names {
+	margin: 0 auto;
+	width: 75%;
+}
+
+#retain #names p {
+	display: inline-block;
+	font-family: 'PT Sans';
+	font-size: 18px;
+	margin: 0 5px;
 }
 
 #footer {
@@ -412,10 +457,15 @@ html {
 }
 
 #footer p {
-	color: white;
-	text-shadow: 1px 1px 3px #000;
+	color: #f2f2f2;
+	font-size: 8px;
 	display: inline-block;
-	margin: 0 25px;
+	margin: 0 2px;
+}
+
+#fine-print {
+	margin: 0 auto;
+	width: 65%;
 }
 
 .icon {
