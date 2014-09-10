@@ -27,7 +27,7 @@ API_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
                     The Steam Web API can output its response in either XML or JSON, and of course I chose JSON because
                     I'm familiar with it, it works well with Python, and it's just plain cleaner than XML.<br><br>
                     As I've noted in the comment, the API uses different URLs for different services.  So you'll end up
-                    using one URL for player data and different one for game data, for example.
+                    using one URL for player data and a different one for game data, for example.
                 </p>
 
                 <pre><code data-language="python">user_input = raw_input('Enter your steam profile name: > ').lower()
@@ -42,13 +42,15 @@ try:
 </code></pre>
                 <p>
                     Here I'm grabbing the user's provided Steam profile name and adding it to the API's SteamID URL
-                    to finally return their corresponding 64-bit Steam ID, which is how the API identifies the user. I should
-                    note that in my finalized app I'll need to account for both a Steam Vanity URL and the plain 17-digit SteamID as inputs
-                    in case the user has not established a vanity URL.<br><br>
-                    The finalized URL becomes my actual API call.  The response is then decoded by
-                    <a href="https://docs.python.org/2/library/json.html#json.loads">json.loads</a> and read by Python.
+                    to return their corresponding 64-bit Steam ID, which is how the API identifies the user. I should
+                    note that in my finalized app I'll need to account for both a Steam vanity URL and the plain 17-digit SteamID as inputs
+                    in case the user has not yet established a vanity URL.<br><br>
+                    The finalized URL is fed to <a href="https://docs.python.org/2/library/urllib2.html#urllib2.urlopen">urllib2.urlopen()</a> and
+                    becomes my actual API call.  The response is then decoded by
+                    <a href="https://docs.python.org/2/library/json.html#json.loads">json.loads()</a> and read by Python.
                 </p>
-    <pre><code data-language="python">minutes_played = []
+    <pre><code data-language="python">
+    minutes_played = []
 
     for game in data['response']['games']:
         minutes_played.append([game['name'], game['playtime_forever']])
@@ -64,7 +66,8 @@ try:
                     Lambda is apparently pretty confusing for many aspiring programmers, and I certainly don't fully understand it just yet.  As far as I can gather it's used as an 'anonymous' or
                     'one-off' function as a sort of shortcut to save space/cut down on verbosity within other operations.  I'll be looking into it more to try and wrap my head around it further.
                 </p>
-    <pre><code data-language="python">counter = 0
+    <pre><code data-language="python">
+    counter = 0
     print '##################################################'
     print '#   %s\'s Top 5 Most' % user_input
     print '#   Played Steam Games'
@@ -81,7 +84,7 @@ except KeyError:
     print '\nInvalid profile name, please try again.'</code></pre>
                 <p>
                     And the final part - the output!  I create a counter variable because for this simple script I only want the top 5
-                    most played games to display.  The try/except clause is there to catch an invalid profile name/ID.<br><br>
+                    most played games to display.  The except clause is there to catch an invalid profile name/ID.<br><br>
                     And here's what the output looks like:
                 </p>
     <pre><code>Enter your steam profile name: > billcrystals
@@ -97,9 +100,9 @@ except KeyError:
 #   Left 4 Dead -- 85 hours
 ##################################################</code></pre>
                 <p>
-                    And there you have it!  As you can see, I've played entirely too much Left 4 Dead 2.<br><br>I think I've got a great
-                    start on this project.  Next up will be building an algorithm to create the histogram/word cloud-like size variance
-                    of the individual game playtimes, and from there it's on to the front end.<br><br>
+                    And there you have it!  Apparently I've played entirely too much Left 4 Dead 2.<br><br>I think I've got a great
+                    start on this project.  Next up I will be building the algorithm to create the histogram/word cloud-like size variance
+                    of the individual game playtimes, and from there it's on to the front end for the website.<br><br>
                     I'll find some time to continue working on the project and hopefully have a completed application to show off soon.<br><br>
                     Thanks for reading!
                 </p>
