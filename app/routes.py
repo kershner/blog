@@ -16,7 +16,7 @@ from app import app, db, models
 ##############################################################################
 @app.route('/')
 def home():
-    return render_template("/blog/home.html",
+    return render_template("/blog/base.html",
                            title="Home")
 
 
@@ -1257,7 +1257,7 @@ def scrape_home():
         else:
             picks.append(pick)
 
-    return render_template('/reddit_scraper/home.html',
+    return render_template('/reddit_scraper/base.html',
                            form=form,
                            picks=picks)
 
@@ -1278,7 +1278,7 @@ def scrape():
 
     if request.method == 'POST':
         if not form.validate():
-            return render_template('/reddit_scraper/home.html',
+            return render_template('/reddit_scraper/base.html',
                                    form=form,
                                    picks=picks)
         else:
@@ -1293,7 +1293,7 @@ def scrape():
                 min_score = int(form.minimum_score.data)
             except ValueError:
                 message = 'Enter a numerical value for minimum score'
-                return render_template('/reddit_scraper/home.html',
+                return render_template('/reddit_scraper/base.html',
                                        form=form,
                                        picks=picks,
                                        message=message)
@@ -1388,7 +1388,7 @@ def scrape():
                             good_urls.append([submission.url, submission.short_link, submission.title])
             except (praw.errors.RedirectException, requests.HTTPError):
                 message = 'It looks like /r/%s doesn\'t exist!' % subreddit
-                return render_template('/reddit_scraper/home.html',
+                return render_template('/reddit_scraper/base.html',
                                        form=form,
                                        message=message,
                                        picks=picks)
@@ -1406,7 +1406,7 @@ def scrape():
                                    results_from=results_from,
                                    number=number)
     else:
-        return render_template('/reddit_scraper/home.html',
+        return render_template('/reddit_scraper/base.html',
                                form=form)
 
 
@@ -1417,7 +1417,7 @@ def scrape():
 def campaign_demo():
     session['variables'] = ['student success', 'fiscal stability', 'another slogan',
                             'student achievement', 'community satisfaction']
-    return render_template('/campaign/home.html')
+    return render_template('/campaign/base.html')
 
 
 @app.route('/slogan')

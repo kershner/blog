@@ -8,8 +8,9 @@ html,body {
 html {
 	background: url(../images/campaign/ypsi-school.jpg);
 	background-repeat: no-repeat;
-	background-position: -600px 0;
+	background-position: 0 0;
 	background-color: #3e68b0;
+	background-attachment: fixed;
 }
 
 /* Eliminating background image for mobile */
@@ -168,12 +169,14 @@ hr {
 	background-color: #5E84C5;
 	position: relative;
 	z-index: 1;
-	display: inline-block;
 	text-align: center;
 	margin: 0 auto;
-	width: 100%;
+	width: 75%;
+	min-width: 540px;
+	max-width: 800px;
 	color: white;
 	text-shadow: 1px 1px 1px #000;
+	box-shadow: 1px -.5px 1px #000;
 }
 
 @media (min-width: 0) {
@@ -357,8 +360,8 @@ hr {
 #content img {
 	display: block;
 	margin: 0 auto;
-	height: 150px;
-	width: 150px;
+	max-width: 200px;
+	max-height: 400px;
 	box-shadow: 1px 1px 3px #000;
 }
 
@@ -419,7 +422,7 @@ hr {
 	max-width: 100%;
 }
 
-#blue {
+.blue {
 	color: #113B82;
 }
 
@@ -449,13 +452,6 @@ hr {
 	box-shadow: 1px 1px 1px #000;
 }
 
-#social-media-links {
-	position: relative;
-	top: 5px;
-	width: 50%;
-	margin: 0 auto;
-}
-
 #footer p {
 	color: #f2f2f2;
 	font-size: 8px;
@@ -468,7 +464,92 @@ hr {
 	width: 65%;
 }
 
-.icon {
-	max-height: 50px;
-	max-width: 50px;
+/* *********************************
+   Candidates Page 
+   *********************************/
+#candidates {
+	position: relative;
+	padding: 15px;
+	margin: 0 auto;
+	min-width: 540px;
+	max-width: 800px;
+}
+
+/* *********************************
+   Candidates Grid
+   ********************************* */
+ul.rig {
+	list-style: none;
+	margin-left: 2.5%; /* should match li left margin */
+	margin-right: 2.5%;
+}
+
+ul.rig li {
+	text-align: left;
+	width: 300px;
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 2.5% 2.5%;
+	vertical-align: top;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+ul.rig li img {
+	max-width: 75%;
+	max-height: 75%;
+	height: auto;
+	margin: 0 0 10px;
+	border-radius: 5px;
+}
+
+ul.rig li h2 {
+	text-align: center;
+	margin: 0 0 5px;
+	font-family: 'Merriweather';
+	color: #113B82;
+}
+
+ul.rig li p {
+	font-size: 16px;
+	line-height: 1.5em;
+	color: black;
+}
+
+/* class for 2 columns */
+ul.rig.columns-2 li {
+	width: 47.5%; /* this value + 2.5 should = 50% */
+}
+
+/* class for 3 columns */
+ul.rig.columns-3 li {
+	width: 30.83%; /* this value + 2.5 should = 33% */
+}
+
+/* class for 4 columns */
+ul.rig.columns-4 li {
+	width: 22.5%; /* this value + 2.5 should = 25% */
+}
+
+@media (min-width: 480px) {
+	ul.grid-nav li {
+		display: block;
+		margin: 0 0 5px;
+	}
+	ul.grid-nav li a {
+		display: block;
+	}
+	ul.rig {
+		margin-left: 0;
+	}
+	ul.rig li {
+		width: 50%; /*!important;  over-ride all li styles */
+		margin: 0 0 20px;
+	}
+}
+
+#greg {
+	width: 200px;
+	height: 300px;
 }
