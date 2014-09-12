@@ -549,6 +549,20 @@ ul.rig.columns-4 li {
 	}
 }
 
+@media (min-width: 0) {
+	#maria {
+		font-size: 16px;
+		margin-bottom: 15px;
+	}
+}
+
+@media (min-width: 895px) {
+	#maria {
+		font-size: 22px;
+		margin-bottom: 5px;
+	}
+}
+
 #greg {
 	width: 200px;
 	height: 300px;
