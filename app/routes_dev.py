@@ -1451,3 +1451,7 @@ def slogan():
 @app.route('/candidates')
 def candidates():
     return render_template('/campaign/candidates.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('/campaign/contact.html')

@@ -1,3 +1,6 @@
+/*Reset Safari User Agent Styles*/
+* {-webkit-padding-start: 0px;}
+
 html,body {
 	width: 99%;
 	height: 100%;
@@ -480,8 +483,6 @@ hr {
    ********************************* */
 ul.rig {
 	list-style: none;
-	margin-left: 2.5%; /* should match li left margin */
-	margin-right: 2.5%;
 }
 
 ul.rig li {
@@ -532,7 +533,7 @@ ul.rig.columns-4 li {
 	width: 22.5%; /* this value + 2.5 should = 25% */
 }
 
-@media (min-width: 480px) {
+@media (min-width: 0) {
 	ul.grid-nav li {
 		display: block;
 		margin: 0 0 5px;
@@ -545,7 +546,7 @@ ul.rig.columns-4 li {
 	}
 	ul.rig li {
 		width: 50%; /*!important;  over-ride all li styles */
-		margin: 0 0 20px;
+		margin: 0 5px 20px;
 	}
 }
 
@@ -566,4 +567,64 @@ ul.rig.columns-4 li {
 #greg {
 	width: 200px;
 	height: 300px;
+}
+
+
+/* *********************************
+   Contact Us Page
+   ********************************* */
+   
+/* Main contact container div */
+#contact {
+	width: 100%;
+	margin: 0;
+}
+
+#contact ul {
+	position: relative;
+	text-align: center;
+}
+
+#contact p {
+	
+}
+
+#contact h1 {
+	text-align: center;
+	font-family: 'Merriweather';
+	color: #113B82;
+}
+
+/* Class name for contact grid li elements */
+.contact {
+	min-height: 230px;
+	max-height: 230px;
+	max-width: 170px;
+	margin: 15px 15px;
+}
+
+.contact h3 {
+	color: #5E84C5;
+	text-shadow: .5px .5px .5px #000;
+}
+
+.contact a {
+	font-size: 14px;
+}
+
+.committee {
+	font-family: 'PT Sans';
+	margin: 0;
+}
+
+.address {
+	position: relative;
+	font-size: 14px;
+}
+
+#get-involved {
+	width: 75%;
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'Lato';
 }
