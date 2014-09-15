@@ -15,7 +15,7 @@ from app import app, db, models
 ## Blog ######################################################################
 @app.route('/')
 def home():
-    return render_template("/blog/base.html",
+    return render_template("/blog/home.html",
                            title="Home")
 
 
