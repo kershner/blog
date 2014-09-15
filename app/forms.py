@@ -12,7 +12,6 @@ class BackorderForm(Form):
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
     item_number = TextField("Item Number", [validators.Required("Please enter the item's number.")])
     lead_time = TextField("Lead Time", [validators.Required("Please the estimated lead time.")])
-    partial_shipment = BooleanField('partial_shipment', default=False)
     submit = SubmitField("Submit")
 
 

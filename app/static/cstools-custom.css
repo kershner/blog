@@ -197,11 +197,29 @@ a:hover {
     text-shadow: 1px 1px 1px #000;
 }
 
+::-webkit-input-placeholder {
+   padding-left: 10px;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   padding-left: 10px;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   padding-left: 10px;
+}
+
+:-ms-input-placeholder {  
+   padding-left: 10px;
+}
+
 /* *************************** */
 /* Backorder Notification Form */
 /* *************************** */
 #backorder-form {
 	position: relative;
+	min-width: 700px;
+	max-width: 700px;
 	margin: 0 auto;
 	top: 25px;
 	padding: 10px 0;
@@ -378,6 +396,8 @@ input  {
 /* Positioning of datechecker divs */
 #datechecker {
 	position: relative;
+	max-width: 700px;
+	min-width: 700px;
 	top: -200px;
 }
 

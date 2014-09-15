@@ -461,7 +461,7 @@ hr {
 	background-color: #113B82;
 	margin: -12px auto;
 	width: 75%;
-	height: 130px;
+	height: 150px;
 	text-align: center;
 	min-width: 540px;
 	max-width: 800px;
@@ -480,6 +480,14 @@ hr {
 	font-size: 8px;
 	display: inline-block;
 	margin: 0 2px;
+}
+
+#footer a:link, #footer a:visited {
+	color: white; 
+}
+
+#footer a:hover {
+	color: #9cd785;
 }
 
 #fine-print {
@@ -520,8 +528,6 @@ ul.rig li {
 ul.rig li img {
 	max-width: 75%;
 	max-height: 75%;
-	height: auto;
-	margin: 0 0 10px;
 	border-radius: 5px;
 }
 
@@ -583,6 +589,33 @@ ul.rig.columns-4 li {
 		font-size: 22px;
 		margin-bottom: 5px;
 	}
+}
+
+#content .candidate-specs {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#content .candidate-specs-right {
+	text-align: left;
+}
+
+#content .candidate-specs p, 
+#content .candidate-specs-right p {
+	margin: 6px auto;
+	margin-right: 10px;
+	font-size: 12px;
+}
+
+#content .candidate-specs h3, 
+#content .candidate-specs-right h3 {
+	color: #5E84C5;
+	margin: 10px 0;
+	margin-right: 10px;
+}
+
+#candidate-specs-right {
+	text-align: right;
 }
 
 #greg {

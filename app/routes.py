@@ -16,7 +16,7 @@ from app import app, db, models
 ##############################################################################
 @app.route('/')
 def home():
-    return render_template("/blog/base.html",
+    return render_template("/blog/home.html",
                            title="Home")
 
 
@@ -766,14 +766,11 @@ def backorder():
                    "of your items is currently not available.  Item # %s is " \
                    "in production with an approximate lead time of %s." % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
-            partial = "  Please let me know if you would like to authorize partial shipment for your remaining items." \
-                      "  You will only be charged freight once."
+
             signoff = "\n\nI apologize for the inconvenience.  Let me know if you have any questions." \
                       "\n\nHave a great day,\n\n"
-            if form.partial_shipment.data:
-                body = body + partial + signoff
-            else:
-                body += signoff
+
+            body += signoff
 
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("/cstools/backorder.html",
@@ -1415,8 +1412,8 @@ def scrape():
 ##############################################################################
 @app.route('/campaign_demo')
 def campaign_demo():
-    session['variables'] = ['student success', 'fiscal stability', 'another slogan',
-                            'student achievement', 'community satisfaction']
+    session['variables'] = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
+
     return render_template('/campaign/base.html')
 
 
