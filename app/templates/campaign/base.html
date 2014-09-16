@@ -54,11 +54,7 @@
 
             <div id="election-info">
 
-                <h2>"Quote from an MLive article..."</h2>
-                <p>- MLive Author | 9/10/2014</p>
-
-                <h3>"Another quote from a different MLive article..."</h3>
-                <p>- Another author | 8/22/2014</p>
+                <a id="more-articles" href="#">More Articles</a>
 
             </div>
 
@@ -93,7 +89,9 @@
     {% block content %}{% endblock %}
 
     <div id="footer">
-        <img class="icon" src="../static/images/campaign/facebook.png"><br>
+        <br>
+        <a href="#"><img class="icon" src="../static/images/campaign/facebook.png"></a>
+        <br>
         <a href="#top">Back to Top</a>
         <div id="fine-print">
             <p>Paid for by the <span class="green">Anthony VanDerworp</span> School Board Committee</p>
@@ -104,7 +102,9 @@
         </div>
 
     </div>
-    <br><br>
+
+<br>
+<br>
 
 </div>
 
@@ -112,6 +112,7 @@
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/static/campaign/js/slogan.js"></script>
+<script src="/static/campaign/js/article.js"></script>
 
 <!--Slogan Script-->
 <script>
@@ -120,6 +121,16 @@
     $(document).ready(function() {
        getData();
        setInterval(getData, 10000);
+    });
+</script>
+
+<!--Article Script-->
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    $(document).ready(function() {
+       getArticle();
+       setInterval(getArticle, 15000);
     });
 </script>
 

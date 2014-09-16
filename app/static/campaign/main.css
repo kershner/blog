@@ -212,6 +212,10 @@ hr {
 	text-align: center;
 }
 
+.article-snippet {
+	margin: 0 10px;
+}
+
 #election-info h2, h3 {
 	position: relative;
 	margin: 0;
@@ -271,16 +275,48 @@ hr {
 
 	#election-info {
 		position: relative;
-		top: 25px;
+		top: -10px;
+	}
+	
+	#election-info a {
+		color: white;
+	}
+	
+	#election-info a:hover {
+		color: #9cd785;
 	}
 
 	#election-info h2, #election-info p,
-	#election-info h1,#election-info h5 {
-		max-width: 400px;
+	#election-info h1,#election-info h4 {
+		margin: 0;
+	}
+	
+	.article-snippet {
+		position: relative;
+		top: 25px;
+	}
+	
+	#election-info div h4 {
+		font-size: 14px;
+		font-family: 'Lato';
+	}
+	
+	#election-info h2 {
+		font-size: 18px;
 	}
 
 	#election-info p {
 		margin-bottom: 15px;
+	}
+}
+
+@media (min-width: 900px) {
+	#election-info h2 {
+		font-size: 24px;
+	}
+	
+	.article-snippet {
+		top: 0;
 	}
 }
 
@@ -311,26 +347,24 @@ hr {
 
 	#election-info {
 		position: relative;
-		top: 45px;
-	}
-
-	#election-info h2,#election-info p,
-	#election-info h1,#election-info h5	{
-		max-width: 476px;
+		max-width: 450px;
 	}
 
 	#election-info p {
-		margin-bottom: 10px;
+		margin: 0 auto;
 	}
-	
-	#election-info h1, #election-info h2,
-	#election-info p	{
+}
+
+@media (min-width: 0) {
+	#more-articles {
 		position: relative;
-	
+		bottom: -180px;
+		font-size: 20px;
+		color: white;
 	}
 	
-	#election-info p {
-		margin-bottom: 15px;
+	#more-articles:hover {
+		color: #9cd785;
 	}
 }
 
@@ -359,8 +393,8 @@ hr {
 #content img {
 	display: block;
 	margin: 0 auto;
-	max-width: 200px;
-	max-height: 400px;
+	max-width: 300px;
+	max-height: 500px;
 	box-shadow: 1px 1px 3px #000;
 }
 
@@ -461,7 +495,7 @@ hr {
 	background-color: #113B82;
 	margin: -12px auto;
 	width: 75%;
-	height: 150px;
+	height: 160px;
 	text-align: center;
 	min-width: 540px;
 	max-width: 800px;
@@ -470,7 +504,6 @@ hr {
 }
 
 .icon {
-	margin-top: 10px;
 	max-height: 50px;
 	max-width: 50px;
 }
@@ -498,16 +531,133 @@ hr {
 /* *********************************
    Candidates Page 
    *********************************/
-#candidates {
+
+/************************************/
+/* Left-aligned div 
+/************************************/
+   
+.candidates-right {
+	background-color: white;
+}
+
+.candidates-left .candidates-container-left {
+	width: 35%;
+	margin-bottom: 5px;
+	margin-right: 15px;
+	float: left;
+}
+
+.candidates-left .candidates-container-right {
+	width: 60%;
+	float: right;
+}
+
+.candidates-left .candidates-container-right h2 {
+	font-family: 'Merriweather';
+	color: #113B82;
+}
+
+#content .candidates-left .candidates-container-left img {
 	position: relative;
-	padding: 15px;
-	margin: 0 auto;
-	min-width: 540px;
-	max-width: 800px;
+	border-radius: 5px;
+	margin: 7px;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.candidates-left .candidate-specs {
+	position: relative;
+	left: -15px;
+	margin-left: 25px;
+}
+
+.candidates-left .candidate-specs h2 { 
+	font-size: 32px;
+	margin: 10px 0;
+}
+
+.candidates-left .candidate-specs h3 {
+	color: #5E84C5;
+}
+
+.candidates-left .candidate-specs p {
+	margin: 6px 5px;
+	margin-right: 10px;
+	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.candidates-left .bio-text {
+	margin: 0 20px;
+}
+
+/************************************/
+/* Right-aligned div 
+/************************************/
+.candidates-right .candidates-container-left {
+	width: 60%;
+	float: left;
+}
+
+.candidates-right .candidates-container-right {
+	width: 35%;
+	margin-bottom: 5px;
+	margin-right: 15px;
+	float: right;
+}
+
+.candidates-right .candidates-container-left h2 {
+	font-family: 'Merriweather';
+	color: #113B82;
+}
+
+#content .candidates-right .candidates-container-right img {
+	position: relative;
+	border-radius: 5px;
+	margin: 5px;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.candidates-right .candidate-specs {
+	position: relative;
+	text-align:right;
+}
+
+.candidates-right .candidate-specs h2 { 
+	font-size: 32px;
+	margin: 20px 20px;
+}
+
+.candidates-right .candidate-specs h3 {
+	color: #5E84C5;
+	margin: 2px 20px;
+}
+
+.candidates-right .candidate-specs p {
+	margin: 6px 5px;
+	margin-right: 20px;
+	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.candidates-right .bio-text {
+	margin: 0 20px;
+}
+
+
+/* *********************************
+   Contact Us Page
+   ********************************* */
+   
+/* Main contact container div */
+#contact {
+	width: 100%;
+	margin: 0;
 }
 
 /* *********************************
-   Candidates Grid
+   Contact Info Grid
    ********************************* */
 ul.rig {
 	list-style: none;
@@ -525,12 +675,6 @@ ul.rig li {
 	-webkit-box-sizing: border-box;
 }
 
-ul.rig li img {
-	max-width: 75%;
-	max-height: 75%;
-	border-radius: 5px;
-}
-
 ul.rig li h2 {
 	text-align: center;
 	margin: 0 0 5px;
@@ -545,19 +689,9 @@ ul.rig li p {
 	margin-right: 10px;
 }
 
-/* class for 2 columns */
-ul.rig.columns-2 li {
-	width: 47.5%; /* this value + 2.5 should = 50% */
-}
-
 /* class for 3 columns */
 ul.rig.columns-3 li {
 	width: 30.83%; /* this value + 2.5 should = 33% */
-}
-
-/* class for 4 columns */
-ul.rig.columns-4 li {
-	width: 22.5%; /* this value + 2.5 should = 25% */
 }
 
 @media (min-width: 0) {
@@ -577,70 +711,9 @@ ul.rig.columns-4 li {
 	}
 }
 
-@media (min-width: 0) {
-	#maria {
-		font-size: 16px;
-		margin-bottom: 15px;
-	}
-}
-
-@media (min-width: 895px) {
-	#maria {
-		font-size: 22px;
-		margin-bottom: 5px;
-	}
-}
-
-#content .candidate-specs {
-	width: 100%;
-	margin: 0 auto;
-}
-
-#content .candidate-specs-right {
-	text-align: left;
-}
-
-#content .candidate-specs p, 
-#content .candidate-specs-right p {
-	margin: 6px auto;
-	margin-right: 10px;
-	font-size: 12px;
-}
-
-#content .candidate-specs h3, 
-#content .candidate-specs-right h3 {
-	color: #5E84C5;
-	margin: 10px 0;
-	margin-right: 10px;
-}
-
-#candidate-specs-right {
-	text-align: right;
-}
-
-#greg {
-	width: 200px;
-	height: 300px;
-}
-
-
-/* *********************************
-   Contact Us Page
-   ********************************* */
-   
-/* Main contact container div */
-#contact {
-	width: 100%;
-	margin: 0;
-}
-
 #contact ul {
 	position: relative;
 	text-align: center;
-}
-
-#contact p {
-	
 }
 
 #contact h1 {
