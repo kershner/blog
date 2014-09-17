@@ -33,6 +33,10 @@ a:hover {
 	color: #9cd785;
 }
 
+img {
+	border: 0;
+}
+
 hr {
 	width: 80%;
 	border: 0;
@@ -583,8 +587,7 @@ hr {
 }
 
 .candidates-left .candidate-specs h3 {
-	color: #5E84C5;
-	text-shadow: .5px .5px 0 #000;
+	color: #113B82;
 }
 
 .candidates-left .candidate-specs p {
@@ -651,8 +654,7 @@ hr {
 }
 
 .candidates-right .candidate-specs h3 {
-	text-shadow: .5px .5px 0 #000;
-	color: #5E84C5;
+	color: #113B82;
 }
 
 .candidates-right .candidate-specs p {
@@ -666,6 +668,83 @@ hr {
 .candidates-right .bio-text {
 	margin: 0 20px;
 }
+
+
+/* *********************************
+	Press Page
+/* ********************************* */
+
+.article-display-container-blue {
+	width: 100%;
+	background-color: #113B82;
+}
+
+.article-display-container-blue a {
+	color: white;
+}
+
+.article-display-container-blue a:hover {
+	color: #9cd785;
+}
+
+.article-display-container-blue h4 {
+	color: white;
+}
+
+.article-display-container {
+	width: 100%;
+}
+
+.article-display-container .article-display h5,
+.article-display-container-green .article-display h5 {
+	color: #113B82;
+}
+
+.article-display-container-green {
+	width: 100%;
+	background-color: #9cd785;
+}
+
+.article-display-container-green a {
+	color: white;
+}
+
+.article-display-container-green a:hover {
+	color: #113B82;
+}
+
+.article-display-container-light-blue {
+	width: 100%;
+	background-color: #5E84C5;
+}
+
+.article-display-container-light-blue a {
+	color: white;
+}
+
+.article-display-container-light-blue a:hover {
+	color: #9cd785;
+}
+
+.article-display {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.article-display h2 {
+	color: #113B82;
+	margin: 0;
+}
+
+.article-display h4 {
+	margin: 0;
+}
+
+.article-display h5 {
+	margin: 0;
+	color: #9cd785;
+}
+
 
 
 /* *********************************

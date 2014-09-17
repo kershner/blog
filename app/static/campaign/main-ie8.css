@@ -22,3 +22,24 @@
 #second-headline {
 	color: #9cd785;
 }
+
+#menu div {
+	width: 125px;
+}
+
+#menu div p {
+	font-size: 20px;
+}
+
+.article-snippet h2 {
+	color: white;
+}
+
+#election-info > div > div > p.author{
+	color: white;
+	margin: 0;
+}
+
+#election-info > div > div > p:nth-child(3) {
+	margin: 0;
+}

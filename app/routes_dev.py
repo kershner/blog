@@ -1472,8 +1472,6 @@ def slogan():
 def article():
     article_snip = random.choice(session['articles'])
 
-    print article_snip
-
     data = {
         "title": article_snip[0],
         "link": article_snip[1],
@@ -1493,3 +1491,8 @@ def candidates():
 @app.route('/contact')
 def contact():
     return render_template('/campaign/contact.html')
+
+
+@app.route('/press')
+def press():
+    return render_template('/campaign/press.html')

@@ -1,7 +1,6 @@
 function getData() {	
 	$.getJSON($SCRIPT_ROOT + '/slogan',
 	function(data) {
-		console.log(data['variable']);
 		populateSlogan(data);
 	});
 };

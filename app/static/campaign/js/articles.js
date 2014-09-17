@@ -8,8 +8,6 @@ function getArticle() {
 function populateArticle(data) {
 	$('.article-snippet').remove();
 	
-	console.log(data['length']);
-	
 	if (data['length'] < 70) {
 		var html = '<br><br><br><div class="article-snippet"><a href="' + data['link'] + '"><h2>' + data['title'] + '</h2></a><p class="author">' + data['author'] + '</p><p>' + data['journal'] + '</p></div>';
 	}
