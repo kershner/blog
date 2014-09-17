@@ -146,7 +146,7 @@ hr {
 	box-shadow: none;
 }
 
-#menu div  p {
+#menu div p {
 	position: relative;
 	bottom: 10px;
 }
@@ -222,13 +222,13 @@ hr {
 	font-family: 'Merriweather';
 }
 
-#election-info h1 {
-	position: relative;
+#election-info h2 {
+	font-family: 'Lato', sans-serif;
 }
 
 #election-info p {
 	position: relative;
-	margin: 0;
+	margin: 10px 0;
 	font-size: 11px;
 	color: #9cd785;
 }
@@ -291,22 +291,23 @@ hr {
 		margin: 0;
 	}
 	
-	.article-snippet {
-		position: relative;
-		top: 25px;
-	}
-	
-	#election-info div h4 {
-		font-size: 14px;
-		font-family: 'Lato';
-	}
-	
 	#election-info h2 {
 		font-size: 18px;
 	}
 
-	#election-info p {
-		margin-bottom: 15px;
+	#election-info .author {
+		color: white;
+		font-family: 'Open Sans', sans-serif;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	#menu div {
+		width: 125px;
+	}
+	
+	#menu div p {
+		font-size: 20px;
 	}
 }
 
@@ -317,6 +318,14 @@ hr {
 	
 	.article-snippet {
 		top: 0;
+	}
+	
+	#menu div {
+		width: 150px;
+	}
+	
+	#menu div p {
+		font-size: 22px;
 	}
 }
 
@@ -352,19 +361,6 @@ hr {
 
 	#election-info p {
 		margin: 0 auto;
-	}
-}
-
-@media (min-width: 0) {
-	#more-articles {
-		position: relative;
-		bottom: -180px;
-		font-size: 20px;
-		color: white;
-	}
-	
-	#more-articles:hover {
-		color: #9cd785;
 	}
 }
 
@@ -533,7 +529,7 @@ hr {
    *********************************/
 
 /************************************/
-/* Left-aligned div 
+/* Div with left-aligned image
 /************************************/
    
 .candidates-right {
@@ -552,23 +548,33 @@ hr {
 	float: right;
 }
 
-.candidates-left .candidates-container-right h2 {
+.candidates-left .candidates-container-right h2,
+.candidates-left .candidates-container-left h2 {
 	font-family: 'Merriweather';
 	color: #113B82;
+	text-align: center;
+	font-size: 32px;
+	margin: 20px 20px;
 }
 
+/* Candidate's Photo */
 #content .candidates-left .candidates-container-left img {
 	position: relative;
 	border-radius: 5px;
-	margin: 7px;
 	max-height: 100%;
 	max-width: 100%;
+	margin: 10px 25px;
 }
 
+/* Div containing 'resume' */
 .candidates-left .candidate-specs {
 	position: relative;
 	left: -15px;
-	margin-left: 25px;
+	margin: 10px 25px;
+	background-color: #9cd785;
+	box-shadow: 1px 1px 2px #000;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 .candidates-left .candidate-specs h2 { 
@@ -578,13 +584,16 @@ hr {
 
 .candidates-left .candidate-specs h3 {
 	color: #5E84C5;
+	text-shadow: .5px .5px 0 #000;
 }
 
 .candidates-left .candidate-specs p {
-	margin: 6px 5px;
-	margin-right: 10px;
+	color: black;
+	margin: 10px 5px;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
+	margin-left: .5em; 
+	text-indent: -.5em;
 }
 
 .candidates-left .bio-text {
@@ -592,7 +601,7 @@ hr {
 }
 
 /************************************/
-/* Right-aligned div 
+/* Div with right-aligned image
 /************************************/
 .candidates-right .candidates-container-left {
 	width: 60%;
@@ -601,27 +610,39 @@ hr {
 
 .candidates-right .candidates-container-right {
 	width: 35%;
-	margin-bottom: 5px;
-	margin-right: 15px;
+	
 	float: right;
 }
 
-.candidates-right .candidates-container-left h2 {
+.candidates-right .candidates-container-left h2,
+.candidates-right .candidates-container-right h2 {
+	position: relative;
+	right: 35px;
+	text-align: center;
 	font-family: 'Merriweather';
 	color: #113B82;
+	font-size: 32px;
+	margin: 20px 15px;
 }
 
+/* Candidate's Photo */
 #content .candidates-right .candidates-container-right img {
 	position: relative;
 	border-radius: 5px;
-	margin: 5px;
+	margin: 15px -35px;
 	max-height: 100%;
 	max-width: 100%;
 }
 
+/* Div containing 'resume' */
 .candidates-right .candidate-specs {
 	position: relative;
-	text-align:right;
+	text-align: left;
+	margin: 10px 25px;
+	background-color: #9cd785;
+	box-shadow: 1px 1px 2px #000;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 .candidates-right .candidate-specs h2 { 
@@ -630,15 +651,16 @@ hr {
 }
 
 .candidates-right .candidate-specs h3 {
+	text-shadow: .5px .5px 0 #000;
 	color: #5E84C5;
-	margin: 2px 20px;
 }
 
 .candidates-right .candidate-specs p {
-	margin: 6px 5px;
-	margin-right: 20px;
+	margin: 10px 5px;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
+	margin-left: .5em; 
+	text-indent: -.5em;
 }
 
 .candidates-right .bio-text {
