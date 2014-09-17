@@ -9,7 +9,7 @@ html,body {
 }
 
 html {
-	background: url(../images/campaign/ypsi-school.jpg);
+	background: url(../images/campaign/whitehouse.jpg);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	background-color: #3e68b0;
@@ -706,11 +706,15 @@ hr {
 }
 
 .article-display-container-green a {
-	color: white;
+	color: #113B82;
 }
 
 .article-display-container-green a:hover {
-	color: #113B82;
+	color: white;
+}
+
+.article-display-container-green .article-display h5 {
+	color: #5E84C5;
 }
 
 .article-display-container-light-blue {
@@ -743,6 +747,7 @@ hr {
 .article-display h5 {
 	margin: 0;
 	color: #9cd785;
+	text-shadow: .5px .5px #000;
 }
 
 
@@ -840,7 +845,8 @@ ul.rig.columns-3 li {
 	font-size: 14px;
 }
 
-.committee {
+.contact .committee {
+	color: #113B82;
 	font-family: 'PT Sans';
 	margin: 0;
 }
@@ -851,7 +857,8 @@ ul.rig.columns-3 li {
 }
 
 #get-involved {
-	width: 75%;
+	background-color: white;
+	width: 100%;
 	margin: 0 auto;
 	text-align: center;
 	font-family: 'Lato';

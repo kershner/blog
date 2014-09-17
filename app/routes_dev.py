@@ -1451,7 +1451,13 @@ def campaign_demo():
          '- Krystal Elliott', 'The Ypsilanti Courier | 8/21/2014', '112'],
         ['"City officials propose stationing police officer at Ypsilanti Community Middle School."',
          'http://www.heritage.com/articles/2014/06/17/ypsilanti_courier/news/doc53a054c6786f5399518913.txt',
-         '- Krystal Elliott', 'The Ypsilanti Courier | 6/17/2014', '88']
+         '- Krystal Elliott', 'The Ypsilanti Courier | 6/17/2014', '88'],
+        ['"Ypsilanti teachers, district \'satisfied\' overall with union contract despite some concerns over salaries."',
+         'http://www.heritage.com/articles/2014/09/17/ypsilanti_courier/news/doc541221141ab45551957933.txt',
+         '- Krystal Elliott', 'The Ypsilanti Courier | 9/17/2014', '106'],
+        ['"Ypsilanti Community Schools Adopts Elementary Reconfiguration Plan."',
+         'http://wemu.org/post/ypsilanti-community-schools-adopts-elementary-reconfiguration-plan',
+         '- Bob Eccles', 'WEMU 89.1 | 4/22/2014', '68']
     ]
 
     return render_template('/campaign/home.html')
