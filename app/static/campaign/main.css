@@ -155,6 +155,43 @@ hr {
 	bottom: 10px;
 }
 
+#hidden-menu {
+	position: fixed;
+	display: none;
+	z-index: 5;
+	top: 0;
+	left: 2px;
+	height: 50px;
+	width: 100%;
+	background-color: #113B82;
+	box-shadow: 1px 1px 3px #000;
+}
+
+#hidden-menu-wrapper {
+	width: 75%;
+	min-width: 540px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#hidden-menu-wrapper div {
+	display: inline-block;
+	width: 120px;
+}
+
+#hidden-menu-wrapper div:hover {
+	background-color: #9cd785;
+}
+
+#hidden-menu-wrapper a {
+	color: white;
+}
+
+#hidden-menu-wrapper a:hover {
+	color: white;
+	text-shadow: 1px 1px 1px #000;
+}
+
 #extras {
 	background-color: #113B82;
 	position: relative;

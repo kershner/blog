@@ -20,6 +20,16 @@
 </head>
 
 <body>
+
+<div id="hidden-menu">
+    <div id="hidden-menu-wrapper">
+        <a href="/campaign_demo"><div><p>HOME</p></div></a>
+        <a href="/candidates"><div><p>CANDIDATES</p></div></a>
+        <a href="/press"><div><p>PRESS</p></div></a>
+        <a href="/contact"><div><p>CONTACT</p></div></a>
+    </div>
+</div>
+
 <a name="top"></a>
 
 <div id="wrapper">
@@ -38,6 +48,8 @@
     <br>
 
     <div id="menu-wrapper">
+
+
 
         <div id="menu">
 
@@ -113,8 +125,10 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/static/campaign/js/slogan.js"></script>
 <script src="/static/campaign/js/articles.js"></script>
+<script src="/static/campaign/js/hiddenMenu.js"></script>
 
-<!--Slogan Script-->
+
+<!--Article, Slogan, and Hidden-Menu Script Calls-->
 <script>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
@@ -122,15 +136,14 @@
        getData();
        setInterval(getData, 10234);
     });
-</script>
-
-<!--Article Script-->
-<script>
-    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
     $(document).ready(function() {
        getArticle();
        setInterval(getArticle, 15948);
+    });
+
+    $(document).ready(function() {
+        hiddenMenu();
     });
 </script>
 
