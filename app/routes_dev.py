@@ -1426,8 +1426,25 @@ def scrape():
 ##############################################################################
 @app.route('/campaign_demo')
 def campaign_demo():
-    session['variables'] = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
-    session['articles'] = [
+
+    return render_template('/campaign/home.html')
+
+
+@app.route('/slogan')
+def slogan():
+    slogans = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
+    variable = random.choice(slogans)
+
+    data = {
+        "variable": variable
+    }
+
+    return jsonify(data)
+
+
+@app.route('/article')
+def article():
+    articles = [
         ['"Ypsilanti Community Schools graduates inaugural senior class."',
          'http://www.mlive.com/news/ann-arbor/index.ssf/2014/06/ypsilanti_community_schools_gr.html',
          '- Amy Biolchini', 'MLive | 6/03/2014', '61'],
@@ -1460,23 +1477,7 @@ def campaign_demo():
          '- Bob Eccles', 'WEMU 89.1 | 4/22/2014', '68']
     ]
 
-    return render_template('/campaign/home.html')
-
-
-@app.route('/slogan')
-def slogan():
-    variable = random.choice(session['variables'])
-
-    data = {
-        "variable": variable
-    }
-
-    return jsonify(data)
-
-
-@app.route('/article')
-def article():
-    article_snip = random.choice(session['articles'])
+    article_snip = random.choice(articles)
 
     data = {
         "title": article_snip[0],

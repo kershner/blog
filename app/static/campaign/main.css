@@ -9,7 +9,7 @@ html,body {
 }
 
 html {
-	background: url(../images/campaign/whitehouse.jpg);
+	background: url(../images/campaign/ypsi-school.jpg);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	background-color: #3e68b0;
@@ -254,7 +254,7 @@ hr {
 }
 
 .article-snippet {
-	margin: 0 10px;
+	margin: 0 5px;
 }
 
 #election-info h2, h3 {
@@ -269,7 +269,7 @@ hr {
 
 #election-info p {
 	position: relative;
-	margin: 10px 0;
+	margin: 2px 0;
 	font-size: 11px;
 	color: #9cd785;
 }
@@ -339,8 +339,8 @@ hr {
 	#election-info .author {
 		color: white;
 		font-family: 'Open Sans', sans-serif;
-		margin-top: 5px;
-		margin-bottom: 5px;
+		margin-top: 2px;
+		margin-bottom: 2px;
 	}
 	
 	#menu div {
@@ -442,6 +442,10 @@ hr {
 	margin: 0 auto;
 }
 
+#content-inner .white {
+	background-color: white;
+}
+
 #content-inner p {
 	font-family: 'Lato';
 	font-size: 18px;
@@ -464,11 +468,6 @@ hr {
 	margin: 0 auto;
 }
 
-#fiscal p {
-	font-size: 19px;
-	font-family: 'Lato';
-}
-
 .justify {
 	position: relative;
 	width: 75%;
@@ -486,6 +485,11 @@ hr {
 	min-width: 300px;
 	text-align: justify;
 	margin: 0 auto;
+}
+
+#content-inner div.justify-50.fiscal p {
+	text-align: center;
+	position: relative;
 }
 
 .justify-50 .emphasis {
@@ -532,7 +536,7 @@ hr {
 	background-color: #113B82;
 	margin: -12px auto;
 	width: 75%;
-	height: 160px;
+	height: 180px;
 	text-align: center;
 	min-width: 540px;
 	max-width: 800px;
@@ -541,8 +545,8 @@ hr {
 }
 
 .icon {
-	max-height: 50px;
-	max-width: 50px;
+	margin: 2px auto;
+	border-radius: 5px;
 }
 
 #footer p {
@@ -711,60 +715,8 @@ hr {
 	Press Page
 /* ********************************* */
 
-.article-display-container-blue {
-	width: 100%;
-	background-color: #113B82;
-}
-
-.article-display-container-blue a {
-	color: white;
-}
-
-.article-display-container-blue a:hover {
-	color: #9cd785;
-}
-
-.article-display-container-blue h4 {
-	color: white;
-}
-
-.article-display-container {
-	width: 100%;
-}
-
-.article-display-container .article-display h5,
-.article-display-container-green .article-display h5 {
-	color: #113B82;
-}
-
-.article-display-container-green {
-	width: 100%;
-	background-color: #9cd785;
-}
-
-.article-display-container-green a {
-	color: #113B82;
-}
-
-.article-display-container-green a:hover {
-	color: white;
-}
-
-.article-display-container-green .article-display h5 {
-	color: #5E84C5;
-}
-
-.article-display-container-light-blue {
-	width: 100%;
-	background-color: #5E84C5;
-}
-
-.article-display-container-light-blue a {
-	color: white;
-}
-
-.article-display-container-light-blue a:hover {
-	color: #9cd785;
+.article-display-container-white {
+	background-color: white;
 }
 
 .article-display {
@@ -773,8 +725,15 @@ hr {
 }
 
 .article-display h2 {
-	color: #113B82;
 	margin: 0;
+}
+
+.article-display a {
+	color: #113B82;
+}
+
+.article-display a:hover {
+	color: #9cd785;
 }
 
 .article-display h4 {
@@ -786,8 +745,6 @@ hr {
 	color: #9cd785;
 	text-shadow: .5px .5px #000;
 }
-
-
 
 /* *********************************
    Contact Us Page
@@ -880,6 +837,10 @@ ul.rig.columns-3 li {
 
 .contact a {
 	font-size: 14px;
+}
+
+.contact .phone {
+	margin: 0;
 }
 
 .contact .committee {
