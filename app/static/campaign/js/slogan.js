@@ -7,6 +7,6 @@ function getData() {
 
 function populateSlogan(data) {
 	$('.prepended').remove();
-	var html = '<h2 class="prepended">' + data['variable'] + '</h2>';
+	var html = '<h2 class="prepended green">' + data['variable'] + '</h2>';
 	$(html).hide().appendTo('#slogan').fadeIn('slow');
 }

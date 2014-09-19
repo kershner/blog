@@ -97,6 +97,10 @@ hr {
 	max-height: 100%;
 	position: relative;
 	top: 3px;
+	margin: -1px 0;
+}
+
+#group-photo {
 	border-radius: 0 0 5px 5px;
 }
 
@@ -145,7 +149,7 @@ hr {
 }
 
 #menu div:hover {
-	background-color: #113B82;
+	background-color: #144599;
 	z-index: 3;
 	box-shadow: none;
 }
@@ -163,7 +167,7 @@ hr {
 	left: 2px;
 	height: 50px;
 	width: 100%;
-	background-color: #113B82;
+	background-color: #144599;
 	box-shadow: 1px 1px 3px #000;
 }
 
@@ -193,7 +197,7 @@ hr {
 }
 
 #extras {
-	background-color: #113B82;
+	background-color: #144599;
 	position: relative;
 	z-index: 2;
 	margin: 0 auto;
@@ -533,7 +537,7 @@ hr {
 #footer {
 	position: relative;
 	z-index: 3;
-	background-color: #113B82;
+	background-color: #144599;
 	margin: -12px auto;
 	width: 75%;
 	height: 180px;
