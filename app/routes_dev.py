@@ -1460,6 +1460,25 @@ def article():
         ['"Ypsilanti schools authorizes restructuring $18.8M debt to no longer be a deficit district."',
          'http://www.annarbor.com/news/ypsilanti/ypsilanti-schools-authorizes-restructuring-its-188m-debt-to-no-longer-be-a-deficit-district/',
          '- Danielle Arndt', 'The Ann Arbor News | 6/26/2013', '92'],
+    ]
+
+    article_snip = random.choice(articles)
+
+    data = {
+        "title": article_snip[0],
+        "link": article_snip[1],
+        "author": article_snip[2],
+        "journal": article_snip[3],
+        "length": article_snip[4]
+    }
+
+    return jsonify(data)
+
+
+@app.route('/article2')
+def article2():
+
+    articles = [
         ['"Year-round school? Ypsilanti schools considering expanding use of balanced calendar."',
          'http://www.mlive.com/news/ann-arbor/index.ssf/2014/08/ypsilanti_schools_to_consider.html',
          '- Amy Biolchini', 'MLive | 8/09/2014', '86'],

@@ -9,9 +9,9 @@ html,body {
 }
 
 html {
-	background: url(../images/campaign/ypsi-school.jpg);
+	background: url(../images/campaign/whitehouse.jpg);
 	background-repeat: no-repeat;
-	background-position: 0 0;
+	background-position: -200px -200px;
 	background-color: #3e68b0;
 	background-attachment: fixed;
 }
@@ -247,41 +247,54 @@ hr {
 #extras-left {
 	float: left;
 	height: 100%;
-	width: 65%;
+	width: 50%;
 }
 
-#election-info {
+#extras-right {
+	float: right;
+	height: 100%;
+	width: 50%;
+}
+
+#election-info, #extras {
 	color: white;
 	text-shadow: 1px 1px 3px #000;
 	margin: 0 auto;
 	text-align: center;
 }
 
-.article-snippet {
+.article-snippet, .article-snippet2 {
 	margin: 0 5px;
 }
 
-#election-info h2, h3 {
+#election-info h2, #election-info h3,
+#events h2, #events h3 {
 	position: relative;
 	margin: 0;
 	font-family: 'Merriweather';
 }
 
-#election-info h2 {
+#election-info h2, #events h2 {
 	font-family: 'Lato', sans-serif;
 }
 
-#election-info p {
+#election-info p, #events p {
 	position: relative;
 	margin: 2px 0;
 	font-size: 11px;
 	color: #9cd785;
 }
 
-#extras-right {
+/* **************************************************** */
+/* **************************************************** */
+/* Commenting out events-specific section until events 
+   schedule is ready to go live 
+/* **************************************************** */
+/* **************************************************** */
+/* #extras-right {
 	float: right;
 	height: 100%;
-	width: 35%;
+	width: 50%;
 }
 
 #events {
@@ -300,11 +313,11 @@ hr {
 	margin: 0;
 	max-width:  200px;
 	word-wrap: break-word;
-}
+} */
 
 /* Break-points to handle extras div text */
 @media (min-width: 0) {
-	#events {
+	/* #events {
 		position: relative;
 		top: 10px;
 	}
@@ -312,35 +325,38 @@ hr {
 	#events p {
 		font-size: 11px;
 		max-width:  60px;
-	}
+	} */
 
 	.hidden {
 		display: none;
 	}
 
-	#election-info {
+	#election-info, #events {
 		position: relative;
 		top: -10px;
 	}
 	
-	#election-info a {
+	#election-info a, #events a {
 		color: white;
 	}
 	
-	#election-info a:hover {
+	#election-info a:hover, #events a:hover {
 		color: #9cd785;
 	}
 
 	#election-info h2, #election-info p,
-	#election-info h1,#election-info h4 {
+	#election-info h1,#election-info h4,
+	#events h2, #events p,
+	#events h1, #events h4	{
 		margin: 0;
 	}
 	
-	#election-info h2 {
+	#election-info h2, #events h2 {
 		font-size: 18px;
 	}
 
-	#election-info .author {
+	#election-info .author,
+	#events .author	{
 		color: white;
 		font-family: 'Open Sans', sans-serif;
 		margin-top: 2px;
@@ -357,11 +373,11 @@ hr {
 }
 
 @media (min-width: 900px) {
-	#election-info h2 {
+	#election-info h2, #events h2{
 		font-size: 24px;
 	}
 	
-	.article-snippet {
+	.article-snippet, .article-snippet2 {
 		top: 0;
 	}
 	
@@ -374,15 +390,15 @@ hr {
 	}
 }
 
-#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
+/* #events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
 #events > div.right > p:nth-child(5), #events > div.right > p:nth-child(7)  {
 		color: #9cd785;
-	}
+	} */
 
 @media (min-width: 930px) {
-	#events {
+	/* #events {
 		top: -10px;
-	}
+	} */
 
 	/* These are the event date tags, couldn't find another way to affect them */
 	#events > div.right > p:nth-child(1), #events > div.right > p:nth-child(3),
@@ -390,7 +406,7 @@ hr {
 		margin-bottom: 9px;
 	}
 
-	#events p {
+	/* #events p {
 		font-size: 11px;
 		max-width: 110px;
 	}
@@ -402,9 +418,9 @@ hr {
 	#election-info {
 		position: relative;
 		max-width: 450px;
-	}
+	} */
 
-	#election-info p {
+	#election-info p, #events p {
 		margin: 0 auto;
 	}
 }

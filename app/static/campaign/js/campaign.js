@@ -52,3 +52,31 @@ function populateArticle(data) {
 	
 	$(newDiv).hide().appendTo('#election-info').fadeIn('slow');
 };
+
+function getArticle2() {
+	$.getJSON($SCRIPT_ROOT + '/article2',
+	function(data) {
+		populateArticle2(data);
+    });
+};
+
+function populateArticle2(data) {
+	$('.article-snippet2').remove();
+	
+	if (data['length'] < 70) {
+		var html = '<br><br><br><div class="article-snippet2"><a href="' + data['link'] + '"><h2>' + data['title'] + '</h2></a><p class="author">' + data['author'] + '</p><p>' + data['journal'] + '</p></div>';
+	}
+	else if (71 < data['length'] < 80) {
+		var html = '<br><br><div class="article-snippet2"><a href="' + data['link'] + '"><h2>' + data['title'] + '</h2></a><p class="author">' + data['author'] + '</p><p>' + data['journal'] + '</p></div>';
+	}
+	else if (81 < data['length'] < 90) {
+		var html = '<br><div class="article-snippet2"><a href="' + data['link'] + '"><h2>' + data['title'] + '</h2></a><p class="author">' + data['author'] + '</p><p>' + data['journal'] + '</p></div>';
+	}
+	else {
+		var html = '<div class="article-snippet2"><a href="' + data['link'] + '"><h2>' + data['title'] + '</h2></a><p class="author">' + data['author'] + '</p><p>' + data['journal'] + '</p></div>';
+	}
+	
+	var newDiv = '<div class="article-snippet2">' + html + '</div>'
+	
+	$(newDiv).hide().appendTo('#events').fadeIn('slow');
+}

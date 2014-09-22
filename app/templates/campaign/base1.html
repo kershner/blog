@@ -85,6 +85,22 @@
 
             <div id="events">
 
+                <h5>Upcoming Events</h5>
+
+                <div class="left">
+                    <p>Talk at School</p><br>
+                    <p>Event Number Two at Place</p><br>
+                    <p class="hidden">Event Number Three at Place</p><br>
+                    <p class="hidden">Fourth Event at Place</p>
+                </div>
+
+                <div class="right">
+                    <p class="date">Aug 21st, 7pm</p><br>
+                    <p class="date">Aug 24th, 7pm</p><br>
+                    <p class="date hidden">Aug 28th, 7pm</p><br>
+                    <p class="date hidden">Oct 19th, 7pm</p>
+                </div>
+
             </div>
 
             <a name="david-bio"></a>
@@ -118,7 +134,10 @@
 </body>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/static/campaign/js/campaign.js"></script>
+<script src="/static/campaign/js/slogan.js"></script>
+<script src="/static/campaign/js/articles.js"></script>
+<script src="/static/campaign/js/hiddenMenu.js"></script>
+
 
 <!--Article, Slogan, and Hidden-Menu Script Calls-->
 <script>
@@ -132,11 +151,6 @@
     $(document).ready(function() {
        getArticle();
        setInterval(getArticle, 15948);
-    });
-
-    $(document).ready(function() {
-       getArticle2();
-       setInterval(getArticle2, 17234);
     });
 
     $(document).ready(function() {
