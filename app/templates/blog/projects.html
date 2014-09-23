@@ -2,41 +2,65 @@
 {% block content %}
 
 <div id="grey">
-    <div id="projects-title">
-        <h3>Projects</h3>
-        <hr id="hr">
-        <p>Some of my programming projects so far...</p>
+
+    <div id="projects-div">
+
+        <div id="projects-title">
+
+            <h3>Projects</h3>
+
+            <hr id="hr">
+
+            <p>Some of my programming projects so far...</p>
+
+        </div>
+
+        <ul class="rig columns-3">
+
+            <li>
+                <a href="/ycs-campaign"><img src="/static/images/ycscampaign.jpg"/></a>
+                <h3>YCS Re-Election Website</h3>
+                <p>My first professional website.</p>
+            </li>
+
+            <li>
+                <a href="/reddit-scraper"><img src="/static/images/reddit-scraper.jpg" /></a>
+                <h3>Reddit Image Scraper</h3>
+                <p>An app to quickly grab images from a subreddit.</p>
+            </li>
+
+            <li>
+                <a href="/gif-party"><img src="/static/images/gif-party.jpg" /></a>
+                <h3>GIF Party!</h3>
+                <p>A new pet project to help me learn JavaScript.</p>
+            </li>
+
+        </ul>
+
+        <ul class="rig columns-3">
+
+            <li>
+                <a href="/cstools-project"><img src="/static/images/cstools.jpg" /></a>
+                <h3>CS Tools</h3>
+                <p>A useful set of programs I use daily at work.</p>
+            </li>
+
+            <li>
+                <a href="/gif_display"><img src="/static/images/gif-display-icon.jpg"/></a>
+                <h3>Raspberry Pi GIF Display</h3>
+                <p>A combination of hardware and code.</p>
+            </li>
+
+            <li>
+                <a href="/pta"><img src="/static/images/ptabutton.jpg" /></a>
+                <h3>Python Text Adventure</h3>
+                <p>My first project, a simple text adventure.</p>
+            </li>
+
+        </ul>
+
     </div>
-    <ul class="rig columns-3">
-        <li>
-            <a href="/reddit-scraper"><img src="/static/images/reddit-scraper.jpg" /></a>
-            <h3>Reddit Image Scraper</h3>
-            <p>An app to quickly grab images from a subreddit.</p>
-        </li>
-        <li>
-            <a href="/gif-party"><img src="/static/images/gif-party.jpg" /></a>
-            <h3>GIF Party!</h3>
-            <p>A new pet project to help me learn JavaScript.</p>
-        </li>
-        <li>
-            <a href="/cstools-project"><img src="/static/images/cstools.jpg" /></a>
-            <h3>CS Tools</h3>
-            <p>A useful set of programs I use daily at work.</p>
-        </li>
-    </ul>
-    <ul class="rig columns-3">
-        <li>
-            <a href="/pta"><img src="/static/images/ptabutton.jpg" /></a>
-            <h3>Python Text Adventure</h3>
-            <p>My first project, a simple text adventure.</p>
-        </li>
-        <li class="hidden-li"></li>
-        <li>
-            <a href="/gif_display"><img src="/static/images/gif-display-icon.jpg"/></a>
-            <h3>Raspberry Pi GIF Display</h3>
-            <p>A combination of hardware and code.</p>
-        </li>
-    </ul>
+
 </div>
 
 {% endblock %}

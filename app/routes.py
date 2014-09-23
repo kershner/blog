@@ -92,6 +92,12 @@ def reddit_scraper_project():
                            title="Reddit Scraper")
 
 
+@app.route('/ycs-campaign')
+def ycs_campaign():
+    return render_template("/blog/projects/project06.html",
+                           title="YCS Re-election Website")
+
+
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
     return render_template("/blog/writeups/project02-part1.html",

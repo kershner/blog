@@ -2,17 +2,27 @@
 {% block content %}
 
 <div id="grey">
+
     <div class="container pt">
+
 		<div class="row mt">
+
 			<div class="centered"><h1>Reddit Image Scraper</h1>
+
                 <a href="/scrape_reddit" class="link-right">Live Site</a>&emsp;
                 <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1225" class="link-left">Github</a><br><br><br>
-            <h4>Technologies Used:</h4>
-            <p>Python, HTML, CSS, jQuery, Flask</p>
+
+                <h4>Technologies Used:</h4>
+
+                <p>Python, HTML, CSS, jQuery, Flask</p>
+
             </div>
+
             <div class="col-lg-8 col-lg-offset-2">
+
 				<hr>
-				<p>
+
+                <p>
                     A friend of mine was in the habit of grabbing images from reddit to use as his desktop wallpaper.
                     As I thought about him manually finding the links and downloading the images the idea for this app
                     came to me.
@@ -21,12 +31,32 @@
                     my Pi Display refactored to run live on a website and with a user-friendly front end.<br><br>
                     Check out the live site!
                     <br>
-                    <a href="/scrape"><h1>Reddit Image Scraper</h1></a>
-				</p>
+                </p>
+
+                <div class="big-link"><a href="/scrape"><h1>Reddit Image Scraper</h1></a></div>
+
             </div>
+
+            <div id="project-screenshots">
+
+                <ul class="rig columns-3">
+
+                    <li class="project-images">
+                        <a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="img-responsive rounded-images"></a>
+                    </li>
+
+                    <li class="project-images">
+                        <a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="img-responsive rounded-images"></a>
+                    </li>
+
+                </ul>
+
+            </div>
+
 		</div>
 
     </div>
+
 </div>
 
 {% endblock %}
