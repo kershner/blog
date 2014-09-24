@@ -46,6 +46,16 @@ p {
     text-align: center;
 }
 
+.centered h1 {
+	font-size: 52px;
+	color: rgb(26, 139, 188);
+	text-shadow: 1px 1px .5px #000;
+}
+
+.centered h5 {
+	margin: 5px 0;
+}
+
 /* Links */
 a {
     color: #1abc9c;
