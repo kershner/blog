@@ -16,6 +16,7 @@
             </p>
         </div>
         <p>You will need to manually add your signature.</p>
+        <p><strong>Note:</strong> checking the Net 30 box below will remove the lines regarding a prepay account.</p>
     </div>
 
     {% if link %}
@@ -54,6 +55,10 @@
         {{ form.acct(placeholder="Customer Account Number") }}
 
         {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-bottom") }}
+
+        <div id="new-account-checkbox">
+            <p>Net 30 Account?</p> {{ form.net30(class="net30") }}
+        </div>
 
         {{form.submit(class_='btn btn-lg btn-danger') }}
     </form>

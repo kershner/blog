@@ -1,6 +1,6 @@
 from flask import render_template, jsonify, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, DeaForms, SlideshowDelay, GifParty, RedditImageScraper
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms,BackorderReport, SlideshowDelay, GifParty, RedditImageScraper
 from urllib import quote
 import datetime
 import random
@@ -792,6 +792,38 @@ def backorder():
                                color=color)
 
 
+@app.route('/cstools/backorder-report', methods=['GET', 'POST'])
+def backorder_report():
+    form = BackorderReport()
+    get_class_well.get_color()
+    color = get_class_well.color
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template("/cstools/backorder-report.html",
+                                   title="Backorder Report Template",
+                                   form=form,
+                                   color=color)
+        else:
+            name = form.name.data
+            email = form.email.data
+            subject = "Cayman Chemical Backorder Report"
+            body = "Hello %s,\n\nAttached find an updated copy of your institution's backorder report.\n\n" \
+                   "Please let me know if you have any questions.\n\n" % name
+            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
+            return render_template("/cstools/backorder-report.html",
+                                   title="Backorder Report Template",
+                                   link=link,
+                                   form=form,
+                                   color=color)
+    elif request.method == 'GET':
+        return render_template("/cstools/backorder-report.html",
+                               title="Backorder Report Template",
+                               form=form,
+                               color=color)
+
+
 @app.route('/cstools/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
@@ -880,13 +912,23 @@ def newaccount():
             acct_number = form.acct.data
             email = form.email.data
             subject = "New Account with Cayman Chemical"
-            body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
-                   "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
-                   "transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo " \
-                   "place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
-                   "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
-                   "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
-                   "business with you!\n\n" % (name, acct_number)
+
+            if form.net30.data:
+                body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A net 30 term account has been " \
+                       "established for you.  We accept Purchase Orders, Visa, MasterCard, Discover, American Express, checks, and bank " \
+                       "transfers.\n\nTo place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
+                       "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
+                       "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
+                       "business with you!\n\n" % (name, acct_number)
+            else:
+                body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
+                       "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
+                       "transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo " \
+                       "place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
+                       "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
+                       "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
+                       "business with you!\n\n" % (name, acct_number)
+
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("/cstools/newaccount.html",
                                    title="New Account Template",

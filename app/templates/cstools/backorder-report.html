@@ -1,0 +1,69 @@
+{% extends "/cstools/base.html" %}
+{% block content %}
+
+<div id="backorder-form" class="cover-container">
+
+    <div id="template-blurb" class="container">
+
+        <h2>Backorder Report Template</h2>
+
+        <div class="well {{ color }}">
+
+            <p id="smaller">
+                Subject: Cayman Chemical Backorder Report<br><br>
+                Hello [Contact's Name],<br><br>Attached find an updated copy of your institution's backorder report.
+                <br><br>
+                Please let me know if you have any questions.
+            </p>
+
+        </div>
+
+        <p>You will need to manually add your signature and attach the backorder report.<br><br>
+
+    </div>
+
+        {% if link %}
+            <a href="{{ link }}"><div id="template-div" class="btn btn-lg btn-info"><h3 id="backorder-link">Your backorder report template</h3></div></a>
+        {% endif %}
+
+    {% if form.errors %}
+
+        <div class="alert">
+
+            {% for message in form.name.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+
+            {% for message in form.email.errors %}
+                <p>{{ message }}</p>
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+    <form action="{{ url_for('backorder_report') }}" method=POST>
+
+        {{ form.hidden_tag() }}
+
+        {% if not form.errors %}
+
+            {% if link %}
+                {{ form.name(placeholder="Contact's Name", class_="backorder-form-top") }}
+            {% else %}
+                {{ form.name(placeholder="Contact's Name", id="name-top", class_="backorder-form-top") }}
+            {% endif %}
+
+        {% else %}
+            {{ form.name(placeholder="Contact's Name", class_="backorder-form-top") }}
+        {% endif %}
+
+        {{ form.email(placeholder="Contact's Email Address", class_="backorder-form-bottom") }}
+
+        {{form.submit(class_='btn btn-lg btn-danger') }}
+
+    </form>
+
+</div>
+
+{% endblock %}

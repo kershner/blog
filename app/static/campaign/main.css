@@ -210,7 +210,7 @@ hr {
 }
 
 #headlines {
-	background-color: #5E84C5;
+	background-color: #9cd785;
 	position: relative;
 	z-index: 1;
 	text-align: center;
@@ -223,6 +223,51 @@ hr {
 	box-shadow: 1px -.5px 1px #000;
 }
 
+#get-involved {
+	background-color: #5E84C5;
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	width: 75%;
+	min-width: 540px;
+	max-width: 800px;
+	color: white;
+	box-shadow: 1px -.5px 1px #000;
+}
+
+#get-involved h1 {
+	color: white;
+	font-size: 58px;
+	margin: 0;
+	text-shadow: .5px .5px .5px #000;
+}
+
+#get-involved h2 {
+	color: white;
+	font-size: 42px;
+	font-family: 'Merriweather';
+	margin: 0;
+	text-shadow: .5px .5px .5px #000;
+}
+
+#get-involved p {
+	font-size: 22px;
+	color: white;
+	margin: 5px 0;
+	text-shadow: .5px .5px .5px #000;
+}
+
+#get-involved a {
+	font-size: 22px;
+	color: #9cd785;
+	font-family: 'PT Sans';
+	text-shadow: 1px 1px .5px #000;
+}
+
+#get-involved a:hover {
+	color: white;
+}
+
 @media (min-width: 0) {
 	#first-headline {
 		font-size: 23px;
@@ -230,7 +275,8 @@ hr {
 
 	#second-headline {
 		font-size: 20px;
-		color: #9cd785;
+		color: #144599;
+		text-shadow: none;
 	}
 }
 
@@ -556,7 +602,7 @@ hr {
 	background-color: #144599;
 	margin: -12px auto;
 	width: 75%;
-	height: 180px;
+	height: 240px;
 	text-align: center;
 	min-width: 540px;
 	max-width: 800px;
@@ -571,9 +617,9 @@ hr {
 
 #footer p {
 	color: #f2f2f2;
-	font-size: 8px;
 	display: inline-block;
 	margin: 0 2px;
+	font-size: 14px;
 }
 
 #footer a:link, #footer a:visited {
@@ -587,6 +633,11 @@ hr {
 #fine-print {
 	margin: 0 auto;
 	width: 65%;
+	font-size: 8px;
+}
+
+#fine-print p {
+	font-size: 8px;
 }
 
 /* *********************************
@@ -852,7 +903,6 @@ ul.rig.columns-3 li {
 
 .contact h3 {
 	color: #5E84C5;
-	text-shadow: .5px .5px 1px #000;
 }
 
 .contact a {
@@ -874,7 +924,7 @@ ul.rig.columns-3 li {
 	font-size: 14px;
 }
 
-#get-involved {
+#donation {
 	background-color: white;
 	width: 100%;
 	margin: 0 auto;
@@ -882,22 +932,22 @@ ul.rig.columns-3 li {
 	font-family: 'Lato';
 }
 
-#get-involved h1 {
+#donation h1 {
 	margin: 0;
 }
 
-#get-involved p {
+#donation p {
 	margin: 10px;
 }
 
-#get-involved h2 {
+#donation h2 {
 	font-family: 'PT Sans';
 	font-size: 42px;
 	color: #5E84C5;
 	margin: 0;
 }
 
-#get-involved h3 {
+#donation h3 {
 	margin: 10px;
 	color: #113B82;
 }

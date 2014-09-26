@@ -281,6 +281,10 @@ input  {
 	border-radius: 0;
 }
 
+input[type=text] {
+	padding-left: 10px;
+}
+
 .backorder-form-top {
 	position: relative;
 	border-radius: 5px 5px 0 0;
@@ -354,7 +358,7 @@ input  {
 
 #backorder-link {
     position: relative;
-    bottom: 10px;
+    bottom: 13px;
 	text-shadow: 1px 1px 1px #000;
 }
 
@@ -811,6 +815,15 @@ body form p input {
 	background: linear-gradient(142deg, rgb(179, 102, 255) 24%, rgb(179, 103, 177) 88%);
 }
 
+.dark-purple {
+	background: rgb(87, 67, 138);
+	background: -moz-linear-gradient(30deg, rgb(87, 67, 138) 30%, rgb(87, 64, 156) 70%);
+	background: -webkit-linear-gradient(30deg, rgb(87, 67, 138) 30%, rgb(87, 64, 156) 70%);
+	background: -o-linear-gradient(30deg, rgb(87, 67, 138) 30%, rgb(87, 64, 156) 70%);
+	background: -ms-linear-gradient(30deg, rgb(87, 67, 138) 30%, rgb(87, 64, 156) 70%);
+	background: linear-gradient(120deg, rgb(87, 67, 138) 30%, rgb(87, 64, 156) 70%);
+}
+
 .blue {
 	background: rgb(102, 178, 255);
 	background: -moz-linear-gradient(30deg, rgb(102, 178, 255) 30%, rgb(87, 156, 255) 70%);
@@ -846,4 +859,23 @@ body form p input {
 	background: -o-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
 	background: -ms-linear-gradient(30deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
 	background: linear-gradient(120deg, rgb(255, 179, 217) 30%, rgb(255, 172, 211) 70%);
+}
+
+#new-account-checkbox {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#new-account-checkbox p {
+	display: inline-block;
+	margin: 15px 5px;
+}
+
+.net30 {
+	display: inline-block;
+	position: relative;
+	top: 8px;
+	border: 0;
+	height: 25px;
+	width: 25px;
 }

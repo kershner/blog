@@ -30,6 +30,7 @@ class NewAccountForm(Form):
     name = TextField("Contact Name", [validators.Required("Please enter the contact's name.")])
     acct = TextField("Customer Account Number", [validators.Required("Please enter the customer's account number.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
+    net30 = BooleanField(default=False)
     submit = SubmitField("Submit")
 
 
@@ -84,6 +85,11 @@ class DeaForms(Form):
     item_numbers = TextField("Item #s.", [validators.Required("Enter the item numbers from the 222 form.")])
     notes = TextAreaField("Notes.")
     csr_name = TextField("Your name.", [validators.Required("Enter your name.")])
+    submit = SubmitField("Submit")
+
+class BackorderReport(Form):
+    name = TextField("Contact's Name", [validators.Required("Please enter the contact's name.")])
+    email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     submit = SubmitField("Submit")
 
 #############################################
