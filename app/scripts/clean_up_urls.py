@@ -56,6 +56,11 @@ def clean_up_urls(path, urls_file):
         if url + '\n' in bad_urls_list:
             log.bad_urls_counter()
             continue
+        # Skipping GFYCat URLs for now
+        elif 'gfycat' in url:
+            print 'GFYCat link, skipping for now...'
+            clean_urls_file.write(str(url))
+            continue
         # Known Large URL
         elif url + '\n' in large_urls_list:
             log.large_urls_counter()

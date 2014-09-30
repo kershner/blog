@@ -66,7 +66,7 @@ def scrape_reddit(target_subreddit, path, category):
             # Already in urls.txt
             if str(submission.url) + '\n' in urls_list:
                 continue
-            # Known bad URL
+           # Known bad URL
             elif str(submission.url) + '\n' in bad_urls_list:
                 bad_urls += 1
                 continue
