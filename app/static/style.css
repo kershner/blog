@@ -22,13 +22,17 @@ p {
   text-align: center;
 }
 
-#hr {
-  position: relative;
-  margin: auto;
-  width: 25%;
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
 }
 
-#grey h2, #white h2 {
+.grey h2, .white h2 {
 	color: rgb(26, 139, 188);
 }
 
@@ -165,7 +169,7 @@ pre code{
   color: #66B2FF;
 }
 
-#continue-link {
+.continue-link {
   float: right;
 }
 
@@ -340,4 +344,8 @@ pre code{
 /* Additional class to apply to images to round their corners */
 .rounded-images {
 	border-radius: 15px;
+}
+
+ul.rig.columns-3 li.article-image {
+	height: auto;
 }

@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
-CATEGORY = gaming
+CATEGORY = all
 CURRENT_GIF = http://i.imgur.com/mmDpkZH.gif
 DELAY = 20

@@ -50,6 +50,12 @@ def aug14():
                            title="August 2014")
 
 
+@app.route('/sep14')
+def sep14():
+    return render_template("/blog/blog_archive/sep14.html",
+                           title="September 2014")
+
+
 @app.route('/about')
 def about():
     return render_template("/blog/about.html",
