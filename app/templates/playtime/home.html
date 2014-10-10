@@ -1,0 +1,29 @@
+{% extends "/playtime/base.html" %}
+{% block content %}
+
+    {% if form.errors %}
+
+        {% for message in form.steamid.errors %}
+            {{ message }}
+        {% endfor %}
+
+    {% endif %}
+
+    {% if message %}
+
+        {{ message }}
+
+    {% endif %}
+
+    <form action="{{ url_for('playtime_logic') }}" method="POST">
+
+        {{ form.hidden_tag() }}
+
+        {{ form.steamid(placeholder="SteamID") }}
+        {{ form.recent() }}
+        {{ form.number_of_results() }}
+        {{ form.submit() }}
+
+    </form>
+
+{% endblock %}

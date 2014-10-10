@@ -52,7 +52,8 @@ class DiscrepancyForm(Form):
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
     po = TextField("Purchase Order or Sales Order", [validators.Required("Please enter the PO or Sales Order Number.")])
     item_number = TextField("Item Number", [validators.Required("Please enter the item's number.")])
-    given_price = TextField("Customer's Given Price", [validators.Required("Please enter the price given by the customer.")])
+    given_price = TextField("Customer's Given Price", [validators.Required("Please enter the price given by the "
+                                                                           "customer.")])
     actual_price = TextField("Actual Price", [validators.Required("Please enter the item's actual price.")])
     submit = SubmitField("Submit")
 
@@ -87,6 +88,7 @@ class DeaForms(Form):
     csr_name = TextField("Your name.", [validators.Required("Enter your name.")])
     submit = SubmitField("Submit")
 
+
 class BackorderReport(Form):
     name = TextField("Contact's Name", [validators.Required("Please enter the contact's name.")])
     email = TextField("Contact's Email Address", [validators.Required("Please enter the contact's Email address.")])
@@ -119,4 +121,16 @@ class RedditImageScraper(Form):
     results_from = SelectField('Results From', choices=[('1', 'Hot'), ('4', 'Month'), ('3', 'Year'), ('2', 'All')])
     number = SelectField('Number of Submissions to Scrape', choices=[('5', '5'), ('10', '10'), ('20', '20'),
                                                                                  ('50', '50'), ('100', '100')])
+    submit = SubmitField('Submit')
+
+
+#############################################
+# Playtime forms
+
+class PlayTime(Form):
+    steamid = StringField('SteamID', validators=[DataRequired('Enter Your SteamID')])
+    recent = SelectField('Results from All Time or Last Two Weeks', choices=[('1', 'From 2009'),
+                                                                             ('2', 'Last Two Weeks')])
+    number_of_results = SelectField('Number of Results', choices=[('5', '5'), ('10', '10'), ('20', '20'),
+                                                                  ('All', 'All')])
     submit = SubmitField('Submit')

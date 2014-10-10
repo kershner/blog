@@ -1,12 +1,15 @@
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, DeaForms, BackorderReport, SlideshowDelay, GifParty, RedditImageScraper
+    StillNeed, LicenseNeeded, DeaVerify, DeaForms, BackorderReport, SlideshowDelay, GifParty, RedditImageScraper, \
+    PlayTime
 from urllib import quote
 import datetime
 import random
 import re
 import praw
 import requests
+import urllib2
+import json
 from functools import wraps
 from app import app, db, models
 
@@ -1576,3 +1579,109 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
+
+
+#######################################################################################
+#####  PlayTime  ######################################################################
+@app.route('/playtime', methods=['GET', 'POST'])
+def playtime():
+    form = PlayTime()
+
+    return render_template('/playtime/home.html',
+                           form=form,
+                           title='A Visual Representation of Time Spent In Your Steam Library')
+
+
+@app.route('/playtime_logic', methods=['GET', 'POST'])
+def playtime_logic():
+    form = PlayTime()
+
+    # Different API urls - Steam uses different URLs for different services within the API
+    API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
+    API_2_WEEKS = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
+    API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
+    API_URL_64BIT = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
+
+    API_KEY = '8B87987F953FE3D1C107998D76339CCF'
+
+    if request.method == 'POST':
+        if not form.validate():
+            return render_template('/playtime/home.html',
+                                   form=form,
+                                   title='A Visual Representation of Time Spent In Your Steam Library')
+        else:
+            user_input = form.steamid.data
+            recent = form.recent.data
+            number_of_results = form.number_of_results.data
+            if number_of_results == '5':
+                number_of_results = 5
+            elif number_of_results == '10':
+                number_of_results = 10
+            elif number_of_results == '20':
+                number_of_results = 20
+            else:
+                number_of_results = 'All'
+
+            try:
+                # This line tests if the user has input a 17-character 64-bit SteamID
+                if len(user_input) == 17 and not user_input[0].isalpha():
+                    steam_id = user_input
+                    display_name = json.loads(urllib2.urlopen('%s?key=%s&steamids=%s' %
+                                   (API_URL_64BIT, API_KEY, steam_id)).read())['response']['players'][0]['personaname']
+                else:
+                    steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
+                               (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
+                    display_name = user_input
+
+                # Don't forget to include_appinfo=1 for extra data about entries
+                if recent == '1':
+                    api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
+                                               (API_URL, API_KEY, steam_id))
+                    readout = 'Since 2009'
+                    playtime_type = 'playtime_forever'
+                else:
+                    api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
+                                               (API_2_WEEKS, API_KEY, steam_id))
+                    readout = 'In the Last Two Weeks'
+                    number_of_results = 'All'
+                    playtime_type = 'playtime_2weeks'
+
+                data = json.loads(api_call.read())
+
+                minutes_played = []
+
+                for game in data['response']['games']:
+                    minutes_played.append([game['name'], game['%s' % playtime_type]])
+
+                # Using a reverse sort by the 2nd index of each entry in minutes_played
+                minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
+                minutes_played_new = []
+
+                counter = 0
+                for entry in minutes_played:
+                    if number_of_results == 'All':
+                        pass
+                    else:
+                        if counter == int(number_of_results):
+                            break
+                    hours_played = entry[1] / 60.0
+                    minutes_played_new.append([entry[0], '%.1f' % hours_played])
+                    counter += 1
+
+                if number_of_results == 'All':
+                    number_of_results = ''
+                else:
+                    number_of_results = 'Top %s' % number_of_results
+
+            except KeyError:
+                return render_template('/playtime/home.html',
+                                       form=form,
+                                       message='Invalid profile name or SteamID, please try again.',
+                                       title='A Visual Representation of Time Spent In Your Steam Library')
+
+        return render_template('/playtime/results.html',
+                               display_name=display_name,
+                               number_of_results=number_of_results,
+                               minutes_played_new=minutes_played_new,
+                               readout=readout,
+                               title='Results')

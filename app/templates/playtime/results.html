@@ -1,0 +1,11 @@
+{% extends "/playtime/base.html" %}
+{% block content %}
+
+<h1> Results! </h1>
+<h3>{{ display_name }}'s {{ number_of_results }} Most Played Steam Games {{ readout }}</h3>
+
+{% for entry in minutes_played_new %}
+<h5>{{ entry[0] }} - {{ entry[1] }} hours played</h5>
+{% endfor %}
+
+{% endblock %}
