@@ -1600,7 +1600,7 @@ def playtime_logic():
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
     API_2_WEEKS = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
     API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
-    API_URL_64BIT = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
+    API_PLAYER = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
 
     API_KEY = '8B87987F953FE3D1C107998D76339CCF'
 
@@ -1627,7 +1627,7 @@ def playtime_logic():
                 if len(user_input) == 17 and not user_input[0].isalpha():
                     steam_id = user_input
                     display_name = json.loads(urllib2.urlopen('%s?key=%s&steamids=%s' %
-                                   (API_URL_64BIT, API_KEY, steam_id)).read())['response']['players'][0]['personaname']
+                                   (API_PLAYER, API_KEY, steam_id)).read())['response']['players'][0]['personaname']
                 else:
                     steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
                                (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
@@ -1646,12 +1646,19 @@ def playtime_logic():
                     number_of_results = 'All'
                     playtime_type = 'playtime_2weeks'
 
+                # Storing Steam API JSON response in variable
                 data = json.loads(api_call.read())
 
+                # Processing response data, parsing out desired bits
                 minutes_played = []
 
                 for game in data['response']['games']:
-                    minutes_played.append([game['name'], game['%s' % playtime_type]])
+                    appid = game['appid']
+                    game_hash = game['img_logo_url']
+                    url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                          (appid, game_hash)
+
+                    minutes_played.append([game['name'], game['%s' % playtime_type], url])
 
                 # Using a reverse sort by the 2nd index of each entry in minutes_played
                 minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
@@ -1665,7 +1672,7 @@ def playtime_logic():
                         if counter == int(number_of_results):
                             break
                     hours_played = entry[1] / 60.0
-                    minutes_played_new.append([entry[0], '%.1f' % hours_played])
+                    minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
                     counter += 1
 
                 if number_of_results == 'All':
@@ -1673,10 +1680,22 @@ def playtime_logic():
                 else:
                     number_of_results = 'Top %s' % number_of_results
 
+                # # Performing second API call to retrieve user's avatar
+                # api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
+                #                            (API_PLAYER, API_KEY, steam_id))
+                #
+                # data = json.loads(api_call.read())
+                # user_image = data['response']['avatarfull']
+
             except KeyError:
                 return render_template('/playtime/home.html',
                                        form=form,
                                        message='Invalid profile name or SteamID, please try again.',
+                                       title='A Visual Representation of Time Spent In Your Steam Library')
+            except urllib2.URLError:
+                return render_template('/playtime/home.html',
+                                       form=form,
+                                       message='The API request took too long and has timed out, please try again.',
                                        title='A Visual Representation of Time Spent In Your Steam Library')
 
         return render_template('/playtime/results.html',

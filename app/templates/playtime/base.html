@@ -13,6 +13,10 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
 
+    <!-- JS -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src='/static/js/jquery.customSelect.min.js'></script>
+
     <title>PlayTime - {{ title }}</title>
 
 </head>
@@ -27,9 +31,22 @@
 
         </div>
 
-        {% block content %}{% endblock %}
+        <div id="wrapper">
 
-        <div id="footer">
+            {% block content %}{% endblock %}
+
+            <br>
+            <br>
+            <br>
+
+            <div id="footer">
+
+                <p>
+                    Powered by Steam<br>
+                    <a href="http://steampowered.com">http://steampowered.com</a>
+                </p>
+
+            </div>
 
         </div>
 

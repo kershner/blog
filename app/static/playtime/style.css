@@ -3,22 +3,49 @@ body, html {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	background-color: #69C1FF;
+	font-family: 'Roboto', sans-serif;
+	color: black;
+	background: url(../playtime/images/low_contrast_linen.png);
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:hover {
+	color: red;
+}
+
+a:visited {
+	color: blue;
+}
+
+/* Colors ******************* */
+.blue {
+	color: #026AB3;
+}
+
+.yellow {
+	color: #FFBE00;
+}
+
+.green {
+	color: #16E889;
 }
 
 #container {
 	min-height: 100%;
 	position: relative;
+	margin-bottom: -25px;
 }
 
 #header, #footer {
 	width: 100%;
 }
 
+/* Header ******************* */
 #header {
 	height: 150px;
-	background-color: #FFF0C6;
-	box-shadow: 1px 2px 5px #000;
 }
 
 #header h1 {
@@ -29,25 +56,238 @@ body, html {
 	text-shadow: 1px 1px 1px #000;
 }
 
-.blue {
-	color: #129AFB;
-}
-
-.orange {
-	color: #FF8A5F;
-}
-
 #header p {
 	position: relative;
 	bottom: 40px;
 	left: 215px;
-	font-family: 'Roboto', sans-serif;
-	color: black;
+	color: white;
+	text-shadow: 1px 1px .5px #000;
 }
 
+#wrapper {
+	position: relative;
+	color: white;
+	margin: 1px auto;
+	padding-top: 25px;
+	width: 600px;
+	height: 750px;
+}
+
+/* Footer ******************* */
 #footer {
-	position: absolute;
+	position: relative;
 	bottom: 0;
-	background-color: grey;
-	height: 100px;
+	margin: 0 auto;
+	height: 50px;
+	text-align: center;
+	width: 600px;
+	color: white;
+}
+
+/* Home Page ***************** */
+.message {
+	position: relative;
+	margin: 25px auto;
+	width: 350px;
+	background-color: #026AB3;
+	text-align: center;
+	text-shadow: .5px .5px 2px #000;
+	border: 2px solid #2A2A2A;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1xp #000;
+}
+
+#form {
+	position: relative;
+	background-color: #026AB3;
+	height: 450px;
+	width: 100%;
+	min-width: 350px;
+	margin: 25px auto;
+	border: 2px solid #2A2A2A;
+	border-radius: 10px;
+	text-align: center;
+}
+
+input {
+	height: 75px;
+	width: 550px;
+	margin: 10px auto;
+	margin-top: 100px;
+	border-radius: 5px;
+	box-shadow: 1.5px 1.5px 5px #000;
+}
+
+input[type=text] {
+	padding-left: 10px;
+	font-size: 48px;	
+}
+
+.select-box {
+	display: inline-block;
+	background-color: #3FADFB;
+	height: 35px;
+	color: white;
+	line-height: 35px;
+	font-size: 25px;
+	text-shadow: 1px 1px .5px #000;
+	border-radius: 5px;
+	box-shadow: 1.5px 1.5px 3px #000;	
+}
+
+.submit {
+	color: white;
+	height: 45px;
+	width: 200px;
+	font-size: 25px;
+	background-color: #03FC8B;
+	border: 0;
+	text-shadow: .5px .5px 2px #000;
+}
+
+.submit:hover {
+	background-color: #FF4703;
+}
+
+/* Results Page ***************** */
+#results-container {
+	margin: 0 auto;
+	width: 700px;
+	color: black;
+	text-align: center;
+}
+
+#results-container-inner {
+	margin: 0 auto;
+}
+
+#user-info {
+	position: relative;
+	top: 15px;
+	margin: 0 auto;
+	width: 700px;
+	height: 200px;
+	background-color: #2394E4;
+	border-radius: 15px;
+	box-shadow: 2px 2px 3px #000;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	text-shadow: 1px 1px 2px #000;
+	
+}
+
+#text-name {
+	position: absolute;
+	top: -20px;
+	right: 10px;
+	text-shadow: .5px .5px .5px #000;
+}
+
+#user-info img {
+	position: absolute;
+	top: 10px;
+	left: 15px;
+	width: 166px;
+	height: 166px;
+	border-radius: 5px;
+	border: 1px solid blue;
+}
+
+#user-info #readout {
+	position: absolute;
+	padding: 0;
+	z-index: 10;
+	top: 60px;
+	left: 195px;
+	width: 500px;
+	color: #FFBE00;
+}
+
+#user-info #readout h1 {
+	text-align: left;
+	color: white;
+}
+
+#data{
+	margin: 0 auto;
+	width: 600px;
+	text-align: left;
+	background-color: #026AB3;
+	border: .5px solid black;
+	border-radius: 10px;	
+	box-shadow: 2px 2px 3px #000;
+}
+
+#data h3 {
+	margin: 75px 10px;
+	color: white;
+	font-size: 34px;
+	text-shadow: 1px 1px 2px #000;
+	text-align: center;
+}
+
+#data .entry {
+	background-color: #013F6B;
+	position: relative;
+	width: 90%;
+	height: 150px;
+	padding: 10px;
+	margin: 15px auto;
+	box-shadow: 2px 2px 3px #000;
+	border-radius: 15px;
+	color: white;
+	text-shadow: 1px 1px 2px #000;
+}
+
+.entry img {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	border-radius: 15px;
+	min-height: 69px;
+	min-width: 184px;
+}
+
+.entry-data {
+	position: absolute;
+	z-index: 5;
+	top: 10px;
+	left: 215px;	
+	text-align: left;
+	margin: 0;
+}
+
+#game-name {
+	display: inline-block;
+	color: #068CEB;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 32px;
+	text-shadow: none;
+}
+
+#game-hours {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+}
+
+#rank {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 42px;
+}
+
+#back {
+	text-align: center;
+	text-decoration: none;
+	color: #026AB3;
+}
+
+#back h1:hover {
+	color: red;
+}
+
+#back h1:visited {
+	color: #026AB3;
 }
