@@ -1,5 +1,4 @@
 body, html {
-	overflow-x: hidden;
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -8,12 +7,24 @@ body, html {
 	background: url(../playtime/images/low_contrast_linen.png);
 }
 
+body {
+	overflow-x: hidden;
+}
+
+.hidden {
+	display: none;
+}
+
+.show {
+	display: inline;
+}
+
 a:link {
 	text-decoration: none;
 }
 
 a:hover {
-	color: red;
+	color: #3FADFB;
 }
 
 a:visited {
@@ -43,9 +54,37 @@ a:visited {
 	width: 100%;
 }
 
+#hidden-menu {
+	position: fixed;
+	display: none;
+	z-index: 6;
+	top: 0;
+	left: 0;
+	background-color: #2394E4;
+	height: 32px;
+	width: 100%;
+	min-width: 550px;
+	box-shadow: 1px 1px 3px #000;
+}
+
+#hidden-menu img {
+	position: relative;
+	bottom: 6px;
+	left: 0;
+}
+
+#hidden-menu h3 {
+	position: relative;
+	display: inline-block;
+	bottom: 15px;
+	left: 5px;
+	text-shadow: .5px .5px .5px #000;
+}
+
 /* Header ******************* */
 #header {
 	height: 150px;
+	width: 100%;
 }
 
 #header h1 {
@@ -69,7 +108,7 @@ a:visited {
 	color: white;
 	margin: 1px auto;
 	padding-top: 25px;
-	width: 600px;
+	width: 700px;
 	height: 750px;
 }
 
@@ -80,8 +119,16 @@ a:visited {
 	margin: 0 auto;
 	height: 50px;
 	text-align: center;
-	width: 600px;
+	width: 700px;
 	color: white;
+}
+
+#footer img {
+	margin: 5px auto;
+}
+
+#footer p {
+	margin: -10px auto;
 }
 
 /* Home Page ***************** */
@@ -100,8 +147,8 @@ a:visited {
 #form {
 	position: relative;
 	background-color: #026AB3;
-	height: 450px;
-	width: 100%;
+	height: 380px;
+	width: 700px;
 	min-width: 350px;
 	margin: 25px auto;
 	border: 2px solid #2A2A2A;
@@ -109,11 +156,23 @@ a:visited {
 	text-align: center;
 }
 
+#select-left {
+	float: left;
+}
+
+#select-right {
+	float: right;
+}
+
+form a {
+	color: white;
+}
+
 input {
 	height: 75px;
 	width: 550px;
 	margin: 10px auto;
-	margin-top: 100px;
+	margin-top: 70px;
 	border-radius: 5px;
 	box-shadow: 1.5px 1.5px 5px #000;
 }
@@ -125,6 +184,7 @@ input[type=text] {
 
 .select-box {
 	display: inline-block;
+	margin: 25px 0;
 	background-color: #3FADFB;
 	height: 35px;
 	color: white;
@@ -136,17 +196,18 @@ input[type=text] {
 }
 
 .submit {
+	margin: 30px auto;
 	color: white;
 	height: 45px;
 	width: 200px;
 	font-size: 25px;
-	background-color: #03FC8B;
+	background-color: #02528B;
 	border: 0;
 	text-shadow: .5px .5px 2px #000;
 }
 
 .submit:hover {
-	background-color: #FF4703;
+	background-color: #3FADFB;
 }
 
 /* Results Page ***************** */
@@ -185,8 +246,8 @@ input[type=text] {
 
 #user-info img {
 	position: absolute;
-	top: 10px;
-	left: 15px;
+	top: 15px;
+	left: 10px;
 	width: 166px;
 	height: 166px;
 	border-radius: 5px;
@@ -197,7 +258,7 @@ input[type=text] {
 	position: absolute;
 	padding: 0;
 	z-index: 10;
-	top: 60px;
+	top: 30px;
 	left: 195px;
 	width: 500px;
 	color: #FFBE00;
@@ -244,8 +305,8 @@ input[type=text] {
 	top: 15px;
 	left: 15px;
 	border-radius: 15px;
-	min-height: 69px;
-	min-width: 184px;
+	height: 69px;
+	width: 184px;
 }
 
 .entry-data {
@@ -278,16 +339,32 @@ input[type=text] {
 	font-size: 42px;
 }
 
-#back {
+.back {
+	position: relative;
+	margin: 0 auto;
+	width: 700px;
+}
+
+.back h1 {
+	margin: 25px auto;
+	height: 48px;
+	width: 100px;
+	background-color: #026AB3;
 	text-align: center;
 	text-decoration: none;
-	color: #026AB3;
+	text-shadow: 1px 1px .5px #000;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px #000;	
 }
 
-#back h1:hover {
-	color: red;
+.back a {
+	color: #FFBE00;	
 }
 
-#back h1:visited {
+.back h1:hover {
+	background-color: #3FADFB;
+}
+
+.back h1:visited {
 	color: #026AB3;
 }

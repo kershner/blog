@@ -1,11 +1,19 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
 
+    <div id="hidden-menu">
+        <img src="{{ user_image_icon }}">
+        <h3 class="green">{{ display_name }}'s</h3>
+        <h3>{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+    </div>
+
     <div id="results-container">
 
         <div id="results-container-inner">
 
             <div id="user-info">
+
+                <a name="top"></a>
 
                 <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
 
@@ -15,7 +23,7 @@
 
                     <h1>
                         {{ number_of_results }} Most Played Steam Games<br>
-                        <span class="yellow">{{readout}}</span>
+                        <span class="yellow">{{ readout }}</span>
                     </h1>
 
                 </div>
@@ -51,6 +59,10 @@
 
     </div>
 
-    <a id="back" href="/playtime"><h1>Back</h1></a>
+    <div class="back">
+        <a href="/playtime">
+            <h1>Back</h1>
+        </a>
+    </div>
 
 {% endblock %}

@@ -15,7 +15,9 @@
 
     <!-- JS -->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src='/static/js/jquery.customSelect.min.js'></script>
+    <script src="/static/playtime/js/Chart.min.js"></script>
+    <script src="/static/js/jquery.customSelect.min.js"></script>
+    <script src="/static/playtime/js/playtime.js"></script>
 
     <title>PlayTime - {{ title }}</title>
 
@@ -25,9 +27,11 @@
 
     <div id="container">
 
+
         <div id="header">
 
-            <h1><span class="orange">Play</span><span class="blue">Time</span></h1><p>A VISUAL REPRESENTATION OF TIME SPENT IN YOUR STEAM LIBRARY</p>
+            <a href="/playtime"><h1><span class="orange">Play</span><span class="blue">Time</span></h1></a>
+            <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
 
         </div>
 
@@ -43,7 +47,7 @@
 
                 <p>
                     Powered by Steam<br>
-                    <a href="http://steampowered.com">http://steampowered.com</a>
+                    <a href="http://steampowered.com"><img src="/static/playtime/images/steam-icon.png"></a>
                 </p>
 
             </div>
@@ -53,5 +57,12 @@
     </div>
 
 </body>
+
+<script>
+$(document).ready(function(){
+    $('.select-box').customSelect();
+    hiddenMenu();
+});
+</script>
 
 </html>

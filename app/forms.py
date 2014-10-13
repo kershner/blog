@@ -131,6 +131,6 @@ class PlayTime(Form):
     steamid = StringField('SteamID', validators=[DataRequired('Enter Your SteamID')])
     recent = SelectField('Results from All Time or Last Two Weeks', choices=[('1', 'From 2009'),
                                                                              ('2', 'Last Two Weeks')])
-    number_of_results = SelectField('Number of Results', choices=[('5', '5'), ('10', '10'), ('20', '20'),
-                                                                  ('All', 'All')])
+    number_of_results = SelectField('Number of Results', choices=[('5', '5 Results'), ('10', '10 Results'),
+                                                                  ('20', '20 Results'), ('All', 'All Results')])
     submit = SubmitField('Submit')

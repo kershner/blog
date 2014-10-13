@@ -1,8 +1,6 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
 
-
-
         {% if form.errors %}
         <div class="message">
 
@@ -38,18 +36,14 @@
             {{ form.hidden_tag() }}
 
             {{ form.steamid(placeholder="SteamID") }}<br>
+            <a href="#">Where is my SteamID?</a><br>
+            {{ form.number_of_results(class="select-box") }}
             {{ form.recent(class="select-box") }}
-            {{ form.number_of_results(class="select-box") }}<br>
+            <br>
             {{ form.submit(class="submit") }}
 
         </form>
 
     </div>
-
-<script>
-$(document).ready(function(){
-    $('.select-box').customSelect();
-});
-</script>
 
 {% endblock %}

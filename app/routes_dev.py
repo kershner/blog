@@ -1680,12 +1680,13 @@ def playtime_logic():
                 else:
                     number_of_results = 'Top %s' % number_of_results
 
-                # # Performing second API call to retrieve user's avatar
-                # api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
-                #                            (API_PLAYER, API_KEY, steam_id))
-                #
-                # data = json.loads(api_call.read())
-                # user_image = data['response']['avatarfull']
+                # Performing second API call to retrieve user's avatar
+                api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
+                                           (API_PLAYER, API_KEY, steam_id))
+
+                data = json.loads(api_call.read())
+                user_image = data['response']['players'][0]['avatarfull']
+                user_image_icon = data['response']['players'][0]['avatar']
 
             except KeyError:
                 return render_template('/playtime/home.html',
@@ -1703,4 +1704,10 @@ def playtime_logic():
                                number_of_results=number_of_results,
                                minutes_played_new=minutes_played_new,
                                readout=readout,
+                               user_image=user_image,
+                               user_image_icon=user_image_icon,
                                title='Results')
+
+@app.route('/graph_test')
+def graph_test():
+    return render_template('/playtime/graph_test.html')
