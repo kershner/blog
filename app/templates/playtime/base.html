@@ -7,17 +7,12 @@
     <meta charset="UTF-8">
 
     <!-- CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/static/playtime/style.css"/>
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
-
-    <!-- JS -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="/static/playtime/js/Chart.min.js"></script>
-    <script src="/static/js/jquery.customSelect.min.js"></script>
-    <script src="/static/playtime/js/playtime.js"></script>
 
     <title>PlayTime - {{ title }}</title>
 
@@ -27,39 +22,31 @@
 
     <div id="container">
 
+        {% block content %}{% endblock %}
 
-        <div id="header">
-
-            <a href="/playtime"><h1><span class="orange">Play</span><span class="blue">Time</span></h1></a>
-            <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
-
-        </div>
-
-        <div id="wrapper">
-
-            {% block content %}{% endblock %}
-
-            <br>
-            <br>
-            <br>
-
-            <div id="footer">
-
-                <p>
-                    Powered by Steam<br>
-                    <a href="http://steampowered.com"><img src="/static/playtime/images/steam-icon.png"></a>
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
+     </div>
 
 </body>
 
+<!-- JS -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/static/playtime/js/Chart.min.js"></script>
+<script src="/static/js/jquery.customSelect.min.js"></script>
+<script src="/static/playtime/js/playtime.js"></script>
+
 <script>
 $(document).ready(function(){
+    {% if donut_data %}
+        var donutData = {{ donut_data|safe }};
+        var barData = {{ chart_data|safe }};
+        var lineData = {{ line_chart_data|safe }};
+
+        showLine(lineData);
+        showBar(barData);
+        showDonut(donutData);
+        showList();
+    {% endif %}
+
     $('.select-box').customSelect();
     hiddenMenu();
 });

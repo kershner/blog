@@ -1,68 +1,144 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
 
-    <div id="hidden-menu">
-        <img src="{{ user_image_icon }}">
-        <h3 class="green">{{ display_name }}'s</h3>
-        <h3>{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+    <div id="header">
+
+        <a href="/playtime"><h1><span class="yellow">Play</span><span class="blue">Time</span></h1></a>
+        <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
+
     </div>
 
-    <div id="results-container">
+    <div id="wrapper">
 
-        <div id="results-container-inner">
+        <div id="hidden-menu">
+            <img src="{{ user_image_icon }}">
+            <h3 class="green">{{ display_name }}'s</h3>
+            <h3>{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+            <div id="back-to-top">
+                <a href="/playtime"><h3 id="hidden-logo"><span class="yellow">Play</span><span class="blue">Time</span></h3></a>
+                <a href="#top"><i class="fa fa-arrow-circle-up fa-2x"></i></a>
+            </div>
+        </div>
 
-            <div id="user-info">
+        <a name="top"></a>
 
-                <a name="top"></a>
+        <div id="results-container">
 
-                <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
+            <div id="results-container-inner">
 
-                <img src="{{ user_image }}">
+                <!-- User Info Div -->
+                <div id="user-info">
 
-                <div id="readout">
+                    <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
 
-                    <h1>
-                        {{ number_of_results }} Most Played Steam Games<br>
-                        <span class="yellow">{{ readout }}</span>
-                    </h1>
+                    <img id="user-image" src="{{ user_image }}">
+
+                    <div id="readout">
+
+                        <h1>
+                            {{ number_of_results }} Most Played Steam Games<br>
+                            <span class="yellow">{{ readout }}</span>
+                        </h1>
+
+                    </div>
+
+                    <div id="options">
+                        <i id="list-selector" class="fa fa-list-ul fa-2x"></i>
+                        <i id="line-selector" class="fa fa-area-chart fa-2x"></i>
+                        <i id="donut-selector" class="fa fa-circle-o-notch fa-2x"></i>
+                        <i id="bar-selector" class="fa fa-bar-chart fa-2x"></i>
+                    </div>
+
+                </div>
+
+                <div class="result-template">
+
+                    <!-- Various Graph Divs, hidden until selected -->
+                    <div id="line">
+
+                        <br>
+                        <br>
+
+                        <div class="canvas-container">
+                            <canvas id="line-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+
+                    </div>
+
+                    <div id="donut">
+
+                        <br>
+                        <br>
+
+                        <div class="canvas-container">
+                            <canvas id="donut-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+
+                    </div>
+
+
+                    <div id="bar">
+
+                        <br>
+                        <br>
+
+                        <div class="canvas-container">
+                            <canvas id="bar-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+
+                    </div>
+
+                    <!-- List of Results -->
+                    <div id="data">
+
+                        <br>
+
+                        {% for entry in minutes_played_new %}
+
+                            <div class="entry">
+
+                                <img src="{{ entry[3] }}">
+
+                                <div class="entry-data">
+                                    <span id="game-name">{{ entry[1] }}</span><br>
+                                    <span id="game-hours">{{ entry[2] }} hours played</span>
+                                </div>
+
+                                <span id="rank">{{ entry[0] }}</span>
+
+                            </div>
+
+                        {% endfor %}
+
+                        <br>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            <div id="data">
+        </div>
 
-                <br>
+        <br>
+        <br>
+        <br>
 
-                {% for entry in minutes_played_new %}
+        <div id="footer">
 
-                    <div class="entry">
-
-                        <img src="{{ entry[3] }}">
-
-                        <div class="entry-data">
-                            <span id="game-name">{{ entry[1] }}</span><br>
-                            <span id="game-hours">{{ entry[2] }} hours played</span>
-                        </div>
-
-                        <span id="rank">{{ entry[0] }}</span>
-
-                    </div>
-
-                {% endfor %}
-
-                <br>
-
-            </div>
+            <p>
+                Powered by Steam<br>
+                <a href="http://steampowered.com"><img id="steam-icon" src="/static/playtime/images/steam-icon.png"></a>
+            </p>
 
         </div>
 
-    </div>
-
-    <div class="back">
-        <a href="/playtime">
-            <h1>Back</h1>
-        </a>
     </div>
 
 {% endblock %}

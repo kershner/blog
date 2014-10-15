@@ -1596,12 +1596,17 @@ def playtime():
 def playtime_logic():
     form = PlayTime()
 
+    # Little bit of code to generate a random hex color for the charts
+    def random_color():
+        r = lambda: random.randint(0, 255)
+        color = '#%02X%02X%02X' % (r(), r(), r())
+        return color
+
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
     API_2_WEEKS = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
     API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
     API_PLAYER = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
-
     API_KEY = '8B87987F953FE3D1C107998D76339CCF'
 
     if request.method == 'POST':
@@ -1630,7 +1635,7 @@ def playtime_logic():
                                    (API_PLAYER, API_KEY, steam_id)).read())['response']['players'][0]['personaname']
                 else:
                     steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
-                               (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
+                                                          (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
                     display_name = user_input
 
                 # Don't forget to include_appinfo=1 for extra data about entries
@@ -1649,7 +1654,7 @@ def playtime_logic():
                 # Storing Steam API JSON response in variable
                 data = json.loads(api_call.read())
 
-                # Processing response data, parsing out desired bits
+                # Processing response data, parsing out desired bits, appending to minutes_played
                 minutes_played = []
 
                 for game in data['response']['games']:
@@ -1674,6 +1679,72 @@ def playtime_logic():
                     hours_played = entry[1] / 60.0
                     minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
                     counter += 1
+
+                ###############################
+                # Formatting data for Charts.js
+
+                ##############################
+                # Donut Chart ################
+                datasets = ''
+                counter = 0
+                for entry in minutes_played:
+                    if number_of_results == 'All':
+                        pass
+                    else:
+                        if counter == int(number_of_results):
+                            break
+                    dataset = '{ value: %.1f, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
+                              (entry[1] / 60.0, random_color(), entry[0])
+                    datasets += dataset
+                    counter += 1
+                donut_data = '[%s]' % datasets[:-1]
+
+                ##############################
+                # Line Chart ##################
+                line_data = ''
+                line_labels = ''
+                counter = 0
+                if number_of_results == 'All':
+                    endpoint = 20
+                else:
+                    endpoint = int(number_of_results)
+                for entry in minutes_played:
+                    if counter == endpoint:
+                            break
+                    line_data += '%d,' % (entry[1] / 60)
+                    line_labels += '"%s",' % entry[0]
+                    counter += 1
+
+                line_data = line_data[:-1]
+                line_labels = line_labels[:-1]
+
+                line_chart_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
+                                   '"rgba(220,220,220,1)", pointColor: "%s", pointStrokeColor: "#fff", ' \
+                                   'pointHighlightFill: "#fff", pointHighlightStroke: "#3FADFB", data: [%s]}]}' % \
+                                   (line_labels, random_color(), random_color(), line_data)
+
+                ##############################
+                # Bar Chart ##################
+                bar_data = ''
+                bar_labels = ''
+                counter = 0
+                if number_of_results == 'All':
+                    endpoint = 20
+                else:
+                    endpoint = int(number_of_results)
+                for entry in minutes_played:
+                    if counter == endpoint:
+                            break
+                    bar_data += '%d,' % (entry[1] / 60)
+                    bar_labels += '"%s",' % entry[0]
+                    counter += 1
+
+                bar_data = bar_data[:-1]
+                bar_labels = bar_labels[:-1]
+
+                chart_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: "rgba(220,220,220,0.8)", ' \
+                             'highlightFill: "#3FADFB", highlightStroke: "rgba(220,220,220,1)", data: [%s]}]}' % \
+                             (bar_labels, random_color(), bar_data)
 
                 if number_of_results == 'All':
                     number_of_results = ''
@@ -1706,6 +1777,9 @@ def playtime_logic():
                                readout=readout,
                                user_image=user_image,
                                user_image_icon=user_image_icon,
+                               donut_data=donut_data,
+                               chart_data=chart_data,
+                               line_chart_data=line_chart_data,
                                title='Results')
 
 @app.route('/graph_test')
