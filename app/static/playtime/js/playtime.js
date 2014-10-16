@@ -10,17 +10,25 @@ function hiddenMenu() {
 	});
 }
 
+function showForm() {
+	$("#get-started").one("click", function() {
+		$("#form").fadeIn("slow", "linear");		
+		$(".select-box").customSelect();
+		$("#welcome-header").css("margin-top", "25px");
+	});
+}
+
 function showDonut(data) {
-        $("#donut-selector").click(function() {
-            $("#data").fadeOut("fast");
-            $("#bar").fadeOut("fast");
-            $("#line").fadeOut("fast");
-			$("#donut").fadeIn("slow");
-            options = {animationSteps: 70, animationEasing: "easeOutExpo"};
-            var ctx = $("#donut-chart").get(0).getContext("2d");
-            var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
-        });
-    }
+	$("#donut-selector").click(function() {
+		$("#data").fadeOut("fast");
+		$("#bar").fadeOut("fast");
+		$("#line").fadeOut("fast");
+		$("#donut").fadeIn("slow");
+		options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+		var ctx = $("#donut-chart").get(0).getContext("2d");
+		var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
+	});
+}
 
 function showList() {
 	$("#list-selector").click(function() {

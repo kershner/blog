@@ -1,48 +1,64 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
 
-        {% if form.errors %}
-        <div class="message">
+        <div id="welcome-header">
 
-            <br>
+            <div id="logo">
+                <h1><span class="yellow">Play</span><span class="blue">Time</span></h1>
+                <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
+            </div>
 
-            {% for message in form.steamid.errors %}
+            <div id="buttons">
+                <div id="buttons-inner">
+                    <div id="get-started">Get Started!</div>
+                    <div id="about">About</div>
+                </div>
+            </div>
+
+            {% if form.errors %}
+            <div class="message">
+
+                <br>
+
+                {% for message in form.steamid.errors %}
+
+                    <p>{{ message }}</p>
+
+                {% endfor %}
+
+                <br>
+
+            </div>
+            {% endif %}
+
+            {% if message %}
+            <div class="message">
+
+                <br>
 
                 <p>{{ message }}</p>
 
-            {% endfor %}
+                <br>
 
-            <br>
+            </div>
+            {% endif %}
+
+        <div id="form">
+
+            <form action="{{ url_for('playtime_logic') }}" method="POST">
+
+                {{ form.hidden_tag() }}
+
+                {{ form.steamid(placeholder="SteamID") }}<br>
+                <a href="#">Where is my SteamID?</a><br>
+                {{ form.number_of_results(class="select-box") }}
+                {{ form.recent(class="select-box") }}
+                <br>
+                {{ form.submit(class="submit") }}
+
+            </form>
 
         </div>
-        {% endif %}
-
-        {% if message %}
-        <div class="message">
-
-            <br>
-
-            <p>{{ message }}</p>
-
-            <br>
-
-        </div>
-        {% endif %}
-
-    <div id="form">
-
-        <form action="{{ url_for('playtime_logic') }}" method="POST">
-
-            {{ form.hidden_tag() }}
-
-            {{ form.steamid(placeholder="SteamID") }}<br>
-            <a href="#">Where is my SteamID?</a><br>
-            {{ form.number_of_results(class="select-box") }}
-            {{ form.recent(class="select-box") }}
-            <br>
-            {{ form.submit(class="submit") }}
-
-        </form>
 
     </div>
 
