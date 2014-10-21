@@ -3,8 +3,7 @@
 <html>
 
 <head lang="en">
-
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="initial-scale=1">
 
     <!-- CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -14,24 +13,19 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
 
-    <title>PlayTime - {{ title }}</title>
+    <link rel="icon" type="image/png" href="/static/playtime/images/favicon.ico">
 
+    <title>PlayTime - {{ title }}</title>
 </head>
 
 <body>
-
-    <div id="container">
-
-        {% block content %}{% endblock %}
-
-     </div>
-
+    {% block content %}{% endblock %}
 </body>
 
 <!-- JS -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/static/playtime/js/Chart.min.js"></script>
 <script src="/static/js/jquery.customSelect.min.js"></script>
+<script src="/static/playtime/js/Chart.min.js"></script>
 <script src="/static/playtime/js/playtime.js"></script>
 
 <script>
@@ -45,10 +39,15 @@ $(document).ready(function(){
         showBar(barData);
         showDonut(donutData);
         showList();
+        hiddenMenu();
     {% endif %}
 
+    initialFadeIn();
     showForm();
-    hiddenMenu();
+    showAbout();
+    showFindID();
+    closeFindID();
+    closeAbout();
 });
 </script>
 

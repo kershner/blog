@@ -1,11 +1,93 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
+        <div id="about-content">
+            <i id="close" class="fa fa-times fa-2x"></i>
+
+            <div id="github-links">
+                <i class="fa fa-github fa-2x"></i>
+                <h5>Direct Links</h5>
+                <a href="#">Python</a> | <a href="#">JavaScript</a> | <a href="#">HTML/CSS</a>
+            </div>
+
+            <br>
+
+            <p>
+                PlayTime makes use of a few different programming technologies to accomplish its tasks.<br><br>
+                The backend is written in <a href="https://www.python.org/">Python</a> and uses
+                <a href="http://flask.pocoo.org/">Flask</a> as the web framework. The code is viewable at the links above.
+                The visual display of all the data is handled by the standard web languages HTML, CSS, JavaScript,
+                and the jQuery framework for JavaScript.
+            </p>
+
+            <br>
+            <br>
+
+            <h1 class="about-header left">The Backend Process</h1>
+
+            <br>
+            <br>
+            <br>
+
+            <p>
+                The SteamID you pass into the input box is tested to see if it's a vanity URL or a full 64-bit
+                numerical SteamID, as this will determine which Steam API URL is needed.<br><br>
+                Once the correct URL is determined it is queried by the Python code and we end up with a giant jumble
+                of data in the form of a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> object.  More Python gets
+                to work to parse out the bits of data that have been requested by the user.  The list of games is
+                sorted by the 'hours played' category and is ready to be pushed to the client (your browser) along
+                with many other variables parsed from the JSON data.<br><br>
+            </p>
+
+            <br>
+            <br>
+
+            <h1 class="about-header right">Client Side</h1>
+
+            <br>
+            <br>
+            <br>
+
+            <p>
+                Once the JSON object is parsed to our liking, there is one final step before everything is ready to be
+                displayed to the user.  PlayTime makes use of an excellent JavaScript library called <a href="http://www.chartjs.org/">Charts.js</a>.
+                This library is fantastic because it provides really great looking visual data displays and is quite easy to work with.
+                Of course it requires its input data be formatted a certain way, so another round of Python gets to work on the stored data we parsed
+                from the Steam API and gets it ready to be passed to Charts.js as label names, graph data points, colors, etc.<br><br>
+                Finally, the data is ready to be displayed.  Flask makes this process quite easy - a basic template is set up in
+                HTML that allows variables to be passed in from the server (all the data processing our Python just did).  This
+                data is passed to the client and everything is styled with CSS for the final step.
+            </p>
+
+            <br>
+            <br>
+        </div>
+
+        <div id="find-id">
+            <i id="find-close" class="fa fa-times fa-2x"></i>
+
+            <h1 id="find-header">Where is my SteamID?</h1>
+
+            <p>
+                A <a href="https://developer.valvesoftware.com/wiki/SteamID">SteamID</a> is a unique identifier used to identify a Steam user's account.<br>
+                The easiest way to find your ID is to grab it from your <a href="http://steamcommunity.com/">Steam Community</a> profile.
+            </p>
+
+            <div id="examples">
+                <p>The <span class="yellow">highlighted</span> bit of the URL below is the corresponding SteamID</p>
+                <h3>http://steamcommunity.com/id/<span class="yellow">xxxxxxxxx</span>/</h3> OR <h3>http://steamcommunity.com/profiles/<span class="yellow">###############</span></h3>
+            </div>
+
+            <div id="external-links">
+                <p>If you're having problems locating your SteamID there are a few web apps that can help.</p>
+                <a href="http://steamid.co/">http://steamid.co/</a><br>
+                <a href="http://steamidfinder.com/">Steam ID Finder</a>
+            </div>
+        </div>
 
         <div id="welcome-header">
-
             <div id="logo">
-                <h1><span class="yellow">Play</span><span class="blue">Time</span></h1>
-                <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
+                <h1 id="big-logo"><span>Play</span><span class="blue">Time</span></h1>
+                <p id="slogan" class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
             </div>
 
             <div id="buttons">
@@ -17,7 +99,6 @@
 
             {% if form.errors %}
             <div class="message">
-
                 <br>
 
                 {% for message in form.steamid.errors %}
@@ -27,39 +108,31 @@
                 {% endfor %}
 
                 <br>
-
             </div>
             {% endif %}
 
             {% if message %}
             <div class="message">
-
                 <br>
 
                 <p>{{ message }}</p>
 
                 <br>
-
             </div>
             {% endif %}
 
         <div id="form">
-
             <form action="{{ url_for('playtime_logic') }}" method="POST">
-
                 {{ form.hidden_tag() }}
 
                 {{ form.steamid(placeholder="SteamID") }}<br>
-                <a href="#">Where is my SteamID?</a><br>
+                <a id="where">Where is my SteamID?</a><br>
                 {{ form.number_of_results(class="select-box") }}
                 {{ form.recent(class="select-box") }}
                 <br>
-                {{ form.submit(class="submit") }}
-
+                <input type="submit" class="submit" value="Go!">
             </form>
-
         </div>
-
     </div>
 
     <br>
@@ -67,12 +140,9 @@
     <br>
 
     <div id="footer">
-
         <p>
             Powered by Steam<br>
             <a href="http://steampowered.com"><img id="steam-icon" src="/static/playtime/images/steam-icon.png"></a>
         </p>
-
     </div>
-
 {% endblock %}

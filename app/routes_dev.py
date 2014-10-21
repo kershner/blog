@@ -1596,11 +1596,61 @@ def playtime():
 def playtime_logic():
     form = PlayTime()
 
-    # Little bit of code to generate a random hex color for the charts
+    # Little bit of code to generate a random hex color
     def random_color():
         r = lambda: random.randint(0, 255)
         color = '#%02X%02X%02X' % (r(), r(), r())
         return color
+
+    # Function to format data for Charts.js display
+    def format_data(data_list, data_range, chart_type):
+        if chart_type == 'donut':
+            datasets = ''
+            counter = 0
+            for value in data_list:
+                if data_range == 'All':
+                    pass
+                else:
+                    if counter == int(data_range):
+                        break
+                dataset = '{ value: %.1f, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
+                          (value[1] / 60.0, random_color(), value[0])
+                datasets += dataset
+                counter += 1
+            formatted_data = '[%s]' % datasets[:-1]
+            return formatted_data
+
+        else:
+            chart_data = ''
+            chart_labels = ''
+            counter = 0
+            if data_range == 'All':
+                endpoint = 20
+            else:
+                endpoint = int(data_range)
+            for value in data_list:
+                if counter == endpoint:
+                    break
+                chart_data += '%.1f,' % (value[1] / 60.0)
+                chart_labels += '"%s",' % value[0]
+                counter += 1
+            chart_data = chart_data[:-1]
+            chart_labels = chart_labels[:-1]
+
+            # Datasets for line/bar charts are slightly different, determining format string to use
+            if chart_type == 'line':
+                formatted_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
+                                 '"rgba(220,220,220,1)", pointColor: "%s", pointStrokeColor: "#fff", ' \
+                                 'pointHighlightFill: "#fff", pointHighlightStroke: "#3FADFB", data: ' \
+                                 '[%s]}]}' % (chart_labels, random_color(), random_color(), chart_data)
+                return formatted_data
+
+            elif chart_type == 'bar':
+                formatted_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
+                                 '"rgba(220,220,220,0.8)", highlightFill: "#3FADFB", highlightStroke: ' \
+                                 '"rgba(220,220,220,1)", data: [%s]}]}' % \
+                                 (chart_labels, random_color(), chart_data)
+                return formatted_data
 
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
@@ -1615,6 +1665,7 @@ def playtime_logic():
                                    form=form,
                                    title='A Visual Representation of Time Spent In Your Steam Library')
         else:
+            # Instantiating variables with data from user input
             user_input = form.steamid.data
             recent = form.recent.data
             number_of_results = form.number_of_results.data
@@ -1632,14 +1683,16 @@ def playtime_logic():
                 if len(user_input) == 17 and not user_input[0].isalpha():
                     steam_id = user_input
                     display_name = json.loads(urllib2.urlopen('%s?key=%s&steamids=%s' %
-                                   (API_PLAYER, API_KEY, steam_id)).read())['response']['players'][0]['personaname']
+                                                              (API_PLAYER, API_KEY,
+                                                               steam_id)).read())['response']['players'][0]['personaname']
                 else:
                     steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
-                                                          (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
+                                                          (API_URL_STEAMID, API_KEY,
+                                                           user_input)).read())['response']['steamid']
                     display_name = user_input
 
                 # Don't forget to include_appinfo=1 for extra data about entries
-                if recent == '1':
+                if recent == '1':  # If 'All Time' was selected by user as time range
                     api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
                                                (API_URL, API_KEY, steam_id))
                     readout = 'Since 2009'
@@ -1654,9 +1707,8 @@ def playtime_logic():
                 # Storing Steam API JSON response in variable
                 data = json.loads(api_call.read())
 
-                # Processing response data, parsing out desired bits, appending to minutes_played
+                # Next block processes response data, parses out desired bits, appends to minutes_played
                 minutes_played = []
-
                 for game in data['response']['games']:
                     appid = game['appid']
                     game_hash = game['img_logo_url']
@@ -1665,10 +1717,11 @@ def playtime_logic():
 
                     minutes_played.append([game['name'], game['%s' % playtime_type], url])
 
-                # Using a reverse sort by the 2nd index of each entry in minutes_played
+                # Using a reverse sort by the 2nd index (minutes played) of each entry
                 minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
-                minutes_played_new = []
 
+                # Storing newly sorted minutes_played list as a tuple with an index and game name in a new list
+                minutes_played_new = []
                 counter = 0
                 for entry in minutes_played:
                     if number_of_results == 'All':
@@ -1680,78 +1733,18 @@ def playtime_logic():
                     minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
                     counter += 1
 
-                ###############################
-                # Formatting data for Charts.js
+                # Calling the chart data formatting function
+                donut_data = format_data(minutes_played, number_of_results, 'donut')
+                line_chart_data = format_data(minutes_played, number_of_results, 'line')
+                bar_chart_data = format_data(minutes_played, number_of_results, 'bar')
 
-                ##############################
-                # Donut Chart ################
-                datasets = ''
-                counter = 0
-                for entry in minutes_played:
-                    if number_of_results == 'All':
-                        pass
-                    else:
-                        if counter == int(number_of_results):
-                            break
-                    dataset = '{ value: %.1f, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
-                              (entry[1] / 60.0, random_color(), entry[0])
-                    datasets += dataset
-                    counter += 1
-                donut_data = '[%s]' % datasets[:-1]
-
-                ##############################
-                # Line Chart ##################
-                line_data = ''
-                line_labels = ''
-                counter = 0
-                if number_of_results == 'All':
-                    endpoint = 20
-                else:
-                    endpoint = int(number_of_results)
-                for entry in minutes_played:
-                    if counter == endpoint:
-                            break
-                    line_data += '%d,' % (entry[1] / 60)
-                    line_labels += '"%s",' % entry[0]
-                    counter += 1
-
-                line_data = line_data[:-1]
-                line_labels = line_labels[:-1]
-
-                line_chart_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
-                                   '"rgba(220,220,220,1)", pointColor: "%s", pointStrokeColor: "#fff", ' \
-                                   'pointHighlightFill: "#fff", pointHighlightStroke: "#3FADFB", data: [%s]}]}' % \
-                                   (line_labels, random_color(), random_color(), line_data)
-
-                ##############################
-                # Bar Chart ##################
-                bar_data = ''
-                bar_labels = ''
-                counter = 0
-                if number_of_results == 'All':
-                    endpoint = 20
-                else:
-                    endpoint = int(number_of_results)
-                for entry in minutes_played:
-                    if counter == endpoint:
-                            break
-                    bar_data += '%d,' % (entry[1] / 60)
-                    bar_labels += '"%s",' % entry[0]
-                    counter += 1
-
-                bar_data = bar_data[:-1]
-                bar_labels = bar_labels[:-1]
-
-                chart_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: "rgba(220,220,220,0.8)", ' \
-                             'highlightFill: "#3FADFB", highlightStroke: "rgba(220,220,220,1)", data: [%s]}]}' % \
-                             (bar_labels, random_color(), bar_data)
-
+                # Extra bit of data formatting to pass to the Flask template
                 if number_of_results == 'All':
                     number_of_results = ''
                 else:
-                    number_of_results = 'Top %s' % number_of_results
+                    number_of_results = '%s' % number_of_results
 
-                # Performing second API call to retrieve user's avatar
+                # Performing another API call to retrieve user's avatar
                 api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
                                            (API_PLAYER, API_KEY, steam_id))
 
@@ -1778,10 +1771,6 @@ def playtime_logic():
                                user_image=user_image,
                                user_image_icon=user_image_icon,
                                donut_data=donut_data,
-                               chart_data=chart_data,
+                               chart_data=bar_chart_data,
                                line_chart_data=line_chart_data,
                                title='Results')
-
-@app.route('/graph_test')
-def graph_test():
-    return render_template('/playtime/graph_test.html')

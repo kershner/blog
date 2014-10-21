@@ -1,10 +1,26 @@
-// Hidden Menu Script
+function initialFadeIn() {
+	$("#footer").css("display", "none");
+	setTimeout(function() {
+		$("#welcome-header").fadeIn("fast");
+	}, 100);
+	setTimeout(function() {
+		$("#big-logo").fadeIn("fast");
+	}, 500);
+	setTimeout(function() {
+		$("#slogan").fadeIn("fast");
+	}, 1000);
+	setTimeout(function() {
+		$("#buttons").fadeIn("fast");
+		$("#footer").fadeIn("fast");
+	}, 1600);
+}
+
 function hiddenMenu() {
 	$(window).scroll(function() {
-		if ($(window).scrollTop() > 325) {
+		if ($(window).scrollTop() > 315) {
 			$("#hidden-menu").fadeIn("fast").css("display", "block");
 		}
-		else if ($(window).scrollTop() < 326) {
+		else if ($(window).scrollTop() < 316) {
 			$("#hidden-menu").fadeOut("fast");
 		}
 	});
@@ -15,6 +31,31 @@ function showForm() {
 		$("#form").fadeIn("slow", "linear");		
 		$(".select-box").customSelect();
 		$("#welcome-header").css("margin-top", "25px");
+		$("#about-content").css("top", "25px");
+	});
+}
+
+function showAbout() {
+	$("#about").click(function() {
+		$("#about-content").fadeIn("fast");
+	});
+}
+
+function closeAbout() {
+	$("#close").click(function() {
+		$("#about-content").fadeOut("fast");
+	});
+}
+
+function showFindID() {
+	$("#where").click(function() {
+		$("#find-id").fadeIn("fast");
+	});
+}
+
+function closeFindID() {
+	$("#find-close").click(function() {
+		$("#find-id").fadeOut("fast");
 	});
 }
 

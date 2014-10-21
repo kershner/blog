@@ -1,21 +1,17 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
-
     <div id="header">
-
-        <a href="/playtime"><h1><span class="yellow">Play</span><span class="blue">Time</span></h1></a>
-        <p>VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
-
+        <a href="/playtime"><h1><span class="white">Play</span><span class="blue">Time</span></h1></a>
+        <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
     </div>
-
-    <div id="wrapper">
 
         <div id="hidden-menu">
             <img src="{{ user_image_icon }}">
-            <h3 class="green">{{ display_name }}'s</h3>
-            <h3>{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+            <h3 class="green shadow">{{ display_name }}'s</h3>
+            <h3 class="shadow">{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+
             <div id="back-to-top">
-                <a href="/playtime"><h3 id="hidden-logo"><span class="yellow">Play</span><span class="blue">Time</span></h3></a>
+                <a href="/playtime"><h3 id="hidden-logo"><span class="white shadow">Play</span><span class="blue shadow">Time</span></h3></a>
                 <a href="#top"><i class="fa fa-arrow-circle-up fa-2x"></i></a>
             </div>
         </div>
@@ -23,23 +19,18 @@
         <a name="top"></a>
 
         <div id="results-container">
-
             <div id="results-container-inner">
-
                 <!-- User Info Div -->
                 <div id="user-info">
-
                     <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
 
                     <img id="user-image" src="{{ user_image }}">
 
                     <div id="readout">
-
                         <h1>
                             {{ number_of_results }} Most Played Steam Games<br>
                             <span class="yellow">{{ readout }}</span>
                         </h1>
-
                     </div>
 
                     <div id="options">
@@ -48,12 +39,10 @@
                         <i id="donut-selector" class="fa fa-circle-o-notch fa-2x"></i>
                         <i id="bar-selector" class="fa fa-bar-chart fa-2x"></i>
                     </div>
-
                 </div>
 
                 <div class="result-template">
-
-                    <!-- Various Graph Divs, hidden until selected -->
+                    <!-- Various chart divs, hidden until selected -->
                     <div id="line">
 
                         <br>
@@ -64,11 +53,9 @@
                         </div>
 
                         <br>
-
                     </div>
 
                     <div id="donut">
-
                         <br>
                         <br>
 
@@ -77,12 +64,9 @@
                         </div>
 
                         <br>
-
                     </div>
 
-
                     <div id="bar">
-
                         <br>
                         <br>
 
@@ -91,16 +75,13 @@
                         </div>
 
                         <br>
-
                     </div>
 
                     <!-- List of Results -->
                     <div id="data">
-
                         <br>
 
                         {% for entry in minutes_played_new %}
-
                             <div class="entry">
 
                                 <img src="{{ entry[3] }}">
@@ -111,19 +92,14 @@
                                 </div>
 
                                 <span id="rank">{{ entry[0] }}</span>
-
                             </div>
 
                         {% endfor %}
 
                         <br>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <br>
@@ -131,14 +107,9 @@
         <br>
 
         <div id="footer">
-
             <p>
                 Powered by Steam<br>
                 <a href="http://steampowered.com"><img id="steam-icon" src="/static/playtime/images/steam-icon.png"></a>
             </p>
-
         </div>
-
-    </div>
-
 {% endblock %}

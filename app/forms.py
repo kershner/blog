@@ -121,7 +121,7 @@ class RedditImageScraper(Form):
     results_from = SelectField('Results From', choices=[('1', 'Hot'), ('4', 'Month'), ('3', 'Year'), ('2', 'All')])
     number = SelectField('Number of Submissions to Scrape', choices=[('5', '5'), ('10', '10'), ('20', '20'),
                                                                                  ('50', '50'), ('100', '100')])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Go!')
 
 
 #############################################
@@ -129,8 +129,8 @@ class RedditImageScraper(Form):
 
 class PlayTime(Form):
     steamid = StringField('SteamID', validators=[DataRequired('Enter Your SteamID')])
-    recent = SelectField('Results from All Time or Last Two Weeks', choices=[('1', 'From 2009'),
-                                                                             ('2', 'Last Two Weeks')])
+    recent = SelectField('Results from All Time or Last Two Weeks', choices=[('2', 'Last Two Weeks'),
+                                                                             ('1', 'From 2009')])
     number_of_results = SelectField('Number of Results', choices=[('5', '5 Results'), ('10', '10 Results'),
                                                                   ('20', '20 Results'), ('All', 'All Results')])
     submit = SubmitField('Submit')
