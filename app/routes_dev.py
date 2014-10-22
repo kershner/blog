@@ -1589,7 +1589,7 @@ def playtime():
 
     return render_template('/playtime/home.html',
                            form=form,
-                           title='A Visual Representation of Time Spent In Your Steam Library')
+                           title='Visualize Time Spent In Your Steam Library')
 
 
 @app.route('/playtime_logic', methods=['GET', 'POST'])
@@ -1717,21 +1717,28 @@ def playtime_logic():
 
                     minutes_played.append([game['name'], game['%s' % playtime_type], url])
 
-                # Using a reverse sort by the 2nd index (minutes played) of each entry
+                # Using a reverse sort by the 2nd index (minutes played) of each entry - descending order
                 minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
 
-                # Storing newly sorted minutes_played list as a tuple with an index and game name in a new list
+                # Storing sorted minutes_played as a list with an index, game name, hours played string, and icon URL
+                # Also pulling out a few general stats
                 minutes_played_new = []
                 counter = 0
+                total_hours = 0.0
+                game_count = 0
                 for entry in minutes_played:
                     if number_of_results == 'All':
                         pass
                     else:
                         if counter == int(number_of_results):
                             break
+                    total_hours += (entry[1] / 60.0)
+                    game_count += 1
                     hours_played = entry[1] / 60.0
                     minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
                     counter += 1
+
+                total_hours = '%.1f' % total_hours
 
                 # Calling the chart data formatting function
                 donut_data = format_data(minutes_played, number_of_results, 'donut')
@@ -1744,7 +1751,7 @@ def playtime_logic():
                 else:
                     number_of_results = '%s' % number_of_results
 
-                # Performing another API call to retrieve user's avatar
+                # Performing final API call to retrieve user's avatar
                 api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
                                            (API_PLAYER, API_KEY, steam_id))
 
@@ -1756,15 +1763,17 @@ def playtime_logic():
                 return render_template('/playtime/home.html',
                                        form=form,
                                        message='Invalid profile name or SteamID, please try again.',
-                                       title='A Visual Representation of Time Spent In Your Steam Library')
+                                       title='Visualize Time Spent In Your Steam Library')
             except urllib2.URLError:
                 return render_template('/playtime/home.html',
                                        form=form,
                                        message='The API request took too long and has timed out, please try again.',
-                                       title='A Visual Representation of Time Spent In Your Steam Library')
+                                       title='Visualize Time Spent In Your Steam Library')
 
         return render_template('/playtime/results.html',
                                display_name=display_name,
+                               total_hours=total_hours,
+                               game_count=game_count,
                                number_of_results=number_of_results,
                                minutes_played_new=minutes_played_new,
                                readout=readout,

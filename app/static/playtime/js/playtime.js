@@ -1,3 +1,32 @@
+function playtime() {
+	messageExists();
+    showForm();
+    showAbout();
+    showFindID();
+    closeFindID();
+    closeAbout();
+}
+
+function playtimeResults(data1, data2, data3) {
+	resultsFadeIn();
+	hiddenMenu();
+	showDonut(data1);
+	showBar(data2);
+	showLine(data3);
+	showList();
+}
+
+function messageExists() {
+	if ($(".message").length > 0) {
+		$("#welcome-header, #big-logo, #slogan, #buttons, #footer, #form").fadeIn("fast");		
+		$("#welcome-header").css("margin-top", "25px");
+		$("#about-content").css("top", "25px");
+		$(".select-box").customSelect();		
+	} else {
+		initialFadeIn();
+	};
+}
+
 function initialFadeIn() {
 	$("#footer").css("display", "none");
 	setTimeout(function() {
@@ -57,6 +86,16 @@ function closeFindID() {
 	$("#find-close").click(function() {
 		$("#find-id").fadeOut("fast");
 	});
+}
+
+function resultsFadeIn() {
+	setTimeout(function() {
+		$("#header").fadeIn("fast");
+	}, 200);
+	setTimeout(function() {
+		$("#user-info").fadeIn("fast");
+		$(".result-template").fadeIn("fast");
+	}, 400);
 }
 
 function showDonut(data) {

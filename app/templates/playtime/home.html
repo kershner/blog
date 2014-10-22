@@ -12,6 +12,16 @@
             <br>
 
             <p>
+                <span id="warning">
+                    <em>
+                        Please note that the Steam API is <a href="https://www.google.com/search?q=steam+api+slow&oq=steam+api+slow&aqs=chrome..69i57.1295j0j9&sourceid=chrome&es_sm=93&ie=UTF-8">notoriously slow</a>, and it might take a few seconds to complete each
+                        request.
+                    </em>
+                </span>
+
+                <br>
+                <br>
+
                 PlayTime makes use of a few different programming technologies to accomplish its tasks.<br><br>
                 The backend is written in <a href="https://www.python.org/">Python</a> and uses
                 <a href="http://flask.pocoo.org/">Flask</a> as the web framework. The code is viewable at the links above.
@@ -29,13 +39,13 @@
             <br>
 
             <p>
-                The SteamID you pass into the input box is tested to see if it's a vanity URL or a full 64-bit
+                The SteamID passed to the input box is first tested to see if it's a vanity URL or a full 64-bit
                 numerical SteamID, as this will determine which Steam API URL is needed.<br><br>
-                Once the correct URL is determined it is queried by the Python code and we end up with a giant jumble
-                of data in the form of a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> object.  More Python gets
-                to work to parse out the bits of data that have been requested by the user.  The list of games is
-                sorted by the 'hours played' category and is ready to be pushed to the client (your browser) along
-                with many other variables parsed from the JSON data.<br><br>
+                The correct URL is then queried by the Python code and a giant jumble
+                of data is returned in the form of a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> object.
+                More Python gets to work parsing out the bits of data that have been requested by the user.
+                The list of games is sorted by the 'hours played' column and is packaged up with other variables collected
+                during the JSON parsing and are ready to be pushed to the client, your browser.<br><br>
             </p>
 
             <br>
@@ -48,14 +58,14 @@
             <br>
 
             <p>
-                Once the JSON object is parsed to our liking, there is one final step before everything is ready to be
-                displayed to the user.  PlayTime makes use of an excellent JavaScript library called <a href="http://www.chartjs.org/">Charts.js</a>.
-                This library is fantastic because it provides really great looking visual data displays and is quite easy to work with.
-                Of course it requires its input data be formatted a certain way, so another round of Python gets to work on the stored data we parsed
+                Once the JSON object is nicely sorted there is one final step before everything is ready to be
+                displayed on the page.  PlayTime makes use of an excellent JavaScript library called <a href="http://www.chartjs.org/">Charts.js</a>.
+                This library is great because it provides really good looking visual data displays and is quite easy to work with.
+                Of course it requires its input data be formatted a certain way, so another round of Python goes to work on the stored data we parsed
                 from the Steam API and gets it ready to be passed to Charts.js as label names, graph data points, colors, etc.<br><br>
                 Finally, the data is ready to be displayed.  Flask makes this process quite easy - a basic template is set up in
-                HTML that allows variables to be passed in from the server (all the data processing our Python just did).  This
-                data is passed to the client and everything is styled with CSS for the final step.
+                HTML that allows variables to be passed in from the server.  The variables come from all the data processing with Python.  The
+                data is passed to the client and everything is styled with CSS for the very final step.
             </p>
 
             <br>

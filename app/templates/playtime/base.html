@@ -35,19 +35,10 @@ $(document).ready(function(){
         var barData = {{ chart_data|safe }};
         var lineData = {{ line_chart_data|safe }};
 
-        showLine(lineData);
-        showBar(barData);
-        showDonut(donutData);
-        showList();
-        hiddenMenu();
+        playtimeResults(donutData, barData, lineData);
     {% endif %}
 
-    initialFadeIn();
-    showForm();
-    showAbout();
-    showFindID();
-    closeFindID();
-    closeAbout();
+    playtime();
 });
 </script>
 

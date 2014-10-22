@@ -11,8 +11,8 @@
             <h3 class="shadow">{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
 
             <div id="back-to-top">
-                <a href="/playtime"><h3 id="hidden-logo"><span class="white shadow">Play</span><span class="blue shadow">Time</span></h3></a>
-                <a href="#top"><i class="fa fa-arrow-circle-up fa-2x"></i></a>
+                <a href="/playtime"><h3 id="hidden-logo"><span class="white shadow">Play</span><span class="dark-blue">Time</span></h3></a>
+                <a href="#top"><i class="fa fa-arrow-circle-up fa-2x shadow"></i></a>
             </div>
         </div>
 
@@ -31,13 +31,18 @@
                             {{ number_of_results }} Most Played Steam Games<br>
                             <span class="yellow">{{ readout }}</span>
                         </h1>
+
+                        <div id="statistics">
+                            <span class="yellow">{{ game_count }}</span> games | <span class="yellow">{{ total_hours }}</span> hours
+                        </div>
                     </div>
 
                     <div id="options">
-                        <i id="list-selector" class="fa fa-list-ul fa-2x"></i>
-                        <i id="line-selector" class="fa fa-area-chart fa-2x"></i>
-                        <i id="donut-selector" class="fa fa-circle-o-notch fa-2x"></i>
-                        <i id="bar-selector" class="fa fa-bar-chart fa-2x"></i>
+                        <p><span id="hall-of-shame" class="dark-blue">Hall of Shame</span></p><br>
+                        <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue"></i>
+                        <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue"></i>
+                        <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue"></i>
+                        <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue"></i>
                     </div>
                 </div>
 
@@ -83,15 +88,14 @@
 
                         {% for entry in minutes_played_new %}
                             <div class="entry">
-
                                 <img src="{{ entry[3] }}">
 
                                 <div class="entry-data">
-                                    <span id="game-name">{{ entry[1] }}</span><br>
-                                    <span id="game-hours">{{ entry[2] }} hours played</span>
+                                    <span class="game-name">{{ entry[1] }}</span><br>
+                                    <span class="game-hours">{{ entry[2] }} hours played</span>
                                 </div>
 
-                                <span id="rank">{{ entry[0] }}</span>
+                                <span class="rank">{{ entry[0] }}</span>
                             </div>
 
                         {% endfor %}
