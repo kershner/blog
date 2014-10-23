@@ -24,18 +24,28 @@
 
 <!-- JS -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/static/js/jquery.customSelect.min.js"></script>
 <script src="/static/playtime/js/Chart.min.js"></script>
 <script src="/static/playtime/js/playtime.js"></script>
 
 <script>
 $(document).ready(function(){
-    {% if donut_data %}
-        var donutData = {{ donut_data|safe }};
-        var barData = {{ chart_data|safe }};
-        var lineData = {{ line_chart_data|safe }};
+    {% if donut_data_2weeks %}
+        var donutData_2weeks = {{ donut_data_2weeks|safe }};
+        var donutData_10 = {{ donut_data_10|safe }};
+        var donutData_20 = {{ donut_data_20|safe }};
+        var lineData_2weeks = {{ line_data_2weeks|safe }};
+        var lineData_10 = {{ line_data_10|safe }};
+        var lineData_20 = {{ line_data_20|safe }};
+        var barData_2weeks = {{ bar_data_2weeks|safe }};
+        var barData_10 = {{ bar_data_10|safe }};
+        var barData_20 = {{ bar_data_20|safe }};
+        var parameters = [
+            donutData_2weeks, donutData_10, donutData_20,
+            lineData_2weeks, lineData_10, lineData_20, barData_2weeks,
+            barData_10, barData_20
+            ]
 
-        playtimeResults(donutData, barData, lineData);
+        playtimeResults(parameters);
     {% endif %}
 
     playtime();

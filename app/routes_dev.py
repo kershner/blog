@@ -1596,6 +1596,41 @@ def playtime():
 def playtime_logic():
     form = PlayTime()
 
+    def parse_data(api_type, playtime_type, number_of_results, recent):
+        if recent == 1:
+            readout = 'In the Last Two Weeks'
+        else:
+            readout = 'Since 2009'
+        minutes_played = []
+        for game in api_type['response']['games']:
+            appid = game['appid']
+            game_hash = game['img_logo_url']
+            url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                  (appid, game_hash)
+
+            minutes_played.append([game['name'], game['%s' % playtime_type], url])
+
+        # Using a reverse sort by the 2nd index (minutes played) of each entry - descending order
+        minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
+
+        # Storing sorted minutes_played as a list with an index, game name, hours played string,
+        # and icon URL
+        minutes_played_new = []
+        counter = 0
+        total_hours = 0.0
+        for entry in minutes_played:
+            if number_of_results == 'all':
+                pass
+            else:
+                if counter == int(number_of_results):
+                    break
+            hours_played = entry[1] / 60.0
+            total_hours += entry[1] / 60.0
+            minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
+            counter += 1
+
+        return [minutes_played_new, readout, counter, '%.1f' % total_hours]
+
     # Little bit of code to generate a random hex color
     def random_color():
         r = lambda: random.randint(0, 255)
@@ -1603,18 +1638,13 @@ def playtime_logic():
         return color
 
     # Function to format data for Charts.js display
-    def format_data(data_list, data_range, chart_type):
+    def format_data(data_list, chart_type):
         if chart_type == 'donut':
             datasets = ''
             counter = 0
             for value in data_list:
-                if data_range == 'All':
-                    pass
-                else:
-                    if counter == int(data_range):
-                        break
-                dataset = '{ value: %.1f, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
-                          (value[1] / 60.0, random_color(), value[0])
+                dataset = '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
+                          (value[2], random_color(), value[1])
                 datasets += dataset
                 counter += 1
             formatted_data = '[%s]' % datasets[:-1]
@@ -1623,17 +1653,9 @@ def playtime_logic():
         else:
             chart_data = ''
             chart_labels = ''
-            counter = 0
-            if data_range == 'All':
-                endpoint = 20
-            else:
-                endpoint = int(data_range)
             for value in data_list:
-                if counter == endpoint:
-                    break
-                chart_data += '%.1f,' % (value[1] / 60.0)
-                chart_labels += '"%s",' % value[0]
-                counter += 1
+                chart_data += '%s,' % (value[2])
+                chart_labels += '"%s",' % value[1]
             chart_data = chart_data[:-1]
             chart_labels = chart_labels[:-1]
 
@@ -1659,24 +1681,16 @@ def playtime_logic():
     API_PLAYER = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
     API_KEY = '8B87987F953FE3D1C107998D76339CCF'
 
+    playtime_all = 'playtime_forever'
+    playtime_2weeks = 'playtime_2weeks'
+
     if request.method == 'POST':
         if not form.validate():
             return render_template('/playtime/home.html',
                                    form=form,
                                    title='A Visual Representation of Time Spent In Your Steam Library')
         else:
-            # Instantiating variables with data from user input
             user_input = form.steamid.data
-            recent = form.recent.data
-            number_of_results = form.number_of_results.data
-            if number_of_results == '5':
-                number_of_results = 5
-            elif number_of_results == '10':
-                number_of_results = 10
-            elif number_of_results == '20':
-                number_of_results = 20
-            else:
-                number_of_results = 'All'
 
             try:
                 # This line tests if the user has input a 17-character 64-bit SteamID
@@ -1692,64 +1706,33 @@ def playtime_logic():
                     display_name = user_input
 
                 # Don't forget to include_appinfo=1 for extra data about entries
-                if recent == '1':  # If 'All Time' was selected by user as time range
-                    api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
+                api_call_all = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
                                                (API_URL, API_KEY, steam_id))
-                    readout = 'Since 2009'
-                    playtime_type = 'playtime_forever'
-                else:
-                    api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
-                                               (API_2_WEEKS, API_KEY, steam_id))
-                    readout = 'In the Last Two Weeks'
-                    number_of_results = 'All'
-                    playtime_type = 'playtime_2weeks'
+                api_call_2weeks = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
+                                                  (API_2_WEEKS, API_KEY, steam_id))
 
-                # Storing Steam API JSON response in variable
-                data = json.loads(api_call.read())
+                # Storing Steam API JSON response in variables
+                data_all = json.loads(api_call_all.read())
+                data_2weeks = json.loads(api_call_2weeks.read())
 
-                # Next block processes response data, parses out desired bits, appends to minutes_played
-                minutes_played = []
-                for game in data['response']['games']:
-                    appid = game['appid']
-                    game_hash = game['img_logo_url']
-                    url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
-                          (appid, game_hash)
+                # Parsing API calls into organized lists
+                two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1)
+                all_10 = parse_data(data_all, playtime_all, 10, 0)
+                all_20 = parse_data(data_all, playtime_all, 20, 0)
+                all_all = parse_data(data_all, playtime_all, 'all', 0)
 
-                    minutes_played.append([game['name'], game['%s' % playtime_type], url])
+                # Calling chart formatting function on organized API data
+                donut_data_2weeks = format_data(two_weeks[0], 'donut')
+                donut_data_10 = format_data(all_10[0], 'donut')
+                donut_data_20 = format_data(all_20[0], 'donut')
 
-                # Using a reverse sort by the 2nd index (minutes played) of each entry - descending order
-                minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
+                line_data_2weeks = format_data(two_weeks[0], 'line')
+                line_data_10 = format_data(all_10[0], 'line')
+                line_data_20 = format_data(all_20[0], 'line')
 
-                # Storing sorted minutes_played as a list with an index, game name, hours played string, and icon URL
-                # Also pulling out a few general stats
-                minutes_played_new = []
-                counter = 0
-                total_hours = 0.0
-                game_count = 0
-                for entry in minutes_played:
-                    if number_of_results == 'All':
-                        pass
-                    else:
-                        if counter == int(number_of_results):
-                            break
-                    total_hours += (entry[1] / 60.0)
-                    game_count += 1
-                    hours_played = entry[1] / 60.0
-                    minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
-                    counter += 1
-
-                total_hours = '%.1f' % total_hours
-
-                # Calling the chart data formatting function
-                donut_data = format_data(minutes_played, number_of_results, 'donut')
-                line_chart_data = format_data(minutes_played, number_of_results, 'line')
-                bar_chart_data = format_data(minutes_played, number_of_results, 'bar')
-
-                # Extra bit of data formatting to pass to the Flask template
-                if number_of_results == 'All':
-                    number_of_results = ''
-                else:
-                    number_of_results = '%s' % number_of_results
+                bar_data_2weeks = format_data(two_weeks[0], 'bar')
+                bar_data_10 = format_data(all_10[0], 'bar')
+                bar_data_20 = format_data(all_20[0], 'bar')
 
                 # Performing final API call to retrieve user's avatar
                 api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
@@ -1771,15 +1754,20 @@ def playtime_logic():
                                        title='Visualize Time Spent In Your Steam Library')
 
         return render_template('/playtime/results.html',
+                               two_weeks=two_weeks,
+                               all_10=all_10,
+                               all_20=all_20,
+                               all_all=all_all,
+                               donut_data_2weeks=donut_data_2weeks,
+                               donut_data_10=donut_data_10,
+                               donut_data_20=donut_data_20,
+                               line_data_2weeks=line_data_2weeks,
+                               line_data_10=line_data_10,
+                               line_data_20=line_data_20,
+                               bar_data_2weeks=bar_data_2weeks,
+                               bar_data_10=bar_data_10,
+                               bar_data_20=bar_data_20,
                                display_name=display_name,
-                               total_hours=total_hours,
-                               game_count=game_count,
-                               number_of_results=number_of_results,
-                               minutes_played_new=minutes_played_new,
-                               readout=readout,
                                user_image=user_image,
                                user_image_icon=user_image_icon,
-                               donut_data=donut_data,
-                               chart_data=bar_chart_data,
-                               line_chart_data=line_chart_data,
                                title='Results')

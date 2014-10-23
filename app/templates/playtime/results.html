@@ -8,7 +8,7 @@
         <div id="hidden-menu">
             <img src="{{ user_image_icon }}">
             <h3 class="green shadow">{{ display_name }}'s</h3>
-            <h3 class="shadow">{{ number_of_results }} Most Played Steam Games <span class="yellow">{{ readout }}</span></h3>
+            <h3 class="shadow">Most Played Steam Games</h3>
 
             <div id="back-to-top">
                 <a href="/playtime"><h3 id="hidden-logo"><span class="white shadow">Play</span><span class="dark-blue">Time</span></h3></a>
@@ -26,14 +26,47 @@
 
                     <img id="user-image" src="{{ user_image }}">
 
-                    <div id="readout">
+                    <div id="readout_2weeks" class="readout">
                         <h1>
-                            {{ number_of_results }} Most Played Steam Games<br>
-                            <span class="yellow">{{ readout }}</span>
+                            Most Played Steam Games<br>
+                            <span class="yellow">{{ two_weeks[1] }}</span>
                         </h1>
 
-                        <div id="statistics">
-                            <span class="yellow">{{ game_count }}</span> games | <span class="yellow">{{ total_hours }}</span> hours
+                        <div class="statistics">
+                            <span class="yellow">{{ two_weeks[2] }}</span> games | <span class="yellow">{{ two_weeks[3] }}</span> hours
+                        </div>
+                    </div>
+
+                    <div id="readout_10" class="readout">
+                        <h1>
+                            {{ all_10[2] }} Most Played Steam Games<br>
+                            <span class="yellow">{{ all_10[1] }}</span>
+                        </h1>
+
+                        <div class="statistics">
+                            <span class="yellow">{{ all_10[2] }}</span> games | <span class="yellow">{{ all_10[3] }}</span> hours
+                        </div>
+                    </div>
+
+                    <div id="readout_20" class="readout">
+                        <h1>
+                            {{ all_20[2] }} Most Played Steam Games<br>
+                            <span class="yellow">{{ all_20[1] }}</span>
+                        </h1>
+
+                        <div class="statistics">
+                            <span class="yellow">{{ all_20[2] }}</span> games | <span class="yellow">{{ all_20[3] }}</span> hours
+                        </div>
+                    </div>
+
+                    <div id="readout_all" class="readout">
+                        <h1>
+                            All Steam Games Played<br>
+                            <span class="yellow">{{ all_all[1] }}</span>
+                        </h1>
+
+                        <div class="statistics">
+                            <span class="yellow">{{ all_all[2] }}</span> games | <span class="yellow">{{ all_all[3] }}</span> hours
                         </div>
                     </div>
 
@@ -48,45 +81,276 @@
 
                 <div class="result-template">
                     <!-- Various chart divs, hidden until selected -->
-                    <div id="line">
 
+                    <div id="donut_2weeks">
                         <br>
                         <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_donut_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_donut_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_donut_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
 
                         <div class="canvas-container">
-                            <canvas id="line-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                            <canvas id="donut-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                         </div>
 
                         <br>
                     </div>
 
-                    <div id="donut">
+                    <div id="donut_10">
                         <br>
                         <br>
 
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_donut_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_donut_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_donut_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
                         <div class="canvas-container">
-                            <canvas id="donut-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                            <canvas id="donut-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                         </div>
 
                         <br>
                     </div>
 
-                    <div id="bar">
+                    <div id="donut_20">
                         <br>
                         <br>
 
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_donut_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_donut_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_donut_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
                         <div class="canvas-container">
-                            <canvas id="bar-chart" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                            <canvas id="donut-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="line_2weeks">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_line_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_line_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_line_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="line-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="line_10">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_line_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_line_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_line_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="line-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="line_20">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_line_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_line_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_line_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="line-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="bar_2weeks">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_bar_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_bar_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_bar_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="bar-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="bar_10">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_bar_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_bar_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_bar_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="bar-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div id="bar_20">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_bar_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_bar_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_bar_20">
+                                    20
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="bar-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                         </div>
 
                         <br>
                     </div>
 
                     <!-- List of Results -->
-                    <div id="data">
+                    <div id="data_2weeks" class="data">
+                        <br>
                         <br>
 
-                        {% for entry in minutes_played_new %}
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_data_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_data_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_data_20">
+                                    20
+                                </span>
+                                |
+                                <span class="select_data_all">
+                                    All
+                                </span>
+                            </p>
+                        </div>
+
+                        {% for entry in two_weeks[0] %}
                             <div class="entry">
                                 <img src="{{ entry[3] }}">
 
@@ -102,6 +366,130 @@
 
                         <br>
                     </div>
+
+                    <div id="data_10" class="data">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_data_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_data_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_data_20">
+                                    20
+                                </span>
+                                |
+                                <span class="select_data_all">
+                                    All
+                                </span>
+                            </p>
+                        </div>
+
+                        {% for entry in all_10[0] %}
+                            <div class="entry">
+                                <img src="{{ entry[3] }}">
+
+                                <div class="entry-data">
+                                    <span class="game-name">{{ entry[1] }}</span><br>
+                                    <span class="game-hours">{{ entry[2] }} hours played</span>
+                                </div>
+
+                                <span class="rank">{{ entry[0] }}</span>
+                            </div>
+
+                        {% endfor %}
+
+                        <br>
+                    </div>
+
+                    <div id="data_20" class="data">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_data_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_data_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_data_20">
+                                    20
+                                </span>
+                                |
+                                <span class="select_data_all">
+                                    All
+                                </span>
+                            </p>
+                        </div>
+
+                        {% for entry in all_20[0] %}
+                            <div class="entry">
+                                <img src="{{ entry[3] }}">
+
+                                <div class="entry-data">
+                                    <span class="game-name">{{ entry[1] }}</span><br>
+                                    <span class="game-hours">{{ entry[2] }} hours played</span>
+                                </div>
+
+                                <span class="rank">{{ entry[0] }}</span>
+                            </div>
+
+                        {% endfor %}
+
+                        <br>
+                    </div>
+
+                    <div id="data_all" class="data">
+                        <br>
+                        <br>
+
+                        <div class="range-selection">
+                            <p>
+                                <span class="select_data_2weeks">
+                                    Past Two Weeks
+                                </span>
+                                |
+                                <span class="select_data_10">
+                                    10
+                                </span>
+                                |
+                                <span class="select_data_20">
+                                    20
+                                </span>
+                                |
+                                <span class="select_data_all">
+                                    All
+                                </span>
+                            </p>
+                        </div>
+
+                        {% for entry in all_all[0] %}
+                            <div class="entry">
+                                <img src="{{ entry[3] }}">
+
+                                <div class="entry-data">
+                                    <span class="game-name">{{ entry[1] }}</span><br>
+                                    <span class="game-hours">{{ entry[2] }} hours played</span>
+                                </div>
+
+                                <span class="rank">{{ entry[0] }}</span>
+                            </div>
+
+                        {% endfor %}
+
+                        <br>
+                    </div>
+
                 </div>
             </div>
         </div>
