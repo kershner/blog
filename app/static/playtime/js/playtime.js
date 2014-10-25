@@ -9,6 +9,9 @@ function playtime() {
 
 function playtimeResults(data_array) {
 	resultsFadeIn();
+	showSearch();
+	asterisk();
+	hallOfShame();
 	hiddenMenu();
 	initialSelections(data_array);
 	rangeSelection(data_array);
@@ -95,7 +98,15 @@ function resultsFadeIn() {
 	setTimeout(function() {
 		$("#user-info").fadeIn("fast");
 		$(".result-template").fadeIn("fast");
+		$("#search-select").fadeIn("fast");
 	}, 400);
+}
+
+function showSearch() {
+	$("#search-select").click(function() {
+		$("#search-select").fadeOut("fast");
+		$("#new-search").fadeIn("slow");
+	});
 }
 
 function initialSelections(data_array) {
@@ -110,6 +121,38 @@ function initialSelections(data_array) {
 	});
 	$("#bar-selector").click(function() {
 		showBar_2weeks(data_array[6]);
+	});
+}
+
+function hallOfShame() {
+	$("#hall-of-shame").click(function() {
+		$("#donut_2weeks").fadeOut("fast");
+		$("#donut_10").fadeOut("fast");
+		$("#donut_20").fadeOut("fast");
+		$("#bar_2weeks").fadeOut("fast");
+		$("#bar_10").fadeOut("fast");
+		$("#bar_20").fadeOut("fast");
+		$("#line_2weeks").fadeOut("fast");
+		$("#line_10").fadeOut("fast");
+		$("#line_20").fadeOut("fast");
+		$("#data_2weeks").fadeOut("fast");
+		$("#data_10").fadeOut("fast");
+		$("#data_20").fadeOut("fast");
+		$("#readout_10").fadeOut("fast");
+		$("#readout_20").fadeOut("fast");
+		$("#readout_2weeks").fadeOut("fast");
+		$("#data_all").fadeOut("fast");
+		$("#readout_all").fadeIn("slow");
+		$("#hall-of-shame-content").fadeIn("slow");
+	});
+}
+
+function asterisk() {
+	$(".asterisk").click(function() {
+		$("#asterisk-explanation").fadeIn("fast");
+	});
+	$("#asterisk-close").click(function() {
+		$("#asterisk-explanation").fadeOut("fast");
 	});
 }
 
@@ -171,6 +214,7 @@ function showDonut_2weeks(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_2weeks").fadeIn("slow");
 	$("#donut_2weeks").fadeIn("slow");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
@@ -194,6 +238,7 @@ function showDonut_10(data) {
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_10").fadeIn("slow");
 	$("#donut_10").fadeIn("slow");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
@@ -217,6 +262,7 @@ function showDonut_20(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_20").fadeIn("slow");
 	$("#donut_20").fadeIn("slow");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
@@ -240,6 +286,7 @@ function showLine_2weeks(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_2weeks").fadeIn("slow");
 	$("#line_2weeks").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -263,6 +310,7 @@ function showLine_10(data) {
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_10").fadeIn("slow");
 	$("#line_10").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -286,6 +334,7 @@ function showLine_20(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_20").fadeIn("slow");
 	$("#line_20").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -309,6 +358,7 @@ function showBar_2weeks(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_2weeks").fadeIn("slow");
 	$("#bar_2weeks").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -332,6 +382,7 @@ function showBar_10(data) {
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_10").fadeIn("slow");
 	$("#bar_10").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -355,6 +406,7 @@ function showBar_20(data) {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_20").fadeIn("slow");
 	$("#bar_20").fadeIn("slow");
 	options = {scaleFontColor: "#FFFFFF"};
@@ -378,6 +430,7 @@ function showList_2weeks() {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_2weeks").fadeIn("slow");
 	$("#data_2weeks").fadeIn("slow");
 }
@@ -398,6 +451,7 @@ function showList_10() {
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_10").fadeIn("slow");
 	$("#data_10").fadeIn("slow");
 }
@@ -418,6 +472,7 @@ function showList_20() {
 	$("#readout_2weeks").fadeOut("fast");
 	$("#readout_10").fadeOut("fast");
 	$("#readout_all").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_20").fadeIn("slow");
 	$("#data_20").fadeIn("slow");
 }
@@ -438,6 +493,7 @@ function showList_all() {
 	$("#readout_10").fadeOut("fast");
 	$("#readout_20").fadeOut("fast");
 	$("#readout_2weeks").fadeOut("fast");
+	$("#hall-of-shame-content").fadeOut("fast");
 	$("#readout_all").fadeIn("slow");
 	$("#data_all").fadeIn("slow");
 }

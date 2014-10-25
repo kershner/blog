@@ -1596,19 +1596,23 @@ def playtime():
 def playtime_logic():
     form = PlayTime()
 
-    def parse_data(api_type, playtime_type, number_of_results, recent):
+    def parse_data(data, playtime_type, number_of_results, recent):
         if recent == 1:
             readout = 'In the Last Two Weeks'
         else:
             readout = 'Since 2009'
         minutes_played = []
-        for game in api_type['response']['games']:
-            appid = game['appid']
-            game_hash = game['img_logo_url']
-            url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
-                  (appid, game_hash)
+        try:
+            for game in data['response']['games']:
+                appid = game['appid']
+                game_hash = game['img_logo_url']
+                url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                      (appid, game_hash)
 
-            minutes_played.append([game['name'], game['%s' % playtime_type], url])
+                minutes_played.append([game['name'], game['%s' % playtime_type], url])
+        # Return 'privacy' if user has set privacy settings blocking two-weeks API
+        except KeyError:
+            return 'privacy'
 
         # Using a reverse sort by the 2nd index (minutes played) of each entry - descending order
         minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
@@ -1630,6 +1634,18 @@ def playtime_logic():
             counter += 1
 
         return [minutes_played_new, readout, counter, '%.1f' % total_hours]
+
+    def hall_of_shame(data):
+        shame = []
+        for game in data['response']['games']:
+            if game['playtime_forever'] == 0:
+                appid = game['appid']
+                game_hash = game['img_logo_url']
+                url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                      (appid, game_hash)
+                shame.append([game['name'], game['playtime_forever'], url])
+                random.shuffle(shame)
+        return [shame, len(shame)]
 
     # Little bit of code to generate a random hex color
     def random_color():
@@ -1722,17 +1738,30 @@ def playtime_logic():
                 all_all = parse_data(data_all, playtime_all, 'all', 0)
 
                 # Calling chart formatting function on organized API data
-                donut_data_2weeks = format_data(two_weeks[0], 'donut')
+                if two_weeks == 'privacy':
+                    donut_data_2weeks = 'none'
+                else:
+                    donut_data_2weeks = format_data(two_weeks[0], 'donut')
                 donut_data_10 = format_data(all_10[0], 'donut')
                 donut_data_20 = format_data(all_20[0], 'donut')
 
-                line_data_2weeks = format_data(two_weeks[0], 'line')
+                if two_weeks == 'privacy':
+                    line_data_2weeks = 'none'
+                else:
+                    line_data_2weeks = format_data(two_weeks[0], 'line')
                 line_data_10 = format_data(all_10[0], 'line')
                 line_data_20 = format_data(all_20[0], 'line')
 
-                bar_data_2weeks = format_data(two_weeks[0], 'bar')
+                if two_weeks == 'privacy':
+                    bar_data_2weeks = 'none'
+                else:
+                    bar_data_2weeks = format_data(two_weeks[0], 'bar')
                 bar_data_10 = format_data(all_10[0], 'bar')
                 bar_data_20 = format_data(all_20[0], 'bar')
+
+                # Pulling out Hall of Shame data
+                shame_list = hall_of_shame(data_all)[0]
+                shame_total = hall_of_shame(data_all)[1]
 
                 # Performing final API call to retrieve user's avatar
                 api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
@@ -1742,11 +1771,11 @@ def playtime_logic():
                 user_image = data['response']['players'][0]['avatarfull']
                 user_image_icon = data['response']['players'][0]['avatar']
 
-            except KeyError:
-                return render_template('/playtime/home.html',
-                                       form=form,
-                                       message='Invalid profile name or SteamID, please try again.',
-                                       title='Visualize Time Spent In Your Steam Library')
+            # except KeyError:
+            #     return render_template('/playtime/home.html',
+            #                            form=form,
+            #                            message='Invalid profile name or SteamID, please try again.',
+            #                            title='Visualize Time Spent In Your Steam Library')
             except urllib2.URLError:
                 return render_template('/playtime/home.html',
                                        form=form,
@@ -1754,6 +1783,9 @@ def playtime_logic():
                                        title='Visualize Time Spent In Your Steam Library')
 
         return render_template('/playtime/results.html',
+                               form=form,
+                               shame_list=shame_list,
+                               shame_total=shame_total,
                                two_weeks=two_weeks,
                                all_10=all_10,
                                all_20=all_20,

@@ -31,14 +31,17 @@
 $(document).ready(function(){
     {% if donut_data_2weeks %}
         var donutData_2weeks = {{ donut_data_2weeks|safe }};
-        var donutData_10 = {{ donut_data_10|safe }};
-        var donutData_20 = {{ donut_data_20|safe }};
         var lineData_2weeks = {{ line_data_2weeks|safe }};
-        var lineData_10 = {{ line_data_10|safe }};
-        var lineData_20 = {{ line_data_20|safe }};
         var barData_2weeks = {{ bar_data_2weeks|safe }};
+
+        var donutData_10 = {{ donut_data_10|safe }};
+        var lineData_10 = {{ line_data_10|safe }};
         var barData_10 = {{ bar_data_10|safe }};
+
+        var donutData_20 = {{ donut_data_20|safe }};
+        var lineData_20 = {{ line_data_20|safe }};
         var barData_20 = {{ bar_data_20|safe }};
+
         var parameters = [
             donutData_2weeks, donutData_10, donutData_20,
             lineData_2weeks, lineData_10, lineData_20, barData_2weeks,
