@@ -13,6 +13,7 @@ function playtimeResults(data_array) {
 	asterisk();
 	hallOfShame();
 	hiddenMenu();
+	smoothTop();
 	initialSelections(data_array);
 	rangeSelection(data_array);
 }
@@ -55,13 +56,21 @@ function hiddenMenu() {
 	});
 }
 
+function smoothTop() {
+	$("#top").click(function() {
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	});
+}
+
 function showForm() {
 	if ($(".message").length > 0) {
 		console.log("Blah");
 	} else {
 		$("#get-started").one("click", function() {
+			$("#welcome-header").stop().animate({height : "590px"});
 			$("#form").fadeIn("slow", "linear");		
-			$("#welcome-header").css("margin-top", "150px");
+			$("#welcome-header").css("margin-top", "100px");
+			$("#welcome-header").css("padding-bottom", "50px");
 			$("#about-content").css("top", "25px");
 		});
 	}
@@ -104,8 +113,8 @@ function resultsFadeIn() {
 
 function showSearch() {
 	$("#search-select").click(function() {
-		$("#search-select").fadeOut("fast");
-		$("#new-search").fadeIn("slow");
+		$("#search-select").fadeOut("100");
+		$("#new-search").fadeIn("1500");
 	});
 }
 

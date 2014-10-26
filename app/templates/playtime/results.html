@@ -1,7 +1,5 @@
 {% extends "/playtime/base.html" %}
 {% block content %}
-    <a name="top"></a>
-
     <div id="header">
         <a href="/playtime"><h1><span class="white">Play</span><span class="blue">Time</span></h1></a>
         <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
@@ -14,13 +12,13 @@
 
         <div id="back-to-top">
             <a href="/playtime"><h2 id="hidden-logo"><span class="white shadow">Play</span><span class="dark-blue">Time</span></h2></a>
-            <a href="#top"><i class="fa fa-arrow-circle-up fa-2x shadow"></i></a>
+            <a href="#" id="top"><i class="fa fa-arrow-circle-up fa-2x shadow"></i></a>
         </div>
     </div>
 
     <div id="results-container">
         <div id="results-container-inner">
-            <div id="search-select" class="dark-blue-gradient">
+            <div id="search-select">
                 <p>New Search</p>
                 <i class="fa fa-search"></i>
             </div>
@@ -506,12 +504,12 @@
                 </div>
 
                 <div id="hall-of-shame-content">
-                    <h1 class="white">Gaze upon your shame</h1>
+                    <h1 class="white">Gaze Upon Your Shame</h1>
                     <span class="shame-total dark-blue">{{ shame_total }} total</span>
 
                     <ul class="rig columns-3">
                         {% for entry in shame_list %}
-                        <li class="focus">
+                        <li>
                             <img src="{{ entry[2] }}">
                             <span class="grid-name">{{ entry[0] }}</span><br>
                             <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
