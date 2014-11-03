@@ -29,16 +29,22 @@
 
 <script>
 $(document).ready(function(){
-    {% if donut_data_2weeks %}
-        var donutData_2weeks = {{ donut_data_2weeks|safe }};
-        var lineData_2weeks = {{ line_data_2weeks|safe }};
-        var barData_2weeks = {{ bar_data_2weeks|safe }};
+    {% if donut_data_10 %}
+        {% if two_weeks == "privacy" %}
+            var donutData_2weeks = 0;
+            var lineData_2weeks = 0;
+            var barData_2weeks = 0;
+        {% else %}
+            var donutData_2weeks = {{ donut_data_2weeks[0]|safe }};
+            var lineData_2weeks = {{ line_data_2weeks|safe }};
+            var barData_2weeks = {{ bar_data_2weeks|safe }};
+        {% endif %}
 
-        var donutData_10 = {{ donut_data_10|safe }};
+        var donutData_10 = {{ donut_data_10[0]|safe }};
         var lineData_10 = {{ line_data_10|safe }};
         var barData_10 = {{ bar_data_10|safe }};
 
-        var donutData_20 = {{ donut_data_20|safe }};
+        var donutData_20 = {{ donut_data_20[0]|safe }};
         var lineData_20 = {{ line_data_20|safe }};
         var barData_20 = {{ bar_data_20|safe }};
 
@@ -48,7 +54,11 @@ $(document).ready(function(){
             barData_10, barData_20
             ]
 
-        playtimeResults(parameters);
+        if (donutData_2weeks === 0) {
+            playtimeResults(parameters, "privacy");
+        } else {
+            playtimeResults(parameters);
+        }
     {% endif %}
 
     playtime();

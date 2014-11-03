@@ -1604,12 +1604,16 @@ def playtime_logic():
         minutes_played = []
         try:
             for game in data['response']['games']:
-                appid = game['appid']
-                game_hash = game['img_logo_url']
-                url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
-                      (appid, game_hash)
+                # Catch KeyErrors here in case an appID has been partially removed, like after a public alpha
+                try:
+                    appid = game['appid']
+                    game_hash = game['img_logo_url']
+                    url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                          (appid, game_hash)
 
-                minutes_played.append([game['name'], game['%s' % playtime_type], url])
+                    minutes_played.append([game['name'], game['%s' % playtime_type], url])
+                except KeyError:
+                    continue
         # Return 'privacy' if user has set privacy settings blocking two-weeks API
         except KeyError:
             return 'privacy'
@@ -1657,14 +1661,17 @@ def playtime_logic():
     def format_data(data_list, chart_type):
         if chart_type == 'donut':
             datasets = ''
+            colors = []
             counter = 0
             for value in data_list:
+                color = random_color()
                 dataset = '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"},' % \
-                          (value[2], random_color(), value[1])
+                          (value[2], color, value[1])
                 datasets += dataset
                 counter += 1
+                colors.append(color)
             formatted_data = '[%s]' % datasets[:-1]
-            return formatted_data
+            return formatted_data, colors
 
         else:
             chart_data = ''
@@ -1690,11 +1697,33 @@ def playtime_logic():
                                  (chart_labels, random_color(), chart_data)
                 return formatted_data
 
+    # Grab input SteamID's friends list, pull out name, profile URL, and avatar
+    def get_friends(steamid):
+        friends = []
+        raw_data = urllib2.urlopen('%s?key=%s&steamid=%s&format=json' % (API_FRIENDS, API_KEY, steam_id))
+        data = json.loads(raw_data.read())
+        for entry in data['friendslist']['friends']:
+            friends.append(entry['steamid'])
+
+        friends_string = ','.join(friends)
+
+        friends_new = []
+        raw_data = urllib2.urlopen('%s?key=%s&steamids=%s' % (API_PLAYER, API_KEY, friends_string))
+        data = json.loads(raw_data.read())
+        for entry in data['response']['players']:
+            steamid = entry['steamid']
+            name = entry['personaname']
+            avatar = entry['avatarmedium']
+            friends_new.append([steamid, name, avatar])
+
+        return friends_new
+
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
     API_2_WEEKS = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
     API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
     API_PLAYER = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
+    API_FRIENDS = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/'
     API_KEY = '8B87987F953FE3D1C107998D76339CCF'
 
     playtime_all = 'playtime_forever'
@@ -1709,7 +1738,7 @@ def playtime_logic():
             user_input = form.steamid.data
 
             try:
-                # This line tests if the user has input a 17-character 64-bit SteamID
+                # Testing if user has input a 64-bit numerical SteamID or vanity url
                 if len(user_input) == 17 and not user_input[0].isalpha():
                     steam_id = user_input
                     display_name = json.loads(urllib2.urlopen('%s?key=%s&steamids=%s' %
@@ -1739,21 +1768,21 @@ def playtime_logic():
 
                 # Calling chart formatting function on organized API data
                 if two_weeks == 'privacy':
-                    donut_data_2weeks = 'none'
+                    donut_data_2weeks = ''
                 else:
                     donut_data_2weeks = format_data(two_weeks[0], 'donut')
                 donut_data_10 = format_data(all_10[0], 'donut')
                 donut_data_20 = format_data(all_20[0], 'donut')
 
                 if two_weeks == 'privacy':
-                    line_data_2weeks = 'none'
+                    line_data_2weeks = ''
                 else:
                     line_data_2weeks = format_data(two_weeks[0], 'line')
                 line_data_10 = format_data(all_10[0], 'line')
                 line_data_20 = format_data(all_20[0], 'line')
 
                 if two_weeks == 'privacy':
-                    bar_data_2weeks = 'none'
+                    bar_data_2weeks = ''
                 else:
                     bar_data_2weeks = format_data(two_weeks[0], 'bar')
                 bar_data_10 = format_data(all_10[0], 'bar')
@@ -1763,6 +1792,12 @@ def playtime_logic():
                 shame_list = hall_of_shame(data_all)[0]
                 shame_total = hall_of_shame(data_all)[1]
 
+                # Grabbing friends list
+                try:
+                    friends = get_friends(steam_id)
+                except urllib2.HTTPError:
+                    friends = 'private'
+
                 # Performing final API call to retrieve user's avatar
                 api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
                                            (API_PLAYER, API_KEY, steam_id))
@@ -1771,35 +1806,60 @@ def playtime_logic():
                 user_image = data['response']['players'][0]['avatarfull']
                 user_image_icon = data['response']['players'][0]['avatar']
 
-            # except KeyError:
-            #     return render_template('/playtime/home.html',
-            #                            form=form,
-            #                            message='Invalid profile name or SteamID, please try again.',
-            #                            title='Visualize Time Spent In Your Steam Library')
+            except (KeyError, IndexError):
+                return render_template('/playtime/home.html',
+                                       form=form,
+                                       message='Invalid profile name or SteamID, please try again.',
+                                       title='Visualize Time Spent In Your Steam Library')
             except urllib2.URLError:
                 return render_template('/playtime/home.html',
                                        form=form,
                                        message='The API request took too long and has timed out, please try again.',
                                        title='Visualize Time Spent In Your Steam Library')
 
-        return render_template('/playtime/results.html',
-                               form=form,
-                               shame_list=shame_list,
-                               shame_total=shame_total,
-                               two_weeks=two_weeks,
-                               all_10=all_10,
-                               all_20=all_20,
-                               all_all=all_all,
-                               donut_data_2weeks=donut_data_2weeks,
-                               donut_data_10=donut_data_10,
-                               donut_data_20=donut_data_20,
-                               line_data_2weeks=line_data_2weeks,
-                               line_data_10=line_data_10,
-                               line_data_20=line_data_20,
-                               bar_data_2weeks=bar_data_2weeks,
-                               bar_data_10=bar_data_10,
-                               bar_data_20=bar_data_20,
-                               display_name=display_name,
-                               user_image=user_image,
-                               user_image_icon=user_image_icon,
-                               title='Results')
+        if two_weeks == 'privacy':
+            return render_template('/playtime/results_privacy.html',
+                                   form=form,
+                                   shame_list=shame_list,
+                                   shame_total=shame_total,
+                                   two_weeks=two_weeks,
+                                   all_10=all_10,
+                                   all_20=all_20,
+                                   all_all=all_all,
+                                   donut_data_2weeks=donut_data_2weeks,
+                                   donut_data_10=donut_data_10,
+                                   donut_data_20=donut_data_20,
+                                   line_data_2weeks=line_data_2weeks,
+                                   line_data_10=line_data_10,
+                                   line_data_20=line_data_20,
+                                   bar_data_2weeks=bar_data_2weeks,
+                                   bar_data_10=bar_data_10,
+                                   bar_data_20=bar_data_20,
+                                   display_name=display_name,
+                                   user_image=user_image,
+                                   user_image_icon=user_image_icon,
+                                   friends=friends,
+                                   title='Results')
+        else:
+            return render_template('/playtime/results.html',
+                                   form=form,
+                                   shame_list=shame_list,
+                                   shame_total=shame_total,
+                                   two_weeks=two_weeks,
+                                   all_10=all_10,
+                                   all_20=all_20,
+                                   all_all=all_all,
+                                   donut_data_2weeks=donut_data_2weeks,
+                                   donut_data_10=donut_data_10,
+                                   donut_data_20=donut_data_20,
+                                   line_data_2weeks=line_data_2weeks,
+                                   line_data_10=line_data_10,
+                                   line_data_20=line_data_20,
+                                   bar_data_2weeks=bar_data_2weeks,
+                                   bar_data_10=bar_data_10,
+                                   bar_data_20=bar_data_20,
+                                   display_name=display_name,
+                                   user_image=user_image,
+                                   user_image_icon=user_image_icon,
+                                   friends=friends,
+                                   title='Results')

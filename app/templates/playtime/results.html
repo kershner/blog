@@ -34,6 +34,20 @@
 
             <!-- User Info Div -->
             <div id="user-info">
+                <div id="tab-selectors">
+                    <div id="stats-tab" class="tab animate">
+                        <i class="fa fa-clipboard fa-lg"></i><span id="stats-tab-text" class="tab-text">Stats</span>
+                    </div>
+
+                    <div id="friends-tab" class="tab animate">
+                        <i class="fa fa-users fa-lg"></i><span id="friends-tab-text" class="tab-text">Friends</span>
+                    </div>
+
+                    <div id="shame-tab" class="tab animate">
+                        <i class="fa fa-university fa-lg"></i><span id="shame-tab-text" class="tab-text">Hall of Shame</span>
+                    </div>
+                </div>
+
                 <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
 
                 <img id="user-image" src="{{ user_image }}">
@@ -52,6 +66,22 @@
                 <div id="asterisk-explanation">
                     <i id="asterisk-close" class="fa fa-times fa-2x"></i>
                     <p>Steam began tracking total playtime in early 2009.</p>
+                </div>
+
+                <div id="readout-shame">
+                    <h1>
+                        <br>
+                        <br>
+                        <span class="yellow">Hall</span> of Shame
+                    </h1>
+                </div>
+
+                <div id="readout-friends">
+                    <h1>
+                        <br>
+                        <br>
+                        <span class="yellow">Friends</span>
+                    </h1>
                 </div>
 
                 <div id="readout_10" class="readout">
@@ -88,7 +118,6 @@
                 </div>
 
                 <div id="options">
-                    <p><span id="hall-of-shame" class="dark-blue">Hall of Shame</span></p><br>
                     <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue"></i>
                     <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue"></i>
                     <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue"></i>
@@ -119,6 +148,22 @@
                         </p>
                     </div>
 
+                    <span class="legend-toggle">Legend</span>
+
+                    <div class="legend">
+                        <div class="legend-left">
+                            {% for entry in two_weeks[0] %}
+                                <img src="{{ entry[3] }}">
+                            {% endfor %}
+                        </div>
+
+                        <div class="legend-right">
+                            {% for entry in donut_data_2weeks[1] %}
+                                <div class="legend-color" style="background-color: {{ entry }}"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <div class="canvas-container">
                         <canvas id="donut-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                     </div>
@@ -144,6 +189,22 @@
                                 20
                             </span>
                         </p>
+                    </div>
+
+                    <span class="legend-toggle">Legend</span>
+
+                    <div class="legend">
+                        <div class="legend-left">
+                            {% for entry in all_10[0] %}
+                                <img src="{{ entry[3] }}">
+                            {% endfor %}
+                        </div>
+
+                        <div class="legend-right">
+                            {% for entry in donut_data_10[1] %}
+                                <div class="legend-color" style="background-color: {{ entry }}"></div>
+                            {% endfor %}
+                        </div>
                     </div>
 
                     <div class="canvas-container">
@@ -173,6 +234,36 @@
                         </p>
                     </div>
 
+                    <span class="legend-toggle">Legend</span>
+
+                    <div class="legend">
+                        <div class="legend-left">
+                            {% for entry in all_20[0][:10] %}
+                                <img src="{{ entry[3] }}">
+                            {% endfor %}
+                        </div>
+
+                        <div class="legend-right">
+                            {% for entry in donut_data_20[1][:10] %}
+                                <div class="legend-color" style="background-color: {{ entry }}"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div id="split">
+                        <div class="legend-left">
+                            {% for entry in all_20[0][10:] %}
+                                <img src="{{ entry[3] }}">
+                            {% endfor %}
+                        </div>
+
+                        <div class="legend-right">
+                            {% for entry in donut_data_20[1][10:] %}
+                                <div class="legend-color" style="background-color: {{ entry }}"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <div class="canvas-container">
                         <canvas id="donut-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                     </div>
@@ -199,6 +290,9 @@
                             </span>
                         </p>
                     </div>
+
+                    <br>
+                    <br>
 
                     <div class="canvas-container">
                         <canvas id="line-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
@@ -227,6 +321,9 @@
                         </p>
                     </div>
 
+                    <br>
+                    <br>
+
                     <div class="canvas-container">
                         <canvas id="line-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                     </div>
@@ -253,6 +350,9 @@
                             </span>
                         </p>
                     </div>
+
+                    <br>
+                    <br>
 
                     <div class="canvas-container">
                         <canvas id="line-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
@@ -281,6 +381,9 @@
                         </p>
                     </div>
 
+                    <br>
+                    <br>
+
                     <div class="canvas-container">
                         <canvas id="bar-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                     </div>
@@ -308,6 +411,9 @@
                         </p>
                     </div>
 
+                    <br>
+                    <br>
+
                     <div class="canvas-container">
                         <canvas id="bar-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
                     </div>
@@ -334,6 +440,9 @@
                             </span>
                         </p>
                     </div>
+
+                    <br>
+                    <br>
 
                     <div class="canvas-container">
                         <canvas id="bar-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
@@ -507,9 +616,9 @@
                     <h1 class="white">Gaze Upon Your Shame</h1>
                     <span class="shame-total dark-blue">{{ shame_total }} total</span>
 
-                    <ul class="rig columns-3">
+                    <ul id="shame-grid" class="rig columns-3">
                         {% for entry in shame_list %}
-                        <li>
+                        <li class="shame">
                             <img src="{{ entry[2] }}">
                             <span class="grid-name">{{ entry[0] }}</span><br>
                             <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
@@ -520,18 +629,55 @@
                     <br>
                     <br>
                 </div>
+
+                {% if friends != "private" %}
+                <div id="friends">
+                    <h1 class="white shadow"><span class="green">{{ display_name }}'s</span> Friends</h1>
+                    <p>Click to view PlayTime profile</p>
+                    <form id="hidden-form" action="{{ url_for('playtime_logic') }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.steamid(placeholder="SteamID", id="hidden-steamid") }}
+                    </form>
+
+                    <ul id="friends-grid" class="rig columns-4">
+                        {% for entry in friends %}
+                        <li class="friends">
+                            <img class="friend-avatar" alt="{{ entry[0] }}" src="{{ entry[2] }}">
+                            <br>
+                            <span class="friend-name">{{ entry[1] }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <br>
+                </div>
+                {% endif %}
+
+                <br>
+
+                <div id="footer">
+                    <p>
+                        Powered by Steam<br>
+                        <a href="http://steampowered.com"><img id="steam-icon" src="/static/playtime/images/steam-icon.png"></a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
-    <br>
-    <br>
-    <br>
+    <div id="loading-dimmer" class="dimmer">>
+        <div id="loading" class="blue-gradient">
+            <p>Accessing the Steam Web API...</p>
 
-    <div id="footer">
-        <p>
-            Powered by Steam<br>
-            <a href="http://steampowered.com"><img id="steam-icon" src="/static/playtime/images/steam-icon.png"></a>
-        </p>
+            <br>
+
+            <div class="spinner">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

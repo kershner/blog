@@ -12,16 +12,6 @@
             <br>
 
             <p>
-                <span id="warning">
-                    <em>
-                        Please note that the Steam API is <a href="https://www.google.com/search?q=steam+api+slow&oq=steam+api+slow&aqs=chrome..69i57.1295j0j9&sourceid=chrome&es_sm=93&ie=UTF-8">notoriously slow</a>, and it might take a few seconds to complete each
-                        request.
-                    </em>
-                </span>
-
-                <br>
-                <br>
-
                 PlayTime makes use of a few different programming technologies to accomplish its tasks.<br><br>
                 The backend is written in <a href="https://www.python.org/">Python</a> and uses
                 <a href="http://flask.pocoo.org/">Flask</a> as the web framework. The code is viewable at the links above.
@@ -139,6 +129,22 @@
                 <a id="where">Where is my SteamID?</a><br>
                 <button class="submit">Go!</button>
             </form>
+        </div>
+    </div>
+
+    <div id="loading-dimmer" class="dimmer">
+        <div id="loading" class="blue-gradient">
+        <p>Accessing the Steam Web API...</p>
+
+        <br>
+
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
         </div>
     </div>
 

@@ -5,16 +5,26 @@ function playtime() {
     showFindID();
     closeFindID();
     closeAbout();
+	dimmer();
 }
 
-function playtimeResults(data_array) {
+function playtimeResults(data_array, privacy) {
 	resultsFadeIn();
 	showSearch();
 	asterisk();
 	hallOfShame();
 	hiddenMenu();
 	smoothTop();
-	initialSelections(data_array);
+	showLegend();
+	getFriendId();
+	showFriends();
+	tabExpand();
+	if (privacy === undefined) {
+		initialSelections(data_array);
+	}
+	else { 
+		initialSelectionsPrivacy(data_array);
+	}
 	rangeSelection(data_array);
 }
 
@@ -100,6 +110,12 @@ function closeFindID() {
 	});
 }
 
+function dimmer() {
+	$(".submit").click(function() {
+		$("#loading-dimmer").css("top", "0").fadeIn("slow");
+	});
+}
+
 function resultsFadeIn() {
 	setTimeout(function() {
 		$("#header").fadeIn("fast");
@@ -113,8 +129,38 @@ function resultsFadeIn() {
 
 function showSearch() {
 	$("#search-select").click(function() {
-		$("#search-select").fadeOut("100");
-		$("#new-search").fadeIn("1500");
+		$("#search-select").animate({"margin-bottom" : "15px"}, 100, function () {
+			$("#new-search").fadeIn("slow");
+		});		
+	});
+}
+
+function initialSelectionsPrivacy(data_array) {
+	$("#list-selector").click(function() {
+		showList_10();
+	});
+	$("#line-selector").click(function() {
+		showLine_10(data_array[4]);
+	});
+	$("#donut-selector").click(function() {
+		showDonut_10(data_array[1]);
+	});
+	$("#bar-selector").click(function() {
+		showBar_10(data_array[7]);
+	});
+	setTimeout(function() {
+		$("#privacy-dimmer").fadeIn("fast");
+	}, 200);
+	setTimeout(function() {
+		$(".result-template").fadeIn("fast");
+		$("#data_10").fadeIn("fast");
+	}, 400);
+	closePrivacyNotice();
+}
+
+function closePrivacyNotice() {
+	$("#close-privacy").click(function() {
+		$("#privacy-dimmer").fadeOut("fast");
 	});
 }
 
@@ -133,26 +179,9 @@ function initialSelections(data_array) {
 	});
 }
 
-function hallOfShame() {
-	$("#hall-of-shame").click(function() {
-		$("#donut_2weeks").fadeOut("fast");
-		$("#donut_10").fadeOut("fast");
-		$("#donut_20").fadeOut("fast");
-		$("#bar_2weeks").fadeOut("fast");
-		$("#bar_10").fadeOut("fast");
-		$("#bar_20").fadeOut("fast");
-		$("#line_2weeks").fadeOut("fast");
-		$("#line_10").fadeOut("fast");
-		$("#line_20").fadeOut("fast");
-		$("#data_2weeks").fadeOut("fast");
-		$("#data_10").fadeOut("fast");
-		$("#data_20").fadeOut("fast");
-		$("#readout_10").fadeOut("fast");
-		$("#readout_20").fadeOut("fast");
-		$("#readout_2weeks").fadeOut("fast");
-		$("#data_all").fadeOut("fast");
-		$("#readout_all").fadeIn("slow");
-		$("#hall-of-shame-content").fadeIn("slow");
+function showLegend() {
+	$(".legend-toggle").click(function() {
+		$(".legend, #split").fadeToggle("slow");		
 	});
 }
 
@@ -207,302 +236,183 @@ function rangeSelection(data_array) {
 	});	
 }
 
+function displayElements(fade1, fade2) {
+    var elements = [
+	"#donut_2weeks", "#donut_10", "#donut_20", "#bar_2weeks",
+	"#bar_10", "#bar_20", "#line_2weeks", "#line_10", "#line_20",
+	"#data_2weeks", "#data_10", "#data_20", "#readout_10", "#readout_20",
+	"#readout_2weeks", "#data_all", "#readout_all", "#readout-friends",
+	"#readout-shame", "#hall-of-shame-content", "#friends"
+];
+    for (i = 0; i < elements.length; i++) {
+        if (elements[i] === fade1 || elements[i] === fade2) {
+            elements.splice(i, 1);
+        }
+    }
+	
+	for (i = 0; i < elements.length; i++) {
+		$(elements[i]).css("display", "none");
+	}
+	
+	$(fade1).fadeIn("slow");
+	$(fade2).fadeIn("slow");
+}
+
+function hallOfShame() {
+	$("#shame-tab").click(function() {
+		displayElements("#hall-of-shame-content", "#readout-shame");
+	});
+}
+
+function showFriends() {
+	$("#friends-tab").click(function() {
+		displayElements("#readout-friends", "#friends");
+	});
+}
+
 function showDonut_2weeks(data) {
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_2weeks").fadeIn("slow");
-	$("#donut_2weeks").fadeIn("slow");
+	displayElements("#readout_2weeks", "#donut_2weeks");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
 	var ctx = $("#donut-chart_2weeks").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
 }
 
 function showDonut_10(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_10").fadeIn("slow");
-	$("#donut_10").fadeIn("slow");
+	displayElements("#readout_10", "#donut_10");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
 	var ctx = $("#donut-chart_10").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
 }
 
 function showDonut_20(data) {
-	$("#donut_10").fadeOut("fast");
-	$("#donut_2weeks").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_20").fadeIn("slow");
-	$("#donut_20").fadeIn("slow");
+	displayElements("#readout_20", "#donut_20");
 	options = {animationSteps: 70, animationEasing: "easeOutExpo"};
 	var ctx = $("#donut-chart_20").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Doughnut(data, options);
 }
 
 function showLine_2weeks(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_2weeks").fadeIn("slow");
-	$("#line_2weeks").fadeIn("slow");
+	displayElements("#readout_2weeks", "#line_2weeks");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#line-chart_2weeks").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Line(data, options);
 }
 
 function showLine_10(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_10").fadeIn("slow");
-	$("#line_10").fadeIn("slow");
+	displayElements("#readout_10", "#line_10");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#line-chart_10").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Line(data, options);
 }
 
 function showLine_20(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_20").fadeIn("slow");
-	$("#line_20").fadeIn("slow");
+	displayElements("#readout_20", "#line_20");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#line-chart_20").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Line(data, options);
 }
 
 function showBar_2weeks(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_2weeks").fadeIn("slow");
-	$("#bar_2weeks").fadeIn("slow");
+	displayElements("#readout_2weeks", "#bar_2weeks");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#bar-chart_2weeks").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }
 
 function showBar_10(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_10").fadeIn("slow");
-	$("#bar_10").fadeIn("slow");
+	displayElements("#readout_10", "#bar_10");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#bar-chart_10").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }
 
 function showBar_20(data) {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_20").fadeIn("slow");
-	$("#bar_20").fadeIn("slow");
+	displayElements("#readout_20", "#bar_20");
 	options = {scaleFontColor: "#FFFFFF"};
 	var ctx = $("#bar-chart_20").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }
 
 function showList_2weeks() {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_2weeks").fadeIn("slow");
-	$("#data_2weeks").fadeIn("slow");
+	displayElements("#readout_2weeks", "#data_2weeks");
 }
 
 function showList_10() {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_10").fadeIn("slow");
-	$("#data_10").fadeIn("slow");
+	displayElements("#readout_10", "#data_10");
 }
 
 function showList_20() {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_all").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_all").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_20").fadeIn("slow");
-	$("#data_20").fadeIn("slow");
+	displayElements("#readout_20", "#data_20");
 }
 
 function showList_all() {
-	$("#donut_2weeks").fadeOut("fast");
-	$("#donut_10").fadeOut("fast");
-	$("#donut_20").fadeOut("fast");
-	$("#bar_2weeks").fadeOut("fast");
-	$("#bar_10").fadeOut("fast");
-	$("#bar_20").fadeOut("fast");
-	$("#line_2weeks").fadeOut("fast");
-	$("#line_10").fadeOut("fast");
-	$("#line_20").fadeOut("fast");
-	$("#data_2weeks").fadeOut("fast");
-	$("#data_10").fadeOut("fast");
-	$("#data_20").fadeOut("fast");
-	$("#readout_10").fadeOut("fast");
-	$("#readout_20").fadeOut("fast");
-	$("#readout_2weeks").fadeOut("fast");
-	$("#hall-of-shame-content").fadeOut("fast");
-	$("#readout_all").fadeIn("slow");
-	$("#data_all").fadeIn("slow");
+	displayElements("#readout_all", "#data_all");
+}
+
+function getFriendId() {
+	$(".friend-avatar").click(function () {
+		var alt = $(this).attr("alt");
+		var top = $(window).scrollTop();
+		console.log(top);
+		$("#hidden-steamid").val(alt);
+		$("#hidden-form").submit();
+		$("#loading-dimmer").css("top", top).fadeIn("slow");
+	});
+}
+
+function tabExpand() {
+	$("#stats-tab").hover(
+		function() {
+			$(this).animate({
+				"width" : "125px",
+				"left" : "-95px"
+			}, 10, function () {
+				$("#stats-tab-text").fadeIn("slow");
+			});
+		},
+		function() {
+			$(this).animate({
+				"width" : "30px",
+				"left" : "0"
+			}, 10, function () {
+				$("#stats-tab-text").css("display", "none");
+			});
+		}
+	);
+	$("#friends-tab").hover(
+		function() {
+			$(this).animate({
+				"width" : "125px",
+				"left" : "-95px"
+			}, 10, function () {
+				$("#friends-tab-text").fadeIn("slow");
+			});
+		},
+		function() {
+			$(this).animate({
+				"width" : "30px",
+				"left" : "0"
+			}, 10, function () {
+				$("#friends-tab-text").css("display", "none");
+			});
+		}
+	);
+	$("#shame-tab").hover(
+		function() {
+			$(this).animate({
+				"width" : "145px",
+				"left" : "-115px"
+			}, 10, function () {
+				$("#shame-tab-text").fadeIn("slow");
+			});
+		},
+		function() {
+			$(this).animate({
+				"width" : "30px",
+				"left" : "0"
+			}, 10, function () {
+				$("#shame-tab-text").css("display", "none");
+			});
+		}
+	);
 }
