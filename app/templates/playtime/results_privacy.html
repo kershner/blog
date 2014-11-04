@@ -5,7 +5,7 @@
     <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
 </div>
 
-<div id="hidden-menu">
+<div id="hidden-menu" class="blue-gradient">
     <img src="{{ user_image_icon }}">
     <h3 class="green shadow">{{ display_name }}'s</h3>
     <h3 class="shadow">Most Played Steam Games</h3>
@@ -18,7 +18,7 @@
 
 <div id="results-container">
     <div id="results-container-inner">
-        <div id="search-select">
+        <div id="search-select" class="animate">
             <p>New Search</p>
             <i class="fa fa-search"></i>
         </div>
@@ -68,7 +68,7 @@
                 <h1>
                     <br>
                     <br>
-                    <span class="yellow">Hall</span> of Shame
+                    <span class="yellow">Hall</span> of <span class="yellow">Shame</span>
                 </h1>
             </div>
 
@@ -107,8 +107,8 @@
 
             <div id="options">
                 <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue"></i>
-                <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue"></i>
                 <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue"></i>
+                <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue"></i>
                 <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue"></i>
             </div>
         </div>
@@ -333,11 +333,11 @@
                 </div>
 
                 {% for entry in all_10[0] %}
-                <div class="entry">
+                <div class="entry animate">
                     <img src="{{ entry[3] }}">
 
                     <div class="entry-data">
-                        <span class="game-name">{{ entry[1] }}</span><br>
+                        <span class="game-name animate">{{ entry[1] }}</span><br>
                         <span class="game-hours">{{ entry[2] }} hours played</span>
                     </div>
 
@@ -369,11 +369,11 @@
                 </div>
 
                 {% for entry in all_20[0] %}
-                <div class="entry">
+                <div class="entry animate">
                     <img src="{{ entry[3] }}">
 
                     <div class="entry-data">
-                        <span class="game-name">{{ entry[1] }}</span><br>
+                        <span class="game-name animate">{{ entry[1] }}</span><br>
                         <span class="game-hours">{{ entry[2] }} hours played</span>
                     </div>
 
@@ -405,12 +405,15 @@
                 </div>
 
                 {% for entry in all_all[0] %}
-                <div class="entry">
-                    <img src="{{ entry[3] }}">
+                <div class="entry animate">
+                    <a href="{{ entry[5] }}"><img src="{{ entry[3] }}"></a>
 
                     <div class="entry-data">
-                        <span class="game-name">{{ entry[1] }}</span><br>
+                        <span class="game-name animate">{{ entry[1] }}</span><br>
                         <span class="game-hours">{{ entry[2] }} hours played</span>
+                        {% if entry[4] %}
+                            <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
+                        {% endif %}
                     </div>
 
                     <span class="rank">{{ entry[0] }}</span>
@@ -426,9 +429,9 @@
 
                 <ul id="shame-grid" class="rig columns-3">
                     {% for entry in shame_list %}
-                    <li class="shame">
-                        <img src="{{ entry[2] }}">
-                        <span class="grid-name">{{ entry[0] }}</span><br>
+                    <li class="shame animate">
+                        <a href="{{ entry[3] }}"><img src="{{ entry[2] }}"></a>
+                        <a href="{{ entry[3] }}"><span class="grid-name animate">{{ entry[0] }}</span></a><br>
                         <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
                     </li>
                     {% endfor %}

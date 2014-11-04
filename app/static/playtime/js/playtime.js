@@ -112,7 +112,7 @@ function closeFindID() {
 
 function dimmer() {
 	$(".submit").click(function() {
-		$("#loading-dimmer").css("top", "0").fadeIn("slow");
+		$("#loading-dimmer").fadeIn("slow");
 	});
 }
 
@@ -352,11 +352,9 @@ function showList_all() {
 function getFriendId() {
 	$(".friend-avatar").click(function () {
 		var alt = $(this).attr("alt");
-		var top = $(window).scrollTop();
-		console.log(top);
 		$("#hidden-steamid").val(alt);
 		$("#hidden-form").submit();
-		$("#loading-dimmer").css("top", top).fadeIn("slow");
+		$("#loading-dimmer").fadeIn("slow");
 	});
 }
 
@@ -367,7 +365,7 @@ function tabExpand() {
 				"width" : "125px",
 				"left" : "-95px"
 			}, 10, function () {
-				$("#stats-tab-text").fadeIn("slow");
+				$("#stats-tab-text").stop().fadeIn("slow");
 			});
 		},
 		function() {
@@ -382,10 +380,10 @@ function tabExpand() {
 	$("#friends-tab").hover(
 		function() {
 			$(this).animate({
-				"width" : "125px",
-				"left" : "-95px"
+				"width" : "145px",
+				"left" : "-115px"
 			}, 10, function () {
-				$("#friends-tab-text").fadeIn("slow");
+				$("#friends-tab-text").stop().fadeIn("slow");
 			});
 		},
 		function() {
@@ -403,7 +401,7 @@ function tabExpand() {
 				"width" : "145px",
 				"left" : "-115px"
 			}, 10, function () {
-				$("#shame-tab-text").fadeIn("slow");
+				$("#shame-tab-text").stop().fadeIn("slow");
 			});
 		},
 		function() {

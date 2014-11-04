@@ -5,8 +5,8 @@
         <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
     </div>
 
-    <div id="hidden-menu">
-        <img src="{{ user_image_icon }}">
+    <div id="hidden-menu" class="blue-gradient">
+        <a href="{{ profile_url }}"><img src="{{ user_image_icon }}"></a>
         <h3 class="green shadow">{{ display_name }}'s</h3>
         <h3 class="shadow">Most Played Steam Games</h3>
 
@@ -18,7 +18,7 @@
 
     <div id="results-container">
         <div id="results-container-inner">
-            <div id="search-select">
+            <div id="search-select" class="animate">
                 <p>New Search</p>
                 <i class="fa fa-search"></i>
             </div>
@@ -39,18 +39,20 @@
                         <i class="fa fa-clipboard fa-lg"></i><span id="stats-tab-text" class="tab-text">Stats</span>
                     </div>
 
+                    {% if friends != "private" %}
                     <div id="friends-tab" class="tab animate">
                         <i class="fa fa-users fa-lg"></i><span id="friends-tab-text" class="tab-text">Friends</span>
                     </div>
+                    {% endif %}
 
                     <div id="shame-tab" class="tab animate">
                         <i class="fa fa-university fa-lg"></i><span id="shame-tab-text" class="tab-text">Hall of Shame</span>
                     </div>
                 </div>
 
-                <h1 id="text-name"><span class="green">{{ display_name }}</span></h1>
+                <a href="{{ profile_url }}"><h1 id="text-name" class="animate">{{ display_name }}</h1></a>
 
-                <img id="user-image" src="{{ user_image }}">
+                <a href="{{ profile_url }}"><img id="user-image" src="{{ user_image }}"></a>
 
                 <div id="readout_2weeks" class="readout">
                     <h1>
@@ -72,7 +74,7 @@
                     <h1>
                         <br>
                         <br>
-                        <span class="yellow">Hall</span> of Shame
+                        <span class="yellow">Hall</span> of <span class="yellow">Shame</span>
                     </h1>
                 </div>
 
@@ -118,10 +120,10 @@
                 </div>
 
                 <div id="options">
-                    <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue"></i>
-                    <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue"></i>
-                    <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue"></i>
-                    <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue"></i>
+                    <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue animate"></i>
+                    <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue animate"></i>
+                    <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue animate"></i>
+                    <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue animate"></i>
                 </div>
             </div>
 
@@ -477,13 +479,15 @@
                     </div>
 
                     {% for entry in two_weeks[0] %}
-                    <div class="entry">
-                        <img src="{{ entry[3] }}">
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}"></a>
 
                         <div class="entry-data">
-                            <span class="game-name">{{ entry[1] }}</span><br>
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
+
+                        <a class="stats-page-link" href="{{ entry[6] }}">Stats Page</a>
 
                         <span class="rank">{{ entry[0] }}</span>
                     </div>
@@ -517,13 +521,16 @@
                     </div>
 
                     {% for entry in all_10[0] %}
-                    <div class="entry">
-                        <img src="{{ entry[3] }}">
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}"></a>
 
                         <div class="entry-data">
-                            <span class="game-name">{{ entry[1] }}</span><br>
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
+                        {% if entry[4] %}
+                            <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
+                        {% endif %}
 
                         <span class="rank">{{ entry[0] }}</span>
                     </div>
@@ -557,13 +564,16 @@
                     </div>
 
                     {% for entry in all_20[0] %}
-                    <div class="entry">
-                        <img src="{{ entry[3] }}">
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}"></a>
 
                         <div class="entry-data">
-                            <span class="game-name">{{ entry[1] }}</span><br>
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
+                        {% if entry[4] %}
+                            <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
+                        {% endif %}
 
                         <span class="rank">{{ entry[0] }}</span>
                     </div>
@@ -597,12 +607,15 @@
                     </div>
 
                     {% for entry in all_all[0] %}
-                    <div class="entry">
-                        <img src="{{ entry[3] }}">
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}"></a>
 
                         <div class="entry-data">
-                            <span class="game-name">{{ entry[1] }}</span><br>
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
+                            {% if entry[4] %}
+                                <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
+                            {% endif %}
                         </div>
 
                         <span class="rank">{{ entry[0] }}</span>
@@ -618,9 +631,9 @@
 
                     <ul id="shame-grid" class="rig columns-3">
                         {% for entry in shame_list %}
-                        <li class="shame">
-                            <img src="{{ entry[2] }}">
-                            <span class="grid-name">{{ entry[0] }}</span><br>
+                        <li class="shame animate">
+                            <a href="{{ entry[3] }}"><img src="{{ entry[2] }}"></a>
+                            <a href="{{ entry[3] }}"><span class="grid-name animate">{{ entry[0] }}</span></a><br>
                             <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
                         </li>
                         {% endfor %}
@@ -633,6 +646,7 @@
                 {% if friends != "private" %}
                 <div id="friends">
                     <h1 class="white shadow"><span class="green">{{ display_name }}'s</span> Friends</h1>
+                    <span class="shame-total dark-blue">{{ friends[1] }} total</span>
                     <p>Click to view PlayTime profile</p>
                     <form id="hidden-form" action="{{ url_for('playtime_logic') }}" method="POST">
                         {{ form.hidden_tag() }}
@@ -640,7 +654,7 @@
                     </form>
 
                     <ul id="friends-grid" class="rig columns-4">
-                        {% for entry in friends %}
+                        {% for entry in friends[0] %}
                         <li class="friends">
                             <img class="friend-avatar" alt="{{ entry[0] }}" src="{{ entry[2] }}">
                             <br>

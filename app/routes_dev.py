@@ -1596,7 +1596,7 @@ def playtime():
 def playtime_logic():
     form = PlayTime()
 
-    def parse_data(data, playtime_type, number_of_results, recent):
+    def parse_data(data, playtime_type, number_of_results, recent, steamid):
         if recent == 1:
             readout = 'In the Last Two Weeks'
         else:
@@ -1608,10 +1608,17 @@ def playtime_logic():
                 try:
                     appid = game['appid']
                     game_hash = game['img_logo_url']
-                    url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
-                          (appid, game_hash)
-
-                    minutes_played.append([game['name'], game['%s' % playtime_type], url])
+                    image_url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
+                                (appid, game_hash)
+                    store_page = 'http://store.steampowered.com/app/%s/' % appid
+                    try:
+                        test_var = game['has_community_visible_stats']
+                        stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
+                        minutes_played.append([game['name'], game['%s' % playtime_type], image_url, stats_url,
+                                               store_page])
+                    # Append empty string when games don't have a stats page
+                    except KeyError:
+                        minutes_played.append([game['name'], game['%s' % playtime_type], image_url, '', store_page])
                 except KeyError:
                     continue
         # Return 'privacy' if user has set privacy settings blocking two-weeks API
@@ -1634,10 +1641,21 @@ def playtime_logic():
                     break
             hours_played = entry[1] / 60.0
             total_hours += entry[1] / 60.0
-            minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2]])
+            minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2], entry[3], entry[4]])
             counter += 1
 
         return [minutes_played_new, readout, counter, '%.1f' % total_hours]
+
+    def get_two_weeks_stats_page(games_list, steamid):
+        urls = []
+        for game in games_list:
+            img_url = game[3]
+            end_point = img_url.rfind('/')
+            appid = img_url[64:end_point]
+            stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
+            urls.append(stats_url)
+
+        return urls
 
     def hall_of_shame(data):
         shame = []
@@ -1645,9 +1663,10 @@ def playtime_logic():
             if game['playtime_forever'] == 0:
                 appid = game['appid']
                 game_hash = game['img_logo_url']
-                url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
-                      (appid, game_hash)
-                shame.append([game['name'], game['playtime_forever'], url])
+                image_url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' %\
+                            (appid, game_hash)
+                store_page = 'http://store.steampowered.com/app/%s/' % appid
+                shame.append([game['name'], game['playtime_forever'], image_url, store_page])
                 random.shuffle(shame)
         return [shame, len(shame)]
 
@@ -1716,7 +1735,7 @@ def playtime_logic():
             avatar = entry['avatarmedium']
             friends_new.append([steamid, name, avatar])
 
-        return friends_new
+        return [friends_new, len(friends_new)]
 
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
@@ -1761,14 +1780,16 @@ def playtime_logic():
                 data_2weeks = json.loads(api_call_2weeks.read())
 
                 # Parsing API calls into organized lists
-                two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1)
-                all_10 = parse_data(data_all, playtime_all, 10, 0)
-                all_20 = parse_data(data_all, playtime_all, 20, 0)
-                all_all = parse_data(data_all, playtime_all, 'all', 0)
+                two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1, steam_id)
+
+                all_10 = parse_data(data_all, playtime_all, 10, 0, steam_id)
+                all_20 = parse_data(data_all, playtime_all, 20, 0, steam_id)
+                all_all = parse_data(data_all, playtime_all, 'all', 0, steam_id)
 
                 # Calling chart formatting function on organized API data
                 if two_weeks == 'privacy':
                     donut_data_2weeks = ''
+
                 else:
                     donut_data_2weeks = format_data(two_weeks[0], 'donut')
                 donut_data_10 = format_data(all_10[0], 'donut')
@@ -1806,6 +1827,18 @@ def playtime_logic():
                 user_image = data['response']['players'][0]['avatarfull']
                 user_image_icon = data['response']['players'][0]['avatar']
 
+                profile_url = 'http://steamcommunity.com/profiles/%s' % steam_id
+
+                # Appending stat page URLs to the two_weeks list (not provided by API)
+                if two_weeks == 'privacy':
+                    two_weeks_stats_pages = ''
+                else:
+                    two_weeks_stats_pages = get_two_weeks_stats_page(two_weeks[0], steam_id)
+                    index = 0
+                    for entry in two_weeks[0]:
+                        entry.append(two_weeks_stats_pages[index])
+                        index += 1
+
             except (KeyError, IndexError):
                 return render_template('/playtime/home.html',
                                        form=form,
@@ -1839,6 +1872,7 @@ def playtime_logic():
                                    user_image=user_image,
                                    user_image_icon=user_image_icon,
                                    friends=friends,
+                                   profile_url=profile_url,
                                    title='Results')
         else:
             return render_template('/playtime/results.html',
@@ -1862,4 +1896,6 @@ def playtime_logic():
                                    user_image=user_image,
                                    user_image_icon=user_image_icon,
                                    friends=friends,
+                                   profile_url=profile_url,
+                                   two_weeks_stats_pages=two_weeks_stats_pages,
                                    title='Results')
