@@ -70,6 +70,14 @@
                     <p>Steam began tracking total playtime in early 2009.</p>
                 </div>
 
+                <div id="readout-stats">
+                    <h1>
+                        <br>
+                        <br>
+                        <span class="yellow">Statistics</span>
+                    </h1>
+                </div>
+
                 <div id="readout-shame">
                     <h1>
                         <br>
@@ -128,12 +136,123 @@
             </div>
 
             <div class="result-template">
+                <br>
+                <br>
                 <!-- Various chart divs, hidden until selected -->
+                <div id="stats">
+                    <h1 id="stats-title-general">General</h1>
+                    <hr>
+
+                    <div id="general-stats">
+                        <div id="general-stats-left">
+                            <p>
+                                Total Games:<br><br>
+                                Total Hours:<br>
+                                <span class="small-text extra">All Time</span><br>
+                                Total Hours:<br>
+                                <span class="small-text">Two Weeks</span><br>
+                                Unplayed Games:<br><br>
+                                Avg. Time Per Game<span id="avg-asterisk">*</span> :<br>
+                            </p>
+                        </div>
+
+                        <div id="general-stats-right">
+                            <p>
+                                {{ stats[0]['total_games_all'] }}<br><br>
+                                {{ stats[0]['total_hours_all'] }}<br><br>
+                                {{ stats[0]['total_hours_2weeks'] }}<br><br>
+                                {{ stats[0]['total_games_unplayed'] }}<br><br>
+                                {{ stats[0]['avg_game_time'] }} hours
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="general-pie-charts">
+                        <div id="played-legend">
+                            <div id="played-legend-labels">
+                                <span class="played-label">Played Games</span>
+                                <span class="played-label">Unplayed Games</span>
+                            </div>
+
+                            <div id="played-legend-colors">
+                                <div style="background-color: {{ stats[1][1][0] }}" class="played-label-color"></div>
+                                <div style="background-color: {{ stats[1][1][1] }}" class="played-label-color"></div>
+                            </div>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="gen_stat_charts1" width="200" height="145">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+
+                        <div id="hours-legend">
+                            <div id="hours-legend-labels">
+                                <span class="played-label">Total Hours Played</span>
+                                <span class="played-label">Last Two Weeks</span>
+                            </div>
+
+                            <div id="hours-legend-colors">
+                                <div style="background-color: {{ stats[1][1][2] }}" class="played-label-color"></div>
+                                <div style="background-color: {{ stats[1][1][3] }}" class="played-label-color"></div>
+                            </div>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="gen_stat_charts2" width="200" height="145">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <h1 id="stats-title-games">Games</h1>
+                    <hr>
+
+                    <div id="game-stats-container">
+                        <div id="most" class="game-stats-div">
+                            <h1 class="game-stats-div-title">Most Played Game</h1>
+                            <a href="{{ stats[0]['most_played'][3] }}"><img src="{{ stats[0]['most_played'][2] }}"></a>
+                            <h2>{{ stats[0]['most_played'][0] }}</h2>
+                            <p>{{ stats[0]['most_played'][1] }} hours played</p>
+                        </div>
+
+                        <div id="least" class="game-stats-div">
+                            <h1 class="game-stats-div-title">Least Played Game</h1>
+                            <a href="{{ stats[0]['least_played'][3] }}"><img src="{{ stats[0]['least_played'][2] }}"></a>
+                            <h2>{{ stats[0]['least_played'][0] }}</h2>
+                            <p>{{ stats[0]['least_played'][1] }} hours played</p>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <div class="game-stats-div">
+                            <h1 class="game-stats-div-title">Most Played Game</h1>
+                            <span class="smaller-title">Last Two Weeks</span>
+
+                            <br>
+                            <br>
+
+                            <a href="{{ stats[0]['most_played_current'][3] }}"><img src="{{ stats[0]['most_played_current'][2] }}"></a>
+                            <h2>{{ stats[0]['most_played_current'][0] }}</h2>
+                            <p>{{ stats[0]['most_played_current'][1] }} hours played</p>
+                        </div>
+
+                        <div class="game-stats-div boost">
+                            <h1 class="game-stats-div-title">Least Played Game</h1>
+                            <span class="smaller-title">Last Two Weeks</span>
+
+                            <br>
+                            <br>
+
+                            <a href="{{ stats[0]['least_played_current'][3] }}"><img src="{{ stats[0]['least_played_current'][2] }}"></a>
+                            <h2>{{ stats[0]['least_played_current'][0] }}</h2>
+                            <p>{{ stats[0]['least_played_current'][1] }} hours played</p>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div id="donut_2weeks">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_donut_2weeks">
@@ -174,9 +293,6 @@
                 </div>
 
                 <div id="donut_10">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_donut_2weeks">
@@ -217,9 +333,6 @@
                 </div>
 
                 <div id="donut_20">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_donut_2weeks">
@@ -274,9 +387,6 @@
                 </div>
 
                 <div id="line_2weeks">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_line_2weeks">
@@ -304,9 +414,6 @@
                 </div>
 
                 <div id="line_10">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_line_2weeks">
@@ -334,9 +441,6 @@
                 </div>
 
                 <div id="line_20">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_line_2weeks">
@@ -364,9 +468,6 @@
                 </div>
 
                 <div id="bar_2weeks">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_bar_2weeks">
@@ -394,9 +495,6 @@
                 </div>
 
                 <div id="bar_10">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_bar_2weeks">
@@ -424,9 +522,6 @@
                 </div>
 
                 <div id="bar_20">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_bar_2weeks">
@@ -455,9 +550,6 @@
 
                 <!-- List of Results -->
                 <div id="data_2weeks" class="data">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_data_2weeks">
@@ -497,9 +589,6 @@
                 </div>
 
                 <div id="data_10" class="data">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_data_2weeks">
@@ -540,9 +629,6 @@
                 </div>
 
                 <div id="data_20" class="data">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_data_2weeks">
@@ -583,9 +669,6 @@
                 </div>
 
                 <div id="data_all" class="data">
-                    <br>
-                    <br>
-
                     <div class="range-selection">
                         <p>
                             <span class="select_data_2weeks">

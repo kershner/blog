@@ -242,7 +242,8 @@ function displayElements(fade1, fade2) {
 	"#bar_10", "#bar_20", "#line_2weeks", "#line_10", "#line_20",
 	"#data_2weeks", "#data_10", "#data_20", "#readout_10", "#readout_20",
 	"#readout_2weeks", "#data_all", "#readout_all", "#readout-friends",
-	"#readout-shame", "#hall-of-shame-content", "#friends"
+	"#readout-shame", "#hall-of-shame-content", "#friends", "#readout-stats",
+	"#stats"
 ];
     for (i = 0; i < elements.length; i++) {
         if (elements[i] === fade1 || elements[i] === fade2) {
@@ -256,6 +257,18 @@ function displayElements(fade1, fade2) {
 	
 	$(fade1).fadeIn("slow");
 	$(fade2).fadeIn("slow");
+}
+
+
+function showStats(data1, data2) {
+	$("#stats-tab").click(function() {
+		displayElements("#readout-stats", "#stats");
+		options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+		var ctx1 = $("#gen_stat_charts1").get(0).getContext("2d");
+		var ctx2 = $("#gen_stat_charts2").get(0).getContext("2d");
+		var myPieChart1 = new Chart(ctx1).Pie(data1, options);
+		var myPieChart2 = new Chart(ctx2).Pie(data2, options);
+	});
 }
 
 function hallOfShame() {

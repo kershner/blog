@@ -48,6 +48,12 @@ $(document).ready(function(){
         var lineData_20 = {{ line_data_20|safe }};
         var barData_20 = {{ bar_data_20|safe }};
 
+        var gen_stat_charts1 = {{ stats[1][0][0]|safe }};
+        var gen_stat_charts2 = {{ stats[1][0][1]|safe }};
+
+        console.log(gen_stat_charts1);
+        console.log(gen_stat_charts2);
+
         var parameters = [
             donutData_2weeks, donutData_10, donutData_20,
             lineData_2weeks, lineData_10, lineData_20, barData_2weeks,
@@ -58,6 +64,7 @@ $(document).ready(function(){
             playtimeResults(parameters, "privacy");
         } else {
             playtimeResults(parameters);
+            showStats(gen_stat_charts1, gen_stat_charts2);
         }
     {% endif %}
 

@@ -22,7 +22,7 @@ body {
 #line_20, #bar_2weeks, #bar_10, #bar_20, #data_10, #data_20, #data_all,
 #readout_10, #readout_20, #readout_all, #search-select, #new-search,
 #asterisk-explanation, #hall-of-shame-content, .legend, #split, #friends,
-#readout-shame, #readout-friends {
+#readout-shame, #readout-friends, #stats, #readout-stats {
 	display: none;
 }
 
@@ -1103,9 +1103,7 @@ input[type=text] {
 }
 
 #hall-of-shame-content {
-	margin: -15px 0;
-	text-align: center;
-	padding-top: 30px;
+	text-align: center;	
 }
 
 #hall-of-shame-content h1 {
@@ -1214,7 +1212,7 @@ li {
 	-webkit-box-sizing: border-box;
 }
 
-#readout-friends h1 {
+#readout-friends h1, #readout-stats h1 {
 	position: relative;
 	margin: 0;
 	padding: 0;
@@ -1224,15 +1222,13 @@ li {
 }
 
 #friends {
-	margin: -15px 0;
 	text-align: center;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
 }
 
 #friends h1 {
-	position: relative;
-	top: 20px;
+	margin: 0;
 }
 
 .friends {
@@ -1322,4 +1318,205 @@ li {
 	width: 60px;
 	height: 50px;
 	border-radius: 0 5px 5px 0;
+}
+
+/* Statistics Page */
+#stats {
+	position: relative;
+	margin: 0 auto;
+	width: 600px;
+	min-height: 600px;
+	padding: 10px;
+	background-color: #013F6B;
+	box-shadow: 1px 1px 3px #000;
+}
+
+#stats-title-general {
+	text-align: left;
+	margin: 0;	
+	color: white;
+	font-size: 36px;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: 1px 1px .5px #000;
+}
+
+hr {
+	margin: 0;
+	height: 1px;
+	box-shadow: 1px 1px 3px #000;
+	border-radius: 0 5px 0 5px;
+	background-color: white;
+}
+
+#general-stats {
+	display: inline-block;
+	position: relative;
+	margin-top: 15px;
+	padding: 10px;
+	height: 240px;
+	width: 285px;
+	background-color: #015d9e;
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
+	box-shadow: 1px 1px 3px #000;
+	color: white;	
+	text-shadow: 1px 1px .5px #000;
+}
+
+#general-pie-charts {
+	position: relative;
+	display: inline-block;
+	width: 285px;
+	min-height: 258px;
+}
+
+#played-legend {
+	position: absolute;
+	top: 0;
+	left: 10px;
+	width: 100px;
+}
+
+#hours-legend {
+	position: absolute;
+	top: 175px;
+	right: 10px;
+	width: 100px;
+}
+
+#played-legend-labels, #hours-legend-labels {
+	float: left;
+}
+
+#played-legend-colors, #hours-legend-colors {
+	float: right;
+}
+
+.played-label {
+	display: block;
+	margin: 0;
+	color: white;
+	font-size: 10px;
+}
+
+.played-label-color {
+	margin-bottom: 5px;
+	height: 10px;
+	width: 10px;
+	box-shadow: 1px 1px 3px #000;
+}
+
+#general-pie-charts canvas {
+	position: absolute;
+}
+
+#gen_stat_charts1 {
+	top: 0;
+	right: -20px
+}
+
+#gen_stat_charts2 {
+	top: 115px;
+	left: -20px;
+}
+
+#general-stats-left {
+	padding: 10px;
+	float: left;
+}
+
+#general-stats-right {
+	position: relative;
+	padding: 10px;
+	float: right;
+	right: 18px;	
+}
+
+#general-stats-right p {
+	text-align: left;
+	margin: 17px 0;
+}
+
+.small-text {
+	position: relative;
+	bottom: 8px;
+	left: 25px;
+	margin: 0;
+	font-size: 12px;
+	color: #013960;
+	text-shadow: none;
+}
+
+.extra {
+	left: 40px;
+}
+
+#stats-title-games {
+	text-align: right;
+	margin: 0;	
+	color: white;
+	font-size: 36px;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: 1px 1px .5px #000;
+}
+
+#game-stats-container {
+	position: relative;
+	width: 100%;
+	margin: 15px auto;
+	text-align: center;	
+}
+
+.game-stats-div {
+	position: relative;
+	display: inline-block;
+	margin: 0 10px;
+	padding: 10px;
+	width: 250px;
+	min-height: 270px;
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
+	box-shadow: 1px 1px 3px #000;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+.boost {
+	bottom: 26px;
+}
+
+.game-stats-div-title {
+	font-size: 28px;
+	margin: 0;
+}
+
+.smaller-title {
+	font-size: 18px;
+	margin: 0;
+}
+
+.game-stats-div h2 {
+	font-size: 20px;
+	display: inline-block;
+	margin: 0;
+}
+
+.game-stats-div img {
+	display: inline-block;
+	margin: 5px 0;
+	height: 69px;
+	width: 184px;
+	border-radius: 5px;
+}
+
+.game-stats-div p {
+	margin: 0;
 }

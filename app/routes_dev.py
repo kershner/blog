@@ -1737,6 +1737,59 @@ def playtime_logic():
 
         return [friends_new, len(friends_new)]
 
+    def statistics(all, two_weeks, shame):
+        avg_list = []
+        least_played = []
+        for game in all[0]:
+            if game[0] == 1 or game[2] == '0.0':
+                continue
+            else:
+                avg_list.append(float(game[2]))
+                least_played.append(game)
+        avg_game_time = sum(avg_list) / float(len(avg_list))
+        total_games_all = len(all[0])
+
+        total_hours_all = 0.0
+        for game in all[0]:
+            total_hours_all += float(game[2])
+
+        total_hours_2weeks = 0.0
+        for game in two_weeks[0]:
+            total_hours_2weeks += float(game[2])
+
+        total_games_unplayed = len(shame)
+        most_played = [all[0][0][1], all[0][0][2], all[0][0][3], all[0][0][5]]
+        least_played = [least_played[-1][1], least_played[-1][2], least_played[-1][3], least_played[-1][5]]
+        most_played_current = [two_weeks[0][0][1], two_weeks[0][0][2], two_weeks[0][0][3], two_weeks[0][0][5]]
+        least_played_current = [two_weeks[0][-1][1], two_weeks[0][-1][2], two_weeks[0][-1][3], two_weeks[0][-1][5]]
+
+        colors = [random_color(), random_color(), random_color(), random_color()]
+        dataset1 = '[{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}, ' \
+                  '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}]' % \
+                  (total_games_all - total_games_unplayed, colors[0], 'Played Games', total_games_unplayed, colors[1],
+                   'Unplayed Games')
+
+        dataset2 = '[{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}, ' \
+                   '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}]' % \
+                   (total_hours_all - total_hours_2weeks, colors[2], 'Total Hours',
+                    total_hours_2weeks, colors[3], 'Total Hours Last Two Weeks')
+
+        pie_data = [[dataset1, dataset2], colors]
+
+        stats = {
+            'avg_game_time': '%.1f' % avg_game_time,
+            'total_games_all': total_games_all,
+            'total_hours_all': total_hours_all,
+            'total_hours_2weeks': total_hours_2weeks,
+            'total_games_unplayed': total_games_unplayed,
+            'most_played': most_played,
+            'least_played': least_played,
+            'most_played_current': most_played_current,
+            'least_played_current': least_played_current
+        }
+
+        return [stats, pie_data]
+
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
     API_2_WEEKS = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/'
@@ -1839,6 +1892,8 @@ def playtime_logic():
                         entry.append(two_weeks_stats_pages[index])
                         index += 1
 
+                stats = statistics(all_all, two_weeks, shame_list)
+
             except (KeyError, IndexError):
                 return render_template('/playtime/home.html',
                                        form=form,
@@ -1898,4 +1953,5 @@ def playtime_logic():
                                    friends=friends,
                                    profile_url=profile_url,
                                    two_weeks_stats_pages=two_weeks_stats_pages,
+                                   stats=stats,
                                    title='Results')
