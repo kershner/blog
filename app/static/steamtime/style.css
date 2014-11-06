@@ -9,7 +9,7 @@ body, html {
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
 	color: black;
-	background: url(../playtime/images/denim.png);
+	background: url(../steamtime/images/denim.png);
 }
 
 body {
@@ -44,7 +44,7 @@ body {
 #loading, #privacy-alert {
 	position: relative;
 	margin: 0 auto;
-	margin-top: 400px;
+	margin-top: 325px;
 	width: 400px;
 	height: 175px;
 	color: white;
@@ -52,6 +52,11 @@ body {
 	-webkit-box-shadow: 0px 0px 19px #000000;
 	box-shadow: 0px 0px 19px #000000;
 	border-radius: 5px;	
+}
+
+#privacy-alert {
+	height: 160px;
+	width: 415px;
 }
 
 #loading p, #privacy-alert p {
@@ -136,6 +141,13 @@ a, i, img, .range-selection span {
 	transition: all 0.2s ease-in-out;
 }
 
+.glow:hover  {
+	cursor: pointer;
+	-moz-box-shadow: 0px 0px 20px 1px #fff;
+	-webkit-box-shadow: 0px 0px 20px 1px #fff;
+	box-shadow: 0px 0px 20px 0px #fff;
+}
+
 a:link {
 	text-decoration: none;
 }
@@ -145,7 +157,7 @@ a:hover {
 }
 
 a:visited {
-	color: blue;
+	
 }
 
 /* ************************** */
@@ -221,7 +233,7 @@ a:visited {
 	margin: 5px auto;
 	margin-top: 200px;
 	padding: 20px;
-	min-height: 388px;
+	min-height: 340px;
 	min-width: 800px;
 	background-color: #013F6B;
 	background-image: -ms-linear-gradient(top, #013F6B 0%, #015D9D 100%);
@@ -241,24 +253,17 @@ a:visited {
 
 #welcome-header h1 {
 	position: relative;
+	text-align: center;
 	margin: 0 auto;
-	font-size: 164px;
+	font-size: 132px;
 	color: white;
 	font-family: 'Open Sans', sans-serif;
 	text-shadow: 1px 1px 3px #000;
 }
 
 #welcome-header p {
-	position: absolute;
-	bottom: 0;
-	right: 45px;
-}
-
-#welcome-header h1 .white, #welcome-header h1 .blue {
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
+	text-align: center;
+	margin-top: -30px;
 }
 
 #welcome-header h1 .white:hover, #welcome-header h1 .blue:hover {
@@ -334,7 +339,7 @@ a:visited {
 #welcome-header > div.message > p {
 	position: relative;
 	left: 0;
-	top: 0;
+	top: 25px;
 	color: white;
 	text-shadow: none;
 	font-size: 20px;
@@ -420,7 +425,7 @@ input[type=text] {
 /* ***** About Div ********** */
 #about-content {
 	display: none;
-	position: absolute;
+	position: fixed;
 	margin-left: -270px;
 	padding: 20px;
 	top: 25px;
@@ -562,7 +567,7 @@ input[type=text] {
 #hidden-menu {
 	position: fixed;
 	display: none;
-	z-index: 11;
+	z-index: 26;
 	top: 0;
 	left: 0;
 	height: 32px;
@@ -600,12 +605,6 @@ input[type=text] {
 	}
 }
 
-#hidden-menu img:hover {
-	-moz-box-shadow: 0px 0px 20px 1px #fff;
-	-webkit-box-shadow: 0px 0px 20px 1px #fff;
-	box-shadow: 0px 0px 20px 0px #fff;
-}
-
 #back-to-top {
 	position: fixed;
 	right: 15px;
@@ -626,7 +625,7 @@ input[type=text] {
 	position: absolute;
 	color: white;
 	top: 0;
-	right: 120px;
+	right: 145px;
 }
 
 #back-to-top i:hover {
@@ -639,25 +638,17 @@ input[type=text] {
 #header {
 	position: relative;
 	top: -20px;
-	margin-bottom: 20px;
-	height: 175px;
+	height: 100px;
 	width: 100%;
 	min-width: 650px;
 }
 
 #header h1 {
-	font-size: 125px;
+	font-size: 80px;
 	color: #FCBC00;
-	margin: 0 10px;
+	margin: 5px 10px;
 	font-family: 'Open Sans', sans-serif;
 	text-shadow: 1px 1px 1px #000;
-}
-
-#header h1 .white, #header h1 .blue {
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
 }
 
 #header h1 .white:hover, #header h1 .blue:hover {
@@ -666,15 +657,15 @@ input[type=text] {
 
 #header p {
 	position: absolute;
-	bottom: -2px;
-	left: 265px;
+	top: 75px;
+	left: 50px;
 	color: white;
 	text-shadow: 1px 1px .5px #000;
 }
 
 #search-select {
 	position: relative;
-	z-index: 15;
+	z-index: 25;	
 	margin: 0 auto;
 	padding: 5px;
 	top: 0;
@@ -705,6 +696,7 @@ input[type=text] {
 
 #new-search {
 	position: relative;
+	z-index: 25;
 	margin: 0 auto;
 }
 
@@ -832,18 +824,13 @@ input[type=text] {
 
 #user-image {
 	position: absolute;
+	z-index: 15;
 	top: 15px;
 	left: 10px;
 	width: 166px;
 	height: 166px;
 	border-radius: 5px;
 	border: 1px solid blue;
-}
-
-#user-image:hover {
-	-moz-box-shadow: 0px 0px 20px 1px #fff;
-	-webkit-box-shadow: 0px 0px 20px 1px #fff;
-	box-shadow: 0px 0px 20px 0px #fff;
 }
 
 .readout {
@@ -1002,13 +989,6 @@ input[type=text] {
 	width: 184px;
 }
 
-.entry img:hover {
-	cursor: pointer;
-	-moz-box-shadow: 0px 0px 20px 1px #fff;
-	-webkit-box-shadow: 0px 0px 20px 1px #fff;
-	box-shadow: 0px 0px 20px 0px #fff;
-}
-
 .entry-data {
 	position: absolute;
 	z-index: 5;
@@ -1150,12 +1130,6 @@ input[type=text] {
 	border-radius: 15px;
 }
 
-.shame img:hover {
-	-moz-box-shadow: 0px 0px 20px 1px #fff;
-	-webkit-box-shadow: 0px 0px 20px 1px #fff;
-	box-shadow: 0px 0px 20px 0px #fff;
-}
-
 .grid-name {
 	color: white;
 	font-family: 'Roboto', sans-serif;
@@ -1181,9 +1155,14 @@ ul.rig {
 	list-style: none;
 	font-size: 0px;
 	padding: 0;
+	min-width: 10px;
 	margin-top: 15px;
 	margin-left: -1%; /* should match li left margin */
 	margin-right: 2.5%;
+}
+
+#friends-grid {
+	margin: 0;
 }
 
 /* class for 2 columns */
@@ -1214,6 +1193,7 @@ li {
 
 #readout-friends h1, #readout-stats h1 {
 	position: relative;
+	height: 75px;
 	margin: 0;
 	padding: 0;
 	bottom: 180px;
@@ -1225,6 +1205,7 @@ li {
 	text-align: center;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
+	padding: 20px;
 }
 
 #friends h1 {
@@ -1232,20 +1213,19 @@ li {
 }
 
 .friends {
-	min-height: 80px;
+	min-height: 135px;
 	color: white;
 	margin-bottom: 10px;
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
 }
 
 .friend-avatar {
 	border-radius: 10px;
-}
-
-.friend-avatar:hover {
-	-moz-box-shadow: 0px 0px 20px 1px #fff;
-	-webkit-box-shadow: 0px 0px 20px 1px #fff;
-	box-shadow: 0px 0px 20px 0px #fff;
-	cursor: pointer;
 }
 
 #friends .friend-name {
@@ -1384,8 +1364,8 @@ hr {
 #hours-legend {
 	position: absolute;
 	top: 175px;
-	right: 10px;
-	width: 100px;
+	right: -5px;
+	min-width: 100px;
 }
 
 #played-legend-labels, #hours-legend-labels {
@@ -1416,12 +1396,12 @@ hr {
 
 #gen_stat_charts1 {
 	top: 0;
-	right: -20px
+	right: -120px
 }
 
 #gen_stat_charts2 {
 	top: 115px;
-	left: -20px;
+	left: -120px;
 }
 
 #general-stats-left {
@@ -1471,12 +1451,19 @@ hr {
 	text-align: center;	
 }
 
+.game-stats-row {
+	position: relative;
+	margin: 15px auto;
+	min-height: 300px;
+	width: 590px;
+}
+
 .game-stats-div {
 	position: relative;
 	display: inline-block;
-	margin: 0 10px;
+	margin: 0 5px;
 	padding: 10px;
-	width: 250px;
+	width: 260px;
 	min-height: 270px;
 	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
 	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
@@ -1487,10 +1474,6 @@ hr {
 	box-shadow: 1px 1px 3px #000;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
-}
-
-.boost {
-	bottom: 26px;
 }
 
 .game-stats-div-title {

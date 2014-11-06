@@ -1,7 +1,7 @@
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, BackorderReport, SlideshowDelay, GifParty, RedditImageScraper, \
-    PlayTime
+    SteamTime
 from urllib import quote
 import datetime
 import random
@@ -1582,19 +1582,19 @@ def press():
 
 
 #######################################################################################
-#####  PlayTime  ######################################################################
-@app.route('/playtime', methods=['GET', 'POST'])
+#####  SteamTime  ######################################################################
+@app.route('/steamtime', methods=['GET', 'POST'])
 def playtime():
-    form = PlayTime()
+    form = SteamTime()
 
-    return render_template('/playtime/home.html',
+    return render_template('/steamtime/home.html',
                            form=form,
                            title='Visualize Time Spent In Your Steam Library')
 
 
-@app.route('/playtime_logic', methods=['GET', 'POST'])
-def playtime_logic():
-    form = PlayTime()
+@app.route('/steamtime_logic', methods=['GET', 'POST'])
+def steamtime_logic():
+    form = SteamTime()
 
     def parse_data(data, playtime_type, number_of_results, recent, steamid):
         if recent == 1:
@@ -1753,26 +1753,31 @@ def playtime_logic():
         for game in all[0]:
             total_hours_all += float(game[2])
 
-        total_hours_2weeks = 0.0
-        for game in two_weeks[0]:
-            total_hours_2weeks += float(game[2])
+        if two_weeks == 'privacy':
+            total_hours_2weeks = 'N/A'
+            most_played_current = ['N/A', 'N/A', 'N/A', 'N/A']
+            least_played_current = ['N/A', 'N/A', 'N/A', 'N/A']
+        else:
+            total_hours_2weeks = 0.0
+            for game in two_weeks[0]:
+                total_hours_2weeks += float(game[2])
+            most_played_current = [two_weeks[0][0][1], two_weeks[0][0][2], two_weeks[0][0][3], two_weeks[0][0][5]]
+            least_played_current = [two_weeks[0][-1][1], two_weeks[0][-1][2], two_weeks[0][-1][3], two_weeks[0][-1][5]]
 
         total_games_unplayed = len(shame)
         most_played = [all[0][0][1], all[0][0][2], all[0][0][3], all[0][0][5]]
         least_played = [least_played[-1][1], least_played[-1][2], least_played[-1][3], least_played[-1][5]]
-        most_played_current = [two_weeks[0][0][1], two_weeks[0][0][2], two_weeks[0][0][3], two_weeks[0][0][5]]
-        least_played_current = [two_weeks[0][-1][1], two_weeks[0][-1][2], two_weeks[0][-1][3], two_weeks[0][-1][5]]
 
         colors = [random_color(), random_color(), random_color(), random_color()]
         dataset1 = '[{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}, ' \
-                  '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}]' % \
-                  (total_games_all - total_games_unplayed, colors[0], 'Played Games', total_games_unplayed, colors[1],
+                   '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}]' % \
+                   (total_games_all - total_games_unplayed, colors[0], 'Played Games', total_games_unplayed, colors[1],
                    'Unplayed Games')
 
         dataset2 = '[{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}, ' \
                    '{ value: %s, color: "%s", highlight: "#3FADFB", label: "%s"}]' % \
-                   (total_hours_all - total_hours_2weeks, colors[2], 'Total Hours',
-                    total_hours_2weeks, colors[3], 'Total Hours Last Two Weeks')
+                   (most_played[1], colors[2], '%s' % most_played[0],
+                    total_hours_all, colors[3], 'Total Hours')
 
         pie_data = [[dataset1, dataset2], colors]
 
@@ -1780,7 +1785,7 @@ def playtime_logic():
             'avg_game_time': '%.1f' % avg_game_time,
             'total_games_all': total_games_all,
             'total_hours_all': total_hours_all,
-            'total_hours_2weeks': total_hours_2weeks,
+            'total_hours_2weeks': str(total_hours_2weeks),
             'total_games_unplayed': total_games_unplayed,
             'most_played': most_played,
             'least_played': least_played,
@@ -1803,7 +1808,7 @@ def playtime_logic():
 
     if request.method == 'POST':
         if not form.validate():
-            return render_template('/playtime/home.html',
+            return render_template('/steamtime/home.html',
                                    form=form,
                                    title='A Visual Representation of Time Spent In Your Steam Library')
         else:
@@ -1842,7 +1847,6 @@ def playtime_logic():
                 # Calling chart formatting function on organized API data
                 if two_weeks == 'privacy':
                     donut_data_2weeks = ''
-
                 else:
                     donut_data_2weeks = format_data(two_weeks[0], 'donut')
                 donut_data_10 = format_data(all_10[0], 'donut')
@@ -1895,63 +1899,38 @@ def playtime_logic():
                 stats = statistics(all_all, two_weeks, shame_list)
 
             except (KeyError, IndexError):
-                return render_template('/playtime/home.html',
+                return render_template('/steamtime/home.html',
                                        form=form,
                                        message='Invalid profile name or SteamID, please try again.',
                                        title='Visualize Time Spent In Your Steam Library')
             except urllib2.URLError:
-                return render_template('/playtime/home.html',
+                return render_template('/steamtime/home.html',
                                        form=form,
                                        message='The API request took too long and has timed out, please try again.',
                                        title='Visualize Time Spent In Your Steam Library')
 
-        if two_weeks == 'privacy':
-            return render_template('/playtime/results_privacy.html',
-                                   form=form,
-                                   shame_list=shame_list,
-                                   shame_total=shame_total,
-                                   two_weeks=two_weeks,
-                                   all_10=all_10,
-                                   all_20=all_20,
-                                   all_all=all_all,
-                                   donut_data_2weeks=donut_data_2weeks,
-                                   donut_data_10=donut_data_10,
-                                   donut_data_20=donut_data_20,
-                                   line_data_2weeks=line_data_2weeks,
-                                   line_data_10=line_data_10,
-                                   line_data_20=line_data_20,
-                                   bar_data_2weeks=bar_data_2weeks,
-                                   bar_data_10=bar_data_10,
-                                   bar_data_20=bar_data_20,
-                                   display_name=display_name,
-                                   user_image=user_image,
-                                   user_image_icon=user_image_icon,
-                                   friends=friends,
-                                   profile_url=profile_url,
-                                   title='Results')
-        else:
-            return render_template('/playtime/results.html',
-                                   form=form,
-                                   shame_list=shame_list,
-                                   shame_total=shame_total,
-                                   two_weeks=two_weeks,
-                                   all_10=all_10,
-                                   all_20=all_20,
-                                   all_all=all_all,
-                                   donut_data_2weeks=donut_data_2weeks,
-                                   donut_data_10=donut_data_10,
-                                   donut_data_20=donut_data_20,
-                                   line_data_2weeks=line_data_2weeks,
-                                   line_data_10=line_data_10,
-                                   line_data_20=line_data_20,
-                                   bar_data_2weeks=bar_data_2weeks,
-                                   bar_data_10=bar_data_10,
-                                   bar_data_20=bar_data_20,
-                                   display_name=display_name,
-                                   user_image=user_image,
-                                   user_image_icon=user_image_icon,
-                                   friends=friends,
-                                   profile_url=profile_url,
-                                   two_weeks_stats_pages=two_weeks_stats_pages,
-                                   stats=stats,
-                                   title='Results')
+        return render_template('/steamtime/results.html',
+                               form=form,
+                               shame_list=shame_list,
+                               shame_total=shame_total,
+                               two_weeks=two_weeks,
+                               all_10=all_10,
+                               all_20=all_20,
+                               all_all=all_all,
+                               donut_data_2weeks=donut_data_2weeks,
+                               donut_data_10=donut_data_10,
+                               donut_data_20=donut_data_20,
+                               line_data_2weeks=line_data_2weeks,
+                               line_data_10=line_data_10,
+                               line_data_20=line_data_20,
+                               bar_data_2weeks=bar_data_2weeks,
+                               bar_data_10=bar_data_10,
+                               bar_data_20=bar_data_20,
+                               display_name=display_name,
+                               user_image=user_image,
+                               user_image_icon=user_image_icon,
+                               friends=friends,
+                               profile_url=profile_url,
+                               two_weeks_stats_pages=two_weeks_stats_pages,
+                               stats=stats,
+                               title='Results')

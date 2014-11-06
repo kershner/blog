@@ -125,8 +125,8 @@ class RedditImageScraper(Form):
 
 
 #############################################
-# Playtime forms
+# SteamTime forms
 
-class PlayTime(Form):
+class SteamTime(Form):
     steamid = StringField('SteamID', validators=[DataRequired('Enter Your SteamID')])
     submit = SubmitField('Submit')
