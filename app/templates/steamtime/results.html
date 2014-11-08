@@ -1,39 +1,43 @@
 {% extends "/steamtime/base.html" %}
 {% block content %}
-    <div id="header">
-        <a href="/steamtime"><h1><span class="white animate">Steam</span><span class="blue animate">Time</span></h1></a>
+    <div id="header" class="hidden">
+        <a href="/steamtime"><h1><span class="white">Steam</span><span class="blue">Time</span></h1></a>
         <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
     </div>
 
-    <div id="hidden-menu" class="blue-gradient">
-        <a href="{{ profile_url }}"><img src="{{ user_image_icon }}" class="glow"></a>
+    <div id="hidden-menu" class="blue-gradient-circular">
+        <a href="{{ profile_url }}"><img src="{{ user_image_icon }}" class="animate glow"></a>
         <h3 class="green shadow">{{ display_name }}'s</h3>
         <h3 class="shadow">Most Played Steam Games</h3>
 
         <div id="back-to-top">
-            <a href="/steamtime"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue">Time</span></h2></a>
-            <a href="#" id="top"><i class="fa fa-arrow-circle-up fa-2x shadow"></i></a>
+            <a href="/steamtime"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue no-shadow">Time</span></h2></a>
+            <a href="#" id="top"><i class="fa fa-arrow-circle-up fa-2x shadow animate"></i></a>
         </div>
     </div>
 
+    <!-- Container div for all results -->
     <div id="results-container">
         <div id="results-container-inner">
-            <div id="search-select" class="animate">
+            <div id="search-select" class="animate hidden">
                 <p>New Search</p>
                 <i class="fa fa-search"></i>
             </div>
 
-            <div id="new-search">
+            <div id="new-search" class="hidden">
                 <form action="{{ url_for('steamtime_logic') }}" method="POST">
                     {{ form.hidden_tag() }}
 
-                    {{ form.steamid(placeholder="SteamID") }}
-                    <input type="submit" class="submit header-submit" value="Go!">
+                    {{ form.steamid(placeholder="SteamID", class="animate") }}
+                    <input type="submit" class="submit header-submit animate" value="Go!">
                 </form>
             </div>
 
+            <br>
+            <br>
+
             <!-- User Info Div -->
-            <div id="user-info">
+            <div id="user-info" class="hidden">
                 <div id="tab-selectors">
                     <div id="stats-tab" class="tab animate">
                         <i class="fa fa-clipboard fa-lg"></i><span id="stats-tab-text" class="tab-text">Stats</span>
@@ -52,14 +56,15 @@
 
                 <a href="{{ profile_url }}"><h1 id="text-name" class="animate">{{ display_name }}</h1></a>
 
-                <a href="{{ profile_url }}"><img id="user-image" class="glow" src="{{ user_image }}"></a>
+                <a href="{{ profile_url }}"><img id="user-image" class="animate glow" src="{{ user_image }}"></a>
 
-                <div id="asterisk-explanation">
-                    <i id="asterisk-close" class="fa fa-times fa-2x"></i>
+                <div id="asterisk-explanation" class="hidden">
+                    <i id="asterisk-close" class="fa fa-times"></i>
                     <p>Steam began tracking total playtime in early 2009.</p>
                 </div>
 
-                <div id="readout-stats">
+                <!-- 'Readout' divs -->
+                <div id="readout-stats" class="readout readout-boost hidden">
                     <h1>
                         <br>
                         <br>
@@ -67,7 +72,7 @@
                     </h1>
                 </div>
 
-                <div id="readout-shame">
+                <div id="readout-shame" class="readout readout-boost hidden">
                     <h1>
                         <br>
                         <br>
@@ -75,15 +80,17 @@
                     </h1>
                 </div>
 
-                <div id="readout-friends">
+                {% if friends != "private" %}
+                <div id="readout-friends" class="readout readout-boost hidden">
                     <h1>
                         <br>
                         <br>
                         <span class="yellow">Friends</span>
                     </h1>
                 </div>
+                {% endif %}
 
-                {% if not two_weeks == "privacy" %}
+                {% if two_weeks != "privacy" %}
                 <div id="readout_2weeks" class="readout">
                     <h1>
                         Most Played Steam Games<br>
@@ -96,7 +103,7 @@
                 </div>
                 {% endif %}
 
-                <div id="readout_10" class="readout">
+                <div id="readout_10" class="readout hidden">
                     <h1>
                         {{ all_10[2] }} Most Played Steam Games<br>
                         <span class="yellow">{{ all_10[1] }}<span class="asterisk">*</span></span>
@@ -107,7 +114,7 @@
                     </div>
                 </div>
 
-                <div id="readout_20" class="readout">
+                <div id="readout_20" class="readout hidden">
                     <h1>
                         {{ all_20[2] }} Most Played Steam Games<br>
                         <span class="yellow">{{ all_20[1] }}<span class="asterisk">*</span></span>
@@ -118,7 +125,7 @@
                     </div>
                 </div>
 
-                <div id="readout_all" class="readout">
+                <div id="readout_all" class="readout hidden">
                     <h1>
                         All Steam Games Played<br>
                         <span class="yellow">{{ all_all[1] }}<span class="asterisk">*</span></span>
@@ -129,23 +136,24 @@
                     </div>
                 </div>
 
+                <!-- Chart style selectors -->
                 <div id="options">
-                    <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue animate"></i>
+                    <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue animate options-selected"></i>
                     <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue animate"></i>
-                    <i id="line-selector" class="fa fa-area-chart fa-2x dark-blue animate"></i>
                     <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue animate"></i>
                 </div>
             </div>
 
-            <div class="result-template">
+            <div class="result-template dark-blue-gradient hidden">
                 <br>
                 <br>
-                <!-- Various chart divs, hidden until selected -->
-                <div id="stats">
-                    <h1 id="stats-title-general">General</h1>
+
+                <!-- Statistics div -->
+                <div id="stats" class="hidden">
+                    <h1 id="stats-title-general" class="stats-title">General</h1>
                     <hr>
 
-                    <div id="general-stats">
+                    <div id="general-stats" class="blue-gradient-circular">
                         <div id="general-stats-left">
                             <p>
                                 Total Games:<br><br>
@@ -164,7 +172,7 @@
                             <p>
                                 {{ stats[0]['total_games_all'] }}<br><br>
                                 {{ stats[0]['total_hours_all'] }}<br><br>
-                                {% if not two_weeks == "privacy" %}
+                                {% if two_weeks != "privacy" %}
                                     {{ stats[0]['total_hours_2weeks'] }}<br><br>
                                 {% endif %}
                                 {{ stats[0]['total_games_unplayed'] }}<br><br>
@@ -175,12 +183,12 @@
 
                     <div id="general-pie-charts">
                         <div id="played-legend">
-                            <div id="played-legend-labels">
+                            <div id="played-legend-labels" class="right">
                                 <span class="played-label">Played Games</span>
                                 <span class="played-label">Unplayed Games</span>
                             </div>
 
-                            <div id="played-legend-colors">
+                            <div id="played-legend-colors" class="left">
                                 <div style="background-color: {{ stats[1][1][0] }}" class="played-label-color"></div>
                                 <div style="background-color: {{ stats[1][1][1] }}" class="played-label-color"></div>
                             </div>
@@ -191,12 +199,12 @@
                         </div>
 
                         <div id="hours-legend">
-                            <div id="hours-legend-labels">
+                            <div id="hours-legend-labels" class="right">
                                 <span class="played-label">{{ stats[0]['most_played'][0] }}</span>
                                 <span class="played-label">Total Hours</span>
                             </div>
 
-                            <div id="hours-legend-colors">
+                            <div id="hours-legend-colors" class="left">
                                 <div style="background-color: {{ stats[1][1][2] }}" class="played-label-color"></div>
                                 <div style="background-color: {{ stats[1][1][3] }}" class="played-label-color"></div>
                             </div>
@@ -209,56 +217,56 @@
 
                     <br>
 
-                    <h1 id="stats-title-games">Games</h1>
+                    <h1 id="stats-title-games" class="stats-title">Games</h1>
                     <hr>
 
                     <div id="game-stats-container">
                         <div class="game-stats-row">
-                            <div id="most" class="game-stats-div left">
+                            <div id="most" class="game-stats-div left blue-gradient-circular">
                                 <h1 class="game-stats-div-title">Most Played Game</h1>
 
                                 <br>
                                 <br>
 
-                                <a href="{{ stats[0]['most_played'][3] }}"><img src="{{ stats[0]['most_played'][2] }}" class="glow"></a><br>
+                                <a href="{{ stats[0]['most_played'][3] }}"><img src="{{ stats[0]['most_played'][2] }}" class="animate glow"></a><br>
                                 <h2>{{ stats[0]['most_played'][0] }}</h2>
                                 <p>{{ stats[0]['most_played'][1] }} hours played</p>
                             </div>
 
-                            <div id="least" class="game-stats-div right">
+                            <div id="least" class="game-stats-div right blue-gradient-circular">
                                 <h1 class="game-stats-div-title">Least Played Game</h1>
 
                                 <br>
                                 <br>
 
-                                <a href="{{ stats[0]['least_played'][3] }}"><img src="{{ stats[0]['least_played'][2] }}" class="glow"></a><br>
+                                <a href="{{ stats[0]['least_played'][3] }}"><img src="{{ stats[0]['least_played'][2] }}" class="animate glow"></a><br>
                                 <h2>{{ stats[0]['least_played'][0] }}</h2>
                                 <p>{{ stats[0]['least_played'][1] }} hours played</p>
                             </div>
                         </div>
 
-                        {% if not two_weeks == "privacy" %}
+                        {% if two_weeks != "privacy" %}
                         <div class="game-stats-row">
-                            <div class="game-stats-div left">
+                            <div class="game-stats-div left blue-gradient-circular">
                                 <h1 class="game-stats-div-title">Most Played Game</h1>
                                 <span class="smaller-title">Last Two Weeks</span>
 
                                 <br>
                                 <br>
 
-                                <a href="{{ stats[0]['most_played_current'][3] }}"><img src="{{ stats[0]['most_played_current'][2] }}" class="glow"></a><br>
+                                <a href="{{ stats[0]['most_played_current'][3] }}"><img src="{{ stats[0]['most_played_current'][2] }}" class="animate glow"></a><br>
                                 <h2>{{ stats[0]['most_played_current'][0] }}</h2>
                                 <p>{{ stats[0]['most_played_current'][1] }} hours played</p>
                             </div>
 
-                            <div class="game-stats-div right">
+                            <div class="game-stats-div right blue-gradient-circular">
                                 <h1 class="game-stats-div-title">Least Played Game</h1>
                                 <span class="smaller-title">Last Two Weeks</span>
 
                                 <br>
                                 <br>
 
-                                <a href="{{ stats[0]['least_played_current'][3] }}"><img src="{{ stats[0]['least_played_current'][2] }}" class="glow"></a><br>
+                                <a href="{{ stats[0]['least_played_current'][3] }}"><img src="{{ stats[0]['least_played_current'][2] }}" class="animate glow"></a><br>
                                 <h2>{{ stats[0]['least_played_current'][0] }}</h2>
                                 <p>{{ stats[0]['least_played_current'][1] }} hours played</p>
                             </div>
@@ -267,8 +275,221 @@
                     </div>
                 </div>
 
-                {% if not two_weeks == "privacy" %}
-                <div id="donut_2weeks">
+                 <!-- Hall of Shame Div -->
+                <div id="hall-of-shame-content" class="hidden">
+                    <h1 class="white">Gaze Upon Your Shame</h1>
+                    <span class="shame-total dark-blue">{{ shame_total }} total</span>
+
+                    <ul id="shame-grid" class="rig columns-3">
+                        {% for entry in shame_list %}
+                        <li class="shame animate">
+                            <a href="{{ entry[3] }}"><img src="{{ entry[2] }}" class="animate glow"></a>
+                            <a href="{{ entry[3] }}"><span class="grid-name animate">{{ entry[0] }}</span></a><br>
+                            <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <br>
+                    <br>
+                </div>
+
+                <!-- Friends Div -->
+                {% if friends != "private" %}
+                <div id="friends" class="hidden">
+                    <h1 class="white shadow"><span class="green">{{ display_name }}'s</span> Friends</h1>
+                    <span class="shame-total dark-blue">{{ friends[1] }} total</span>
+                    <p>Click to view SteamTime profile</p>
+                    <form id="hidden-form" action="{{ url_for('steamtime_logic') }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.steamid(placeholder="SteamID", id="hidden-steamid", class="hidden") }}
+                    </form>
+
+                    <ul id="friends-grid" class="rig columns-4">
+                        {% for entry in friends[0] %}
+                        <li class="friends glow animate blue-gradient-circular">
+                            <img class="friend-avatar" alt="{{ entry[0] }}" src="{{ entry[2] }}">
+                            <br>
+                            <span class="friend-name">{{ entry[1] }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <br>
+                </div>
+                {% endif %}
+
+                <!-- List of Results -->
+                {% if two_weeks != "privacy" %}
+                <div id="data_2weeks" class="data">
+                    <div class="range-selection animate">
+                        <p>
+                            <span class="select_data_2weeks">
+                                Past Two Weeks
+                            </span>
+                            |
+                            <span class="select_data_10">
+                                10
+                            </span>
+                            |
+                            <span class="select_data_20">
+                                20
+                            </span>
+                            |
+                            <span class="select_data_all">
+                                All
+                            </span>
+                        </p>
+                    </div>
+
+                    {% for entry in two_weeks[0] %}
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+
+                        <div class="entry-data">
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
+                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                        </div>
+
+                        <a class="stats-page-link animate" href="{{ entry[6] }}">Stats Page</a>
+
+                        <span class="rank">{{ entry[0] }}</span>
+                    </div>
+                    {% endfor %}
+
+                    <br>
+                </div>
+                {% endif %}
+
+                <div id="data_10" class="data hidden">
+                    <div class="range-selection">
+                        <p>
+                            {% if two_weeks != "privacy" %}
+                            <span class="select_data_2weeks">
+                                Past Two Weeks
+                            </span>
+                            |
+                            {% endif %}
+                            <span class="select_data_10">
+                                10
+                            </span>
+                            |
+                            <span class="select_data_20">
+                                20
+                            </span>
+                            |
+                            <span class="select_data_all">
+                                All
+                            </span>
+                        </p>
+                    </div>
+
+                    {% for entry in all_10[0] %}
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+
+                        <div class="entry-data">
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
+                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                        </div>
+                        {% if entry[4] %}
+                            <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
+                        {% endif %}
+
+                        <span class="rank">{{ entry[0] }}</span>
+                    </div>
+                    {% endfor %}
+
+                    <br>
+                </div>
+
+                <div id="data_20" class="data hidden">
+                    <div class="range-selection">
+                        <p>
+                            {% if not two_weeks == "privacy" %}
+                            <span class="select_data_2weeks">
+                                Past Two Weeks
+                            </span>
+                            |
+                            {% endif %}
+                            <span class="select_data_10">
+                                10
+                            </span>
+                            |
+                            <span class="select_data_20">
+                                20
+                            </span>
+                            |
+                            <span class="select_data_all">
+                                All
+                            </span>
+                        </p>
+                    </div>
+
+                    {% for entry in all_20[0] %}
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+
+                        <div class="entry-data">
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
+                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                        </div>
+                        {% if entry[4] %}
+                            <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
+                        {% endif %}
+
+                        <span class="rank">{{ entry[0] }}</span>
+                    </div>
+                    {% endfor %}
+
+                    <br>
+                </div>
+
+                <div id="data_all" class="data hidden">
+                    <div class="range-selection">
+                        <p>
+                            {% if two_weeks != "privacy" %}
+                            <span class="select_data_2weeks">
+                                Past Two Weeks
+                            </span>
+                            |
+                            {% endif %}
+                            <span class="select_data_10">
+                                10
+                            </span>
+                            |
+                            <span class="select_data_20">
+                                20
+                            </span>
+                            |
+                            <span class="select_data_all">
+                                All
+                            </span>
+                        </p>
+                    </div>
+
+                    {% for entry in all_all[0] %}
+                    <div class="entry animate">
+                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+
+                        <div class="entry-data">
+                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
+                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                            {% if entry[4] %}
+                                <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
+                            {% endif %}
+                        </div>
+
+                        <span class="rank">{{ entry[0] }}</span>
+                    </div>
+                    {% endfor %}
+
+                    <br>
+                </div>
+
+                <!-- Chart divs, hidden until selected -->
+                {% if two_weeks != "privacy" %}
+                <div id="donut_2weeks" class="hidden">
                     <div class="range-selection">
                         <p>
                             <span class="select_donut_2weeks">
@@ -285,16 +506,16 @@
                         </p>
                     </div>
 
-                    <span class="legend-toggle">Legend</span>
+                    <span class="legend-toggle animate">Legend</span>
 
-                    <div class="legend">
-                        <div class="legend-left">
+                    <div class="legend hidden">
+                        <div class="legend-left left">
                             {% for entry in two_weeks[0] %}
                                 <img src="{{ entry[3] }}">
                             {% endfor %}
                         </div>
 
-                        <div class="legend-right">
+                        <div class="legend-right right">
                             {% for entry in donut_data_2weeks[1] %}
                                 <div class="legend-color" style="background-color: {{ entry }}"></div>
                             {% endfor %}
@@ -309,10 +530,10 @@
                 </div>
                 {% endif %}
 
-                <div id="donut_10">
+                <div id="donut_10" class="hidden">
                     <div class="range-selection">
                         <p>
-                            {% if not two_weeks == "privacy" %}
+                            {% if two_weeks != "privacy" %}
                             <span class="select_donut_2weeks">
                                 Past Two Weeks
                             </span>
@@ -328,16 +549,16 @@
                         </p>
                     </div>
 
-                    <span class="legend-toggle">Legend</span>
+                    <span class="legend-toggle animate">Legend</span>
 
-                    <div class="legend">
-                        <div class="legend-left">
+                    <div class="legend hidden">
+                        <div class="legend-left left">
                             {% for entry in all_10[0] %}
                                 <img src="{{ entry[3] }}">
                             {% endfor %}
                         </div>
 
-                        <div class="legend-right">
+                        <div class="legend-right right">
                             {% for entry in donut_data_10[1] %}
                                 <div class="legend-color" style="background-color: {{ entry }}"></div>
                             {% endfor %}
@@ -351,10 +572,10 @@
                     <br>
                 </div>
 
-                <div id="donut_20">
+                <div id="donut_20" class="hidden">
                     <div class="range-selection">
                         <p>
-                            {% if not two_weeks == "privacy" %}
+                            {% if two_weeks != "privacy" %}
                             <span class="select_donut_2weeks">
                                 Past Two Weeks
                             </span>
@@ -370,30 +591,30 @@
                         </p>
                     </div>
 
-                    <span class="legend-toggle">Legend</span>
+                    <span class="legend-toggle animate">Legend</span>
 
-                    <div class="legend">
-                        <div class="legend-left">
+                    <div class="legend hidden">
+                        <div class="legend-left left">
                             {% for entry in all_20[0][:10] %}
                                 <img src="{{ entry[3] }}">
                             {% endfor %}
                         </div>
 
-                        <div class="legend-right">
+                        <div class="legend-right right">
                             {% for entry in donut_data_20[1][:10] %}
                                 <div class="legend-color" style="background-color: {{ entry }}"></div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <div id="split">
-                        <div class="legend-left">
+                    <div id="split" class="hidden">
+                        <div class="legend-left left">
                             {% for entry in all_20[0][10:] %}
                                 <img src="{{ entry[3] }}">
                             {% endfor %}
                         </div>
 
-                        <div class="legend-right">
+                        <div class="legend-right right">
                             {% for entry in donut_data_20[1][10:] %}
                                 <div class="legend-color" style="background-color: {{ entry }}"></div>
                             {% endfor %}
@@ -407,95 +628,8 @@
                     <br>
                 </div>
 
-                {% if not two_weeks == "privacy" %}
-                <div id="line_2weeks">
-                    <div class="range-selection">
-                        <p>
-                            <span class="select_line_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            <span class="select_line_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_line_20">
-                                20
-                            </span>
-                        </p>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="canvas-container">
-                        <canvas id="line-chart_2weeks" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
-                    </div>
-
-                    <br>
-                </div>
-                {% endif %}
-
-                <div id="line_10">
-                    <div class="range-selection">
-                        <p>
-                            {% if not two_weeks == "privacy" %}
-                            <span class="select_line_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            {% endif %}
-                            <span class="select_line_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_line_20">
-                                20
-                            </span>
-                        </p>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="canvas-container">
-                        <canvas id="line-chart_10" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
-                    </div>
-
-                    <br>
-                </div>
-
-                <div id="line_20">
-                    <div class="range-selection">
-                        <p>
-                            {% if not two_weeks == "privacy" %}
-                            <span class="select_line_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            {% endif %}
-                            <span class="select_line_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_line_20">
-                                20
-                            </span>
-                        </p>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="canvas-container">
-                        <canvas id="line-chart_20" width="450" height="450">Your browser does not support HTML5 Canvas.</canvas>
-                    </div>
-
-                    <br>
-                </div>
-
-                {% if not two_weeks == "privacy" %}
-                <div id="bar_2weeks">
+                {% if two_weeks != "privacy" %}
+                <div id="bar_2weeks" class="hidden">
                     <div class="range-selection">
                         <p>
                             <span class="select_bar_2weeks">
@@ -523,10 +657,10 @@
                 </div>
                 {% endif %}
 
-                <div id="bar_10">
+                <div id="bar_10" class="hidden">
                     <div class="range-selection">
                         <p>
-                            {% if not two_weeks == "privacy" %}
+                            {% if two_weeks != "privacy" %}
                             <span class="select_bar_2weeks">
                                 Past Two Weeks
                             </span>
@@ -552,10 +686,10 @@
                     <br>
                 </div>
 
-                <div id="bar_20">
+                <div id="bar_20" class="hidden">
                     <div class="range-selection">
                         <p>
-                            {% if not two_weeks == "privacy" %}
+                            {% if two_weeks != "privacy" %}
                             <span class="select_bar_2weeks">
                                 Past Two Weeks
                             </span>
@@ -581,218 +715,9 @@
                     <br>
                 </div>
 
-                <!-- List of Results -->
-                {% if not two_weeks == "privacy" %}
-                <div id="data_2weeks" class="data">
-                    <div class="range-selection">
-                        <p>
-                            <span class="select_data_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            <span class="select_data_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_data_20">
-                                20
-                            </span>
-                            |
-                            <span class="select_data_all">
-                                All
-                            </span>
-                        </p>
-                    </div>
-
-                    {% for entry in two_weeks[0] %}
-                    <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="glow"></a>
-
-                        <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
-                        </div>
-
-                        <a class="stats-page-link" href="{{ entry[6] }}">Stats Page</a>
-
-                        <span class="rank">{{ entry[0] }}</span>
-                    </div>
-                    {% endfor %}
-
-                    <br>
-                </div>
-                {% endif %}
-
-                <div id="data_10" class="data">
-                    <div class="range-selection">
-                        <p>
-                            {% if not two_weeks == "privacy" %}
-                            <span class="select_data_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            {% endif %}
-                            <span class="select_data_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_data_20">
-                                20
-                            </span>
-                            |
-                            <span class="select_data_all">
-                                All
-                            </span>
-                        </p>
-                    </div>
-
-                    {% for entry in all_10[0] %}
-                    <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="glow"></a>
-
-                        <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
-                        </div>
-                        {% if entry[4] %}
-                            <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
-                        {% endif %}
-
-                        <span class="rank">{{ entry[0] }}</span>
-                    </div>
-                    {% endfor %}
-
-                    <br>
-                </div>
-
-                <div id="data_20" class="data">
-                    <div class="range-selection">
-                        <p>
-                            {% if not two_weeks == "privacy" %}
-                            <span class="select_data_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            {% endif %}
-                            <span class="select_data_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_data_20">
-                                20
-                            </span>
-                            |
-                            <span class="select_data_all">
-                                All
-                            </span>
-                        </p>
-                    </div>
-
-                    {% for entry in all_20[0] %}
-                    <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="glow"></a>
-
-                        <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
-                        </div>
-                        {% if entry[4] %}
-                            <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
-                        {% endif %}
-
-                        <span class="rank">{{ entry[0] }}</span>
-                    </div>
-                    {% endfor %}
-
-                    <br>
-                </div>
-
-                <div id="data_all" class="data">
-                    <div class="range-selection">
-                        <p>
-                            {% if not two_weeks == "privacy" %}
-                            <span class="select_data_2weeks">
-                                Past Two Weeks
-                            </span>
-                            |
-                            {% endif %}
-                            <span class="select_data_10">
-                                10
-                            </span>
-                            |
-                            <span class="select_data_20">
-                                20
-                            </span>
-                            |
-                            <span class="select_data_all">
-                                All
-                            </span>
-                        </p>
-                    </div>
-
-                    {% for entry in all_all[0] %}
-                    <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="glow"></a>
-
-                        <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
-                            {% if entry[4] %}
-                                <a class="stats-page-link" href="{{ entry[4] }}">Stats Page</a>
-                            {% endif %}
-                        </div>
-
-                        <span class="rank">{{ entry[0] }}</span>
-                    </div>
-                    {% endfor %}
-
-                    <br>
-                </div>
-
-                <div id="hall-of-shame-content">
-                    <h1 class="white">Gaze Upon Your Shame</h1>
-                    <span class="shame-total dark-blue">{{ shame_total }} total</span>
-
-                    <ul id="shame-grid" class="rig columns-3">
-                        {% for entry in shame_list %}
-                        <li class="shame animate">
-                            <a href="{{ entry[3] }}"><img src="{{ entry[2] }}" class="glow"></a>
-                            <a href="{{ entry[3] }}"><span class="grid-name animate">{{ entry[0] }}</span></a><br>
-                            <span class="grid-hours">{{ entry[1] }}.0 hours played</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    <br>
-                    <br>
-                </div>
-
-                {% if friends != "private" %}
-                <div id="friends">
-                    <h1 class="white shadow"><span class="green">{{ display_name }}'s</span> Friends</h1>
-                    <span class="shame-total dark-blue">{{ friends[1] }} total</span>
-                    <p>Click to view SteamTime profile</p>
-                    <form id="hidden-form" action="{{ url_for('steamtime_logic') }}" method="POST">
-                        {{ form.hidden_tag() }}
-                        {{ form.steamid(placeholder="SteamID", id="hidden-steamid") }}
-                    </form>
-
-                    <ul id="friends-grid" class="rig columns-4">
-                        {% for entry in friends[0] %}
-                        <li class="friends glow animate">
-                            <img class="friend-avatar" alt="{{ entry[0] }}" src="{{ entry[2] }}">
-                            <br>
-                            <span class="friend-name">{{ entry[1] }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    <br>
-                </div>
-                {% endif %}
-
                 <br>
 
+                <!-- Footer -->
                 <div id="footer">
                     <p>
                         Powered by Steam<br>
@@ -803,8 +728,9 @@
         </div>
     </div>
 
-    <div id="loading-dimmer" class="dimmer">>
-        <div id="loading" class="blue-gradient">
+    <!-- Loading/Privacy notifications -->
+    <div id="loading-dimmer" class="dimmer hidden">
+        <div id="loading" class="blue-gradient-circular">
             <p>Accessing the Steam Web API...</p>
 
             <br>
@@ -816,11 +742,14 @@
               <div class="rect4"></div>
               <div class="rect5"></div>
             </div>
+
+            <div id="text1" class="extra-loading-text hidden">This is taking longer than expected...</div>
+            <div id="text2" class="extra-loading-text hidden">The API is <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=steam%20web%20api%20slow" class="animate">notoriously slow</a> and will likely time out, please try again!</div>
         </div>
     </div>
 
-    <div id="privacy-dimmer" class="dimmer">
-        <div id="privacy-alert" class="blue-gradient">
+    <div id="privacy-dimmer" class="dimmer hidden">
+        <div id="privacy-alert" class="blue-gradient-circular">
             <i id="close-privacy" class="fa fa-times fa-2x"></i>
             <p id="privacy-p">
                 <span class="green">{{ display_name }}</span>'s current privacy settings prevent access to their

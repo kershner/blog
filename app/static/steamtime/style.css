@@ -16,122 +16,39 @@ body {
 	overflow-x: hidden;
 }
 
-/* Hiding elements for initial fade in */
-#welcome-header, #big-logo, #slogan, #buttons, #footer, #header, #user-info, 
-.result-template, #donut_2weeks, #donut_10, #donut_20, #line_2weeks, #line_10, 
-#line_20, #bar_2weeks, #bar_10, #bar_20, #data_10, #data_20, #data_all,
-#readout_10, #readout_20, #readout_all, #search-select, #new-search,
-#asterisk-explanation, #hall-of-shame-content, .legend, #split, #friends,
-#readout-shame, #readout-friends, #stats, #readout-stats {
-	display: none;
+/* *************************** */
+/* General site-wide overrides */
+/* *************************** */
+a:link {
+	text-decoration: none;
 }
 
-.dimmer {
-	display: none;
-	position: fixed;
-	margin: 0;
-	padding: 0;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	min-height: 100%;
-	width: 100%;
-	z-index: 25;
-	background: rgba(0, 0, 0, 0.5);
-}
-
-#loading, #privacy-alert {
-	position: relative;
-	margin: 0 auto;
-	margin-top: 325px;
-	width: 400px;
-	height: 175px;
+a:visited {
 	color: white;
-	-moz-box-shadow: 0px 0px 19px #000000;
-	-webkit-box-shadow: 0px 0px 19px #000000;
-	box-shadow: 0px 0px 19px #000000;
-	border-radius: 5px;	
 }
 
-#privacy-alert {
-	height: 160px;
-	width: 415px;
+a:hover {
+	color: #3FADFB;
 }
 
-#loading p, #privacy-alert p {
-	position: relative;
-	top: 25px;
-	text-align: center;
-	font-size: 24px;
-	text-shadow: 1px 1px .5px #000;
-	margin: 0 auto;	
+hr {
+	margin: 0;
+	height: 1px;
+	box-shadow: 1px 1px 3px #000;
+	border-radius: 0 5px 0 5px;
+	background-color: white;
 }
 
-.spinner {
-	position: relative;
-	top: 10px;
-	margin: 0 auto;
-	height: 60px;
-	text-align: center;
-	font-size: 32px;
+.hidden {
+	display: none;
 }
 
-.spinner > div {
-	background-image: -ms-radial-gradient(right center, circle farthest-corner, #00BD67 0%, #00A459 100%);
-	background-image: -moz-radial-gradient(right center, circle farthest-corner, #00BD67 0%, #00A459 100%);
-	background-image: -o-radial-gradient(right center, circle farthest-corner, #00BD67 0%, #00A459 100%);
-	background-image: -webkit-gradient(radial, right center, 0, right center, 981, color-stop(0, #00BD67), color-stop(1, #00A459));
-	background-image: -webkit-radial-gradient(right center, circle farthest-corner, #00BD67 0%, #00A459 100%);
-	background-image: radial-gradient(circle farthest-corner at right center, #00BD67 0%, #00A459 100%);
-    box-shadow: 2px 2px 4px #000;
-    height: 100%;
-    width: 10px;
-    display: inline-block;
-    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
-    animation: stretchdelay 1.2s infinite ease-in-out;
+.left {
+	float: left;
 }
 
-.spinner .rect2 {
-	-webkit-animation-delay: -1.1s;
-	animation-delay: -1.1s;
-}
-
-.spinner .rect3 {
-	-webkit-animation-delay: -1.0s;
-	animation-delay: -1.0s;
-}
-
-.spinner .rect4 {
-	-webkit-animation-delay: -0.9s;
-	animation-delay: -0.9s;
-}
-
-.spinner .rect5 {
-	-webkit-animation-delay: -0.8s;
-	animation-delay: -0.8s;
-}
-
-@-webkit-keyframes stretchdelay {
-	0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-	20% { -webkit-transform: scaleY(1.0) }
-}
-
-@keyframes stretchdelay {
-	0%, 40%, 100% { 
-	transform: scaleY(0.4);
-	-webkit-transform: scaleY(0.4);
-	}  20% { 
-	transform: scaleY(1.0);
-	-webkit-transform: scaleY(1.0);
-	}
-}
-
-a, i, img, .range-selection span {
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
+.right {
+	float: right;
 }
 
 .animate {
@@ -148,43 +65,57 @@ a, i, img, .range-selection span {
 	box-shadow: 0px 0px 20px 0px #fff;
 }
 
-a:link {
-	text-decoration: none;
+/* Generic rig style for grids */
+ul.rig {
+	list-style: none;
+	font-size: 0px;
+	padding: 0;
+	min-width: 10px;
+	margin-top: 15px;
+	margin-left: -1%;
+	margin-right: 2.5%;
 }
 
-a:hover {
-	color: #3FADFB;
+li {
+	text-align: center;
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 -2.5% 2.5%;
+	vertical-align: top;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
-a:visited {
-	
+/* class for 3 columns */
+ul.rig.columns-3 li {
+	width: 30.83%; 
 }
 
-/* ************************** */
-/*   Colors / Text Formatting */
-/* ************************** */
-.blue {
-	color: #026AB3;
+/* class for 4 columns */
+ul.rig.columns-4 li {
+	width: 22.5%; 
 }
 
-/* Result template */
-.blue-gradient {
-	background-color: #026AB3;
-	background-image: -ms-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -moz-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -o-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #026AB3), color-stop(1, #025B9A));
-	background-image: -webkit-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: radial-gradient(circle farthest-corner at center, #026AB3 0%, #025B9A 100%);
+/* ***************************** */
+/*   Gradients / Text Formatting */
+/* ***************************** */
+.dark-blue-gradient {
+	background-image: -ms-radial-gradient(center, circle farthest-side, #026AB3 0%, #025B9A 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-side, #026AB3 0%, #025B9A 100%);
+	background-image: -o-radial-gradient(center, circle farthest-side, #026AB3 0%, #025B9A 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 486, color-stop(0, #026AB3), color-stop(1, #025B9A));
+	background-image: -webkit-radial-gradient(center, circle farthest-side, #026AB3 0%, #025B9A 100%);
+	background-image: radial-gradient(circle farthest-side at center, #026AB3 0%, #025B9A 100%);
 }
 
-.green-gradient {
-	background-image: -ms-radial-gradient(center, ellipse farthest-corner, #00AC5D 0%, #00934F 100%);
-	background-image: -moz-radial-gradient(center, ellipse farthest-corner, #00AC5D 0%, #00934F 100%);
-	background-image: -o-radial-gradient(center, ellipse farthest-corner, #00AC5D 0%, #00934F 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 447, color-stop(0, #00AC5D), color-stop(1, #00934F));
-	background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #00AC5D 0%, #00934F 100%);
-	background-image: radial-gradient(ellipse farthest-corner at center, #00AC5D 0%, #00934F 100%);
+.blue-gradient-circular {
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
 }
 
 .white {
@@ -195,15 +126,8 @@ a:visited {
 	color: #013F6B;
 }
 
-/* Welcome header */
-.dark-blue-gradient {
-	background-color: #013F6B;
-	background-image: -ms-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -moz-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -o-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #013F6B), color-stop(1, #015D9D));
-	background-image: -webkit-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: linear-gradient(to bottom, #013F6B 0%, #015D9D 100%);	
+.blue {	
+	color: #017bd1;
 }
 
 .yellow {
@@ -222,11 +146,10 @@ a:visited {
 	text-shadow: none;
 }
 
-/* *************************** */
-/* ****** Home Page ********** */
-/* *************************** */
+/* *********** */
+/* * Home Page */
+/* *********** */
 
-/* **************************** */
 /* Container div for home page  */
 #welcome-header {
 	position: relative;
@@ -235,16 +158,10 @@ a:visited {
 	padding: 20px;
 	min-height: 340px;
 	min-width: 800px;
-	background-color: #013F6B;
-	background-image: -ms-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -moz-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -o-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #013F6B), color-stop(1, #015D9D));
-	background-image: -webkit-linear-gradient(top, #013F6B 0%, #015D9D 100%);
-	background-image: linear-gradient(to bottom, #013F6B 0%, #015D9D 100%);	
 	box-shadow: 3px 3px 10px #000;
 }
 
+/* Huge logo container div */
 #logo {
 	position: relative;
 	width: 800px;
@@ -266,10 +183,7 @@ a:visited {
 	margin-top: -30px;
 }
 
-#welcome-header h1 .white:hover, #welcome-header h1 .blue:hover {
-	-webkit-filter: blur(3px);
-}
-
+/* Buttons container div */
 #buttons {
 	height: 75px;
 	width: 800px;
@@ -283,7 +197,7 @@ a:visited {
 	font-family: 'Roboto', sans-serif;
 	font-size: 35px;
 	text-align: center;
-	text-shadow: 1px 1px .5px #000;
+	text-shadow: none;
 }
 
 #get-started, #about {
@@ -293,26 +207,21 @@ a:visited {
 	height: 50px;
 	width: 300px;
 	box-shadow: 1px 1px 5px #000;
-	font-family: 'Roboto', sans-serif;
 	background-color: Transparent;
     background-repeat: no-repeat;
 	border: 1px solid white;
 	border-radius: 5px;
 	box-shadow: none;
-	text-shadow: none;
-	-webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
 }
 
 #get-started:hover, #about:hover {
 	cursor: pointer;
-	background-color: #00934f;
+	background-color: #00d775;
 	text-shadow: 1px 1px 3px #000;
-	border: 1px solid #00934f;
+	border: 1px solid #00d775;
 }
 
+/* Div containing error messages */
 .message {
 	position: relative;
 	margin: 25px auto;
@@ -321,30 +230,27 @@ a:visited {
 	background-color: Transparent;
     background-repeat: no-repeat;
 	border: 1px solid white;
-	border-radius: 5px;
+	border-radius: 5px;	
 	text-align: center;
-	color: #024D82;
-	-webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+	font-size: 20px;
+	color: white;	
+	text-shadow: none;	
 }
 
 .message:hover {
 	background-color: #012E4E;
 	border: 1px solid #012E4E;
+	box-shadow: 4px 4px 4px #000;
+	border-radius: 0;
 }
 
 /* Message div text */
-#welcome-header > div.message > p {
+.message > p {
 	position: relative;
-	left: 0;
 	top: 25px;
-	color: white;
-	text-shadow: none;
-	font-size: 20px;
 }
 
+/* Form input div */
 #form {
 	position: relative;
 	display: none;
@@ -353,12 +259,49 @@ a:visited {
 	text-align: center;
 }
 
-form a {
+#use-mine {
 	position: relative;
 	margin: 0 auto;
-	bottom: 7px;
+	padding: 10px;
+	top: -3px;
+	left: -100px;
+	width: 300px;
+	height: 20px;
+	background-color: Transparent;
+    background-repeat: no-repeat;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+#down {
+	position: absolute;
+	top: 25px;
+	left: 10px;
+	color: white;
+	font-size: 28px;
+}
+
+#use-mine > p {
+	position: relative;
+	top: 25px;
+	color: white;
+	text-shadow: none;
+	text-align: center;
+	font-size: 20px;
+}
+
+form a, form span {
+	display: inline-block;
+	position: relative;
+	bottom: 10px;
 	color: white;
 	font-size: 22px;
+}
+
+#pipe {
+	margin: 0 15px;
+	bottom: 10px;
+	font-size: 25px;
 }
 
 form a:hover {
@@ -377,14 +320,8 @@ input {
 
 input[type=text] {
 	padding-left: 10px;
-	font-size: 48px;	
-}
-
-#steamid {
-	-webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+	font-size: 48px;
+	color: #012E4E;	
 }
 
 #steamid:hover, #steamid:focus {
@@ -399,30 +336,28 @@ input[type=text] {
 	margin-top: 25px;
 	height: 75px;
 	width: 300px;
-	border: 1px solid white;
 	border-radius: 5px;
 	background-color: Transparent;
-    background-repeat: no-repeat;
-    cursor: pointer;
+	border: 1px solid white;
+	cursor: pointer;
     overflow: hidden;
     outline: none;
 	color: white;
 	font-family: 'Roboto', sans-serif;
 	font-size: 42px;
-	-webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
 }
 
 .submit:hover {
-	background-color: #012E4E;
 	font-size: 48px;
-	border: 1px solid #012E4E;
+	border: 1px solid Transparent;
+	background-color: #012E4E;
+	box-shadow: 4px 4px 4px #000;
+	border-radius: 0;
 }
 
-/* ************************** */
-/* ***** About Div ********** */
+/* ********** */
+/* About Div */
+/* ********** */
 #about-content {
 	display: none;
 	position: fixed;
@@ -448,14 +383,6 @@ input[type=text] {
 	color: #026AB3;
 }
 
-.left {
-	float: left;
-}
-
-.right {
-	float: right;
-}
-
 #github-links {
 	margin: 25px auto;
 	text-align: center;
@@ -474,6 +401,11 @@ input[type=text] {
 	position: relative;
 	z-index: 25;
 	float: right;
+}
+
+#close-privacy {
+	top: 3px;
+	right: 5px;
 }
 
 #close:hover, #find-close:hover, #asterisk-close:hover,
@@ -496,6 +428,7 @@ input[type=text] {
 
 /* ************************** */
 /* 'Where is my SteamID' Div  */
+/* ************************** */
 #find-id {
 	display: none;
 	position: absolute;
@@ -561,9 +494,9 @@ input[type=text] {
 	font-size: 24px;
 }
 
-/* ****************************** */
-/* ******* Results Page ********* */
-/* ****************************** */
+/* ************ */
+/* Results Page */
+/* ************ */
 #hidden-menu {
 	position: fixed;
 	display: none;
@@ -584,6 +517,7 @@ input[type=text] {
 	left: 5px;
 }
 
+/* Media queries to hide display name when viewport is too small */
 @media (min-width: 0) {
 	#hidden-menu h3 {
 		display: none;
@@ -633,7 +567,6 @@ input[type=text] {
 	cursor: pointer;
 }
 
-/* ************************ */
 /* Big logo on Results page */
 #header {
 	position: relative;
@@ -651,7 +584,7 @@ input[type=text] {
 	text-shadow: 1px 1px 1px #000;
 }
 
-#header h1 .white:hover, #header h1 .blue:hover {
+.blur {
 	-webkit-filter: blur(3px);
 }
 
@@ -663,6 +596,7 @@ input[type=text] {
 	text-shadow: 1px 1px .5px #000;
 }
 
+/* Styles for search bar on results page */
 #search-select {
 	position: relative;
 	z-index: 25;	
@@ -721,70 +655,13 @@ input[type=text] {
 	height: 32px;
 	width: 75px;
 	font-size: 20px;
-	border: 1px solid white;
+	border: 1px solid transparent;
 	box-shadow: none;
 }
 
 #new-search .header-submit:hover {
 	border: none;
-}
-
-#results-container {
-	position: relative;
-	margin: 0 auto;
-	width: 100%;
-	text-align: center;
-}
-
-#results-container-inner {
-	margin: 0 auto;
-	min-width: 800px;
-}
-
-#tab-selectors {
-	position: absolute;
-	margin: 0;
-	left: -41px;
-	top: 10px;
-	width: 50px;
-}
-
-.tab {
-	position: relative;
-	z-index: 9; 
-	margin: 10px 0;
-	padding: 5px;
-	width: 30px;
-	height: 25px;
-	background-color: #2394E4;
-	border-radius: 5px 0 0 5px;
-}
-
-.tab:hover {
-	cursor: pointer;
-	background-color: #014e84;	
-}
-
-.tab i {
-	display: inline-block;
-	position: relative;
-	margin: 0 5px;
-	text-align: center;
-	color: white;
-	text-shadow: 1px 1px .5px #000;
-}
-
-.tab-text {
-	display: none;
-	position: relative;
-	margin: 0;
-	color: white;
-	font-size: 16px;
-	text-shadow: 1px 1px 3px #000;
-}
-
-#shame-tab-text {
-	font-size: 14px;
+	border: 1px solid white;
 }
 
 /* User Info Div of Results Page */
@@ -833,31 +710,6 @@ input[type=text] {
 	border: 1px solid blue;
 }
 
-.readout {
-	position: absolute;
-	padding: 0;
-	z-index: 10;
-	top: 25px;
-	left: 195px;
-	width: 500px;
-	color: #FFBE00;
-}
-
-.readout h1 {
-	text-align: left;
-	color: white;
-}
-
-.readout .asterisk {
-	margin: 0 2px;
-}
-
-.readout .asterisk:hover {
-	color: #013F6B;
-	text-shadow: none;
-	cursor: pointer;
-}
-
 #asterisk-explanation {
 	position: absolute;
 	z-index: 24;
@@ -878,6 +730,35 @@ input[type=text] {
 	bottom: 10px;
 }
 
+/* Readout Divs */
+.readout {
+	position: absolute;
+	padding: 0;
+	z-index: 5;
+	top: 25px;
+	left: 195px;
+	width: 600px;
+	text-align: left;
+	color: white;
+}
+
+/* Extra positioning/font size for larger titles */
+.readout-boost {
+	top: -200px;
+	font-size: 36px;
+}
+
+.readout .asterisk {
+	margin: 0 2px;
+}
+
+.readout .asterisk:hover {
+	color: #013F6B;
+	text-shadow: none;
+	cursor: pointer;
+}
+
+/* Div containing # of games/hours */
 .statistics {
 	position: absolute;
 	bottom: -53px;
@@ -886,8 +767,10 @@ input[type=text] {
 	color: white;
 }
 
+/* Icons for chart type selection */
 #options {
 	position: absolute;
+	z-index: 6;
 	width: 200px;
 	right: 10px;
 	bottom: 0;
@@ -905,31 +788,99 @@ input[type=text] {
 	cursor: pointer;
 }
 
-/* Center HTML 5 Canvas Element */
-#results-container-inner .canvas-container {
-	width: 100%;
+.options-selected {
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+/* Div containing tab selectors */
+#tab-selectors {
+	position: absolute;
+	margin: 0;
+	left: 15px;
+	top: -31px;
+}
+
+.tab {
+	position: relative;
+	display: inline-block;
+	z-index: 9; 
+	margin: 0;
+	padding: 0 10px;
+	min-width: 75px;
+	height: 30px;
+	background-color: #2394E4;
+	border-radius: 5px 5px 0 0;
+}
+
+.tab-selected {
+	background-color: #014e84;
+}
+
+.tab:hover {
+	cursor: pointer;
+	background-color: #014e84;	
+}
+
+.tab i {
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin: 0 5px;
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px .5px #000;
+}
+
+.tab-text {
+	position: relative;
+	top: 3px;
+	margin: 0;
+	color: white;
+	font-size: 16px;
+	text-shadow: 1px 1px 3px #000;
+}
+
+/* Extra font size to format Hall of Shame correctly */
+#shame-tab-text {
+	font-size: 14px;
+}
+
+/* ************************** */
+/* General content div styles */
+/* ************************** */
+
+/* Styles for container divs for all content */
+#results-container {
+	position: relative;
 	margin: 0 auto;
+	width: 100%;
 	text-align: center;
 }
 
-/* List of Results */
+#results-container-inner {
+	margin: 0 auto;
+	min-width: 800px;
+}
+
 .result-template {
 	position: relative;
 	margin: 0 auto;
 	min-height: 50px;
 	width: 655px;
 	text-align: left;
-	background-color: #026AB3;
-	background-image: -ms-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -moz-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -o-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #026AB3), color-stop(1, #025B9A));
-	background-image: -webkit-radial-gradient(center, circle farthest-corner, #026AB3 0%, #025B9A 100%);
-	background-image: radial-gradient(circle farthest-corner at center, #026AB3 0%, #025B9A 100%);
 	border: .5px solid black;
 	border-radius: 5px 5px 0 0;	
 }
 
+/* Main Charts.js HTML 5 canvas elements */
+.canvas-container {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* Selectors for 'all', 'two weeks' etc */
 .range-selection {
 	position: absolute;
 	margin: 0;
@@ -949,15 +900,11 @@ input[type=text] {
 	text-shadow: none;
 }
 
-.data h3 {
-	margin: 75px 10px;
-	color: white;
-	font-size: 34px;
-	text-shadow: 1px 1px 2px #000;
-	text-align: center;
-}
+/* *************** */
+/* List of Results */
+/* *************** */
 
-/* Div Containing Result */
+/* Div Containing list results */
 .entry {
 	background-color: #013F6B;
 	position: relative;
@@ -980,6 +927,7 @@ input[type=text] {
 	box-shadow: none;
 }
 
+/* Game image */
 .entry img {
 	position: absolute;
 	top: 15px;
@@ -989,6 +937,7 @@ input[type=text] {
 	width: 184px;
 }
 
+/* Container div for text data */
 .entry-data {
 	position: absolute;
 	z-index: 5;
@@ -1026,6 +975,7 @@ input[type=text] {
 	text-shadow: none;
 }
 
+/* Extra style for stats link on 'all' page for alignment */
 #data_all .stats-page-link {
 	position: absolute;
 	left: -205px;
@@ -1040,9 +990,9 @@ input[type=text] {
 	font-size: 42px;
 }
 
-/* ************************** */
-/* ******** Footer ********** */
-/* ************************** */
+/* ********* */
+/* * Footer  */
+/* ********* */
 #footer {
 	position: relative;
 	bottom: 0;
@@ -1053,35 +1003,19 @@ input[type=text] {
 	color: white;
 }
 
-#footer img {
-	margin: 5px auto;
-}
-
 #footer p {
 	margin: -10px auto;
 }
 
 #steam-icon {
+	margin: 5px auto;
 	height: 80px;
 	width: 80px;
 }
 
-#hidden-steamid {
-	display: none;
-}
-
 /* ********************** */
-/* * Hall of Shame * */
+/* * Hall of Shame page   */
 /* ********************** */
-#readout-shame h1 {
-	position: relative;
-	margin: 0;
-	padding: 0;
-	bottom: 160px;
-	left: 75px;
-	font-size: 76px;
-}
-
 #hall-of-shame-content {
 	text-align: center;	
 }
@@ -1093,6 +1027,17 @@ input[type=text] {
 	text-shadow: 1px 1px .5px #000;
 }
 
+/* Style for number of titles */
+.shame-total {
+	margin: 0;
+	margin-bottom: 25px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 32px;
+	color: white;	
+	text-shadow: 1px 1px .5px #000;
+}
+
+/* Li element styles */
 .shame {
 	height: 235px;
 	width: 195px;
@@ -1110,15 +1055,6 @@ input[type=text] {
     outline: none;
 	border: 1px solid white;
 	box-shadow: none;
-}
-
-.shame-total {
-	margin: 0;
-	margin-bottom: 25px;
-	font-family: 'Roboto', sans-serif;
-	font-size: 32px;
-	color: white;	
-	text-shadow: 1px 1px .5px #000;
 }
 
 .shame img {
@@ -1150,57 +1086,11 @@ input[type=text] {
 	text-shadow: 1px 1px .5px #000;
 }
 
-/* Generic rig style */
-ul.rig {
-	list-style: none;
-	font-size: 0px;
-	padding: 0;
-	min-width: 10px;
-	margin-top: 15px;
-	margin-left: -1%; /* should match li left margin */
-	margin-right: 2.5%;
-}
+/* ************* */
+/* Friends page  */
+/* ************* */
 
-#friends-grid {
-	margin: 0;
-}
-
-/* class for 2 columns */
-ul.rig.columns-2 li {
-	width: 47.5%; /* this value + 2.5 should = 50% */
-}
-
-/* class for 3 columns */
-ul.rig.columns-3 li {
-	width: 30.83%; /* this value + 2.5 should = 33% */
-}
-
-/* class for 4 columns */
-ul.rig.columns-4 li {
-	width: 22.5%; /* this value + 2.5 should = 25% */
-}
-
-li {
-	text-align: center;
-	display: inline-block;
-	padding: 10px;
-	margin: 0 0 -2.5% 2.5%;
-	vertical-align: top;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-}
-
-#readout-friends h1, #readout-stats h1 {
-	position: relative;
-	height: 75px;
-	margin: 0;
-	padding: 0;
-	bottom: 180px;
-	left: 35px;
-	font-size: 84px;
-}
-
+/* Friends content div */
 #friends {
 	text-align: center;
 	color: white;
@@ -1212,23 +1102,22 @@ li {
 	margin: 0;
 }
 
+#friends-grid {
+	margin: 0;
+}
+
+/* Friends grid li element styles */
 .friends {
 	min-height: 135px;
 	color: white;
 	margin-bottom: 10px;
-	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
-	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
 }
 
 .friend-avatar {
 	border-radius: 10px;
 }
 
-#friends .friend-name {
+.friend-name {
 	position: relative;
 	margin: 10px 0;
 	color: white;
@@ -1245,10 +1134,6 @@ li {
 	border-radius: 5px;
 	border: 1px solid white;
 	padding: 5px;
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
 }
 
 .legend-toggle:hover, #split .legend-toggle:hover {
@@ -1267,6 +1152,7 @@ li {
 	padding: 5px;
 }
 
+/* Split 20 results into two sets of 10 */
 #split {
 	position: absolute;
 	top: 15px;
@@ -1285,14 +1171,7 @@ li {
 	border-radius: 5px 0 0 5px;
 }
 
-.legend-left, #split .legend-left {
-	float: left;
-}
-
-.legend-right,#split .legend-right {
-	float: right;
-}
-
+/* Colors of the donut legend */
 .legend-color, #split .legend-color {
 	margin: 3px 0;
 	width: 60px;
@@ -1300,7 +1179,11 @@ li {
 	border-radius: 0 5px 5px 0;
 }
 
-/* Statistics Page */
+/* **************** */
+/* Statistics Page  */
+/* **************** */
+
+/* Container Div */
 #stats {
 	position: relative;
 	margin: 0 auto;
@@ -1311,8 +1194,8 @@ li {
 	box-shadow: 1px 1px 3px #000;
 }
 
-#stats-title-general {
-	text-align: left;
+/* Styles for the H1 titles (General and Games) */
+.stats-title {
 	margin: 0;	
 	color: white;
 	font-size: 36px;
@@ -1320,14 +1203,16 @@ li {
 	text-shadow: 1px 1px .5px #000;
 }
 
-hr {
-	margin: 0;
-	height: 1px;
-	box-shadow: 1px 1px 3px #000;
-	border-radius: 0 5px 0 5px;
-	background-color: white;
+#stats-title-general {
+	text-align: left;
 }
 
+#stats-title-games {
+	margin-top: 30px;
+	text-align: right;
+}
+
+/* Container for 'general' section */
 #general-stats {
 	display: inline-block;
 	position: relative;
@@ -1335,18 +1220,12 @@ hr {
 	padding: 10px;
 	height: 240px;
 	width: 285px;
-	background-color: #015d9e;
-	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
-	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
 	box-shadow: 1px 1px 3px #000;
 	color: white;	
 	text-shadow: 1px 1px .5px #000;
 }
 
+/* Pie charts container div */
 #general-pie-charts {
 	position: relative;
 	display: inline-block;
@@ -1354,42 +1233,7 @@ hr {
 	min-height: 258px;
 }
 
-#played-legend {
-	position: absolute;
-	top: 0;
-	left: 10px;
-	width: 100px;
-}
-
-#hours-legend {
-	position: absolute;
-	top: 175px;
-	right: -5px;
-	min-width: 100px;
-}
-
-#played-legend-labels, #hours-legend-labels {
-	float: left;
-}
-
-#played-legend-colors, #hours-legend-colors {
-	float: right;
-}
-
-.played-label {
-	display: block;
-	margin: 0;
-	color: white;
-	font-size: 10px;
-}
-
-.played-label-color {
-	margin-bottom: 5px;
-	height: 10px;
-	width: 10px;
-	box-shadow: 1px 1px 3px #000;
-}
-
+/* Pie charts in the General section */
 #general-pie-charts canvas {
 	position: absolute;
 }
@@ -1401,7 +1245,7 @@ hr {
 
 #gen_stat_charts2 {
 	top: 115px;
-	left: -120px;
+	left: -115px;
 }
 
 #general-stats-left {
@@ -1421,6 +1265,50 @@ hr {
 	margin: 17px 0;
 }
 
+/* Styles for the pie chart legends */
+#played-legend {
+	position: absolute;
+	top: 0;
+	left: 40px;
+	width: 100px;
+}
+
+#hours-legend {
+	position: absolute;
+	z-index: 5;
+	top: 230px;
+	right: 32px;
+	min-width: 100px;
+}
+
+#played-legend-labels {
+	position: absolute;	
+	bottom: 4px;
+	right: 9px;
+}
+
+#hours-legend-labels {
+	position: absolute;
+	left: 15px;
+	bottom: 4px;
+	min-width: 300px;
+}
+
+.played-label {
+	display: block;
+	margin: 0;
+	color: white;
+	font-size: 10px;
+}
+
+.played-label-color {
+	margin-bottom: 5px;
+	height: 10px;
+	width: 10px;
+	box-shadow: 1px 1px 3px #000;
+}
+
+/* Text to describe which 'Total Hours' in General Section */
 .small-text {
 	position: relative;
 	bottom: 8px;
@@ -1431,19 +1319,12 @@ hr {
 	text-shadow: none;
 }
 
+/* Extra positioning to get 'all-time' to line up properly */
 .extra {
 	left: 40px;
 }
 
-#stats-title-games {
-	text-align: right;
-	margin: 0;	
-	color: white;
-	font-size: 36px;
-	font-family: 'Open Sans', sans-serif;
-	text-shadow: 1px 1px .5px #000;
-}
-
+/* 'Games' section container */
 #game-stats-container {
 	position: relative;
 	width: 100%;
@@ -1465,12 +1346,6 @@ hr {
 	padding: 10px;
 	width: 260px;
 	min-height: 270px;
-	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
-	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
-	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
 	box-shadow: 1px 1px 3px #000;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
@@ -1502,4 +1377,117 @@ hr {
 
 .game-stats-div p {
 	margin: 0;
+}
+
+/* ***************************** */
+/* Loading/Privacy Notifications */
+/* ***************************** */
+.dimmer {
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	min-height: 100%;
+	width: 100%;
+	z-index: 25;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#loading, #privacy-alert {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 325px;
+	width: 400px;
+	height: 200px;
+	color: white;
+	-moz-box-shadow: 0px 0px 19px #000000;
+	-webkit-box-shadow: 0px 0px 19px #000000;
+	box-shadow: 0px 0px 19px #000000;
+	border-radius: 5px;	
+}
+
+#privacy-alert {
+	height: 160px;
+	width: 415px;
+}
+
+#loading p, #privacy-alert p {
+	position: relative;
+	top: 25px;
+	text-align: center;
+	font-size: 24px;
+	text-shadow: 1px 1px .5px #000;
+	margin: 0 auto;	
+}
+
+.extra-loading-text {
+	position: relative;
+	bottom: -35px;
+	text-align: center;
+}
+
+#text2 {
+	bottom: -30px;
+}
+
+#text2 a {
+	text-decoration: underline;
+}
+
+/* Loading Animation */
+.spinner {
+	position: relative;
+	top: 10px;
+	margin: 0 auto;
+	height: 60px;
+	text-align: center;
+	font-size: 32px;
+}
+
+.spinner > div {
+	background-color: #00f083;
+    box-shadow: 2px 2px 4px #000;
+    height: 100%;
+    width: 10px;
+    display: inline-block;
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+	-webkit-animation-delay: -1.1s;
+	animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+	-webkit-animation-delay: -0.9s;
+	animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+	-webkit-animation-delay: -0.8s;
+	animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+	0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+	20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes stretchdelay {
+	0%, 40%, 100% { 
+	transform: scaleY(0.4);
+	-webkit-transform: scaleY(0.4);
+	}  20% { 
+	transform: scaleY(1.0);
+	-webkit-transform: scaleY(1.0);
+	}
 }

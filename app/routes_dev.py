@@ -1625,7 +1625,7 @@ def steamtime_logic():
         except KeyError:
             return 'privacy'
 
-        # Using a reverse sort by the 2nd index (minutes played) of each entry - descending order
+        # Using a reverse sort by the 2nd index (minutes played) of each entry for descending order
         minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
 
         # Storing sorted minutes_played as a list with an index, game name, hours played string,
@@ -1663,7 +1663,7 @@ def steamtime_logic():
             if game['playtime_forever'] == 0:
                 appid = game['appid']
                 game_hash = game['img_logo_url']
-                image_url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' %\
+                image_url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
                             (appid, game_hash)
                 store_page = 'http://store.steampowered.com/app/%s/' % appid
                 shame.append([game['name'], game['playtime_forever'], image_url, store_page])
@@ -1701,20 +1701,11 @@ def steamtime_logic():
             chart_data = chart_data[:-1]
             chart_labels = chart_labels[:-1]
 
-            # Datasets for line/bar charts are slightly different, determining format string to use
-            if chart_type == 'line':
-                formatted_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
-                                 '"rgba(220,220,220,1)", pointColor: "%s", pointStrokeColor: "#fff", ' \
-                                 'pointHighlightFill: "#fff", pointHighlightStroke: "#3FADFB", data: ' \
-                                 '[%s]}]}' % (chart_labels, random_color(), random_color(), chart_data)
-                return formatted_data
-
-            elif chart_type == 'bar':
-                formatted_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
-                                 '"rgba(220,220,220,0.8)", highlightFill: "#3FADFB", highlightStroke: ' \
-                                 '"rgba(220,220,220,1)", data: [%s]}]}' % \
-                                 (chart_labels, random_color(), chart_data)
-                return formatted_data
+            formatted_data = '{labels: [%s], datasets: [{ fillColor: "%s", strokeColor: ' \
+                             '"rgba(220,220,220,0.8)", highlightFill: "#3FADFB", highlightStroke: ' \
+                             '"rgba(220,220,220,1)", data: [%s]}]}' % \
+                             (chart_labels, random_color(), chart_data)
+            return formatted_data
 
     # Grab input SteamID's friends list, pull out name, profile URL, and avatar
     def get_friends(steamid):
@@ -1837,6 +1828,15 @@ def steamtime_logic():
                 data_all = json.loads(api_call_all.read())
                 data_2weeks = json.loads(api_call_2weeks.read())
 
+                if data_all['response']:
+                    print 'Response exists'
+                else:
+                    message = 'This profile is either private or inactive, please try another SteamID.'
+                    return render_template('/steamtime/home.html',
+                                           form=form,
+                                           message=message,
+                                           title='Visualize Time Spent In Your Steam Library')
+
                 # Parsing API calls into organized lists
                 two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1, steam_id)
 
@@ -1849,6 +1849,7 @@ def steamtime_logic():
                     donut_data_2weeks = ''
                 else:
                     donut_data_2weeks = format_data(two_weeks[0], 'donut')
+
                 donut_data_10 = format_data(all_10[0], 'donut')
                 donut_data_20 = format_data(all_20[0], 'donut')
 

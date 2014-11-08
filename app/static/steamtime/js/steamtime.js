@@ -6,10 +6,10 @@ function steamtime() {
     closeFindID();
     closeAbout();
 	dimmer();
+	dontHave();
 }
 
 function steamtimeResults(data_array, privacy) {
-	console.log(privacy);
 	resultsFadeIn(privacy);
 	showSearch();
 	asterisk();
@@ -19,7 +19,8 @@ function steamtimeResults(data_array, privacy) {
 	showLegend();
 	getFriendId();
 	showFriends();
-	tabExpand();
+	tabSelect();
+	optionsSelect();
 	if (privacy === undefined) {
 		initialSelections(data_array);		
 	}
@@ -127,12 +128,16 @@ function smoothTop() {
 function showForm() {
 	if ($(".message").length > 0) {
 		console.log("Blah");
+		console.log($(".message").text());
 	} else {
 		$("#get-started").one("click", function() {
-			$("#welcome-header").stop().animate({height : "590px"});
-			$("#form").fadeIn("slow", "linear");		
-			$("#welcome-header").css("margin-top", "100px");
-			$("#welcome-header").css("padding-bottom", "50px");
+			$("#welcome-header").animate({
+				"height" : "590px",
+				"margin-top" : "100px",
+				"padding-bottom" : "5px"
+				}, 450, function() {
+					$("#form").fadeIn("slow", "linear");
+				});
 			$("#about-content").css("top", "25px");
 		});
 	}
@@ -162,9 +167,23 @@ function closeFindID() {
 	});
 }
 
+function dontHave() {
+	$("#dont").click(function() {
+		$("#steamid").val("billcrystals");
+		$("#use-mine").fadeIn(450);
+	});
+}
+
 function dimmer() {
 	$(".submit").click(function() {
-		$("#loading-dimmer").fadeIn("slow");
+		$("#loading-dimmer").fadeIn("slow");		
+		setTimeout(function() {
+			$("#text1").fadeIn("slow");
+		}, 6000);
+		setTimeout(function() {
+			$("#text1").fadeOut(1);
+			$("#text2").fadeIn("slow");
+		}, 12000);
 	});
 }
 
@@ -379,62 +398,66 @@ function getFriendId() {
 		$("#hidden-steamid").val(alt);
 		$("#hidden-form").submit();
 		$("#loading-dimmer").fadeIn("slow");
+		setTimeout(function() {
+			$("#text1").fadeIn("slow");
+		}, 6000);
+		setTimeout(function() {
+			$("#text1").fadeOut(1);
+			$("#text2").fadeIn("slow");
+		}, 12000);
 	});
 }
 
-function tabExpand() {
-	$("#stats-tab").hover(
-		function() {
-			$(this).animate({
-				"width" : "125px",
-				"left" : "-95px"
-			}, 10, function () {
-				$("#stats-tab-text").stop().fadeIn("slow");
-			});
-		},
-		function() {
-			$(this).animate({
-				"width" : "30px",
-				"left" : "0"
-			}, 10, function () {
-				$("#stats-tab-text").css("display", "none");
-			});
-		}
-	);
-	$("#friends-tab").hover(
-		function() {
-			$(this).animate({
-				"width" : "145px",
-				"left" : "-115px"
-			}, 10, function () {
-				$("#friends-tab-text").stop().fadeIn("slow");
-			});
-		},
-		function() {
-			$(this).animate({
-				"width" : "30px",
-				"left" : "0"
-			}, 10, function () {
-				$("#friends-tab-text").css("display", "none");
-			});
-		}
-	);
-	$("#shame-tab").hover(
-		function() {
-			$(this).animate({
-				"width" : "145px",
-				"left" : "-115px"
-			}, 10, function () {
-				$("#shame-tab-text").stop().fadeIn("slow");
-			});
-		},
-		function() {
-			$(this).animate({
-				"width" : "30px",
-				"left" : "0"
-			}, 10, function () {
-				$("#shame-tab-text").css("display", "none");
-			});
-		}
-	);
+function tabSelect() {
+	$("#stats-tab").click(function() {
+		$(this).addClass("tab-selected");
+		$("#friends-tab").removeClass("tab-selected");
+		$("#shame-tab").removeClass("tab-selected");
+		$("#list-selector").removeClass("options-selected");
+		$("#bar-selector").removeClass("options-selected");
+		$("#donut-selector").removeClass("options-selected");
+	});
+	$("#friends-tab").click(function() {
+		$(this).addClass("tab-selected");
+		$("#stats-tab").removeClass("tab-selected");
+		$("#shame-tab").removeClass("tab-selected");
+		$("#bar-selector").removeClass("options-selected");
+		$("#list-selector").removeClass("options-selected");
+		$("#donut-selector").removeClass("options-selected");
+	});
+	$("#shame-tab").click(function() {
+		$(this).addClass("tab-selected");
+		$("#stats-tab").removeClass("tab-selected");
+		$("#friends-tab").removeClass("tab-selected");
+		$("#bar-selector").removeClass("options-selected");
+		$("#list-selector").removeClass("options-selected");
+		$("#donut-selector").removeClass("options-selected");
+	});
+}
+
+function optionsSelect() {
+	$("#list-selector").click(function() {
+		$(this).addClass("options-selected");
+		$("#donut-selector").removeClass("options-selected");
+		$("#bar-selector").removeClass("options-selected");
+		$("#stats-tab").removeClass("tab-selected");
+		$("#friends-tab").removeClass("tab-selected");
+		$("#shame-tab").removeClass("tab-selected");
+	});
+	$("#donut-selector").click(function() {
+		$(this).addClass("options-selected");
+		$("#list-selector").removeClass("options-selected");
+		$("#bar-selector").removeClass("options-selected");
+		$("#stats-tab").removeClass("tab-selected");
+		$("#friends-tab").removeClass("tab-selected");
+		$("#shame-tab").removeClass("tab-selected");
+	});
+	$("#bar-selector").click(function() {
+		$(this).addClass("options-selected");
+		$("#donut-selector").removeClass("options-selected");
+		$("#list-selector").removeClass("options-selected");
+		$("#stats-tab").removeClass("tab-selected");
+		$("#friends-tab").removeClass("tab-selected");
+		$("#shame-tab").removeClass("tab-selected");
+	});
 }
