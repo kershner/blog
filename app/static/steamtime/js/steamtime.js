@@ -5,7 +5,7 @@ function steamtime() {
     showFindID();
     closeFindID();
     closeAbout();
-	dimmer();
+	loading();
 	dontHave();
 }
 
@@ -145,6 +145,7 @@ function showForm() {
 
 function showAbout() {
 	$("#about").click(function() {
+		$("#about-content").draggable();
 		$("#about-content").fadeIn("fast");
 	});
 }
@@ -158,6 +159,7 @@ function closeAbout() {
 function showFindID() {
 	$("#where").click(function() {
 		$("#find-id").fadeIn("fast");
+		$("#find-id").draggable();
 	});
 }
 
@@ -175,15 +177,44 @@ function dontHave() {
 }
 
 function dimmer() {
+	$("#loading-dimmer").fadeIn("slow");
+	$("#loading").draggable();
+	setTimeout(function() {
+		$("#loading").animate({height : "200px"}, 500);
+		$("#text1").fadeIn("slow");
+	}, 6000);
+	setTimeout(function() {
+		$("#text1").fadeOut(1);
+		$("#text2").fadeIn("slow");
+	}, 14000);
+}
+
+function loading() {
 	$(".submit").click(function() {
-		$("#loading-dimmer").fadeIn("slow");		
-		setTimeout(function() {
-			$("#text1").fadeIn("slow");
-		}, 6000);
-		setTimeout(function() {
-			$("#text1").fadeOut(1);
-			$("#text2").fadeIn("slow");
-		}, 12000);
+		dimmer();
+	});
+}
+
+function getFriendId() {
+	$(".friends").click(function () {
+		var alt = $(this).children(":first").attr("alt");
+		$("#hidden-steamid").val(alt);
+		$("#hidden-form").submit();
+		dimmer();
+	});
+}
+
+function privacyNotice() {
+	setTimeout(function() {
+		$("#privacy-dimmer").fadeIn("fast");
+		$("#privacy-alert").draggable();
+	}, 200);
+	closePrivacyNotice();
+}
+
+function closePrivacyNotice() {
+	$("#close-privacy").click(function() {
+		$("#privacy-dimmer").fadeOut("fast");
 	});
 }
 
@@ -195,28 +226,17 @@ function showSearch() {
 	});
 }
 
-function privacyNotice() {
-	setTimeout(function() {
-		$("#privacy-dimmer").fadeIn("fast");
-	}, 200);
-	closePrivacyNotice();
-}
-
-function closePrivacyNotice() {
-	$("#close-privacy").click(function() {
-		$("#privacy-dimmer").fadeOut("fast");
-	});
-}
-
 function showLegend() {
 	$(".legend-toggle").click(function() {
-		$(".legend, #split").fadeToggle("slow");		
+		$(".legend, #split").fadeToggle("slow");	
+		$(".legend, #split").draggable();		
 	});
 }
 
 function asterisk() {
-	$(".asterisk").click(function() {
+	$(".asterisk").click(function() {		
 		$("#asterisk-explanation").fadeIn("fast");
+		$("#asterisk-explanation").draggable();
 	});
 	$("#asterisk-close").click(function() {
 		$("#asterisk-explanation").fadeOut("fast");
@@ -389,23 +409,6 @@ function showList_20() {
 
 function showList_all() {
 	displayElements("#readout_all", "#data_all");
-}
-
-function getFriendId() {
-	$(".friends").click(function () {
-		var alt = $(this).children(":first").attr("alt");
-		console.log(alt);
-		$("#hidden-steamid").val(alt);
-		$("#hidden-form").submit();
-		$("#loading-dimmer").fadeIn("slow");
-		setTimeout(function() {
-			$("#text1").fadeIn("slow");
-		}, 6000);
-		setTimeout(function() {
-			$("#text1").fadeOut(1);
-			$("#text2").fadeIn("slow");
-		}, 12000);
-	});
 }
 
 function tabSelect() {

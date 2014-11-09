@@ -219,6 +219,7 @@ ul.rig.columns-4 li {
 	background-color: #00d775;
 	text-shadow: 1px 1px 3px #000;
 	border: 1px solid #00d775;
+	border-radius: 0;
 }
 
 /* Div containing error messages */
@@ -235,13 +236,6 @@ ul.rig.columns-4 li {
 	font-size: 20px;
 	color: white;	
 	text-shadow: none;	
-}
-
-.message:hover {
-	background-color: #012E4E;
-	border: 1px solid #012E4E;
-	box-shadow: 4px 4px 4px #000;
-	border-radius: 0;
 }
 
 /* Message div text */
@@ -377,6 +371,10 @@ input[type=text] {
 	overflow: auto;
 }
 
+#about-content:active {
+	cursor: pointer;
+}
+
 .about-header {
 	font-family: 'Open Sans', sans-serif;
 	margin: 0;
@@ -448,6 +446,10 @@ input[type=text] {
 	font-family: 'Roboto', sans-serif;
 }
 
+#find-id:active {
+	cursor: pointer;
+}
+
 #find-header {
 	margin: 0;
 	font-family: 'Open Sans', sans-serif;
@@ -510,16 +512,19 @@ input[type=text] {
 	color: white;
 }
 
-#hidden-menu h3 {
-	position: relative;
+#hidden-menu p {
 	display: inline-block;
-	bottom: 15px;
+	position: relative;	
+	margin: 5px 0;
+	bottom: 8px;
 	left: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
 }
 
 /* Media queries to hide display name when viewport is too small */
 @media (min-width: 0) {
-	#hidden-menu h3 {
+	#hidden-menu p {
 		display: none;
 	}
 	#hidden-menu img {
@@ -528,13 +533,13 @@ input[type=text] {
 	}
 }
 
-@media (min-width: 560px) {
-	#hidden-menu h3 {
+@media (min-width: 690px) {
+	#hidden-menu p {
 		display: inline-block;
 	}
 	#hidden-menu img {
 		position: relative;
-		bottom: 6px;
+		bottom: 0;
 		left: 0;
 	}
 }
@@ -609,7 +614,6 @@ input[type=text] {
 	border: 1px solid white;
 	border-radius: 5px;
 	background-color: Transparent;
-    background-repeat: no-repeat;
     cursor: pointer;
     color: white;
 	text-shadow: 1px 1px 3px #000;
@@ -617,8 +621,10 @@ input[type=text] {
 
 #search-select:hover {
 	cursor: pointer;
-	background-color: #026AB3;
-	border: 1px solid #026AB3;
+	background-color: #014e84;
+	border: 1px solid #014e84;
+	box-shadow: 4px 4px 4px #000;
+	border-radius: 0;
 }
 
 #search-select i, #search-select p {
@@ -655,13 +661,18 @@ input[type=text] {
 	height: 32px;
 	width: 75px;
 	font-size: 20px;
-	border: 1px solid transparent;
-	box-shadow: none;
+	text-shadow: 1px 1px 3px #000;
+	border: 1px solid white;
+	border-radius: 5px;
+	background-color: Transparent;
 }
 
-#new-search .header-submit:hover {
-	border: none;
-	border: 1px solid white;
+#new-search .header-submit:hover  {
+	cursor: pointer;
+	background-color: #014e84;
+	border: 1px solid #014e84;
+	box-shadow: 4px 4px 4px #000;
+	border-radius: 0;
 }
 
 /* User Info Div of Results Page */
@@ -762,7 +773,7 @@ input[type=text] {
 .statistics {
 	position: absolute;
 	bottom: -53px;
-	left: -182px;
+	left: -175px;
 	text-align: left;
 	color: white;
 }
@@ -809,17 +820,17 @@ input[type=text] {
 	padding: 0 10px;
 	min-width: 75px;
 	height: 30px;
-	background-color: #2394E4;
+	background-color: #014e84;
 	border-radius: 5px 5px 0 0;
 }
 
 .tab-selected {
-	background-color: #014e84;
+	background-color: #2394E4;
 }
 
 .tab:hover {
 	cursor: pointer;
-	background-color: #014e84;	
+	background-color: #2394E4;	
 }
 
 .tab i {
@@ -909,7 +920,7 @@ input[type=text] {
 	background-color: #013F6B;
 	position: relative;
 	width: 90%;
-	height: 150px;
+	height: 185px;
 	padding: 10px;
 	margin: 15px auto;
 	box-shadow: 2px 2px 3px #000;
@@ -917,14 +928,6 @@ input[type=text] {
 	border: 1px solid #013F6B;
 	color: white;
 	text-shadow: 1px 1px 2px #000;
-}
-
-.entry:hover {
-	background-color: Transparent;
-    background-repeat: no-repeat;
-    outline: none;
-	border: 1px solid white;
-	box-shadow: none;
 }
 
 /* Game image */
@@ -935,6 +938,7 @@ input[type=text] {
 	border-radius: 15px;
 	height: 69px;
 	width: 184px;
+	box-shadow: 1px 1px 5px #000;
 }
 
 /* Container div for text data */
@@ -957,29 +961,39 @@ input[type=text] {
 
 .game-name:hover {
 	cursor: pointer;
-	color: #013F6B;
+	color: #1778BD;
 	text-shadow: none;
 }
 
 .game-hours {
+	position: relative;
+	left: 7px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 20px;
 }
 
 .stats-page-link {
-	position: absolute;
-	bottom: 5px;
-	left: 10px;
+	display: none;
 	color: white;
-	font-size: 18px;
+	font-size: 14px;
 	text-shadow: none;
 }
 
 /* Extra style for stats link on 'all' page for alignment */
 #data_all .stats-page-link {
-	position: absolute;
+	display: none;
+	position: absolute;	
 	left: -205px;
-	top: 130px;
+	top: 130px;	
+}
+
+.list_pie {
+	position: absolute;
+	z-index: 10;
+	left: -100px;
+	bottom: 7px;
+	width: 200px;
+	height: 150px;
 }
 
 .rank {
@@ -1398,15 +1412,20 @@ input[type=text] {
 
 #loading, #privacy-alert {
 	position: relative;
+	padding: 10px;
 	margin: 0 auto;
 	margin-top: 325px;
 	width: 400px;
-	height: 200px;
+	height: 150px;
 	color: white;
 	-moz-box-shadow: 0px 0px 19px #000000;
 	-webkit-box-shadow: 0px 0px 19px #000000;
 	box-shadow: 0px 0px 19px #000000;
 	border-radius: 5px;	
+}
+
+#loading:active, #privacy-alert:active {
+	cursor: pointer;
 }
 
 #privacy-alert {
@@ -1423,6 +1442,7 @@ input[type=text] {
 	margin: 0 auto;	
 }
 
+/* Text that fades in when the API is slow */
 .extra-loading-text {
 	position: relative;
 	bottom: -35px;

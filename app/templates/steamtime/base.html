@@ -13,6 +13,12 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
 
+    <!-- JS -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/static/steamtime/js/jquery-ui.min.js"></script>
+    <script src="/static/steamtime/js/Chart.min.js"></script>
+    <script src="/static/steamtime/js/steamtime.js"></script>
+
     <link rel="icon" type="image/png" href="/static/steamtime/images/favicon.ico">
 
     <title>SteamTime - {{ title }}</title>
@@ -21,11 +27,6 @@
 <body>
     {% block content %}{% endblock %}
 </body>
-
-<!-- JS -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/static/steamtime/js/Chart.min.js"></script>
-<script src="/static/steamtime/js/steamtime.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -50,7 +51,6 @@ $(document).ready(function(){
 
         var gen_stat_charts1 = {{ stats[1][0][0]|safe }};
         var gen_stat_charts2 = {{ stats[1][0][1]|safe }};
-
         showStats(gen_stat_charts1, gen_stat_charts2);
 
         var parameters = [

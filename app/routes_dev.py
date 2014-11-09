@@ -1631,6 +1631,9 @@ def steamtime_logic():
         # Storing sorted minutes_played as a list with an index, game name, hours played string,
         # and icon URL
         minutes_played_new = []
+        base_color = '#1a87d4'
+        accent_color = '#0c3f63'
+
         counter = 0
         total_hours = 0.0
         for entry in minutes_played:
@@ -1639,9 +1642,22 @@ def steamtime_logic():
             else:
                 if counter == int(number_of_results):
                     break
-            hours_played = entry[1] / 60.0
             total_hours += entry[1] / 60.0
-            minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2], entry[3], entry[4]])
+            counter += 1
+
+        counter = 0
+        for entry in minutes_played:
+            if number_of_results == 'all':
+                pass
+            else:
+                if counter == int(number_of_results):
+                    break
+            hours_played = entry[1] / 60.0
+            pie_chart_data = '[{value: %.1f, color:"%s", highlight: "#3FADFB", label: "Total Hours"}, ' \
+                             '{value: %.1f, color: "%s", highlight: "#3FADFB", label: "%s"}]' \
+                             % (total_hours, base_color, hours_played, accent_color, entry[0])
+            minutes_played_new.append([counter + 1, entry[0], '%.1f' % hours_played, entry[2], entry[3], entry[4],
+                                       pie_chart_data])
             counter += 1
 
         return [minutes_played_new, readout, counter, '%.1f' % total_hours]

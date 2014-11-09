@@ -7,8 +7,8 @@
 
     <div id="hidden-menu" class="blue-gradient-circular">
         <a href="{{ profile_url }}"><img src="{{ user_image_icon }}" class="animate glow"></a>
-        <h3 class="green shadow">{{ display_name }}'s</h3>
-        <h3 class="shadow">Most Played Steam Games</h3>
+        <p class="green no-shadow">{{ display_name }}'s</p>
+        <p class="shadow">Most Played Steam Games</p>
 
         <div id="back-to-top">
             <a href="/steamtime"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue no-shadow">Time</span></h2></a>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <!-- Chart style selectors -->
+                <!-- Chart selectors -->
                 <div id="options">
                     <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue animate options-selected"></i>
                     <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue animate"></i>
@@ -344,16 +344,21 @@
 
                     {% for entry in two_weeks[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
 
                         <div class="entry-data">
                             <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
 
-                        <a class="stats-page-link animate" href="{{ entry[6] }}">Stats Page</a>
-
+                        <canvas id="list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
+                        <script>
+                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var data = {{ entry[6]|safe }};
+                            var ctx = $("#list_pie{{ entry[0] }}").get(0).getContext("2d");
+                            var myPieChart = new Chart(ctx).Pie(data, options);
+                        </script>
                     </div>
                     {% endfor %}
 
@@ -386,17 +391,21 @@
 
                     {% for entry in all_10[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
 
                         <div class="entry-data">
                             <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
-                        {% if entry[4] %}
-                            <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
-                        {% endif %}
 
+                        <canvas id="all_10_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
+                        <script>
+                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var data = {{ entry[6]|safe }};
+                            var ctx = $("#all_10_list_pie{{ entry[0] }}").get(0).getContext("2d");
+                            var myPieChart = new Chart(ctx).Pie(data, options);
+                        </script>
                     </div>
                     {% endfor %}
 
@@ -428,17 +437,21 @@
 
                     {% for entry in all_20[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
 
                         <div class="entry-data">
                             <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
                         </div>
-                        {% if entry[4] %}
-                            <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
-                        {% endif %}
 
+                        <canvas id="all_20_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
+                        <script>
+                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var data = {{ entry[6]|safe }};
+                            var ctx = $("#all_20_list_pie{{ entry[0] }}").get(0).getContext("2d");
+                            var myPieChart = new Chart(ctx).Pie(data, options);
+                        </script>
                     </div>
                     {% endfor %}
 
@@ -473,14 +486,18 @@
                         <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
 
                         <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
+                            <a href="{{ entry[4] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
                             <span class="game-hours">{{ entry[2] }} hours played</span>
-                            {% if entry[4] %}
-                                <a class="stats-page-link animate" href="{{ entry[4] }}">Stats Page</a>
-                            {% endif %}
                         </div>
 
+                        <canvas id="all_all_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
+                        <script>
+                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var data = {{ entry[6]|safe }};
+                            var ctx = $("#all_all_list_pie{{ entry[0] }}").get(0).getContext("2d");
+                            var myPieChart = new Chart(ctx).Pie(data, options);
+                        </script>
                     </div>
                     {% endfor %}
 
