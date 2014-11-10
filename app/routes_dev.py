@@ -3,6 +3,7 @@ from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewA
     StillNeed, LicenseNeeded, DeaVerify, DeaForms, BackorderReport, SlideshowDelay, GifParty, RedditImageScraper, \
     SteamTime
 from urllib import quote
+import os
 import datetime
 import random
 import re
@@ -1596,6 +1597,15 @@ def playtime():
 def steamtime_logic():
     form = SteamTime()
 
+    def get_steam_api_key():
+        path = os.path.dirname(os.path.realpath(__file__))
+        filepath = os.path.abspath(os.path.join(path, os.pardir))
+        file_object = filepath + '\steamtime_config.txt'
+
+        with open(file_object, 'r') as file:
+            data = file.read()
+            return data[10:]
+
     def parse_data(data, playtime_type, number_of_results, recent, steamid):
         if recent == 1:
             readout = 'In the Last Two Weeks'
@@ -1656,6 +1666,7 @@ def steamtime_logic():
 
         return [minutes_played_new, readout, counter, '%.1f' % total_hours]
 
+    # Return list of Steam profile stat pages for each game
     def get_two_weeks_stats_page(games_list, steamid):
         urls = []
         for game in games_list:
@@ -1667,6 +1678,7 @@ def steamtime_logic():
 
         return urls
 
+    # Return list of games with 0 hours
     def hall_of_shame(data):
         shame = []
         for game in data['response']['games']:
@@ -1802,7 +1814,7 @@ def steamtime_logic():
     API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
     API_PLAYER = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/'
     API_FRIENDS = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/'
-    API_KEY = '8B87987F953FE3D1C107998D76339CCF'
+    API_KEY = get_steam_api_key()
 
     playtime_all = 'playtime_forever'
     playtime_2weeks = 'playtime_2weeks'
@@ -1850,7 +1862,6 @@ def steamtime_logic():
 
                 # Parsing API calls into organized lists
                 two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1, steam_id)
-                print 'API response after parse_data: ', two_weeks
 
                 all_10 = parse_data(data_all, playtime_all, 10, 0, steam_id)
                 all_20 = parse_data(data_all, playtime_all, 20, 0, steam_id)

@@ -1,8 +1,8 @@
 {% extends "/steamtime/base.html" %}
 {% block content %}
     <div id="header" class="hidden">
-        <a href="/steamtime"><h1><span class="white">Steam</span><span class="blue">Time</span></h1></a>
-        <p class="white">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p>
+        <a href="/steamtime"><h1><span class="white animate">Steam</span><span class="blue animate">Time</span></h1></a>
+        <a href="/steamtime"><p class="white animate">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p></a>
     </div>
 
     <div id="hidden-menu" class="blue-gradient-circular">
@@ -339,21 +339,21 @@
                 <!-- List of Results -->
                 {% if two_weeks != "privacy" %}
                 <div id="data_2weeks" class="data">
-                    <div class="range-selection animate">
+                    <div class="range-selection">
                         <p>
-                            <span class="select_data_2weeks">
+                            <span class="select_data_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
-                            <span class="select_data_10">
+                            <span class="select_data_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_data_20">
+                            <span class="select_data_20 animate">
                                 20
                             </span>
                             |
-                            <span class="select_data_all">
+                            <span class="select_data_all animate">
                                 All
                             </span>
                         </p>
@@ -395,20 +395,20 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_data_2weeks">
+                            <span class="select_data_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_data_10">
+                            <span class="select_data_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_data_20">
+                            <span class="select_data_20 animate">
                                 20
                             </span>
                             |
-                            <span class="select_data_all">
+                            <span class="select_data_all animate">
                                 All
                             </span>
                         </p>
@@ -449,16 +449,16 @@
                     <div class="range-selection">
                         <p>
                             {% if not two_weeks == "privacy" %}
-                            <span class="select_data_2weeks">
+                            <span class="select_data_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_data_10">
+                            <span class="select_data_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_data_20">
+                            <span class="select_data_20 animate">
                                 20
                             </span>
                             |
@@ -503,16 +503,16 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_data_2weeks">
+                            <span class="select_data_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_data_10">
+                            <span class="select_data_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_data_20">
+                            <span class="select_data_20 animate">
                                 20
                             </span>
                             |
@@ -558,15 +558,15 @@
                 <div id="donut_2weeks" class="hidden">
                     <div class="range-selection">
                         <p>
-                            <span class="select_donut_2weeks">
+                            <span class="select_donut_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
-                            <span class="select_donut_10">
+                            <span class="select_donut_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_donut_20">
+                            <span class="select_donut_20 animate">
                                 20
                             </span>
                         </p>
@@ -600,16 +600,16 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_donut_2weeks">
+                            <span class="select_donut_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_donut_10">
+                            <span class="select_donut_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_donut_20">
+                            <span class="select_donut_20 animate">
                                 20
                             </span>
                         </p>
@@ -642,16 +642,16 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_donut_2weeks">
+                            <span class="select_donut_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_donut_10">
+                            <span class="select_donut_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_donut_20">
+                            <span class="select_donut_20 animate">
                                 20
                             </span>
                         </p>
@@ -698,15 +698,15 @@
                 <div id="bar_2weeks" class="hidden">
                     <div class="range-selection">
                         <p>
-                            <span class="select_bar_2weeks">
+                            <span class="select_bar_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
-                            <span class="select_bar_10">
+                            <span class="select_bar_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_bar_20">
+                            <span class="select_bar_20 animate">
                                 20
                             </span>
                         </p>
@@ -727,16 +727,16 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_bar_2weeks">
+                            <span class="select_bar_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_bar_10">
+                            <span class="select_bar_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_bar_20">
+                            <span class="select_bar_20 animate">
                                 20
                             </span>
                         </p>
@@ -756,16 +756,16 @@
                     <div class="range-selection">
                         <p>
                             {% if two_weeks != "privacy" %}
-                            <span class="select_bar_2weeks">
+                            <span class="select_bar_2weeks animate">
                                 Past Two Weeks
                             </span>
                             |
                             {% endif %}
-                            <span class="select_bar_10">
+                            <span class="select_bar_10 animate">
                                 10
                             </span>
                             |
-                            <span class="select_bar_20">
+                            <span class="select_bar_20 animate">
                                 20
                             </span>
                         </p>
@@ -784,10 +784,10 @@
                 <br>
 
                 <!-- Footer -->
-                <div id="footer">
+                <div id="footer" class="footer-inner">
                     <p>
                         Powered by Steam<br>
-                        <a href="http://steampowered.com"><img id="steam-icon" src="/static/steamtime/images/steam-icon.png"></a>
+                        <a href="http://steampowered.com"><img id="steam-icon" src="/static/steamtime/images/steam-icon.png" class="glow animate"></a>
                     </p>
                 </div>
             </div>

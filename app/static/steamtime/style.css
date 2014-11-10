@@ -58,6 +58,10 @@ hr {
 	transition: all 0.2s ease-in-out;
 }
 
+.blur {
+	-webkit-filter: blur(3px);
+}
+
 .glow:hover  {
 	cursor: pointer;
 	-moz-box-shadow: 0px 0px 20px 1px #fff;
@@ -577,8 +581,11 @@ input[type=text] {
 	position: relative;
 	top: -20px;
 	height: 100px;
-	width: 100%;
-	min-width: 650px;
+	width: 450px;
+}
+
+#header:hover > a > p { 
+	border-bottom: 2px solid white;
 }
 
 #header h1 {
@@ -587,10 +594,6 @@ input[type=text] {
 	margin: 5px 10px;
 	font-family: 'Open Sans', sans-serif;
 	text-shadow: 1px 1px 1px #000;
-}
-
-.blur {
-	-webkit-filter: blur(3px);
 }
 
 #header p {
@@ -605,7 +608,7 @@ input[type=text] {
 #search-select {
 	position: relative;
 	z-index: 25;	
-	margin: 0 auto;
+	margin: 10px auto;
 	padding: 5px;
 	top: 0;
 	height: 35px;
@@ -981,7 +984,7 @@ input[type=text] {
 	position: absolute;
 	top: 15px;
 	left: 15px;
-	border-radius: 15px;
+	border-radius: 5px;
 	height: 69px;
 	width: 184px;
 	box-shadow: 1px 1px 5px #000;
@@ -1081,10 +1084,14 @@ input[type=text] {
 	position: relative;
 	bottom: 0;
 	margin: 0 auto;
-	width: 150px;
+	min-width: 800px;
 	min-height: 50px;
 	text-align: center;
 	color: white;
+}
+
+#footer.footer-inner {
+	min-width: 100%;
 }
 
 #footer p {
@@ -1095,6 +1102,7 @@ input[type=text] {
 	margin: 5px auto;
 	height: 80px;
 	width: 80px;
+	border-radius: 50%;
 }
 
 /* ********************** */
@@ -1147,7 +1155,7 @@ input[type=text] {
 	right: 5px;
 	height: 69px;
 	width: 184px;
-	border-radius: 15px;
+	border-radius: 5px;
 }
 
 .grid-name {
