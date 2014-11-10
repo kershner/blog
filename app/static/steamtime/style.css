@@ -804,6 +804,44 @@ input[type=text] {
 	text-shadow: 1px 1px 3px #000;
 }
 
+.tooltip {
+	position: absolute;
+	padding: 5px;
+	min-width: 80px;
+	height: 15px;
+	border-radius: 5px;
+	border: 1px solid white;
+	background: Transparent;
+}
+
+.tooltip p {
+	position: relative;
+	text-align: center;
+	bottom: 20px;
+}
+
+.tooltip i {
+	position: absolute;
+	bottom: -27px;
+	right: 10px;	
+	font-size: 28px;
+}
+
+#list-tip {
+	bottom: 50px;
+	left: -11px;
+}
+
+#donut-tip {
+	bottom: 53px;
+	left: 23px;
+}
+
+#bar-tip {
+	bottom: 50px;
+	left: 77px;
+}
+
 /* Div containing tab selectors */
 #tab-selectors {
 	position: absolute;
@@ -825,7 +863,15 @@ input[type=text] {
 }
 
 .tab-selected {
+	z-index: 11;
 	background-color: #2394E4;
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
+	height: 31px;
 }
 
 .tab:hover {
@@ -920,7 +966,7 @@ input[type=text] {
 	background-color: #013F6B;
 	position: relative;
 	width: 90%;
-	height: 185px;
+	height: 220px;
 	padding: 10px;
 	margin: 15px auto;
 	box-shadow: 2px 2px 3px #000;
@@ -959,39 +1005,63 @@ input[type=text] {
 	font-size: 32px;	
 }
 
-.game-name:hover {
-	cursor: pointer;
-	color: #1778BD;
-	text-shadow: none;
-}
-
-.game-hours {
+.game-hours-played {
 	position: relative;
-	left: 7px;
+	margin: 0;
+	left: 20px;
+	width: 300px;	
+}
+
+.game-hours-played span.game-hours-text {
+	display: block;
+	position: relative;	
+	bottom: 15px;
+	left: 6px;
+	margin: 0;
 	font-family: 'Roboto', sans-serif;
-	font-size: 20px;
+	font-size: 18px;
 }
 
-.stats-page-link {
-	display: none;
+.game-hours-played span.game-hours-number {
+	display: inline-block;
+	font-size: 72px;
+	margin: 0;
+}
+
+.extra-links {
+	position: absolute;
+	left: 12px;
+	bottom: 130px;
+	height: 20px;
+	padding: 5px;
+}
+
+.extra-links a {
+	display: inline-block;	
+	margin: 0;
+	bottom: 10px;
+	font-size: 16px;
 	color: white;
-	font-size: 14px;
-	text-shadow: none;
 }
 
-/* Extra style for stats link on 'all' page for alignment */
-#data_all .stats-page-link {
-	display: none;
-	position: absolute;	
-	left: -205px;
-	top: 130px;	
+.extra-links a:hover {
+	color: #3FADFB;
+}
+
+.extra-links span {
+	display: inline-block;
+	margin: 0 5px;
+	bottom: 6px;
+	color: white;
+	font-size: 18px;
+	
 }
 
 .list_pie {
 	position: absolute;
 	z-index: 10;
-	left: -100px;
-	bottom: 7px;
+	left: -96px;
+	bottom: 10px;
 	width: 200px;
 	height: 150px;
 }
@@ -1151,9 +1221,11 @@ input[type=text] {
 }
 
 .legend-toggle:hover, #split .legend-toggle:hover {
-	border: 1px solid Transparent;
 	cursor: pointer;
-	background-color: #013F6B;
+	background-color: #014e84;
+	border: 1px solid #014e84;
+	box-shadow: 4px 4px 4px #000;
+	border-radius: 0;
 }
 
 .legend {

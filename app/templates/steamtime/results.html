@@ -138,6 +138,23 @@
 
                 <!-- Chart selectors -->
                 <div id="options">
+                    <!-- Icon Tooltips -->
+                    <div id="list-tip" class="tooltip hidden">
+                        <p class="shadow">List</p>
+                    <i class="fa fa-caret-down"></i>
+                    </div>
+
+                    <div id="donut-tip" class="tooltip hidden">
+                        <p class="shadow">Donut Chart</p>
+                    <i class="fa fa-caret-down"></i>
+                    </div>
+
+                    <div id="bar-tip" class="tooltip hidden">
+                        <p class="shadow">Bar Chart</p>
+                    <i class="fa fa-caret-down"></i>
+                    </div>
+
+                    <!-- Selector Icons -->
                     <i id="list-selector" class="fa fa-list-ul fa-2x dark-blue animate options-selected"></i>
                     <i id="donut-selector" class="fa fa-circle-o-notch fa-2x dark-blue animate"></i>
                     <i id="bar-selector" class="fa fa-bar-chart fa-2x dark-blue animate"></i>
@@ -344,11 +361,19 @@
 
                     {% for entry in two_weeks[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <img src="{{ entry[3] }}">
+
+                        <div class="extra-links">
+                                <a href="{{ entry[5] }}" class="shadow animate">Store Page</a><span class="shadow"> | </span><a href="{{ entry[4] }}" class="shadow  animate">Profile Stats</a>
+                        </div>
 
                         <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                            <span class="game-name">{{ entry[1] }}</span><br>
+
+                            <div class="game-hours-played">
+                                <span class="game-hours-number">{{ entry[2] }}</span>
+                                <span class="game-hours-text">hours played</span>
+                            </div>
                         </div>
 
                         <canvas id="list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
@@ -391,11 +416,19 @@
 
                     {% for entry in all_10[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <img src="{{ entry[3] }}">
+
+                        <div class="extra-links">
+                                <a href="{{ entry[5] }}" class="shadow animate">Store Page</a><span class="shadow"> | </span><a href="{{ entry[4] }}" class="shadow  animate">Profile Stats</a>
+                        </div>
 
                         <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                            <span class="game-name">{{ entry[1] }}</span><br>
+
+                            <div class="game-hours-played">
+                                <span class="game-hours-number">{{ entry[2] }}</span>
+                                <span class="game-hours-text">hours played</span>
+                            </div>
                         </div>
 
                         <canvas id="all_10_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
@@ -437,11 +470,19 @@
 
                     {% for entry in all_20[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[4] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <img src="{{ entry[3] }}">
+
+                        <div class="extra-links">
+                                <a href="{{ entry[5] }}" class="shadow animate">Store Page</a><span class="shadow"> | </span><a href="{{ entry[4] }}" class="shadow  animate">Profile Stats</a>
+                        </div>
 
                         <div class="entry-data">
-                            <a href="{{ entry[5] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                            <span class="game-name">{{ entry[1] }}</span><br>
+
+                            <div class="game-hours-played">
+                                <span class="game-hours-number">{{ entry[2] }}</span>
+                                <span class="game-hours-text">hours played</span>
+                            </div>
                         </div>
 
                         <canvas id="all_20_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
@@ -483,11 +524,19 @@
 
                     {% for entry in all_all[0] %}
                     <div class="entry animate">
-                        <a href="{{ entry[5] }}"><img src="{{ entry[3] }}" class="animate glow"></a>
+                        <img src="{{ entry[3] }}">
+
+                        <div class="extra-links">
+                                <a href="{{ entry[5] }}" class="shadow animate">Store Page</a><span class="shadow"> | </span><a href="{{ entry[4] }}" class="shadow  animate">Profile Stats</a>
+                        </div>
 
                         <div class="entry-data">
-                            <a href="{{ entry[4] }}"><span class="game-name animate">{{ entry[1] }}</span></a><br>
-                            <span class="game-hours">{{ entry[2] }} hours played</span>
+                            <span class="game-name">{{ entry[1] }}</span><br>
+
+                            <div class="game-hours-played">
+                                <span class="game-hours-number">{{ entry[2] }}</span>
+                                <span class="game-hours-text">hours played</span>
+                            </div>
                         </div>
 
                         <canvas id="all_all_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
@@ -504,7 +553,7 @@
                     <br>
                 </div>
 
-                <!-- Chart divs, hidden until selected -->
+                <!-- Chart divs -->
                 {% if two_weeks != "privacy" %}
                 <div id="donut_2weeks" class="hidden">
                     <div class="range-selection">

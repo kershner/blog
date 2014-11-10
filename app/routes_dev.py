@@ -1611,14 +1611,8 @@ def steamtime_logic():
                     image_url = 'http://media.steampowered.com/steamcommunity/public/images/apps/%s/%s.jpg' % \
                                 (appid, game_hash)
                     store_page = 'http://store.steampowered.com/app/%s/' % appid
-                    try:
-                        test_var = game['has_community_visible_stats']
-                        stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
-                        minutes_played.append([game['name'], game['%s' % playtime_type], image_url, stats_url,
-                                               store_page])
-                    # Append empty string when games don't have a stats page
-                    except KeyError:
-                        minutes_played.append([game['name'], game['%s' % playtime_type], image_url, '', store_page])
+                    stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
+                    minutes_played.append([game['name'], game['%s' % playtime_type], image_url, stats_url, store_page])
                 except KeyError:
                     continue
         # Return 'privacy' if user has set privacy settings blocking two-weeks API
@@ -1853,8 +1847,10 @@ def steamtime_logic():
                                            message=message,
                                            title='Visualize Time Spent In Your Steam Library')
 
+
                 # Parsing API calls into organized lists
                 two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1, steam_id)
+                print 'API response after parse_data: ', two_weeks
 
                 all_10 = parse_data(data_all, playtime_all, 10, 0, steam_id)
                 all_20 = parse_data(data_all, playtime_all, 20, 0, steam_id)

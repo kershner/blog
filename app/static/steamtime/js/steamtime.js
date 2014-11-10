@@ -21,6 +21,7 @@ function steamtimeResults(data_array, privacy) {
 	showFriends();
 	tabSelect();
 	optionsSelect();
+	tooltips();
 	if (privacy === undefined) {
 		initialSelections(data_array);		
 	}
@@ -28,6 +29,33 @@ function steamtimeResults(data_array, privacy) {
 		initialSelectionsPrivacy(data_array);
 	}
 	rangeSelection(data_array);
+}
+
+function tooltips() {
+	$("#list-selector").hover(function(){
+		timer = setTimeout(function() {
+			$("#list-tip").fadeIn("fast");
+		}, 800);		
+	}, function () {
+		clearTimeout(timer);
+		$("#list-tip").fadeOut("fast");		
+	});
+	$("#donut-selector").hover(function(){
+		timer = setTimeout(function() {
+			$("#donut-tip").fadeIn("fast");
+		}, 800);		
+	}, function () {
+		clearTimeout(timer);
+		$("#donut-tip").fadeOut("fast");		
+	});
+	$("#bar-selector").hover(function(){
+		timer = setTimeout(function() {
+			$("#bar-tip").fadeIn("fast");
+		}, 800);		
+	}, function () {
+		clearTimeout(timer);
+		$("#bar-tip").fadeOut("fast");		
+	});
 }
 
 function resultsFadeIn(privacy) {
