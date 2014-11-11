@@ -32,6 +32,7 @@ a:hover {
 }
 
 hr {
+	position: relative;
 	margin: 0;
 	height: 1px;
 	box-shadow: 1px 1px 3px #000;
@@ -1141,14 +1142,6 @@ input[type=text] {
 	border: 1px solid #013F6B;	
 }
 
-.shame:hover {
-	background-color: Transparent;
-    background-repeat: no-repeat;
-    outline: none;
-	border: 1px solid white;
-	box-shadow: none;
-}
-
 .shame img {
 	position: relative;
 	margin: 0 auto;
@@ -1167,7 +1160,7 @@ input[type=text] {
 
 .grid-name:hover {
 	cursor: pointer;
-	color: #013F6B;
+	color: #1778BD;
 	text-shadow: none;
 }
 
@@ -1297,16 +1290,15 @@ input[type=text] {
 	text-shadow: 1px 1px .5px #000;
 }
 
-#stats-title-general {
-	text-align: left;
+/* General stats container */
+#general-stats-container {
+	position: relative;
+	margin: 15px auto;
+	width: 100%;
+	min-height: 350px;
 }
 
-#stats-title-games {
-	margin-top: 30px;
-	text-align: right;
-}
-
-/* Container for 'general' section */
+/* General stats div */
 #general-stats {
 	display: inline-block;
 	position: relative;
@@ -1418,12 +1410,59 @@ input[type=text] {
 	left: 40px;
 }
 
+/* Hours Breakdown container */
+#breakdown-container {
+	position: relative;
+	width: 100%;
+	margin: 15px auto;
+	min-height: 475px;
+}
+
+#breakdown-title {
+	position: relative;
+	right: 0;
+}
+
+#hours-breakdown-legend {
+	position: absolute;
+	z-index: 8;
+	top: 80px;
+	right: 25px;
+	padding: 10px;	
+	box-shadow: 1px 1px 3px #000;
+	width: 140px;
+	color: white;
+	font-size: 12px;
+}
+
+#hours-breakdown-legend h3 {
+	margin: 0;
+}
+
+#hours-breakdown-legend p {
+	margin: 0;
+}
+
+#breakdown-legend-labels {
+	float: left;
+	width: 120px;	
+}
+
+#breakdown-legend-values {
+	float: right;
+}
+
+#breakdown_chart {
+	position: absolute;
+	top: 80px;
+	left: 25px;
+}
+
 /* 'Games' section container */
 #game-stats-container {
 	position: relative;
 	width: 100%;
 	margin: 15px auto;
-	text-align: center;	
 }
 
 .game-stats-row {
@@ -1431,6 +1470,7 @@ input[type=text] {
 	margin: 15px auto;
 	min-height: 300px;
 	width: 590px;
+	text-align: center;
 }
 
 .game-stats-div {

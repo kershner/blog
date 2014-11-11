@@ -1597,6 +1597,7 @@ def playtime():
 def steamtime_logic():
     form = SteamTime()
 
+    # Grab API key from hidden file
     def get_steam_api_key():
         path = os.path.dirname(os.path.realpath(__file__))
         filepath = os.path.abspath(os.path.join(path, os.pardir))
@@ -1606,6 +1607,7 @@ def steamtime_logic():
             data = file.read()
             return data[10:]
 
+    # Function to organize games into a list with desired bits of data
     def parse_data(data, playtime_type, number_of_results, recent, steamid):
         if recent == 1:
             readout = 'In the Last Two Weeks'
@@ -1632,12 +1634,8 @@ def steamtime_logic():
         # Using a reverse sort by the 2nd index (minutes played) of each entry for descending order
         minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
 
-        # Storing sorted minutes_played as a list with an index, game name, hours played string,
-        # and icon URL
+        # Storing sorted minutes_played as a list with an index, game name, hours played string, and icon URL
         minutes_played_new = []
-        base_color = '#1a87d4'
-        accent_color = '#0c3f63'
-
         counter = 0
         total_hours = 0.0
         for entry in minutes_played:
@@ -1649,6 +1647,9 @@ def steamtime_logic():
             total_hours += entry[1] / 60.0
             counter += 1
 
+        # Additional loop to add pie chart data
+        base_color = '#1a87d4'
+        accent_color = '#0c3f63'
         counter = 0
         for entry in minutes_played:
             if number_of_results == 'all':
@@ -1676,7 +1677,17 @@ def steamtime_logic():
             stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
             urls.append(stats_url)
 
-        return urls
+        if two_weeks == 'privacy':
+            return ''
+        else:
+            return urls
+
+    # Appending stat page URLs to the two_weeks list (not provided by API)
+    def append_2weeks_stat_pages(two_weeks_stats_pages):
+        index = 0
+        for entry in two_weeks[0]:
+            entry.append(two_weeks_stats_pages[index])
+            index += 1
 
     # Return list of games with 0 hours
     def hall_of_shame(data):
@@ -1731,25 +1742,29 @@ def steamtime_logic():
 
     # Grab input SteamID's friends list, pull out name, profile URL, and avatar
     def get_friends(steamid):
-        friends = []
-        raw_data = urllib2.urlopen('%s?key=%s&steamid=%s&format=json' % (API_FRIENDS, API_KEY, steam_id))
-        data = json.loads(raw_data.read())
-        for entry in data['friendslist']['friends']:
-            friends.append(entry['steamid'])
+        try:
+            friends = []
+            raw_data = urllib2.urlopen('%s?key=%s&steamid=%s&format=json' % (API_FRIENDS, API_KEY, steam_id))
+            data = json.loads(raw_data.read())
+            for entry in data['friendslist']['friends']:
+                friends.append(entry['steamid'])
 
-        friends_string = ','.join(friends)
+            friends_string = ','.join(friends)
 
-        friends_new = []
-        raw_data = urllib2.urlopen('%s?key=%s&steamids=%s' % (API_PLAYER, API_KEY, friends_string))
-        data = json.loads(raw_data.read())
-        for entry in data['response']['players']:
-            steamid = entry['steamid']
-            name = entry['personaname']
-            avatar = entry['avatarmedium']
-            friends_new.append([steamid, name, avatar])
+            friends_new = []
+            raw_data = urllib2.urlopen('%s?key=%s&steamids=%s' % (API_PLAYER, API_KEY, friends_string))
+            data = json.loads(raw_data.read())
+            for entry in data['response']['players']:
+                steamid = entry['steamid']
+                name = entry['personaname']
+                avatar = entry['avatarmedium']
+                friends_new.append([steamid, name, avatar])
 
-        return [friends_new, len(friends_new)]
+            return [friends_new, len(friends_new)]
+        except urllib2.HTTPError:
+            return 'private'
 
+    # Function to pull out stats for Statistics page
     def statistics(all, two_weeks, shame):
         avg_list = []
         least_played = []
@@ -1793,6 +1808,8 @@ def steamtime_logic():
                     total_hours_all, colors[3], 'Total Hours')
 
         pie_data = [[dataset1, dataset2], colors]
+        unplayed_percent = (float(total_games_unplayed) / float(total_games_all)) * 100
+        breakdown = hours_breakdown(all)
 
         stats = {
             'avg_game_time': '%.1f' % avg_game_time,
@@ -1803,10 +1820,62 @@ def steamtime_logic():
             'most_played': most_played,
             'least_played': least_played,
             'most_played_current': most_played_current,
-            'least_played_current': least_played_current
+            'least_played_current': least_played_current,
+            'unplayed_percent': '%.0f' % unplayed_percent,
+            'breakdown': breakdown
         }
 
         return [stats, pie_data]
+
+    # Additional function to parse out games with > 10 hours, etc
+    def hours_breakdown(all):
+        less_than_5 = 0
+        five_and_ten = 0
+        ten_and_twenty = 0
+        twenty_and_fifty = 0
+        fifty_and_hundred = 0
+        more_than_hundred = 0
+        for entry in all[0]:
+            if 0.0 < float(entry[2]) <= 5.0:
+                less_than_5 += 1
+            elif 5.0 < float(entry[2]) <= 10.0:
+                five_and_ten += 1
+            elif 10.0 < float(entry[2]) <= 20.0:
+                ten_and_twenty += 1
+            elif 20.0 < float(entry[2]) <= 50.0:
+                twenty_and_fifty += 1
+            elif 50.0 < float(entry[2]) <= 100.0:
+                fifty_and_hundred += 1
+            elif 100.0 < float(entry[2]):
+                more_than_hundred += 1
+
+        labels = ['Less Than 5', 'Between 5 and 10', 'Between 10 and 20', 'Between 20 and 50', 'Between 50 and 100',
+                  'Greater than 100']
+        data = [less_than_5, five_and_ten, ten_and_twenty, twenty_and_fifty, fifty_and_hundred, more_than_hundred]
+        chart_data = '{labels: %s, datasets: [{ fillColor: "%s", strokeColor: "#FFFFFF", ' \
+                     'highlightFill: "#3FADFB", highlightStroke: "rgba(220,220,220,1)", data: %s}]}' % \
+                     (labels, random_color(), data)
+
+        breakdown = {
+            'less_than_5': less_than_5,
+            'five_and_ten': five_and_ten,
+            'ten_and_twenty': ten_and_twenty,
+            'twenty_and_fifty': twenty_and_fifty,
+            'fifty_and_hundred': fifty_and_hundred,
+            'more_than_hundred': more_than_hundred,
+            'chart_data': chart_data
+        }
+
+        return breakdown
+
+    # Grabbing user images
+    def get_user_images(steamid):
+        url_string = '%s?key=%s&steamids=%s&format=json&include_appinfo=1' % (API_PLAYER, API_KEY, steam_id)
+        api_call = urllib2.urlopen(url_string)
+        data = json.loads(api_call.read())
+        user_image = data['response']['players'][0]['avatarfull']
+        user_image_icon = data['response']['players'][0]['avatar']
+        return [user_image, user_image_icon]
 
     # Different API urls - Steam uses different URLs for different services within the API
     API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
@@ -1820,6 +1889,7 @@ def steamtime_logic():
     playtime_2weeks = 'playtime_2weeks'
 
     if request.method == 'POST':
+        # If SteamID is invalid, the form will display an error
         if not form.validate():
             return render_template('/steamtime/home.html',
                                    form=form,
@@ -1831,16 +1901,15 @@ def steamtime_logic():
                 # Testing if user has input a 64-bit numerical SteamID or vanity url
                 if len(user_input) == 17 and not user_input[0].isalpha():
                     steam_id = user_input
-                    display_name = json.loads(urllib2.urlopen('%s?key=%s&steamids=%s' %
-                                                              (API_PLAYER, API_KEY,
-                                                               steam_id)).read())['response']['players'][0]['personaname']
+                    url_string = '%s?key=%s&steamids=%s' % (API_PLAYER, API_KEY, steam_id)
+                    json_data = json.loads(urllib2.urlopen(url_string).read())
+                    display_name = json_data['response']['players'][0]['personaname']
                 else:
-                    steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
-                                                          (API_URL_STEAMID, API_KEY,
-                                                           user_input)).read())['response']['steamid']
+                    url_string = '%s?key=%s&vanityurl=%s' % (API_URL_STEAMID, API_KEY, user_input)
+                    steam_id = json.loads(urllib2.urlopen(url_string).read())['response']['steamid']
                     display_name = user_input
 
-                # Don't forget to include_appinfo=1 for extra data about entries
+                # Performing the two main API calls
                 api_call_all = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
                                                (API_URL, API_KEY, steam_id))
                 api_call_2weeks = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' %
@@ -1859,10 +1928,8 @@ def steamtime_logic():
                                            message=message,
                                            title='Visualize Time Spent In Your Steam Library')
 
-
                 # Parsing API calls into organized lists
                 two_weeks = parse_data(data_2weeks, playtime_2weeks, 'all', 1, steam_id)
-
                 all_10 = parse_data(data_all, playtime_all, 10, 0, steam_id)
                 all_20 = parse_data(data_all, playtime_all, 20, 0, steam_id)
                 all_all = parse_data(data_all, playtime_all, 'all', 0, steam_id)
@@ -1870,23 +1937,17 @@ def steamtime_logic():
                 # Calling chart formatting function on organized API data
                 if two_weeks == 'privacy':
                     donut_data_2weeks = ''
+                    line_data_2weeks = ''
+                    bar_data_2weeks = ''
                 else:
                     donut_data_2weeks = format_data(two_weeks[0], 'donut')
+                    line_data_2weeks = format_data(two_weeks[0], 'line')
+                    bar_data_2weeks = format_data(two_weeks[0], 'bar')
 
                 donut_data_10 = format_data(all_10[0], 'donut')
                 donut_data_20 = format_data(all_20[0], 'donut')
-
-                if two_weeks == 'privacy':
-                    line_data_2weeks = ''
-                else:
-                    line_data_2weeks = format_data(two_weeks[0], 'line')
                 line_data_10 = format_data(all_10[0], 'line')
                 line_data_20 = format_data(all_20[0], 'line')
-
-                if two_weeks == 'privacy':
-                    bar_data_2weeks = ''
-                else:
-                    bar_data_2weeks = format_data(two_weeks[0], 'bar')
                 bar_data_10 = format_data(all_10[0], 'bar')
                 bar_data_20 = format_data(all_20[0], 'bar')
 
@@ -1895,30 +1956,17 @@ def steamtime_logic():
                 shame_total = hall_of_shame(data_all)[1]
 
                 # Grabbing friends list
-                try:
-                    friends = get_friends(steam_id)
-                except urllib2.HTTPError:
-                    friends = 'private'
+                friends = get_friends(steam_id)
 
-                # Performing final API call to retrieve user's avatar
-                api_call = urllib2.urlopen('%s?key=%s&steamids=%s&format=json&include_appinfo=1' %
-                                           (API_PLAYER, API_KEY, steam_id))
-
-                data = json.loads(api_call.read())
-                user_image = data['response']['players'][0]['avatarfull']
-                user_image_icon = data['response']['players'][0]['avatar']
+                # Getting user images
+                user_images = get_user_images(steam_id)
+                user_image = user_images[0]
+                user_image_icon = user_images[1]
 
                 profile_url = 'http://steamcommunity.com/profiles/%s' % steam_id
 
-                # Appending stat page URLs to the two_weeks list (not provided by API)
-                if two_weeks == 'privacy':
-                    two_weeks_stats_pages = ''
-                else:
-                    two_weeks_stats_pages = get_two_weeks_stats_page(two_weeks[0], steam_id)
-                    index = 0
-                    for entry in two_weeks[0]:
-                        entry.append(two_weeks_stats_pages[index])
-                        index += 1
+                two_weeks_stats_pages = get_two_weeks_stats_page(two_weeks[0], steam_id)
+                append_2weeks_stat_pages(two_weeks_stats_pages)
 
                 stats = statistics(all_all, two_weeks, shame_list)
 

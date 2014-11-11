@@ -51,7 +51,8 @@ $(document).ready(function(){
 
         var gen_stat_charts1 = {{ stats[1][0][0]|safe }};
         var gen_stat_charts2 = {{ stats[1][0][1]|safe }};
-        showStats(gen_stat_charts1, gen_stat_charts2);
+        var breakdown_chart = {{ stats[0]["breakdown"]["chart_data"]|safe }};
+        showStats(gen_stat_charts1, gen_stat_charts2, breakdown_chart);
 
         var parameters = [
             donutData_2weeks, donutData_10, donutData_20,

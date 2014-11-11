@@ -337,14 +337,17 @@ function displayElements(fade1, fade2) {
 }
 
 
-function showStats(data1, data2) {
+function showStats(data1, data2, breakdownData) {
 	$("#stats-tab").click(function() {
 		displayElements("#readout-stats", "#stats");
 		options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+		options2 = {scaleFontColor: "#FFFFFF", scaleGridLineColor : "#FFFFFF"};
 		var ctx1 = $("#gen_stat_charts1").get(0).getContext("2d");
 		var ctx2 = $("#gen_stat_charts2").get(0).getContext("2d");
+		var ctx3 = $("#breakdown_chart").get(0).getContext("2d");
 		var myPieChart1 = new Chart(ctx1).Pie(data1, options);
 		var myPieChart2 = new Chart(ctx2).Pie(data2, options);
+		var myPieChart3 = new Chart(ctx3).Bar(breakdownData, options2);
 	});
 }
 
@@ -404,21 +407,22 @@ function showLine_20(data) {
 
 function showBar_2weeks(data) {
 	displayElements("#readout_2weeks", "#bar_2weeks");
-	options = {scaleFontColor: "#FFFFFF"};
+	options = {scaleFontColor: "#FFFFFF", scaleGridLineColor : "#FFFFFF"};
 	var ctx = $("#bar-chart_2weeks").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }
 
 function showBar_10(data) {
+	console.log('Bar Data', data);
 	displayElements("#readout_10", "#bar_10");
-	options = {scaleFontColor: "#FFFFFF"};
+	options = {scaleFontColor: "#FFFFFF", scaleGridLineColor : "#FFFFFF"};
 	var ctx = $("#bar-chart_10").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }
 
 function showBar_20(data) {
 	displayElements("#readout_20", "#bar_20");
-	options = {scaleFontColor: "#FFFFFF"};
+	options = {scaleFontColor: "#FFFFFF", scaleGridLineColor : "#FFFFFF"};
 	var ctx = $("#bar-chart_20").get(0).getContext("2d");
 	var myDoughnutChart = new Chart(ctx).Bar(data, options);
 }

@@ -167,77 +167,116 @@
 
                 <!-- Statistics div -->
                 <div id="stats" class="hidden">
-                    <h1 id="stats-title-general" class="stats-title">General</h1>
-                    <hr>
+                    <div id="general-stats-container">
+                        <h1 id="stats-title-general" class="stats-title">General</h1>
+                        <hr>
 
-                    <div id="general-stats" class="blue-gradient-circular">
-                        <div id="general-stats-left">
-                            <p>
-                                Total Games:<br><br>
-                                Total Hours:<br>
-                                <span class="small-text extra">All Time</span><br>
-                                {% if not two_weeks == "privacy" %}
+                        <br>
+
+                        <!-- General -->
+                        <div id="general-stats" class="blue-gradient-circular left">
+                            <div id="general-stats-left">
+                                <p>
+                                    Total Games:<br><br>
+                                    Unplayed Games:<br><br>
                                     Total Hours:<br>
-                                    <span class="small-text">Two Weeks</span><br>
-                                {% endif %}
-                                Unplayed Games:<br><br>
-                                Avg. Time Per Game<span id="avg-asterisk">*</span> :<br>
-                            </p>
+                                    <span class="small-text extra">All Time</span><br>
+                                    {% if not two_weeks == "privacy" %}
+                                        Total Hours:<br>
+                                        <span class="small-text">Two Weeks</span><br>
+                                    {% endif %}
+                                    Avg. Time Per Game<span id="avg-asterisk">*</span> :<br>
+                                </p>
+                            </div>
+
+                            <div id="general-stats-right">
+                                <p>
+                                    {{ stats[0]['total_games_all'] }}<br><br>
+                                    {{ stats[0]['total_games_unplayed'] }} ({{ stats[0]['unplayed_percent'] }}%)<br><br>
+                                    {{ stats[0]['total_hours_all'] }}<br><br>
+                                    {% if two_weeks != "privacy" %}
+                                        {{ stats[0]['total_hours_2weeks'] }}<br><br>
+                                    {% endif %}
+                                    {{ stats[0]['avg_game_time'] }} hours
+                                </p>
+                            </div>
                         </div>
 
-                        <div id="general-stats-right">
-                            <p>
-                                {{ stats[0]['total_games_all'] }}<br><br>
-                                {{ stats[0]['total_hours_all'] }}<br><br>
-                                {% if two_weeks != "privacy" %}
-                                    {{ stats[0]['total_hours_2weeks'] }}<br><br>
-                                {% endif %}
-                                {{ stats[0]['total_games_unplayed'] }}<br><br>
-                                {{ stats[0]['avg_game_time'] }} hours
-                            </p>
+                        <div id="general-pie-charts">
+                            <div id="played-legend">
+                                <div id="played-legend-labels" class="right">
+                                    <span class="played-label">Played Games</span>
+                                    <span class="played-label">Unplayed Games</span>
+                                </div>
+
+                                <div id="played-legend-colors" class="left">
+                                    <div style="background-color: {{ stats[1][1][0] }}" class="played-label-color"></div>
+                                    <div style="background-color: {{ stats[1][1][1] }}" class="played-label-color"></div>
+                                </div>
+                            </div>
+
+                            <div class="canvas-container">
+                                <canvas id="gen_stat_charts1" width="400" height="145">Your browser does not support HTML5 Canvas.</canvas>
+                            </div>
+
+                            <div id="hours-legend">
+                                <div id="hours-legend-labels" class="right">
+                                    <span class="played-label">{{ stats[0]['most_played'][0] }}</span>
+                                    <span class="played-label">Total Hours</span>
+                                </div>
+
+                                <div id="hours-legend-colors" class="left">
+                                    <div style="background-color: {{ stats[1][1][2] }}" class="played-label-color"></div>
+                                    <div style="background-color: {{ stats[1][1][3] }}" class="played-label-color"></div>
+                                </div>
+                            </div>
+
+                            <div class="canvas-container">
+                                <canvas id="gen_stat_charts2" width="400" height="145">Your browser does not support HTML5 Canvas.</canvas>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="general-pie-charts">
-                        <div id="played-legend">
-                            <div id="played-legend-labels" class="right">
-                                <span class="played-label">Played Games</span>
-                                <span class="played-label">Unplayed Games</span>
+                    <!-- Hours Breakdown -->
+                    <div id="breakdown-container">
+                        <h1 id="breakdown-title" class="stats-title">Hours Breakdown</h1>
+                        <hr>
+
+                        <div id="hours-breakdown-legend" class="blue-gradient-circular shadow">
+                            <h3>Games With Hours</h3>
+                            <div id="breakdown-legend-labels">
+                                <p>
+                                    Less than 5:<br>
+                                    Between 5 and 10:<br>
+                                    Between 10 and 20:<br>
+                                    Between 20 and 50:<br>
+                                    Between 50 and 100:<br>
+                                    Over 100:
+                                </p>
                             </div>
 
-                            <div id="played-legend-colors" class="left">
-                                <div style="background-color: {{ stats[1][1][0] }}" class="played-label-color"></div>
-                                <div style="background-color: {{ stats[1][1][1] }}" class="played-label-color"></div>
+                            <div id="breakdown-legend-values">
+                                <p>
+                                    {{ stats[0]["breakdown"]["less_than_5"] }}<br>
+                                    {{ stats[0]["breakdown"]["five_and_ten"] }}<br>
+                                    {{ stats[0]["breakdown"]["ten_and_twenty"] }}<br>
+                                    {{ stats[0]["breakdown"]["twenty_and_fifty"] }}<br>
+                                    {{ stats[0]["breakdown"]["fifty_and_hundred"] }}<br>
+                                    {{ stats[0]["breakdown"]["more_than_hundred"] }}
+                                </p>
                             </div>
                         </div>
 
                         <div class="canvas-container">
-                            <canvas id="gen_stat_charts1" width="400" height="145">Your browser does not support HTML5 Canvas.</canvas>
-                        </div>
-
-                        <div id="hours-legend">
-                            <div id="hours-legend-labels" class="right">
-                                <span class="played-label">{{ stats[0]['most_played'][0] }}</span>
-                                <span class="played-label">Total Hours</span>
-                            </div>
-
-                            <div id="hours-legend-colors" class="left">
-                                <div style="background-color: {{ stats[1][1][2] }}" class="played-label-color"></div>
-                                <div style="background-color: {{ stats[1][1][3] }}" class="played-label-color"></div>
-                            </div>
-                        </div>
-
-                        <div class="canvas-container">
-                            <canvas id="gen_stat_charts2" width="400" height="145">Your browser does not support HTML5 Canvas.</canvas>
+                            <canvas id="breakdown_chart" width="400" height="400">Your browser does not support HTML5 Canvas.</canvas>
                         </div>
                     </div>
 
-                    <br>
-
-                    <h1 id="stats-title-games" class="stats-title">Games</h1>
-                    <hr>
-
+                    <!-- Games -->
                     <div id="game-stats-container">
+                        <h1 id="stats-title-games" class="stats-title">Games</h1>
+                        <hr>
+
                         <div class="game-stats-row">
                             <div id="most" class="game-stats-div left blue-gradient-circular">
                                 <h1 class="game-stats-div-title">Most Played Game</h1>
