@@ -102,6 +102,11 @@ ul.rig.columns-4 li {
 	width: 22.5%; 
 }
 
+/* class for 2 columns */
+ul.rig.columns-2 li {
+	width: 47.5%; /* this value + 2.5 should = 50% */
+}
+
 /* ***************************** */
 /*   Gradients / Text Formatting */
 /* ***************************** */
@@ -121,6 +126,15 @@ ul.rig.columns-4 li {
 	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #2394E4), color-stop(1, #1778BD));
 	background-image: -webkit-radial-gradient(center, circle farthest-corner, #2394E4 0%, #1778BD 100%);
 	background-image: radial-gradient(circle farthest-corner at center, #2394E4 0%, #1778BD 100%);
+}
+
+.green-gradient {
+	background-image: -ms-radial-gradient(center, circle farthest-corner, #17E889 0%, #12BA6E 100%);
+	background-image: -moz-radial-gradient(center, circle farthest-corner, #17E889 0%, #12BA6E 100%);
+	background-image: -o-radial-gradient(center, circle farthest-corner, #17E889 0%, #12BA6E 100%);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #17E889), color-stop(1, #12BA6E));
+	background-image: -webkit-radial-gradient(center, circle farthest-corner, #17E889 0%, #12BA6E 100%);
+	background-image: radial-gradient(circle farthest-corner at center, #17E889 0%, #12BA6E 100%);
 }
 
 .white {
@@ -292,14 +306,14 @@ ul.rig.columns-4 li {
 form a, form span {
 	display: inline-block;
 	position: relative;
-	bottom: 10px;
+	bottom: 13px;
 	color: white;
-	font-size: 22px;
+	font-size: 18px;
 }
 
 #pipe {
-	margin: 0 15px;
-	bottom: 10px;
+	margin: 0 8px;
+	bottom: 11px;
 	font-size: 25px;
 }
 
@@ -1430,13 +1444,14 @@ input[type=text] {
 	right: 25px;
 	padding: 10px;	
 	box-shadow: 1px 1px 3px #000;
-	width: 140px;
+	width: 160px;
 	color: white;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 #hours-breakdown-legend h3 {
 	margin: 0;
+	font-size: 14px;
 }
 
 #hours-breakdown-legend p {
@@ -1511,6 +1526,72 @@ input[type=text] {
 
 .game-stats-div p {
 	margin: 0;
+}
+
+/* Distinctions div */
+#distinctions-container {
+	position: relative;
+	width: 100%;
+	margin: 15px auto;
+	min-height: 475px;
+}
+
+#distinctions-container ul {
+	position: relative;
+	margin: 10px auto;
+	margin-left: 12px;
+}
+
+#distinctions-container ul li {
+	margin: 5px;
+}
+
+.distinction {
+	position: relative;
+	display: inline-block;
+	margin: 10px 5px;
+	padding: 5px;
+	padding-bottom: 15px;
+	min-height: 100px;
+	width: 275px;
+	box-shadow: 2px 2px 5px #000;
+	border-radius: 5px;
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px .5px #000;
+}
+
+.distinction-title {
+	display: block;
+	position: relative;
+	top: -10px;
+	width: 250px;
+	margin: 5px auto;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 28px;
+	color: #FFC419;	
+}
+
+.distinction-description {
+	display: block;
+	position: relative;
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	color: white;
+}
+
+.distinction img {
+	position: relative;
+	margin: 2px;
+	width: 111px;
+	height: 42px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.distinction-text {
+	font-size: 38px;
 }
 
 /* ***************************** */

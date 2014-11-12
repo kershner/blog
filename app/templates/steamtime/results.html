@@ -7,8 +7,7 @@
 
     <div id="hidden-menu" class="blue-gradient-circular">
         <a href="{{ profile_url }}"><img src="{{ user_image_icon }}" class="animate glow"></a>
-        <p class="green no-shadow">{{ display_name }}'s</p>
-        <p class="shadow">Most Played Steam Games</p>
+        <p class="green no-shadow">{{ display_name }}</p>
 
         <div id="back-to-top">
             <a href="/steamtime"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue no-shadow">Time</span></h2></a>
@@ -246,11 +245,11 @@
                             <h3>Games With Hours</h3>
                             <div id="breakdown-legend-labels">
                                 <p>
-                                    Less than 5:<br>
-                                    Between 5 and 10:<br>
-                                    Between 10 and 20:<br>
-                                    Between 20 and 50:<br>
-                                    Between 50 and 100:<br>
+                                    0.1 - 5:<br>
+                                    5 - 10:<br>
+                                    10 - 20:<br>
+                                    20 - 50:<br>
+                                    50 - 100:<br>
                                     Over 100:
                                 </p>
                             </div>
@@ -271,6 +270,94 @@
                             <canvas id="breakdown_chart" width="400" height="400">Your browser does not support HTML5 Canvas.</canvas>
                         </div>
                     </div>
+
+                    {% if distinctions %}
+                    <!-- Distinctions -->
+                    <div id="distinctions-container">
+                        <h1 class="stats-title">Distinctions</h1>
+                        <hr>
+
+                        <ul class="rig columns-2">
+                        {% if distinctions['hyper_nerd_alert'] %}
+                        <li class="distinction green-gradient">
+                            <span class="distinction-title">
+                                Hyper Nerd Alert
+                                <span class="distinction-description">Games with Over 500 hours</span>
+                            </span>
+                            {% for entry in distinctions['hyper_nerd_alert'] %}
+                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+
+                        {% if distinctions['super_nerd_alert'] %}
+                        <li class="distinction green-gradient">
+                            <span class="distinction-title">
+                                Super Nerd Alert
+                                <span class="distinction-description">Games with Over 100 hours</span>
+                            </span>
+                            {% for entry in distinctions['super_nerd_alert'] %}
+                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+
+                        {% if distinctions['nerd_alert'] %}
+                        <li class="distinction green-gradient">
+                            <span class="distinction-title">
+                                Nerd Alert
+                                <span class="distinction-description">Games with Over 50 hours</span>
+                            </span>
+                            {% for entry in distinctions['nerd_alert'] %}
+                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+
+                        {% if distinctions['completionist'] %}
+                        <li class="distinction green-gradient">
+                            <span class="distinction-title">
+                                Completionist
+                                <span class="distinction-description">20% or Less Unplayed Games</span>
+                            </span>
+                            <span class="distinction-text">{{ distinctions['completionist'] }}%</span>
+                        </li>
+                        {% endif %}
+
+                        {% if distinctions['dedication'] %}
+                        <li class="distinction green-gradient">
+                            <span class="distinction-title">
+                                Dedication
+                                <span class="distinction-description">Avg Game Time > 10 Hours</span>
+                            </span>
+                            <span class="distinction-text">{{ distinctions['dedication'] }} hours</span>
+                        </li>
+                        {% endif %}
+
+                        {% if not two_weeks == 'privacy' %}
+                            {% if distinctions['diverse'] %}
+                            <li class="distinction green-gradient">
+                                <span class="distinction-title">
+                                    Diverse Gamer
+                                    <span class="distinction-description">4+ Games in Last Two Weeks</span>
+                                </span>
+                                <span class="distinction-text">{{ distinctions['diverse'] }} games</span>
+                            </li>
+                            {% endif %}
+
+                            {% if distinctions['focused'] %}
+                            <li class="distinction green-gradient">
+                                <span class="distinction-title">
+                                    Focused Gamer
+                                    <span class="distinction-description">1 Game in the Last Two Weeks</span>
+                                </span>
+                                <span class="distinction-text">{{ distinctions['focused'] }} games</span>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
 
                     <!-- Games -->
                     <div id="game-stats-container">
@@ -418,7 +505,7 @@
                         <canvas id="list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
                         <script>
-                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var options = {animation: false};
                             var data = {{ entry[6]|safe }};
                             var ctx = $("#list_pie{{ entry[0] }}").get(0).getContext("2d");
                             var myPieChart = new Chart(ctx).Pie(data, options);
@@ -473,7 +560,7 @@
                         <canvas id="all_10_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
                         <script>
-                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var options = {animation: false};
                             var data = {{ entry[6]|safe }};
                             var ctx = $("#all_10_list_pie{{ entry[0] }}").get(0).getContext("2d");
                             var myPieChart = new Chart(ctx).Pie(data, options);
@@ -527,7 +614,7 @@
                         <canvas id="all_20_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
                         <script>
-                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var options = {animation: false};
                             var data = {{ entry[6]|safe }};
                             var ctx = $("#all_20_list_pie{{ entry[0] }}").get(0).getContext("2d");
                             var myPieChart = new Chart(ctx).Pie(data, options);
@@ -581,7 +668,7 @@
                         <canvas id="all_all_list_pie{{ entry[0] }}" class="list_pie" width="400" height="105">Your browser does not support HTML5 Canvas.</canvas>
                         <span class="rank">{{ entry[0] }}</span>
                         <script>
-                            var options = {animationSteps: 70, animationEasing: "easeOutExpo"};
+                            var options = {animation: false};
                             var data = {{ entry[6]|safe }};
                             var ctx = $("#all_all_list_pie{{ entry[0] }}").get(0).getContext("2d");
                             var myPieChart = new Chart(ctx).Pie(data, options);

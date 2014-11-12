@@ -1669,25 +1669,28 @@ def steamtime_logic():
 
     # Return list of Steam profile stat pages for each game
     def get_two_weeks_stats_page(games_list, steamid):
-        urls = []
-        for game in games_list:
-            img_url = game[3]
-            end_point = img_url.rfind('/')
-            appid = img_url[64:end_point]
-            stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
-            urls.append(stats_url)
-
         if two_weeks == 'privacy':
             return ''
         else:
+            urls = []
+            for game in games_list:
+                img_url = game[3]
+                end_point = img_url.rfind('/')
+                appid = img_url[64:end_point]
+                stats_url = 'http://steamcommunity.com/profiles/%s/stats/%s' % (steamid, appid)
+                urls.append(stats_url)
+
             return urls
 
     # Appending stat page URLs to the two_weeks list (not provided by API)
     def append_2weeks_stat_pages(two_weeks_stats_pages):
-        index = 0
-        for entry in two_weeks[0]:
-            entry.append(two_weeks_stats_pages[index])
-            index += 1
+        if two_weeks == 'privacy':
+            return
+        else:
+            index = 0
+            for entry in two_weeks[0]:
+                entry.append(two_weeks_stats_pages[index])
+                index += 1
 
     # Return list of games with 0 hours
     def hall_of_shame(data):
@@ -1827,6 +1830,54 @@ def steamtime_logic():
 
         return [stats, pie_data]
 
+    # Function to return 'distinctions' - sort of like badges
+    def get_distinctions(all, two_weeks, stats):
+        nerd_alert = []
+        super_nerd_alert = []
+        hyper_nerd_alert = []
+        # Parsing 'all' data and filling in 'nerd alert' lists
+        for entry in all[0]:
+            if float(entry[2]) >= 500.0:
+                hyper_nerd_alert.append([entry[3], entry[5]])
+            elif 500.0 > float(entry[2]) >= 100.0:
+                super_nerd_alert.append([entry[3], entry[5]])
+            elif 100.0 > float(entry[2]) >= 50.0:
+                nerd_alert.append([entry[3], entry[5]])
+        if float(stats[0]['unplayed_percent']) <= 20.0:
+            completionist = '%s' % stats[0]['unplayed_percent']
+        else:
+            completionist = ''
+        if float(stats[0]['avg_game_time']) >= 10.0:
+            dedication = '%s' % stats[0]['avg_game_time']
+        else:
+            dedication = ''
+
+        if two_weeks != 'privacy':
+            if two_weeks[2] >= 4:
+                diverse = '%s' % two_weeks[2]
+                focused = ''
+            elif two_weeks[2] == 1:
+                diverse = ''
+                focused = '%s' % two_weeks[2]
+            else:
+                diverse = ''
+                focused = ''
+        else:
+            diverse = ''
+            focused = ''
+
+        distinctions = {
+            'nerd_alert': nerd_alert,
+            'super_nerd_alert': super_nerd_alert,
+            'hyper_nerd_alert': hyper_nerd_alert,
+            'completionist': completionist,
+            'dedication': dedication,
+            'diverse': diverse,
+            'focused': focused
+        }
+
+        return distinctions
+
     # Additional function to parse out games with > 10 hours, etc
     def hours_breakdown(all):
         less_than_5 = 0
@@ -1849,8 +1900,8 @@ def steamtime_logic():
             elif 100.0 < float(entry[2]):
                 more_than_hundred += 1
 
-        labels = ['Less Than 5', 'Between 5 and 10', 'Between 10 and 20', 'Between 20 and 50', 'Between 50 and 100',
-                  'Greater than 100']
+        labels = ['0.1 - 5 hours', '5 - 10 hours', '10 - 20 hours', '20 - 50 hours', '50 - 100 hours',
+                  '100+ hours']
         data = [less_than_5, five_and_ten, ten_and_twenty, twenty_and_fifty, fifty_and_hundred, more_than_hundred]
         chart_data = '{labels: %s, datasets: [{ fillColor: "%s", strokeColor: "#FFFFFF", ' \
                      'highlightFill: "#3FADFB", highlightStroke: "rgba(220,220,220,1)", data: %s}]}' % \
@@ -1970,6 +2021,8 @@ def steamtime_logic():
 
                 stats = statistics(all_all, two_weeks, shame_list)
 
+                distinctions = get_distinctions(all_all, two_weeks, stats)
+
             except (KeyError, IndexError):
                 return render_template('/steamtime/home.html',
                                        form=form,
@@ -2005,4 +2058,5 @@ def steamtime_logic():
                                profile_url=profile_url,
                                two_weeks_stats_pages=two_weeks_stats_pages,
                                stats=stats,
+                               distinctions=distinctions,
                                title='Results')
