@@ -1,0 +1,65 @@
+{% extends "/blog/base.html" %}
+{% block content %}
+
+<div class="grey">
+
+    <div class="container pt">
+
+		<div class="row mt">
+
+			<div class="centered"><h1>SteamTime</h1>
+
+                <a href="http://www.steamtime.us">http://www.steamtime.us</a><br><br>
+                <h5>Github Links</h5>
+                <a href="https://github.com/kershner/steamtime/blob/master/routes.py">Python</a>&emsp;
+                <a href="https://github.com/kershner/steamtime/tree/master/templates">HTML</a>&emsp;
+                <a href="https://github.com/kershner/steamtime/blob/master/static/style.css">CSS</a>&emsp;
+                <a href="https://github.com/kershner/steamtime/blob/master/static/js/steamtime.js">Javascript</a><br><br><br>
+
+                <h4>Technologies Used:</h4>
+
+                <p>Python, HTML, CSS, Javascript, jQuery, Flask</p>
+
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+
+				<hr>
+
+				<p>
+                    SteamTime spawned from some <a href="/sep14#api-hijinks">API doodling</a> I was doing back in September.
+                    I wanted a way to easily visualize data returned by the API, so I set about exploring the interfaces
+                    and quickly building a simple CLI program to list a user's most played Steam games.  From there
+                    the project grew and grew and I found myself plugging in all kinds of stuff like JavaScript libraries
+                    and CSS transitions.  The end result is my most cohesive and full-featured app yet, and I'm quite
+                    proud of the finished product and everything I learned in the process.<br><br>
+                    Check it out!
+                </p>
+
+                <div class="big-link"><a href="http://www.steamtime.us"><h1>http://www.steamtime.us</h1></a></div>
+
+            </div>
+
+		</div>
+
+        <div id="project-screenshots">
+
+            <ul class="rig columns-3">
+
+                <li class="project-images">
+                    <a href="/static/images/steamtime2.jpg"><img src="/static/images/steamtime2.jpg" class="img-responsive rounded-images"></a>
+                </li>
+
+                <li class="project-images">
+                    <a href="/static/images/steamtime3.jpg"><img src="/static/images/steamtime3.jpg" class="img-responsive rounded-images"></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

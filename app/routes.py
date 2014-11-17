@@ -55,6 +55,11 @@ def sep14():
     return render_template("/blog/blog_archive/sep14.html",
                            title="September 2014")
 
+@app.route('/oct14')
+def oct14():
+    return render_template("/blog/blog_archive/oct14.html",
+                           title="October 2014")
+
 
 @app.route('/about')
 def about():
@@ -103,6 +108,10 @@ def ycs_campaign():
     return render_template("/blog/projects/project06.html",
                            title="YCS Re-election Website")
 
+@app.route('/steamtime-project')
+def steamtime_project():
+    return render_template("/blog/projects/project07.html",
+                           title="SteamTime")
 
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
