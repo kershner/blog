@@ -11,7 +11,7 @@ html,body {
 html {
 	background: url(../images/campaign/whitehouse.jpg);
 	background-repeat: no-repeat;
-	background-position: -200px -200px;
+	background-position: -200px -150px;
 	background-color: #3e68b0;
 	background-attachment: fixed;
 }

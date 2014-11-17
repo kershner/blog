@@ -1471,9 +1471,9 @@ def scrape():
 
 
 ##############################################################################
-## Campaign Demo Site
+## Campaign Site
 ##############################################################################
-@app.route('/campaign_demo')
+@app.route('/campaign')
 def campaign_demo():
 
     return render_template('/campaign/home.html')
