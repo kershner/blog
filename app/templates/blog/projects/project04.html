@@ -1,32 +1,34 @@
 {% extends "/blog/base.html" %}
 {% block content %}
-
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+            <div class="project-page-info">
+                <span class="project-page-title">GIF Party!</span>
 
-			<div class="centered"><h1>GIF Party!</h1>
+                <a href="/gif_party">
+                <div class="button animate">
+                    <p>Live Site</p>
+                </div>
+                </a>
 
-                <a href="/gif_party">Live Site</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L435">Python</a>&emsp;
-                <a href="https://github.com/kershner/blog/tree/master/app/templates/gif_party">HTML</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party_welcome.css">CSS (Welcome Page)</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party.css">CSS (Application)</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/js/gif-party.js">Javascript</a><br><br><br>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L435">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/gif_party">HTML</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party_welcome.css">CSS (Welcome Page)</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party.css">CSS (Application)</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/js/gif-party.js">Javascript</a>
+                </div>
 
-                <h4>Technologies Used:</h4>
-
-                <p>Python, HTML, CSS, JavaScript, jQuery, AJAX, Flask</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, JavaScript, jQuery, AJAX, Flask</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
-				<hr>
-
+                <hr>
 				<p>
                     GIF Party was a pet project to help me get comfortable with JavaScript.  I have all these GIF links optimized and readily available
                     from my previous GIF Display project
@@ -39,29 +41,13 @@
                     <strong>Bandwidth warning</strong>: the maximum number of GIFs the app can display at one time is 20, which averages
                     out to about 50 MB of data.
 				</p>
-
 			</div>
-
 		</div>
 
-        <div id="project-screenshots">
-
-            <ul class="rig columns-3">
-
-                <li class="project-images">
-                    <a href="/static/images/gif_party1.png"><img src="/static/images/gif_party1thumb.png" class="img-responsive rounded-images"></a>
-                </li>
-
-                <li class="project-images">
-                    <a href="/static/images/gif_party2.png"><img src="/static/images/gif_party2thumb.png" class="img-responsive rounded-images"></a>
-                </li>
-
-            </ul>
-
+        <div class="project-screenshots">
+            <a href="/static/images/gif_party1.png"><img src="/static/images/gif_party1thumb.png" class="img-responsive rounded-images"></a>
+            <a href="/static/images/gif_party2.png"><img src="/static/images/gif_party2thumb.png" class="img-responsive rounded-images"></a>
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

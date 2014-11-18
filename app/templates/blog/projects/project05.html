@@ -1,33 +1,33 @@
 {% extends "/blog/base.html" %}
 {% block content %}
-
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+            <div class="project-page-info">
+                <span class="project-page-title">Reddit Image Scraper</span>
 
-			<div class="centered"><h1>Reddit Image Scraper</h1>
+                <a href="/scrape_reddit">
+                <div class="button animate">
+                    <p>Live Site</p>
+                </div>
+                </a>
 
-                <br>
-                <a href="/scrape_reddit" class="link-right">Live Site</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1288">Python</a>&emsp;
-                <a href="https://github.com/kershner/blog/tree/master/app/templates/reddit_scraper">HTML</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/scraper_welcome.css">CSS</a>&emsp;
-                <br><br><br>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1288">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/reddit_scraper">HTML</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/scraper_welcome.css">CSS</a>
+                </div>
 
-                <h4>Technologies Used:</h4>
-
-                <p>Python, HTML, CSS, jQuery, Flask</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, jQuery, Flask</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
-				<hr>
-
-                <p>
+                <hr>
+               <p>
                     A friend of mine was in the habit of grabbing images from reddit to use as his desktop wallpaper.
                     As I thought about him manually finding the links and downloading the images the idea for this app
                     came to me.
@@ -37,31 +37,13 @@
                     Check out the live site!
                     <br>
                 </p>
-
-                <div class="big-link"><a href="/scrape"><h1>Reddit Image Scraper</h1></a></div>
-
             </div>
+        </div>
 
-            <div id="project-screenshots">
-
-                <ul class="rig columns-3">
-
-                    <li class="project-images">
-                        <a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="img-responsive rounded-images"></a>
-                    </li>
-
-                    <li class="project-images">
-                        <a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="img-responsive rounded-images"></a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-		</div>
-
+        <div class="project-screenshots">
+            <a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="rounded-images"></a>
+            <a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="rounded-images"></a>
+        </div>
     </div>
-
 </div>
-
 {% endblock %}

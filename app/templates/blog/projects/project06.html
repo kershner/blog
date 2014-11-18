@@ -2,30 +2,33 @@
 {% block content %}
 
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+            <div class="project-page-info">
+                <span class="project-page-title">YCS Re-Election Website</span>
 
-			<div class="centered"><h1>YCS Re-Election Website</h1>
+                <a href="/campaign">
+                <div class="button animate">
+                    <p>Live Site</p>
+                </div>
+                </a>
 
-                <a href="/campaign">http://www.ycsfirstchoice.com</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1458">Python</a>&emsp;
-                <a href="https://github.com/kershner/blog/tree/master/app/templates/campaign">HTML</a>&emsp;
-                <a href="https://github.com/kershner/blog/tree/master/app/static/campaign">CSS</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/campaign/js/campaign.js">Javascript</a><br><br><br>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1458">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/campaign">HTML</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/static/campaign">CSS</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/campaign/js/campaign.js">Javascript</a>
+                </div>
 
-                <h4>Technologies Used:</h4>
-
-                <p>Python, HTML, CSS, Javascript, jQuery, Ajax, Flask</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, Javascript, jQuery, Ajax, Flask</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
-				<hr>
-
+                <hr>
 				<p>
                     While this website certainly isn't the most complex piece of work on the internet, it's highly functional, looks good, and
                     does everything my clients needed it to do.  It was a great opportunity for me to get some experience working for someone.  I
@@ -39,31 +42,14 @@
                     The final version's code does not differ in any substantial way.
                     <br>
                 </p>
-
-                <div class="big-link"><a href="campaign"><h1>http://www.ycsfirstchoice.com</h1></a></div>
-
             </div>
-
 		</div>
 
-        <div id="project-screenshots">
-
-            <ul class="rig columns-3">
-
-                <li class="project-images">
-                    <a href="/static/images/ycs-campaign-screenshot1.JPG"><img src="/static/images/ycs-campaign-screenshot1.JPG" class="img-responsive rounded-images"></a>
-                </li>
-
-                <li class="project-images">
-                    <a href="/static/images/ycs-campaign-screenshot2.JPG"><img src="/static/images/ycs-campaign-screenshot2.JPG" class="img-responsive rounded-images"></a>
-                </li>
-
-            </ul>
-
+        <div class="project-screenshots">
+            <a href="/static/images/ycs-campaign-screenshot1.JPG"><img src="/static/images/ycs-campaign-screenshot1.JPG" class="rounded-images"></a>
+            <a href="/static/images/ycs-campaign-screenshot2.JPG"><img src="/static/images/ycs-campaign-screenshot2.JPG" class="rounded-images"></a>
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

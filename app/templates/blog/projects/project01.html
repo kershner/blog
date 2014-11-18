@@ -1,62 +1,48 @@
 {% extends "/blog/base.html" %}
 {% block content %}
-
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+			<div class="project-page-info">
+                <span class="project-page-title">Python Text Adventure</span>
 
-			<div class="centered"><h1>Python Text Adventure</h1>
+                <a href="/static/distribute/Descent Into Evil.7z">
+                <div class="button animate">
+                    <p>Download</p>
+                </div>
+                </a>
 
-                <a href="/static/distribute/Descent Into Evil.7z">Download</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/Python-Text-Adventure">Python</a><br><br><br>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/Python-Text-Adventure">Python</a>
+                </div>
 
-                <h4>Technologies Used:</h4>
-
-                <p>Pure Python!</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Pure Python!</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
 				<hr>
-
 				<p>
                     <b>My first real programming project.</b>  It's a text-based RPG that came about as I struggled to think
                     of a good first project.  Diving into programming is overwhelming, and it can be hard to focus and drill down on one
-                    thing when there is so much else that needs to be learned.
-                    <br><br>Codecademy has you start something similar with their
+                    thing when there is so much else that needs to be learned.<br><br>
+                    Codecademy has you start something similar with their
                     JavaScript track, so that gave me a little starting point and I just kinda ran with it.  I added features as I
                     thought of them until I considered the game mostly complete.  It's at a stage now where I can easily add more
                     content like additional weapons, armor, combat moves, monsters, etc.<br><br>It was really great fun and gave me invaluable
                     experience in a number of ways, but mostly it taught me that transferring an idea from my brain to a workable piece
                     of software was a process that I would find both satisfying and fun.
                 </p>
-
 			</div>
-
 		</div>
 
-        <div id="project-screenshots">
-
-            <ul class="rig columns-2">
-
-                <li class="project-images">
-                    <a href="/static/images/pta1big.png"><img src="/static/images/pta1.png" class="img-responsive"></a>
-                </li>
-
-                <li class="project-images">
-                    <a href="/static/images/pta2big.png"><img src="/static/images/pta2.png" class="img-responsive"></a>
-                </li>
-
-            </ul>
-
+        <div class="project-screenshots">
+            <a href="/static/images/pta1big.png"><img src="/static/images/pta1.png" class="img-responsive"></a>
+            <a href="/static/images/pta2big.png"><img src="/static/images/pta2.png" class="img-responsive"></a>
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

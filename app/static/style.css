@@ -23,13 +23,17 @@ p {
 }
 
 hr {
-    border: 0;
+    margin: 0;
+	border: 0;
     height: 1px;
-    background: #333;
-    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc); 
-    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
-    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
-    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
+    background-color: #1abc9c;
+}
+
+.animate {
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 .grey h2, .white h2 {
@@ -39,125 +43,10 @@ hr {
 /* *********************************
    Projects Image Grid
    ********************************* */
-#projects-div {
-	position: relative;
-	min-width: 700px;
-}
-
-.big-link {
-	position: relative;
-	text-align: center;
-	width: 80%;
-	margin: 0 auto;
-}
-
-.big-link a h1{
-	color: #1abc9c;
-}
-
-.big-link a h1:hover {
-	color: #7b7b7b;
-}
-   
-   
-ul.rig {
-	list-style: none;
-	font-size: 0px;
-	margin-left: -2.5%; /* should match li left margin */
-	margin-right: 2.5%;
-}
-
-ul.rig li {
-	text-align: center;
-	height: 350px;
-	width: 300px;
-	display: inline-block;
-	padding: 10px;
-	margin: 0 0 2.5% 2.5%;
-	font-size: 16px;
-	font-size: 1rem;
-	vertical-align: top;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-}
-
-ul.rig li img {
-	max-width: 75%;
-	max-height: 75%;
-	border-radius: 5px;
-	height: auto;
-	margin: 0 0 10px;
-}
-
-ul.rig li h3 {
-	margin: 0 0 5px;
-	color: rgb(26, 139, 188);
-}
-
-ul.rig li p {
-	font-size: 1.60em;
-	line-height: 1.5em;
-	color: #999;
-}
-
-/* class for 2 columns */
-ul.rig.columns-2 li {
-	width: 47.5%; /* this value + 2.5 should = 50% */
-}
-
-/* class for 3 columns */
-ul.rig.columns-3 li {
-	width: 30.83%; /* this value + 2.5 should = 33% */
-}
-
-/* class for 4 columns */
-ul.rig.columns-4 li {
-	width: 22.5%; /* this value + 2.5 should = 25% */
-}
-
-@media (max-width: 480px) {
-	ul.grid-nav li {
-		display: block;
-		margin: 0 0 5px;
-	}
-	ul.grid-nav li a {
-		display: block;
-	}
-	ul.rig {
-		margin-left: 0;
-	}
-	ul.rig li {
-		width: 50%; /*!important;  over-ride all li styles */
-		margin: 0 0 20px;
-	}
-}
-
-ul.rig .project-images {
-	position: relative;
-	background: none;
-	box-shadow: none;
-	border: none;
-}
-
-#project-screenshots img {
-	position: relative;
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
-
-#project-screenshots {
-	text-align: center;
-}
 
 .date {
   font-family: Arial;
   font-size: 12px;
-}
-
-h1 {
-  margin: 0 0;
 }
 
 pre code{
@@ -348,4 +237,153 @@ pre code{
 
 ul.rig.columns-3 li.article-image {
 	height: auto;
+}
+
+/* Image on the 'About Me' page */
+.about-pics {
+	position: relative;
+	margin: 0 auto;
+}
+
+/* ************* */
+/* Projects Page */
+/* ************* */
+#projects-div {
+	position: relative;
+	margin: 0 auto;
+	min-width: 800px;
+	max-width: 1150px;
+}
+
+#projects-grid {
+	position: relative;
+	margin: 0 auto;
+	width: 85%;
+}
+
+.project {
+	position: relative;
+	margin: 0 auto;
+	margin: 10px;
+	width: 300px;
+	height: 300px;
+	color: white;
+	text-shadow: 1px 1px .5px #000;
+	box-shadow: 1px 1px 5px #000;
+	border-radius: 5px;
+}
+
+.project:hover {
+	cursor: pointer;
+	-moz-box-shadow: 0px 0px 30px 1px rgb(26, 139, 188);
+	-webkit-box-shadow: 0px 0px 30px 1px rgb(26, 139, 188);
+	box-shadow: 0px 0px 30px 1px rgb(26, 139, 188);
+}
+
+.project img {
+	width: 300px;
+	height: 300px;
+	border-radius: 5px;
+}
+
+.project-text {
+	position: absolute;
+	bottom: 0;
+	width: 300px;
+	height: 55px;
+	background-color: #1abc9c;
+	border-radius: 0 0 5px 5px;
+}
+
+.project-title {
+	position: absolute;
+	bottom: 20px;
+	left: 5px;
+	font-size: 22px;
+}
+
+.project-description {
+	position: absolute;
+	bottom: 6px;
+	left: 5px;
+}
+
+/* Individual Projects Pages */
+.project-page-info {
+	margin: 0;
+	text-align: center;	
+}
+
+.project-page-title {
+	display: block;
+	margin: 10px 0;
+	min-width: 100px;
+	font-size: 52px;
+	background-color: #1abc9c;
+	color: white;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.button {
+	display: inline-block;
+	position: relative;
+	margin: 0 5px;
+	height: 50px;
+	min-width: 125px;
+	background-color: rgb(26, 139, 188);
+	border: 3px solid white;	
+	padding: 10px;
+	color: white;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: #1abc9c;
+}
+
+.github-links {
+	position: relative;
+	margin: 5px auto;
+	height: 75px;
+	min-width: 300px;
+}
+
+.github-links i {
+	display: block;
+}
+
+.github-links a {
+	display: inline-block;
+	margin: 0 5px;
+}
+
+.technology-used {
+	position: relative;
+	margin: 5px auto;
+	height: 75px;
+	min-width: 100px;
+}
+
+.tech-title {
+	font-size: 22px;
+	margin: 0;
+}
+
+.big-link {
+	color: #1abc9c;
+	font-size: 36px;
+}
+
+div.project-screenshots {
+	position: relative;
+	margin: 0 auto;
+	width: 750px;
+	min-height: 360px;
+}
+
+div.project-screenshots img {
+	display: inline-block;
+	height: 350px;
+	width: 350px;
+	margin: 5px;
 }

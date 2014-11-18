@@ -1,31 +1,38 @@
 {% extends "/blog/base.html" %}
 {% block content %}
-
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+            <div class="project-page-info">
+                <span class="project-page-title">CSTools</span>
 
-			<div class="centered"><h1>CSTools</h1>
+                <a href="/cstools">
+                <div class="button animate">
+                    <p>Live Site</p>
+                </div>
+                </a>
 
-                <a href="/cstools" class="link-right">Live Site</a>&emsp;<a href="/cstoolswriteup-part1">Write up</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L679">Python</a>&emsp;
-                <a href="https://github.com/kershner/blog/tree/master/app/templates/cstools">HTML</a>&emsp;
-                <a href="https://github.com/kershner/blog/blob/master/app/static/cstools-custom.css">CSS</a>
-                <br><br><br>
+                <a href="/cstoolswriteup-part1">
+                <div class="button animate">
+                    <p>Write up</p>
+                </div>
+                </a>
 
-                <h4>Technologies Used:</h4>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L679">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/cstools">HTML</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/cstools-custom.css">CSS</a>
+                </div>
 
-                <p>Python, HTML, CSS, Twitter Bootstrap, Flask</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, Twitter Bootstrap, Flask</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
-				<hr>
-
+                <hr>
 				<p>
                     <b>The text adventure</b> was a lot of fun and very educational, but I needed to start applying my
                     knowledge to something more practical.
@@ -33,29 +40,13 @@
                     with a few mundane tasks at work.  I've got a great start on the project but it's far from finished.  Check
                     the write-up for my ongoing progress with the project.
                 </p>
-
 			</div>
-
 		</div>
 
-        <div id="project-screenshots">
-
-            <ul class="rig columns-2">
-
-                <li class="project-images">
-                    <a href="/static/images/cstools2big.png"><img src="/static/images/cstools2.png" class="img-responsive"></a>
-                </li>
-
-                <li class="project-images">
-                    <a href="/static/images/cstools3big.png"><img src="/static/images/cstools3.png" class="img-responsive"></a>
-                </li>
-
-            </ul>
-
+        <div class="project-screenshots">
+            <a href="/static/images/cstools2big.png"><img src="/static/images/cstools2.png" class="img-responsive"></a>
+            <a href="/static/images/cstools3big.png"><img src="/static/images/cstools3.png" class="img-responsive"></a>
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

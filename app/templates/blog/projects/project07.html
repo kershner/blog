@@ -2,30 +2,33 @@
 {% block content %}
 
 <div class="grey">
-
     <div class="container pt">
-
 		<div class="row mt">
+            <div class="project-page-info">
+                <span class="project-page-title">SteamTime</span>
 
-			<div class="centered"><h1>SteamTime</h1>
+                <a href="http://www.steamtime.us">
+                <div class="button animate">
+                    <p>Live Site</p>
+                </div>
+                </a>
 
-                <a href="http://www.steamtime.us">http://www.steamtime.us</a><br><br>
-                <h5>Github Links</h5>
-                <a href="https://github.com/kershner/steamtime/blob/master/routes.py">Python</a>&emsp;
-                <a href="https://github.com/kershner/steamtime/tree/master/templates">HTML</a>&emsp;
-                <a href="https://github.com/kershner/steamtime/blob/master/static/style.css">CSS</a>&emsp;
-                <a href="https://github.com/kershner/steamtime/blob/master/static/js/steamtime.js">Javascript</a><br><br><br>
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/steamtime/blob/master/routes.py">Python</a>
+                    <a href="https://github.com/kershner/steamtime/tree/master/templates">HTML</a>
+                    <a href="https://github.com/kershner/steamtime/blob/master/static/style.css">CSS</a>
+                    <a href="https://github.com/kershner/steamtime/blob/master/static/js/steamtime.js">Javascript</a>
+                </div>
 
-                <h4>Technologies Used:</h4>
-
-                <p>Python, HTML, CSS, Javascript, jQuery, Flask</p>
-
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, Javascript, jQuery, Flask</p>
+                </div>
             </div>
 
             <div class="col-lg-8 col-lg-offset-2">
-
-				<hr>
-
+                <hr>
 				<p>
                     SteamTime spawned from some <a href="/sep14#api-hijinks">API doodling</a> I was doing back in September.
                     I wanted a way to easily visualize data returned by the API, so I set about exploring the interfaces
@@ -35,31 +38,13 @@
                     proud of the finished product and everything I learned in the process.<br><br>
                     Check it out!
                 </p>
-
-                <div class="big-link"><a href="http://www.steamtime.us"><h1>http://www.steamtime.us</h1></a></div>
-
             </div>
-
-		</div>
-
-        <div id="project-screenshots">
-
-            <ul class="rig columns-3">
-
-                <li class="project-images">
-                    <a href="/static/images/steamtime2.jpg"><img src="/static/images/steamtime2.jpg" class="img-responsive rounded-images"></a>
-                </li>
-
-                <li class="project-images">
-                    <a href="/static/images/steamtime3.jpg"><img src="/static/images/steamtime3.jpg" class="img-responsive rounded-images"></a>
-                </li>
-
-            </ul>
-
         </div>
 
+        <div class="project-screenshots">
+            <a href="/static/images/steamtime2.jpg"><img src="/static/images/steamtime2.jpg" class="rounded-images"></a>
+            <a href="/static/images/steamtime3.jpg"><img src="/static/images/steamtime3.jpg" class="rounded-images"></a>
+        </div>
     </div>
-
 </div>
-
 {% endblock %}
