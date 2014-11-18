@@ -216,7 +216,6 @@ pre code{
 @media (min-width: 990px) {
   .big-logo-row h1 {
     font-size: 6em;
-	bottom: 0;
   }
 }
 
@@ -251,14 +250,13 @@ ul.rig.columns-3 li.article-image {
 #projects-div {
 	position: relative;
 	margin: 0 auto;
-	min-width: 800px;
-	max-width: 1150px;
+	width: 970px;
 }
 
 #projects-grid {
 	position: relative;
 	margin: 0 auto;
-	width: 85%;
+	width: 970px;
 }
 
 .project {
@@ -306,6 +304,7 @@ ul.rig.columns-3 li.article-image {
 	position: absolute;
 	bottom: 6px;
 	left: 5px;
+	text-shadow: none;
 }
 
 /* Individual Projects Pages */
