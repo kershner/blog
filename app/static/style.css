@@ -6,10 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.080);
   background-color: #2f2f2f;
-}
-
-p {
-  font-family: 'Open Sans';
+  font-family: 'Lato', sans-serif;
 }
 
 #face {
@@ -23,7 +20,7 @@ p {
 }
 
 hr {
-    margin: 0;
+    margin: 15px 0;
 	border: 0;
     height: 1px;
     background-color: #1abc9c;
@@ -83,7 +80,6 @@ pre code{
    credit to DesignMite
    http://www.designmite.com/responsive-parallax-navbar-tutorial/
    ********************************* */
-
 .navbar-inverse {
   background: rgba(62, 195, 246, 0);
   border-bottom: none;
@@ -118,6 +114,11 @@ pre code{
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
   color: #bc1a3a;
+}
+
+.navbar-collapse {
+	position: relative;
+	bottom: 6px;
 }
 
 /* *********************************
@@ -271,6 +272,24 @@ ul.rig.columns-3 li.article-image {
 	border-radius: 5px;
 }
 
+@media (min-width: 0) {
+	#projects-div, #projects-grid {
+		width: 320px;
+	}
+}
+
+@media (min-width: 650px) {
+	#projects-div, #projects-grid {
+		width: 650px;
+	}
+}
+
+@media (min-width: 970px) {
+	#projects-div, #projects-grid {
+		width: 970px;
+	}
+}
+
 .project:hover {
 	cursor: pointer;
 	-moz-box-shadow: 0px 0px 30px 1px rgb(26, 139, 188);
@@ -302,9 +321,9 @@ ul.rig.columns-3 li.article-image {
 
 .project-description {
 	position: absolute;
-	bottom: 6px;
-	left: 5px;
-	text-shadow: none;
+	bottom: 5px;
+	left: 8px;
+	font-family: 'Droid Sans', sans-serif;
 }
 
 /* Individual Projects Pages */
@@ -385,4 +404,10 @@ div.project-screenshots img {
 	height: 350px;
 	width: 350px;
 	margin: 5px;
+}
+
+/* Footer */
+.footer-links a {
+	margin-left: 5px;
+	margin-right: 10px;
 }

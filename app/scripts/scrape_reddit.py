@@ -18,7 +18,11 @@ gif = Gif(0)
 def scrape_reddit(target_subreddit, path, category):
     # Function to determine size of URL via HTTP header data
     def getsize(url):
-        url = urllib2.urlopen(url)
+        try:
+            url = urllib2.urlopen(url)
+        except urllib2.HTTPError:
+            print '404 - skipping'
+            return
         try:
             size = int(url.info()['content-length'])
             return size
