@@ -354,6 +354,10 @@ ul.rig.columns-3 li.article-image {
 	color: white;
 }
 
+.button p {
+	color: white;
+}
+
 .button:hover {
 	cursor: pointer;
 	background-color: #1abc9c;

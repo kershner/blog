@@ -1,6 +1,56 @@
 {% extends "/blog/base.html" %}
 {% block content %}
 
+<a name="refactor"></a>
+<div class="white">
+    <div class="container">
+	    <div class="row">
+		    <div class="col-lg-8 col-lg-offset-2">
+			    <img src="/static/images/dogsicons/dogsicon6.png"><span class="ba">Tyler Kershner</span>
+				<h2>Refactoring</h2>
+                <h4 class="bd">November 24th, 2014</h4>
+                <hr>
+				<p>
+                    <strong>I took to reddit to get some feedback on SteamTime</strong>.
+                    <br><br>
+                    I got some great suggestions.  Primarily my Python needed some re-organization to make it a little more maintainable and bring it up to
+                    the standards of current best practices.
+                    <br><br>
+                    The main goal of the refactoring process was to migrate from dusty old <a href="https://docs.python.org/2/library/urllib2.html">urllib2</a>
+                    to the much simpler and more lightweight <a href="http://docs.python-requests.org/en/latest/">requests</a> library.
+                    This turned out to be a snap, largely owing to how common-sensical requests is.  It also includes a
+                    JSON decoder out of the box, so there's one less library SteamTime needs to import.
+                    <br><br>
+                    Next up was splitting apart my code because having everything together in one long, awkward file is a pretty un-Pythonic way to do things.
+                    I set to work splitting out all the individual functions that
+                    are called one-by-one during the main SteamTime logic flow.
+                    This involved a lot of small changes followed by tedious testing to ensure the whole thing hadn't broken, and then a
+                    bit of re-organization and variable name updates. All in all the process was much simpler than I imagined
+                    it being at the outset.
+                    <br><br>
+                    I've saved my old code for posterity, you can compare both at the links below.
+                </p>
+
+                <div style="position: relative; width: 600px; margin: 0 auto; text-align: center;">
+                    <a href="https://github.com/kershner/steamtime/blob/master/steamtime_old.py"><div class="button animate" style="margin-bottom: 6px;"><p>Old and Busted</p></div></a><br>
+                    <a href="https://github.com/kershner/steamtime/blob/master/routes.py"><div class="button animate"><p>Refactored Hotness (1/2)</p></div></a>
+                    <a href="https://github.com/kershner/steamtime/blob/master/st_functions.py"><div class="button animate"><p>Refactored Hotness (2/2)</p></div></a>
+                </div>
+                <br>
+
+                <p>
+                    Of course there's a big long list of minor things that could still be worked on with SteamTime,
+                    but at a certain point I think it's more worth my time to consider this project complete and
+                    move on to the next one.
+                    <br><br>
+                    So long, SteamTime, you were a great and very educational project!
+                </p>
+
+			</div>
+        </div><!-- /row -->
+	</div> <!-- /container -->
+</div>
+
 <div class="grey">
     <div class="container">
 	    <div class="row">
