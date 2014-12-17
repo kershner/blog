@@ -42,45 +42,44 @@
                 {% endif %}
 
                 <div class="preview-format-wrapper">
-                    <div id="preview" class="formatting-select animate">Preview</div>
-                    <div id="formatting" class="formatting-select animate">Formatting Guide</div>
+                    <div id="preview" class="button animate">Preview</div>
+                    <div id="formatting" class="button animate">Formatting</div>
                     <div id="show-hidden" class="formatting-select animate">Show Hidden Fields</div>
                 </div>
 
                 <br>
 
                 <div class="format-guide">
-                    <p>
-                        This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.
-                    </p>
+                    <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
+                    <span>Highlight your text and click the button to apply tags</span>
 
-                    <div class="format-guide-wrapper">
-                        <div class="format-guide-left">
-                            <p class="format-title">You Type:</p>
-                            <span class="examples">*italics*</span>
-                            <span class="examples">**bold**</span>
-                            <span class="examples" style="font-size: 12px; margin-bottom: 2px; margin-top: 2px;">[link](http://kershner.org)</span>
-                            <span class="examples" style="margin-bottom: 5px;">Two Spaces</span>
-                            <span class="examples">
-                                * Item 1<br>
-                                * Item 2<br>
-                                * Item 3<br>
-                            </span>
+                    <div class="formatting-buttons">
+                        <div id="code-tag" class="button animate">Code</div>
+                        <div id="bold-tag" class="button animate">Bold</div>
+                        <div id="italic-tag" class="button animate">Italic</div>
+                        <div id="header-tag" class="button animate">Header</div>
+                        <div id="color-tag" class="button animate">Color</div>
+
+                        <div id="code-tag-options" class="tag-options">
+                            <div id="code-tag-options-python" class="button animate">Python</div>
+                            <div id="code-tag-options-js" class="button animate">JavaScript</div>
                         </div>
 
-                        <div class="format-guide-right">
-                            <p class="format-title">You See:</p>
-                            <span class="examples"><em>italics</em></span>
-                            <span class="examples"><strong>bold</strong></span>
-                            <span class="examples"><a href="http://kershner.org">link</a></span>
-                            <span class="examples" style="margin-bottom: 5px;">New Line</span>
-                            <div class="examples">
-                                <ul class="example-list">
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
-                                </ul>
-                            </div>
+                        <div id="header-tag-options" class="tag-options">
+                            <div id="header-tag-options-h1" class="button animate">< h1 ></div>
+                            <div id="header-tag-options-h2" class="button animate">< h2 ></div>
+                            <div id="header-tag-options-h3" class="button animate">< h3 ></div>
+                            <div id="header-tag-options-h4" class="button animate">< h4 ></div>
+                            <div id="header-tag-options-h5" class="button animate">< h5 ></div>
+                            <div id="header-tag-options-h6" class="button animate">< h6 ></div>
+                        </div>
+
+                        <div id="color-tag-options" class="tag-options">
+                            <div id="color-tag-options-red" class="button animate" style="background-color: #F40022;"></div>
+                            <div id="color-tag-options-blue" class="button animate" style="background-color: #0D4EAF;"></div>
+                            <div id="color-tag-options-yellow" class="button animate" style="background-color: #FFCD78;"></div>
+                            <div id="color-tag-options-green" class="button animate" style="background-color: #007E65;"></div>
+                            <div id="color-tag-options-purple" class="button animate" style="background-color: #8924C1;"></div>
                         </div>
                     </div>
                 </div>

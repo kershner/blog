@@ -1,16 +1,81 @@
-/* *********************************
-   Blog Stylesheet
-   ********************************* */
+/* **************************************************** */
+/*   Blog Stylesheet
+/* **************************************************** */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 body {
   background-color: white;
   font-family: 'Drod Sans', sans-serif;
 }
 
-.post {
-	padding-top: 50px;
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #333;
 }
 
+h1 {
+	font-size: 35px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+/* Paragraph & Typographic */
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* Links */
+a {
+    color: #1abc9c;
+    word-wrap: break-word;
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+/* Extra Styles for Some Nav Elements */
+.navbar {
+	text-transform: uppercase;
+	margin-bottom: 0px;
+}
+
+.navbar-inverse {
+	padding-top: 20px;
+}
+
+/* Blog Date*/
+.bd {
+	color: #bc1a3a;
+}
+
+/* Blog Author */
+.ba {
+	margin-left: 5px;
+}
+
+/* Archive page wraper */
 .archive {
 	margin: 0 auto;
 	width: 50%;
@@ -23,16 +88,7 @@ body {
 	font-size: 24px;
 }
 
-#face {
-  position: relative;
-  float: left;
-  bottom: 25px;
-}
-
-#projects-title {
-  text-align: center;
-}
-
+/* Horizontal Rules */
 hr {
     margin: 15px 0;
 	border: 0;
@@ -40,7 +96,14 @@ hr {
     background-color: #1abc9c;
 }
 
-.post p img {
+/* Extra class for a slightly shorter HR */
+.hr75 {
+	margin: 0 auto;
+	width: 75%;
+}
+
+/* Styles images embedded in posts */
+p img {
 	margin: 5px auto;
 	max-height: 300px;
 	max-width: 300px;
@@ -51,34 +114,12 @@ iframe {
 	margin-bottom: 20px;
 }
 
-.hr75 {
-	margin: 0 auto;
-	width: 75%;
-}
-
-#older-link {
-	display: block;
-	position: relative;
-	margin: 5px auto;
-	margin-bottom: 50px;
-	font-size: 36px;
-	width: 200px;
-	height: 40px;
-}
-
+/* General class to add CSS animation to element */
 .animate {
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
-}
-
-.grey h2, .white h2 {
-	color: rgb(26, 139, 188);
-}
-
-.bd {
-	margin-left: 2px;
 }
 
 .post-date {
@@ -88,38 +129,19 @@ iframe {
 	font-style: italic;
 }
 
-/* *********************************
-   Projects Image Grid
-   ********************************* */
-
-.date {
-  font-family: Arial;
-  font-size: 12px;
-}
-
-pre code{
-  word-wrap: normal;
-  white-space: pre;
-}
-
-.function {
-  color: #66B2FF;
-}
-
+/* Link to 'continue' inside project write-ups */
 .continue-link {
   float: right;
 }
 
-.top-link {
-  float: right;
-}
-
-#pi-images {
-  text-align: center;
-}
-
-#pi-images img {
-  display: inline-block;
+/* **************************************************** */
+/* Navbar
+/* **************************************************** */
+/* Giant creepy face image in navbar */
+#face {
+  position: relative;
+  float: left;
+  bottom: 25px;
 }
 
 /* *********************************
@@ -168,9 +190,9 @@ pre code{
 	bottom: 6px;
 }
 
-/* *********************************
-           Toolbar Logo
-  ********************************** */
+/* ************************** */
+/* Toolbar Logo
+/* ************************** */
 .small-logo-container {
   padding-top: 50px;
   padding-left: 25px;
@@ -200,9 +222,9 @@ pre code{
   }
 }
 
-/* *********************************
-           Big Logo on Header
-  ********************************** */
+/* ************************** */
+/* Big Logo on Header
+/* ************************** */
 .big-logo-row {
   background-color: #1abc9c;
 }
@@ -292,9 +314,9 @@ ul.rig.columns-3 li.article-image {
 	margin: 0 auto;
 }
 
-/* ************* */
-/* Projects Page */
-/* ************* */
+/* **************************************************** */
+/* Projects Page
+/* **************************************************** */
 #projects-div {
 	position: relative;
 	margin: 0 auto;
@@ -359,6 +381,11 @@ ul.rig.columns-3 li.article-image {
 	border-radius: 0 0 5px 5px;
 }
 
+/* ID to center text inside project title blocks */
+#projects-title {
+	text-align: center;
+}
+
 .project-title {
 	position: absolute;
 	bottom: 20px;
@@ -389,30 +416,125 @@ ul.rig.columns-3 li.article-image {
 	box-shadow: 1px 1px 3px #000;
 }
 
+/* **************************************************** */
+/* Buttons */
+/* **************************************************** */
 .button {
 	display: inline-block;
 	position: relative;
-	margin: 0 auto;
-	height: 50px;
-	max-width: 150px;
-	background-color: rgb(26, 139, 188);
-	border: 3px solid white;	
-	padding: 10px;
+	margin: 10px auto;
+	height: 40px;
+	max-width: 300px;
+	background-color: rgb(26, 139, 188);	
+	padding: 5px 10px 5px 10px;
 	color: white;
 	text-align: center;
-}
-
-.button p {
-	color: white;
+	text-shadow: 1px 1px .5px #000;
+	box-shadow: 1px 1px 3px #000;
+	border: 1px solid Transparent;
+	border-radius: 3px;
 }
 
 .button:hover {
 	cursor: pointer;
 	background-color: white;
+	border: 1px solid black;
+	box-shadow: none;
+	text-shadow: none;
+	color: black;
 }
 
-.button:hover > p {
+/* Extra overrides for CMS form submit buttons */
+#submit {
+	display: block;
+	margin-top: 10px;
+	margin-bottom: -15px;
+	width: 150px;
+	height: 50px;
+	font-size: 24px;
+	line-height: 25px;
+	text-align: center;
+}
+
+/* 'New Post' button in CMS */
+#new-post-link {
+	display: block;
+	margin: 0 auto;	
+	width: 600px;
+	text-align: center
+}
+
+#new-post-button {
+	position: relative;
+	margin: 15px auto;
+	height: 45px;
+	width: 300px;
+	font-size: 24px;
+}
+
+/* Edit and Delete buttons in CMS */
+.edit {
+	position: absolute;
+	bottom: -5px;
+	right: 5px;
+	height: 20px;
+	width: 60px;
+	line-height: 0;
+	padding-top: 8px;
+}
+
+#delete{
+	display: block;
+	position: relative;
+	margin: 7px auto;
+	padding-top: 12px;
+	width: 125px;
+	height: 25px;
+	line-height: 1px;
+	color: white;
+	background-color: #ff8282;
+	border: none;
+	box-shadow: 1px 1px 3px #000;
+}
+
+#delete:hover {
 	color: black;
+	text-shadow: none;
+	background-color: #FFF;
+	border: 1px solid black;
+	box-shadow: none;
+}
+
+/* Theme/Icon select buttons in CMS */
+.color-select {
+	display: inline-block;
+	margin: 5px 2px;	
+	padding-top: 7px;
+	width: 150px;
+	height: 35px;
+	text-shadow: none;
+	font-size: 14px;
+	background-color: #1abc9c;
+	border: 1px solid Transparent;
+}
+
+/* Preview/Formatting Buttons in Text Editor */
+#preview, #formatting {
+	margin: 0;
+	background-color: #f2f2f2;
+	width: 125px;
+	height: 30px;
+	text-shadow: none;
+	color: black;
+}
+
+/* Class applied when buttons are clicked */
+.color-select-selected {
+	background-color: white;
+	border: 1px solid black;
+	color: black;
+	text-shadow: none;
+	box-shadow: none;
 }
 
 .github-links {
@@ -462,30 +584,54 @@ div.project-screenshots img {
 	margin: 5px;
 }
 
+/* Link to access the /archive */
+#older-link {
+	display: block;
+	position: relative;
+	margin: 5px auto;
+	margin-bottom: 50px;
+	font-size: 36px;
+	width: 200px;
+	height: 40px;
+}
+
 /* **************************************************** */
 /* Footer 
 /* **************************************************** */
 #footer {
-	height: 120px;
-	max-height: 120px;	
+	height: 140px;
+	max-height: 140px;
+	background-color: #2f2f2f;
 }
 
 .footer-links {
 	margin: 0 auto;
 	padding: 10px;
-	width: 175px;
+	width: 240px;
 }
 
-.footer-links div {
-	display: block;
-	margin: 0 auto;
-	text-align: center;
-	width: 75%;
+.icon-link {
+	display: inline-block;
 }
 
 .footer-links i {
 	display: inline-block;
-	margin: 10px 5px;
+	margin: 0 15px;
+	margin-top: 15px;
+}
+
+.footer-links span {
+	display: block;
+	margin: 0 15px;
+	text-align: center;
+}
+
+.footer-login {
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+	text-align: center;
+	width: 75%;
 }
 
 /* **************************************************** */
@@ -498,7 +644,7 @@ div.project-screenshots img {
 #cms-stats {
 	position: relative;
 	margin: 0 auto;
-	width: 600px;
+	width: 550px;
 	left: 15px;
 }
 
@@ -686,27 +832,6 @@ div.project-screenshots img {
 	font-style: italic;
 }
 
-.button {
-	overflow: hidden;
-	border-radius: 3px;
-	border: none;
-	box-shadow: 1px 1px 3px #000;
-	text-align: center;
-	text-shadow: 1px 1px .5px #000;
-	color: white;
-	background-color: rgb(26, 139, 188);
-}
-
-.button:hover {
-	cursor: pointer;	
-	background-color: white;
-	color: black;
-	background-color: white;
-	text-shadow: none;
-	border: 1px solid black;	
-	box-shadow: none;
-}
-
 .alert {
 	position: relative;
 	margin: 15px auto;
@@ -750,21 +875,6 @@ div.not-submitted {
 	width: 85%;
 	word-wrap: break-word;
 	box-shadow: 1px 1px 5px #000;
-}
-
-#new-post-link {
-	display: block;
-	margin: 0 auto;	
-	width: 600px;
-	text-align: center
-}
-
-#new-post-button {
-	position: relative;
-	margin: 15px auto;
-	height: 45px;
-	padding-top: 5px;
-	font-size: 24px;
 }
 
 /* Input Placeholder Text */
@@ -845,69 +955,61 @@ div.not-submitted {
 	text-shadow: none;
 }
 
+
+/* Markdown Formatting Guide */
 .format-guide {
 	display: none;
 	position: relative;
 	margin: 0 auto;
-	margin-top: 20px;
-	min-height: 220px;
+	margin-top: 25px;
 	width: 90%;
+	min-width: 320px;
+	min-height: 100px;
 	background-color: #f2f2f2;
 	box-shadow: 1px 1px 3px #000;
 	text-align: center;
 }
 
-.format-title {
-	position: relative;
-	height: 15px;
-	width: 100%;
-	line-height: 12px;	
-	color: red;
-}
-
 .format-guide p {
 	margin: 0;
+}
+
+.format-guide span {
+	position: absolute;
+	width: 100%;
+	top: 22px;
+	right: 0;
 	font-size: 12px;
 }
 
-p.format-title {
-	font-size: 16px;
-	text-decoration: underline;
-}
-
-.examples {
-	display: block;
-	margin: 0;
-	font-size: 14px;
-}
-
-.example-list {
+.formatting-buttons {
 	position: relative;
+	top: 10px;
+	min-width: 320px;
+	padding: 0 5px 0 5px;
+}
+
+.formatting-buttons .button {
+	margin: 3px 0;
+	height: 35px;
+}
+
+.tag-options {
+	display: none;
 	margin: 0 auto;
-	width: 90px;
-	left: -10px;
+	min-height: 20px;
+	width: 300px;
 }
 
-.example-list ul, .example-list li {
-	width: 100%;
-	text-indent: 0;
-}
-
-.format-guide-wrapper {
-	width: 100%;
-}
-
-.format-guide-left {
-	float: left;
-	width: 50%;
-	height: 100%;
-	border-right: 1px solid black;
-}
-
-.format-guide-right {
-	float: right;
-	width: 50%;
-	height: 100%;
+.tag-options div {
+	display: inline-block;
+	margin: 0 auto;
+	min-width: 75px;
+	height: 20px !important;
+	color: white;
+	background-color: #2966C0;
+	font-size: 10px;
+	line-height: 10px;
 }
 
 input, textarea {
@@ -959,32 +1061,7 @@ input:focus, textarea:focus {
 /* Login Form */
 .login {
 	margin: 0 auto;
-	width: 450px;
-}
-
-#submit {
-	display: block;
-	margin: 0 auto;
-	width: 150px;
-	height: 50px;
-	font-size: 24px;
-	line-height: 25px;
-	text-align: center;
-}
-
-#submit {
-	margin-top: 10px;
-	margin-bottom: -15px;
-}
-
-/* Margin override for login submit button */
-.login-submit {
-	margin: 0 auto;
-	margin-top: -20px;
-}
-
-#submit:hover {
-	box-shadow: none;
+	width: 300px;
 }
 
 /* Hidden forms inputs - accessed via JS */
@@ -996,26 +1073,6 @@ input:focus, textarea:focus {
 #button-wrapper {
 	width: 100%;
 	text-align: center;
-}
-
-.color-select {
-	display: inline-block;
-	margin: 0 2px;
-	margin-top: 5px;
-	padding-top: 7px;
-	width: 150px;
-	height: 35px;
-	text-shadow: none;
-	font-size: 14px;
-	background-color: #1abc9c;
-}
-
-.color-select-selected {
-	background-color: white;
-	border: 1px solid black;
-	color: black;
-	text-shadow: none;
-	box-shadow: none;
 }
 
 #color-selections {
@@ -1087,41 +1144,26 @@ input:focus, textarea:focus {
 	text-shadow: 1px 1px 3px #000;
 }
 
-.edit {
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	height: 20px;
-	width: 60px;
-	line-height: 0;
+/* **************************************************** */
+/* Blog Post Themes
+/* **************************************************** */
+.grey, .white, .blue, .green {
+	padding-top: 60px;
+	padding-bottom: 60px;
 }
 
-#delete{
-	display: block;
-	position: relative;
-	margin: 7px auto;
-	padding-top: 12px;
-	width: 125px;
-	height: 25px;
-	line-height: 1px;
-	color: white;
-	background-color: #ff8282;
-	border: none;
-	box-shadow: 1px 1px 3px #000;
+/* Override padding on CMS thumbnails */
+.post-thumb {
+	padding: 25px;
 }
 
-#delete:hover {
-	color: black;
-	text-shadow: none;
-	background-color: #FFF;
-	border: 1px solid black;
-	box-shadow: none;
+.grey h2, .white h2 {
+	color: rgb(26, 139, 188);
 }
 
-/* Additional Classes For Blog Post Themes */
 /* GREEN */
 .green, .green .post-thumb {
-	background-color: #e3f4f1;	
+	background-color: #e3f4f1;
 	color: #415577;
 }
 
@@ -1169,8 +1211,12 @@ input:focus, textarea:focus {
 }
 
 /* WHITE */
-.white2 .title-date .post-thumb-subtitle {
+.white .title-date .post-thumb-subtitle {
 	color: #bc1a3a;
+}
+
+.white .post-thumb-title {
+	color: rgb(26, 139, 188);
 }
 
 /* BLUE */
@@ -1202,4 +1248,25 @@ input:focus, textarea:focus {
 
 .blue strong {
 	font-weight: 600;
+}
+
+/* Colors for Markdown Input */
+red {
+	color: #F40022;
+}
+
+blue {
+	color: #0D4EAF;
+}
+
+yellow {
+	color: #FFCD78;
+}
+
+green {
+	color: #007E65;
+}
+
+purple {
+	color: #8924C1;
 }

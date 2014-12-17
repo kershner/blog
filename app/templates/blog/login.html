@@ -1,6 +1,6 @@
 {% extends '/blog/base.html' %}
 {% block content %}
-    <div class="white-inner">
+    <div class="grey">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <p class="alert">
@@ -35,6 +35,6 @@
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     $(document).ready(function() {
         cms();
-    }
+    });
 </script>
 {% endblock %}

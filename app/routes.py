@@ -139,7 +139,6 @@ def login():
             session['logged_in'] = True
             return redirect(url_for('cms'))
     else:
-        print 'Did not validate'
         return render_template('/blog/login.html',
                                form=form,
                                title='CMS Login')

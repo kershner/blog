@@ -12,6 +12,7 @@ function cms() {
 	instantPreview();
 	showHiddenFields();
 	centerImages();
+	addTags();
 }
 
 function populateData(data) {
@@ -193,19 +194,6 @@ function showFormatting() {
 	$('#formatting').on('click', function() {
 		if (clicked) {
 			clicked = false;
-			$('.format-guide-wrapper').fadeOut('fast');
-		} else {
-			clicked = true;
-			$('.format-guide-wrapper').fadeIn('fast');
-		}
-	});
-}
-
-function showFormatting() {
-	var clicked = false;
-	$('#formatting').on('click', function() {
-		if (clicked) {
-			clicked = false;
 			$('.format-guide').fadeOut('fast');
 			$(this).removeClass('color-select-selected');		
 		}
@@ -277,4 +265,129 @@ function projectsMasonry() {
 	imagesLoaded('#projects-grid', function() {
 		masonry.layout();
 	});
+}
+
+function codeTags() {
+	var clicked = false;
+	$('#code-tag').on('click', function() {
+        if (clicked) {
+        	clicked = false;        	
+        	$('#code-tag-options').fadeOut('fast');
+        	$(this).removeClass('color-select-selected');
+        	$('.format-guide').css('height', '100px');
+    	} else {
+    		clicked = true;
+    		$('#code-tag-options').fadeIn('fast');    		
+        	$(this).addClass('color-select-selected');
+        	$('.format-guide').css('height', '115px');
+    	}
+    });
+    $('#code-tag-options-python').on('click', function() {
+        $('#content').surroundSelectedText('<pre><code data-language="python">', '</code></pre>');
+        populateData();
+    });
+    $('#code-tag-options-js').on('click', function() {
+        $('#content').surroundSelectedText('<pre><code data-language="javascript">', '</code></pre>');
+        populateData();
+    });
+}
+
+function headerTags() {
+	var clicked = false;
+	$('#header-tag').on('click', function() {
+        if (clicked) {
+        	clicked = false;
+        	$('#header-tag-options').fadeOut('fast');
+        	$(this).removeClass('color-select-selected');
+        	$('.format-guide').css('height', '100px');
+    	} else {
+    		clicked = true;
+    		$('#header-tag-options').fadeIn('fast');
+        	$(this).addClass('color-select-selected');
+        	$('.format-guide').css('height', '145px');
+    	}
+    });
+    $('#header-tag-options-h1').on('click', function() {
+        $('#content').surroundSelectedText('#', '');
+        populateData();
+    });
+    $('#header-tag-options-h2').on('click', function() {
+        $('#content').surroundSelectedText('##', '');
+        populateData();
+    });
+    $('#header-tag-options-h3').on('click', function() {
+        $('#content').surroundSelectedText('###', '');
+        populateData();
+    });
+    $('#header-tag-options-h4').on('click', function() {
+        $('#content').surroundSelectedText('####', '');
+        populateData();
+    });
+    $('#header-tag-options-h5').on('click', function() {
+        $('#content').surroundSelectedText('#####', '');
+        populateData();
+    });
+    $('#header-tag-options-h6').on('click', function() {
+        $('#content').surroundSelectedText('#####', '');
+        populateData();
+    });
+}
+
+function boldTag() {
+	$('#bold-tag').on('click', function() {
+		$('#content').surroundSelectedText('**', '**');
+		populateData();
+	});
+}
+
+function italicTag() {
+	$('#italic-tag').on('click', function() {
+		$('#content').surroundSelectedText('*', '*');
+		populateData();
+	});
+}
+
+function colorTags() {
+	var clicked = false;
+	$('#color-tag').on('click', function() {
+        if (clicked) {
+        	clicked = false;
+        	$('#color-tag-options').fadeOut('fast');
+        	$(this).removeClass('color-select-selected');
+        	$('.format-guide').css('height', '100px');
+    	} else {
+    		clicked = true;
+    		$('#color-tag-options').fadeIn('fast');
+        	$(this).addClass('color-select-selected');
+        	$('.format-guide').css('height', '145px');
+    	}
+    });
+    $('#color-tag-options-red').on('click', function() {
+    	$('#content').surroundSelectedText('<red>', '</red>');
+    	populateData();
+    });
+    $('#color-tag-options-blue').on('click', function() {
+    	$('#content').surroundSelectedText('<blue>', '</blue>');
+    	populateData();
+    });
+    $('#color-tag-options-yellow').on('click', function() {
+    	$('#content').surroundSelectedText('<yellow>', '</yellow>');
+    	populateData();
+    });
+    $('#color-tag-options-green').on('click', function() {
+    	$('#content').surroundSelectedText('<green>', '</green>');
+    	populateData();
+    });
+    $('#color-tag-options-purple').on('click', function() {
+    	$('#content').surroundSelectedText('<purple>', '</purple>');
+    	populateData();
+    });
+}
+
+function addTags() {
+	codeTags();
+	boldTag();
+	italicTag();
+	headerTags();
+	colorTags();
 }

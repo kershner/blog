@@ -6,7 +6,6 @@
         <!-- CSS -->
         <link type="text/css" rel="stylesheet" href="/static/Bootstrap/css/bootstrap.min.css"/>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="/static/main.css"/>
         <link type="text/css" rel="stylesheet" href="/static/style.css"/>
         <link type="text/css" rel="stylesheet" href="/static/rainbow.css"/>
 
@@ -14,7 +13,8 @@
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
         <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/static/js/rangyInputs.js"></script>
 
         {% if title %}
         <title>{{title}} - Tyler's Blog</title>
@@ -53,7 +53,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 big-logo-container">
-                        <img ID="face" src="/static/images/face.png">
+                        <img alt="Tyler's Blog" ID="face" src="/static/images/face.png">
                         <h1 class="big-logo">Tyler Kershner</h1>
                     </div>
                 </div>
@@ -64,12 +64,28 @@
             <div class="container">
                 <div class="row">
                     <div class="footer-links">
-                        <a href="mailto:tylerkershner@gmail.com"><i class="fa fa-paper-plane fa-3x animate"></i></a>
-                        <a href="http://github.com/kershner/"><i class="fa fa-github fa-3x animate"></i></a>
-                        <a href="#top"><i class="fa fa-arrow-circle-up fa-3x animate"></i></a>
+                        <div class="icon-link">
+                            <a href="mailto:tylerkershner@gmail.com">
+                                <i class="fa fa-paper-plane fa-3x animate"></i>
+                                <span>Email</span>
+                            </a>
+                        </div>
+                        <div class="icon-link">
+                            <a href="http://github.com/kershner/">
+                                <i class="fa fa-github fa-3x animate"></i>
+                                <span>Github</span>
+                            </a>
+                        </div>
+                        <div class="icon-link">
+                            <a href="#top">
+                                <i class="fa fa-arrow-circle-up fa-3x animate"></i>
+                                <span>Top</span>
+                            </a>
+                        </div>
+
                         <br>
 
-                        <div>
+                        <div class="footer-login">
                             <a href="{{ link }}">{{ text }}</a>
                         </div>
                     </div>
@@ -78,12 +94,12 @@
         </div>
 
         <!-- JavaScripts placed at the end of the document so the pages load faster -->
-        <script src="/static/Bootstrap/js/bootstrap.min.js"></script>
-        <script src="/static/js/masonry.min.js"></script>
-        <script src="/static/js/imagesloaded.min.js"></script>
-        <script src="/static/js/rainbow-custom.min.js"></script>
-        <script src="/static/js/parallax-navbar.js"></script>
-        <script src="/static/js/countUp.min.js"></script>
-        <script src="/static/js/cms.js"></script>
+        <script type="text/javascript" src="/static/Bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/js/masonry.min.js"></script>
+        <script type="text/javascript" src="/static/js/imagesloaded.min.js"></script>
+        <script type="text/javascript" src="/static/js/rainbow-custom.min.js"></script>
+        <script type="text/javascript" src="/static/js/parallax-navbar.js"></script>
+        <script type="text/javascript" src="/static/js/countUp.min.js"></script>
+        <script type="text/javascript" src="/static/js/cms.js"></script>
     </body>
 </html>

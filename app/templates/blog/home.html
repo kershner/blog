@@ -2,7 +2,7 @@
 {% block content %}
     {% if current_month_posts %}
             {% for post in current_month_posts %}
-                <div class="post {{ post.css_class }}">
+                <div class="{{ post.css_class }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
@@ -23,7 +23,7 @@
 
     {% if last_month_posts %}
             {% for post in last_month_posts %}
-                <div class="post {{ post.css_class }}">
+                <div class="{{ post.css_class }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
@@ -44,7 +44,7 @@
 
     {% if two_months_ago_posts %}
             {% for post in two_months_ago_posts %}
-                <div class="post {{ post.css_class }}">
+                <div class="{{ post.css_class }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
@@ -69,7 +69,6 @@
 <script>
     $(document).ready(function() {
         centerImages();
-        showTop();
     });
 </script>
 {% endblock %}

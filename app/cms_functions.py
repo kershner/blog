@@ -19,7 +19,7 @@ def dog_icons():
 
 # Strip out HTML tags, create markdown
 def generate_markdown(text, clean):
-    tags = ['pre', 'code', 'iframe']
+    tags = ['pre', 'code', 'iframe', 'red', 'blue', 'yellow', 'green', 'purple']
     attrs = {
         'code': ['data-language', 'class'],
         'iframe': ['class', 'width', 'height', 'src', 'frameborder', 'allowfullscreen']
@@ -111,7 +111,7 @@ def get_theme(color):
     elif color == 'rgb(242, 242, 242)' or color == 'grey':
         return 'grey'
     elif color == 'rgb(255, 255, 255)' or color == 'white':
-        return 'white2'
+        return 'white'
     elif color == 'rgb(41, 102, 192)' or color == 'blue':
         return 'blue'
     else:
