@@ -1,0 +1,136 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+    <div class="white-inner">
+        <div class="white-inner-container">
+            <div class="white-inner-right">
+                <div class="not-submitted">Not Yet Submitted</div>
+
+                <div class="preview" style="display:none;"></div>
+
+                <div id="delete" class="button animate">Delete</div>
+
+                <div class="confirm alert">
+                    <p>Are you sure you want to delete this post?</p>
+                    <a href="/delete-post/{{ post.id }}"><div id="confirm-yes" class="button animate">Yes</div></a>
+                    <div id="confirm-no" class="button animate">No</div>
+                </div>
+            </div>
+
+            <div class="white-inner-left">
+                {% if form.errors %}
+                    <div class="alert">
+                        {% for message in form.color.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.title.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.icon.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.subtitle.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.content.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="preview-format-wrapper">
+                    <div id="preview" class="formatting-select animate">Preview</div>
+                    <div id="formatting" class="formatting-select animate">Formatting Guide</div>
+                    <div id="show-hidden" class="formatting-select animate">Show Hidden Fields</div>
+                </div>
+
+                <br>
+
+                <div class="format-guide">
+                    <p>
+                        This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.
+                    </p>
+
+                    <div class="format-guide-wrapper">
+                        <div class="format-guide-left">
+                            <p class="format-title">You Type:</p>
+                            <span class="examples">*italics*</span>
+                            <span class="examples">**bold**</span>
+                            <span class="examples" style="font-size: 12px; margin-bottom: 2px; margin-top: 2px;">[link](http://kershner.org)</span>
+                            <span class="examples" style="margin-bottom: 5px;">Two Spaces</span>
+                            <span class="examples">
+                                * Item 1<br>
+                                * Item 2<br>
+                                * Item 3<br>
+                            </span>
+                        </div>
+
+                        <div class="format-guide-right">
+                            <p class="format-title">You See:</p>
+                            <span class="examples"><em>italics</em></span>
+                            <span class="examples"><strong>bold</strong></span>
+                            <span class="examples"><a href="http://kershner.org">link</a></span>
+                            <span class="examples" style="margin-bottom: 5px;">New Line</span>
+                            <div class="examples">
+                                <ul class="example-list">
+                                    <li>Item 1</li>
+                                    <li>Item 2</li>
+                                    <li>Item 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="cms" action="/update-post/{{ post.id }}" method="POST">
+                    {{ form.hidden_tag() }}
+
+                    {{ form.color() }}
+                    {{ form.icon() }}
+
+                    {{ form.hidden_date(placeholder="Date String") }}
+                    {{ form.month(placeholder="Month", class="animate") }}
+                    {{ form.year(placeholder="Year", class="animate") }}
+
+                    <div id="title-label" class="input-label animate">Title</div>
+                    {{ form.title(placeholder="Title", class="animate") }}
+
+                    <div id="date-label" class="input-label animate">Subtitle</div>
+                    {{ form.subtitle(placeholder="Subtitle", class="animate") }}
+
+                    <div id="content-label" class="input-label animate">Content</div>
+                    {{ form.content(placeholder="Content", class="animate")|safe }}
+
+                    <div id="button-wrapper">
+                        <div id="color-select" class="color-select button animate">Theme</div>
+                        <div id="icon-select" class="color-select button animate">Icon</div>
+                    </div>
+
+                    <div id="color-selections">
+                        <div class="animate" style="background-color: #f2f2f2"></div>
+                        <div class="animate" style="background-color: #FFFFFF"></div>
+                        <div class="animate" style="background-color: #2966C0;"></div>
+                        <div class="animate" style="background-color: #e3f4f1"></div>
+                    </div>
+
+                    <div id="icon-selections">
+                        {% for icon in icons %}
+                            <img class="animate" src="{{ icon }}">
+                        {% endfor %}
+                    </div>
+
+                    {{ form.submit(class="button animate") }}
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function() {
+        cms();
+    });
+</script>
+{% endblock %}

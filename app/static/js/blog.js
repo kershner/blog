@@ -1,4 +1,4 @@
-function masonry() {
+function projectsMasonry() {
 	var masonry = new Masonry('#projects-grid', {
 		itemSelector: '.project'
 	});

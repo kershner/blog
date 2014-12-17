@@ -11,10 +11,9 @@
         <link type="text/css" rel="stylesheet" href="/static/rainbow.css"/>
 
         <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
-        <!-- JQuery -->
+        <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
         {% if title %}
@@ -24,73 +23,67 @@
         {% endif %}
     </head>
 
-<body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="small-logo-container">
-            <a class="small-logo" href="/">Tyler Kershner</a>
-          </div>
-        </div>
-        <div class="navbar-collapse collapse">
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/">Blog</a></li>
-            <li><a href="/projects">Projects</a></li>
-            <li><a href="/about">About Me</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+                    <div class="small-logo-container">
+                        <a class="small-logo" href="/">Tyler Kershner</a>
+                    </div>
+                </div>
 
-    <div class="container-fluid big-logo-row">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 big-logo-container">
-              <img ID="face" src="/static/images/face.png">
-              <h1 class="big-logo">Tyler Kershner</h1>
-          </div><!--/.col-xs-12 -->
-        </div><!--/.row -->
-      </div><!--/.container -->
-    </div><!--/.container-fluid -->
-
-    {% block content %}{% endblock %}
-    <div id="footer">
-        <div class="container">
-            <div class="row footer-links">
-                <a href="mailto:tylerkershner@gmail.com">tylerkershner@gmail.com</a>
-                <a href="http://github.com/kershner/">Github</a>
-                <a href="/archive">Blog Archive</a>
-                <a class="top-link" href="#top">Back to Top</a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Blog</a></li>
+                        <li><a href="/projects">Projects</a></li>
+                        <li><a href="/about">About Me</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <script src="/static/Bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/js/masonry.min.js"></script>
-    <script src="/static/js/imagesloaded.min.js"></script>
-    <script src="/static/js/rainbow-custom.min.js"></script>
-    <script src="/static/js/parallax-navbar.js"></script>
-    <script src="/static/js/blog.js"></script>
-</body>
+        <div class="container-fluid big-logo-row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 big-logo-container">
+                        <img ID="face" src="/static/images/face.png">
+                        <h1 class="big-logo">Tyler Kershner</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+        <div id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-links">
+                        <a href="mailto:tylerkershner@gmail.com"><i class="fa fa-paper-plane fa-3x animate"></i></a>
+                        <a href="http://github.com/kershner/"><i class="fa fa-github fa-3x animate"></i></a>
+                        <a href="#top"><i class="fa fa-arrow-circle-up fa-3x animate"></i></a>
+                        <br>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                        <div>
+                            <a href="{{ link }}">{{ text }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  ga('create', 'UA-54330299-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
+        <!-- JavaScripts placed at the end of the document so the pages load faster -->
+        <script src="/static/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/js/masonry.min.js"></script>
+        <script src="/static/js/imagesloaded.min.js"></script>
+        <script src="/static/js/rainbow-custom.min.js"></script>
+        <script src="/static/js/parallax-navbar.js"></script>
+        <script src="/static/js/countUp.min.js"></script>
+        <script src="/static/js/cms.js"></script>
+    </body>
 </html>

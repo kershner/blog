@@ -1,0 +1,164 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+    <div class="white-inner">
+        <div id="cms-stats">
+            <div class="stat-circles">
+                <div class="stat-circle">
+                    <span id="total-posts" class="stat-result"></span>
+                    <span class="stat-title">Total Posts</span>
+                </div>
+
+                <div class="stat-circle">
+                    <span id="total-words" class="stat-result" style="right: 7px"></span>
+                    <span class="stat-title">Total Words</span>
+                </div>
+
+                <div class="stat-circle">
+                    <span id="avg-words" class="stat-result" style="right: -3px"></span>
+                    <span class="stat-title">Avg Words<br>Per Post</span>
+                </div>
+
+                <div class="stat-circle">
+                    <span class="stat-result">{{ stats['most_common'] }}</span>
+                    <span class="stat-title">Most Common<br>Word</span>
+                </div>
+            </div>
+        </div>
+
+        <a id="new-post-link" href="/new-post"><div id="new-post-button" class="button animate">New Post</div></a>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="alert">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if current_month_posts %}
+            <br>
+            <div class="cms-date">{{ current_month }}</div>
+            <hr style="width: 90%; margin: 0 auto">
+            <br>
+
+            <div id="current-posts-container">
+                {% for post in current_month_posts %}
+                    <div class="post-thumb {{ post.css_class }}">
+                        <img src="{{ post.icon }}">
+                        <div class="post-id">{{ post.id }}</div>
+
+                        <div class="title-date">
+                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
+                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.date }}</span>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/edit-post/{{ post.id }}"><div class="button edit animate">Edit</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if last_month_posts %}
+            <br>
+            <div class="cms-date">{{ last_month }}</div>
+            <hr style="width: 90%; margin: 0 auto">
+            <br>
+
+            <div id="last-month-posts-container">
+                {% for post in last_month_posts %}
+                    <div class="post-thumb {{ post.css_class }}">
+                        <img src="{{ post.icon }}">
+                        <div class="post-id">{{ post.id }}</div>
+
+                        <div class="title-date">
+                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
+                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.date }}</span>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/edit-post/{{ post.id }}"><div class="button edit animate">Edit</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if two_months_ago_posts %}
+            <br>
+            <div class="cms-date">{{ two_months_ago }}</div>
+            <hr style="width: 90%; margin: 0 auto">
+            <br>
+
+            <div id="two-months-ago-posts-container">
+                {% for post in two_months_ago_posts %}
+                    <div class="post-thumb {{ post.css_class }}">
+                        <img src="{{ post.icon }}">
+                        <div class="post-id">{{ post.id }}</div>
+
+                        <div class="title-date">
+                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
+                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.date }}</span>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/edit-post/{{ post.id }}"><div class="button edit animate">Edit</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if older_posts %}
+            <br>
+            <div class="cms-date">Older</div>
+            <hr style="width: 90%; margin: 0 auto">
+            <br>
+
+            <div id="old-posts-container">
+                {% for post in older_posts %}
+                    <div class="post-thumb {{ post.css_class }}">
+                        <img src="{{ post.icon }}">
+                        <div class="post-id">{{ post.id }}</div>
+
+                        <div class="title-date">
+                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
+                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.date }}</span>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/edit-post/{{ post.id }}"><div class="button edit animate">Edit</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function() {
+        var totalPosts = new countUp("total-posts", 0, {{ stats['posts'] }}, 0, 5);
+        var totalWords = new countUp("total-words", 0, {{ stats['words'] }}, 0, 3);
+        var avgWords = new countUp("avg-words", 0, {{ stats['avg_words'] }}, 0, 5);
+
+        totalPosts.start();
+        totalWords.start();
+        avgWords.start();
+        cms();
+    });
+</script>
+{% endblock %}

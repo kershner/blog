@@ -1,14 +1,9 @@
-#!/usr/bin/env python
-
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask import Flask, render_template
+import flask_sqlalchemy
 
-app = Flask(__name__)  # Creating Flask Object
+app = Flask(__name__)  # Initialize Flask Object
 app.config.from_object('config')
+app.secret_key = 'development key'
+db = flask_sqlalchemy.SQLAlchemy(app)  # Initialize database
 
-db = SQLAlchemy(app)
-
-app.secret_key = '65413684f65a446g568465d4fv3xc2vsadf5fsadfvxzcvsdf65465421346543654213sd23f1sad3f21sad3f21sad12vb3vx'
-
-from app import routes_dev, models
+from app import routes, models

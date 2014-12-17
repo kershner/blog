@@ -1,0 +1,22 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+    {% for post in selected_posts %}
+        <a name="{{ post.id }}"></a>
+        <div class="white {{ post.css_class }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                        <h2>{{ post.title }}</h2>
+                        <h4 class="bd">{{ post.subtitle }}</h4>
+                        <span class="post-date">{{ post.date }}</span>
+                        <hr>
+                        <p>
+                            {{ post.content | markdown }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

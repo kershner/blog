@@ -1,64 +1,367 @@
-from flask import render_template, jsonify, request, flash, redirect, url_for, session
-from forms import DateCheckerForm, BackorderForm, ApplicationForm, DeaForm, NewAccountForm, ShadyForm, DiscrepancyForm,\
-    StillNeed, LicenseNeeded, DeaVerify, DeaForms,BackorderReport, SlideshowDelay, GifParty, RedditImageScraper
+from flask import jsonify, render_template, request, flash, redirect, url_for, session, Markup
+from forms import *
 from urllib import quote
-import datetime
+import bleach
+from datetime import datetime, timedelta
 import random
+import calendar
 import re
 import praw
 import requests
 from functools import wraps
+from markdown import markdown
+import cms_functions
 from app import app, db, models
 
 
+# Filter to render markdown in templates
+@app.template_filter('markdown')
+def render_markdown(markdown_text):
+    return Markup(markdown(markdown_text))
+
+
+def login_required(test):
+    @wraps(test)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return test(*args, **kwargs)
+        else:
+            flash('You need to log in first.')
+            return redirect(url_for('login'))
+
+    return wrap
+
+
 ##############################################################################
-# Blog
-##############################################################################
+# Blog #######################################################################
 @app.route('/')
-def home():
-    return render_template("/blog/home.html",
-                           title="Home")
+def index():
+    # Sorting by ID (descending order)
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    current_month_posts = []
+    last_month_posts = []
+    two_months_ago_posts = []
+
+    for post in posts:
+        status = cms_functions.get_recent_posts(post)
+        if status == 'Current Month':
+            current_month_posts.append(post)
+        elif status == 'Last Month':
+            last_month_posts.append(post)
+        elif status == 'Two Months Ago':
+            two_months_ago_posts.append(post)
+
+    if 'logged_in' in session:
+        link = '/cms'
+        text = 'CMS'
+    else:
+        link = '/login'
+        text = 'Login'
+
+    return render_template('/blog/home.html',
+                           current_month_posts=current_month_posts,
+                           last_month_posts=last_month_posts,
+                           two_months_ago_posts=two_months_ago_posts,
+                           link=link,
+                           text=text)
 
 
 @app.route('/archive')
 def archive():
-    return render_template("/blog/archive.html",
-                           title="Blog Archive")
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    month_strings = []
+    month_year = []
+    month_list = []
+
+    for post in posts:
+        try:
+            date_string = '%s %s' % (str(calendar.month_name[int(post.month)]), str(post.year))
+            if date_string not in month_strings:
+                month_strings.append(date_string)
+                month_year.append([post.month, post.year])
+        except TypeError:
+            continue
+
+    counter = 0
+    numbers = [10, 11, 12]
+    for entry in month_strings:
+        year = month_year[counter][1]
+        month = month_year[counter][0]
+        # Pre-pending a 0 to month if needed
+        if int(month) in numbers:
+            month = '%s' % str(month)
+        else:
+            month = '0%s' % str(month)
+        year_month = '%s%s' % (str(year), month)
+
+        month_list.append([entry, month, year, int(year_month)])
+        counter += 1
+
+    # Sorting by third index - year + month
+    month_list.sort(key=lambda x: x[3], reverse=True)
+    return render_template('/blog/archive.html',
+                           title='Archive',
+                           months=month_list)
 
 
-@app.route('/may14')
-def may14():
-    return render_template("/blog/blog_archive/may14.html",
-                           title="May 2014")
+@app.route('/archive/<year>/<month>')
+def archive_viewer(year, month):
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    selected_posts = []
+    month_string = calendar.month_name[int(month)]
+
+    for post in posts:
+        try:
+            if int(post.month) == int(month) and int(post.year) == int(year):
+                selected_posts.append(post)
+        except TypeError:
+            continue
+
+    return render_template('/blog/archive_viewer.html',
+                           title='Archive - %s %d' % (month_string, int(year)),
+                           selected_posts=selected_posts)
 
 
-@app.route('/jun14')
-def jun14():
-    return render_template("/blog/blog_archive/jun14.html",
-                           title="June 2014")
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        verify = cms_functions.password_validate(username, password)
+
+        if not verify[0]:
+            print 'Did not verify'
+            flash(verify[1])
+            return redirect(url_for('login'))
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('cms'))
+    else:
+        print 'Did not validate'
+        return render_template('/blog/login.html',
+                               form=form,
+                               title='CMS Login')
 
 
-@app.route('/jul14')
-def jul14():
-    return render_template("/blog/blog_archive/jul14.html",
-                           title="July 2014")
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if 'logged_in' in session:
+        session.pop('logged_in', None)
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
 
 
-@app.route('/aug14')
-def aug14():
-    return render_template("/blog/blog_archive/aug14.html",
-                           title="August 2014")
+@app.route('/cms', methods=['GET', 'POST'])
+@login_required
+def cms():
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    link = '/logout'
+    text = 'Logout'
+
+    if posts:
+        current_month = datetime.today().strftime('%B %Y')
+        last_month = (datetime.today() - timedelta(weeks=4)).strftime('%B %Y')
+        two_months_ago = (datetime.today() - timedelta(weeks=8)).strftime('%B %Y')
+        current_month_posts = []
+        last_month_posts = []
+        two_months_ago_posts = []
+        older_posts = []
+        statistics = cms_functions.stats(posts)
+
+        for post in posts:
+            if cms_functions.get_recent_posts(post) == 'Current Month':
+                current_month_posts.append(post)
+            elif cms_functions.get_recent_posts(post) == 'Last Month':
+                last_month_posts.append(post)
+            elif cms_functions.get_recent_posts(post) == 'Two Months Ago':
+                two_months_ago_posts.append(post)
+            else:
+                older_posts.append(post)
+
+    else:
+        current_month_posts = ''
+        last_month_posts = ''
+        two_months_ago_posts = ''
+        older_posts = ''
+        current_month = ''
+        last_month = ''
+        two_months_ago = ''
+        statistics = ''
+
+    return render_template('/blog/cms.html',
+                           icons=cms_functions.dog_icons(),
+                           form=DatabaseForm(),
+                           current_month_posts=current_month_posts,
+                           last_month_posts=last_month_posts,
+                           two_months_ago_posts=two_months_ago_posts,
+                           older_posts=older_posts,
+                           current_month=current_month,
+                           last_month=last_month,
+                           two_months_ago=two_months_ago,
+                           stats=statistics,
+                           link=link,
+                           text=text,
+                           title='CMS')
 
 
-@app.route('/sep14')
-def sep14():
-    return render_template("/blog/blog_archive/sep14.html",
-                           title="September 2014")
+@app.route('/new-post', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = DatabaseForm()
+    form.month.data = datetime.today().month
+    form.year.data = datetime.today().year
+    form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
+    link = '/cms'
+    text = 'CMS'
 
-@app.route('/oct14')
-def oct14():
-    return render_template("/blog/blog_archive/oct14.html",
-                           title="October 2014")
+    return render_template('/blog/new-post.html',
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           link=link,
+                           text=text,
+                           title='New Post')
+
+
+@app.route('/cms-submit', methods=['GET', 'POST'])
+@login_required
+def cms_submit():
+    form = DatabaseForm()
+    if not form.validate_on_submit():
+        return render_template('/blog/new-post.html',
+                               icons=cms_functions.dog_icons(),
+                               form=form)
+    else:
+        css_class = cms_functions.get_theme(form.color.data)
+        title = bleach.clean(form.title.data)
+        icon = form.icon.data
+        subtitle = bleach.clean(form.subtitle.data)
+        content = cms_functions.generate_markdown(form.content.data, True)
+        date_string = form.hidden_date.data
+        month = form.month.data
+        year = form.year.data
+
+        post = models.Post(css_class=css_class,
+                           title=title,
+                           icon=icon,
+                           subtitle=subtitle,
+                           date=date_string,
+                           month=month,
+                           content=content,
+                           year=year)
+
+        db.session.add(post)
+        db.session.commit()
+
+        flash('Your post titled %s has been added to the database!' % title)
+        return redirect(url_for('cms'))
+
+
+@app.route('/preview')
+@login_required
+def preview():
+    color = request.args.get('color', 0, type=str)
+    title = bleach.clean(request.args.get('title', 0, type=str))
+    icon = request.args.get('icon', 0, type=str)
+    hidden_date = bleach.clean(request.args.get('hidden_date', 0, type=str))
+    subtitle = bleach.clean(request.args.get('subtitle', 0, type=str))
+    content = cms_functions.generate_markdown(request.args.get('content', 0, type=str), False)
+    div_class = cms_functions.get_theme(color)
+    date = hidden_date
+
+    html = '''
+        <div class="dynamic %s" style="padding-top: 15px;">
+            <div>
+                <img src="%s"><span class="ba">Tyler Kershner</span>
+                    <h2>%s</h2>
+                    <h4 class="bd">%s</h4>
+                    <span class="post-date">%s</span>
+                    <hr style="width: 90%%">
+                    %s
+            </div>
+            <script>
+                centerImages();
+            </script>
+        </div>
+    ''' % (div_class, icon, title, subtitle, date, content)
+
+    data = {
+        'html': html,
+        'content': content
+    }
+
+    return jsonify(data)
+
+
+@app.route('/edit-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def cms_edit(unique_id):
+    form = DatabaseForm()
+    post = models.Post.query.get(unique_id)
+    link = '/cms'
+    text = 'CMS'
+
+    form.color.data = post.css_class
+    form.icon.data = post.icon
+    form.title.data = post.title
+    form.subtitle.data = post.subtitle
+    form.content.data = cms_functions.generate_markdown(post.content, True)
+    form.hidden_date.data = post.date
+    form.month.data = post.month
+    form.year.data = post.year
+
+    return render_template('/blog/edit-post.html',
+                           post=post,
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           link=link,
+                           text=text,
+                           title='Edit Post')
+
+
+@app.route('/update-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def cms_update(unique_id):
+    form = DatabaseForm()
+    post = models.Post.query.get(unique_id)
+
+    if form.validate_on_submit():
+        post.css_class = cms_functions.get_theme(form.color.data)
+        post.title = bleach.clean(form.title.data)
+        post.icon = form.icon.data
+        post.subtitle = bleach.clean(form.subtitle.data)
+        post.content = cms_functions.generate_markdown(form.content.data, True)
+        post.month = form.month.data
+        post.year = form.year.data
+        db.session.commit()
+
+        flash('The post titled %s has been updated!' % post.title)
+        return redirect(url_for('cms'))
+
+    form.color.data = post.css_class
+    form.title.data = post.title
+    form.icon.data = post.icon
+    form.subtitle.data = post.subtitle
+    form.content.data = post.content
+
+    return render_template('/blog/edit-post.html',
+                           form=form,
+                           post=post,
+                           icons=cms_functions.dog_icons())
+
+
+@app.route('/delete-post/<unique_id>')
+@login_required
+def cms_delete(unique_id):
+    post = models.Post.query.get(unique_id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Successfully deleted post titled %s." % post.title)
+    return redirect(url_for('cms'))
 
 
 @app.route('/about')
@@ -108,10 +411,12 @@ def ycs_campaign():
     return render_template("/blog/projects/project06.html",
                            title="YCS Re-election Website")
 
+
 @app.route('/steamtime-project')
 def steamtime_project():
     return render_template("/blog/projects/project07.html",
                            title="SteamTime")
+
 
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
@@ -135,6 +440,12 @@ def piproject1():
 def piproject2():
     return render_template("/blog/writeups/project03-part2.html",
                            title="GIF Picture Frame Writeup Part 2")
+
+
+@app.route('/warning')
+def warning():
+    return render_template("/blog/warning.html",
+                           title="Warning")
 
 
 ##############################################################################
@@ -171,8 +482,8 @@ def pi_display_json():
         filename = 'educational_urls.txt'
         toplay_filename = 'educational_urls_to_play.txt'
     else:
-        filename = 'all_urls.txt'
-        toplay_filename = "all_urls_to_play.txt"
+        filename = 'urls.txt'
+        toplay_filename = "urls_to_play.txt"
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -225,8 +536,7 @@ def pi_display_json():
 
 
 ##############################################################################
-## Pi Display Config
-##############################################################################
+# Pi Display Config
 @app.route('/pi_display_config', methods=['GET', 'POST'])
 def pi_display_config():
     form = SlideshowDelay()
@@ -275,16 +585,17 @@ def pi_display_config():
 
         else:
             delay = str(form.delay.data)
+
             with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
                 config_file.write(config_file_list[0])
                 config_file.write(config_file_list[1])
                 config_file.write(config_file_list[2])
                 config_file.write('DELAY = %s' % delay + '\n')
+
             return redirect(url_for('pi_display_config'))
 
     elif request.method == 'GET':
         return render_template("/pi_display/pi_display_config.html",
-                               title="Raspberry Pi GIF Display Configuration",
                                current_gif=current_gif,
                                form=form,
                                main_urls_count=main_urls_count,
@@ -448,17 +759,18 @@ def previously_3():
 
 
 ##############################################################################
-## Gif Party
-##############################################################################
+# Gif Party
 @app.route('/gif_party')
 def gif_party_welcome():
     path = '/home/tylerkershner/app/templates/gif_party'
+
     filename = 'welcome_urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
 
     image_url = random.choice(urls_list)
+    image_url = image_url[:image_url.find('\n')]
 
     return render_template('/gif_party/welcome.html',
                            image_url=image_url)
@@ -674,25 +986,19 @@ def gif_party_json_20():
 
 @app.route('/gif_party_json_delay', methods=['GET', 'POST'])
 def gif_party_json_delay():
-    if request.method == 'POST':
-        delay = request.json
-        delay = str(delay) + '000'
-        session['delay'] = delay
+    delay = request.json
+    delay = str(delay) + '000'
+    session['delay'] = delay
 
-        data = {
-            "delay": session['delay']
-        }
-
-    else:
-        data = {
-            "delay": 60
-        }
+    data = {
+        "delay": session['delay']
+    }
 
     return jsonify(data)
 
 
-#######################################################################################
-#####  CS Tools Apps ##################################################################
+###################################################################################
+#  CS Tools Apps ##################################################################
 class GetClass(object):
     def __init__(self, count, color):
         self.count = count
@@ -743,8 +1049,8 @@ def datechecker():
                 date_object = datetime.datetime.date(datetime.datetime.strptime(form_date, '%m/%d/%y'))
                 form_expiry_date = date_object + datetime.timedelta(days=60)
                 form_expiry_date_nice = "%s %s" % (str(form_expiry_date.strftime("%B")), str(form_expiry_date.day))
-                days_expired = datetime.date.today() - form_expiry_date
-                if form_expiry_date > datetime.date.today():
+                days_expired = datetime.today() - form_expiry_date
+                if form_expiry_date > datetime.today():
                     message = "The form is valid until %s,  %s days from now." % \
                               (form_expiry_date_nice, str(abs(days_expired.days)))
                 else:
@@ -787,10 +1093,8 @@ def backorder():
                    "of your items is currently not available.  Item # %s is " \
                    "in production with an approximate lead time of %s." % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
-
             signoff = "\n\nI apologize for the inconvenience.  Let me know if you have any questions." \
                       "\n\nHave a great day,\n\n"
-
             body += signoff
 
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
@@ -849,7 +1153,7 @@ def application():
         if not form.validate():
             flash('All fields are required.')
             return render_template("/cstools/application.html",
-                                   title="Account Application Template3",
+                                   title="Account Application Template",
                                    form=form,
                                    color=color)
         else:
@@ -862,13 +1166,13 @@ def application():
                    "though please don't hesitate to call if you have any questions.\n\n" % name
             link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
             return render_template("/cstools/application.html",
-                                   title="Account Application Template1",
+                                   title="Account Application Template",
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
         return render_template("/cstools/application.html",
-                               title="Account Application Template2",
+                               title="Account Application Template",
                                form=form,
                                color=color)
 
@@ -1149,10 +1453,10 @@ def login_required(test):
 
 
 @app.route('/cstools/login', methods=['GET', 'POST'])
-def login():
+def cstools_login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'cs'or request.form['password'] != 'cayman':
+        if request.form['username'] != 'cs' or request.form['password'] != 'cayman':
             error = 'Invalid credentials, please try again.'
         else:
             session['logged_in'] = True
@@ -1163,7 +1467,7 @@ def login():
 
 
 @app.route('/cstools/logout')
-def logout():
+def cstools_logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
         return redirect(url_for('cstools'))
@@ -1194,7 +1498,7 @@ def forms_without_orders():
             csr_name = form.csr_name.data
             item_numbers = form.item_numbers.data
             notes = form.notes.data
-            now = datetime.datetime.utcnow()
+            now = datetime.utcnow()
             date_nice = now.strftime('%m/%d/%Y')
 
             entry = models.Entry(institution=institution,
@@ -1238,8 +1542,8 @@ def new_entry():
 
 @app.route('/cstools/forms-without-orders/edit-entry/<id>')
 @login_required
-def edit_entry(id):
-    entry = models.Entry.query.get(id)
+def edit_entry(entry_id):
+    entry = models.Entry.query.get(entry_id)
 
     return render_template("/cstools/forms_without_orders_edit.html",
                            title="DEA Forms Without Orders - Edit Entry",
@@ -1248,9 +1552,9 @@ def edit_entry(id):
 
 @app.route('/cstools/forms-without-orders/update-entry/<id>', methods=['GET', 'POST'])
 @login_required
-def update_entry(id):
+def update_entry(entry_id):
     form = DeaForms()
-    entry = models.Entry.query.get(id)
+    entry = models.Entry.query.get(entry_id)
     if form.validate_on_submit():
         entry.institution = form.institution.data
         entry.contact_name = form.name.data
@@ -1284,8 +1588,8 @@ def update_entry(id):
 
 @app.route('/cstools/forms-without-orders/delete-entry/<id>')
 @login_required
-def delete_entry(id):
-    entry = models.Entry.query.get(id)
+def delete_entry(entry_id):
+    entry = models.Entry.query.get(entry_id)
 
     db.session.delete(entry)
     db.session.commit()
@@ -1295,14 +1599,13 @@ def delete_entry(id):
     message = "Successfully deleted entry for %s." % entry.institution
 
     return render_template("/cstools/forms_without_orders.html",
-                                   title="DEA Forms Without Orders",
-                                   message=message,
-                                   entries=entries)
+                           title="DEA Forms Without Orders",
+                           message=message,
+                           entries=entries)
 
 
 ##############################################################################
-## Reddit Image Scraper
-##############################################################################
+# Reddit Image Scraper
 @app.route('/scrape', methods=['GET', 'POST'])
 def scrape_home():
     form = RedditImageScraper()
@@ -1471,18 +1774,15 @@ def scrape():
 
 
 ##############################################################################
-## Campaign Site
-##############################################################################
+# Campaign Demo Site
 @app.route('/campaign')
-def campaign_demo():
-
+def campaign():
     return render_template('/campaign/home.html')
 
 
 @app.route('/slogan')
 def slogan():
     slogans = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
-
     variable = random.choice(slogans)
 
     data = {
@@ -1499,7 +1799,8 @@ def article():
          'http://www.mlive.com/news/ann-arbor/index.ssf/2014/06/ypsilanti_community_schools_gr.html',
          '- Amy Biolchini', 'MLive | 6/03/2014', '61'],
         ['"Ypsilanti schools to pursue college scholarship program similar to Kalamazoo Promise."',
-         'http://www.annarbor.com/news/ypsilanti/ypsilanti-community-schools-to-pursue-college-scholarship-program-similar-to-kalamazoo-promise/',
+         'http://www.annarbor.com/news/ypsilanti/ypsilanti-community-schools-to-pursue-college-scholarship-program-'
+         'similar-to-kalamazoo-promise/',
          '- Danielle Arndt', 'The Ann Arbor News | 7/25/2013', '85'],
         ['"Ypsilanti New Tech High School sends off its inaugural graduating class."',
          'http://www.heritage.com/articles/2014/05/23/ypsilanti_courier/news/doc537f84b324c9c781733383.txt',
@@ -1508,7 +1809,8 @@ def article():
          'http://www.mlive.com/lansing-news/index.ssf/2014/06/flanagan_deficit_districts.html',
          '- Brian Smith', 'MLive | 6/08/2014', '86'],
         ['"Ypsilanti schools authorizes restructuring $18.8M debt to no longer be a deficit district."',
-         'http://www.annarbor.com/news/ypsilanti/ypsilanti-schools-authorizes-restructuring-its-188m-debt-to-no-longer-be-a-deficit-district/',
+         'http://www.annarbor.com/news/ypsilanti/ypsilanti-schools-authorizes-restructuring-its-188m-debt-to-no-'
+         'longer-be-a-deficit-district/',
          '- Danielle Arndt', 'The Ann Arbor News | 6/26/2013', '92'],
     ]
 
@@ -1527,18 +1829,19 @@ def article():
 
 @app.route('/article2')
 def article2():
-
     articles = [
         ['"Year-round school? Ypsilanti schools considering expanding use of balanced calendar."',
          'http://www.mlive.com/news/ann-arbor/index.ssf/2014/08/ypsilanti_schools_to_consider.html',
          '- Amy Biolchini', 'MLive | 8/09/2014', '86'],
-        ['"Holmes Elementary School starts off strong as first to pilot balanced calendar in Ypsilanti Community Schools."',
+        ['"Holmes Elementary School starts off strong as first to pilot balanced calendar in Ypsilanti Community '
+         'Schools."',
          'http://www.heritage.com/articles/2014/08/21/ypsilanti_courier/news/doc53f61a1be160f522813720.txt',
          '- Krystal Elliott', 'The Ypsilanti Courier | 8/21/2014', '112'],
         ['"City officials propose stationing police officer at Ypsilanti Community Middle School."',
          'http://www.heritage.com/articles/2014/06/17/ypsilanti_courier/news/doc53a054c6786f5399518913.txt',
          '- Krystal Elliott', 'The Ypsilanti Courier | 6/17/2014', '88'],
-        ['"Ypsilanti teachers, district \'satisfied\' overall with union contract despite some concerns over salaries."',
+        ['"Ypsilanti teachers, district \'satisfied\' overall with union contract despite some concerns over '
+         'salaries."',
          'http://www.heritage.com/articles/2014/09/17/ypsilanti_courier/news/doc541221141ab45551957933.txt',
          '- Krystal Elliott', 'The Ypsilanti Courier | 9/17/2014', '106'],
         ['"Ypsilanti Community Schools Adopts Elementary Reconfiguration Plan."',

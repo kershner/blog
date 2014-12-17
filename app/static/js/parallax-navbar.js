@@ -1,5 +1,5 @@
 $(window).scroll(function() {
-  var navbarColor = "26,139,188";//color attr for rgba
+  var navbarColor = "73,125,203";//color attr for rgba
   var smallLogoHeight = $('.small-logo').height();
   var bigLogoHeight = $('.big-logo').height();
   var navbarHeight = $('.navbar').height(); 

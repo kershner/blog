@@ -1,309 +1,75 @@
-{% extends "/blog/base.html" %}
+{% extends '/blog/base.html' %}
 {% block content %}
-
-<a name="refactor"></a>
-<div class="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicons/dogsicon6.png"><span class="ba">Tyler Kershner</span>
-				<h2>Refactoring</h2>
-                <h4 class="bd">November 24th, 2014</h4>
-                <hr>
-				<p>
-                    <strong>I took to reddit to get some feedback on SteamTime</strong>.
-                    <br><br>
-                    I got some great suggestions.  Primarily my Python needed some re-organization to make it a little more maintainable and bring it up to
-                    the standards of current best practices.
-                    <br><br>
-                    The main goal of the refactoring process was to migrate from dusty old <a href="https://docs.python.org/2/library/urllib2.html">urllib2</a>
-                    to the much simpler and more lightweight <a href="http://docs.python-requests.org/en/latest/">requests</a> library.
-                    This turned out to be a snap, largely owing to how common-sensical requests is.  It also includes a
-                    JSON decoder out of the box, so there's one less library SteamTime needs to import.
-                    <br><br>
-                    Next up was splitting apart my code because having everything together in one long, awkward file is a pretty un-Pythonic way to do things.
-                    I set to work splitting out all the individual functions that
-                    are called one-by-one during the main SteamTime logic flow.
-                    This involved a lot of small changes followed by tedious testing to ensure the whole thing hadn't broken, and then a
-                    bit of re-organization and variable name updates. All in all the process was much simpler than I imagined
-                    it being at the outset.
-                    <br><br>
-                    I've saved my old code for posterity, you can compare both at the links below.
-                </p>
-
-                <div style="position: relative; width: 600px; margin: 0 auto; text-align: center;">
-                    <a href="https://github.com/kershner/steamtime/blob/master/steamtime_old.py"><div class="button animate" style="margin-bottom: 6px;"><p>Old and Busted</p></div></a><br>
-                    <a href="https://github.com/kershner/steamtime/blob/master/routes.py"><div class="button animate"><p>Refactored Hotness (1/2)</p></div></a>
-                    <a href="https://github.com/kershner/steamtime/blob/master/st_functions.py"><div class="button animate"><p>Refactored Hotness (2/2)</p></div></a>
+    {% if current_month_posts %}
+            {% for post in current_month_posts %}
+                <div class="post {{ post.css_class }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                                <h2>{{ post.title }}</h2>
+                                <h4 class="bd">{{ post.subtitle }}</h4>
+                                <span class="post-date">{{ post.date }}</span>
+                                <hr>
+                                <p>
+                                    {{ post.content | markdown }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
+            {% endfor %}
+    {% endif %}
 
-                <p>
-                    Of course there's a big long list of minor things that could still be worked on with SteamTime,
-                    but at a certain point I think it's more worth my time to consider this project complete and
-                    move on to the next one.
-                    <br><br>
-                    So long, SteamTime, you were a great and very educational project!
-                </p>
-
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div class="grey">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicons/dogsicon4.png"><span class="ba">Tyler Kershner</span>
-				<h2>New Stuff!</h2>
-                <h4 class="bd">November 17th, 2014</h4>
-                <hr>
-				<p>
-                    <strong>It's been a little while since I've updated the blog.</strong>  October was another busy month
-                    for me.  As I finished up with the campaign website I began trying out some programming practice
-                    problems, making a few minor scripts that were novel to me, including an <a href="http://en.wikipedia.org/wiki/Infinite_monkey_theorem">infinite monkey</a> script and a very rudimentary <a href="http://en.wikipedia.org/wiki/Tamagotchi">Tamagotchi</a> program.  I quickly became bored with these
-                    activities, however, and I soon started to work planning another large project.<br><br>
-                    I dug out my <a href="/sep14#api-hijinks">work</a> from the previous month with the Steam API and
-                    set about building a full web app on its foundation.  The project quickly grew in scope and I was
-                    soon spending all of my free time working on it.  Around the last week of October I caught some kind
-                    of flu going around and I was pretty much out of the loop for a week, losing a lot of productive
-                    hours in the meantime.  I got back to work as soon as I was feeling up to it and "finished"
-                    soon after.<br><br>
-                    I learned so much from the process that I plan to walk through the entire project and the
-                    challenges I overcame in a long form write-up (for real this time!), so hopefully that will be
-                    completed soon.<br><br>
-                    In the meantime, check out the SteamTime project page, or visit the website itself!<br><br>
-
-                    <a class="top-link" href="http://www.steamtime.us">steamtime.us</a><br>
-                    <a class="top-link" href="/steamtime-project">Project Page</a>
-
-				</p>
-
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div class="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicon.png"><span class="ba">Tyler Kershner</span>
-				<h2>At Long Last</h2>
-                <h4 class="bd">October 4th, 2014</h4>
-                <hr>
-				<p>
-                    <strong>Three months later, the GIF Display is finally complete!</strong><br><br>
-                    Reading my old posts and project updates can be quite hilarious.  I continually assume that the
-                    project will finish up "soon" or "next week", and as those estimates began to stretch further and
-                    further out I eventually just stopped mentioning it all together.  Kerry was able to find
-                    the time to put the finishing touches on the absurd little device this week, and I absolutely love
-                    the results.<br><br>
-				</p>
-
-                <div class="project-screenshots">
-                    <a href="/static/images/gif-display-final-01.jpg"><img src="/static/images/gif-display-final-01.jpg" /></a>
-                    <a href="/static/images/gif-display-final-02.jpg"><img src="/static/images/gif-display-final-02.jpg" /></a>
-                    <a href="/static/images/gif-display-final-03.jpg"><img src="/static/images/gif-display-final-03.jpg" /></a>
+    {% if last_month_posts %}
+            {% for post in last_month_posts %}
+                <div class="post {{ post.css_class }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                                <h2>{{ post.title }}</h2>
+                                <h4 class="bd">{{ post.subtitle }}</h4>
+                                <span class="post-date">{{ post.date }}</span>
+                                <hr>
+                                <p>
+                                    {{ post.content | markdown }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            {% endfor %}
+    {% endif %}
 
-                <p>
-                    Kerry came across the primary image when flipping through a book of obscure curiosities she found while
-                    thrifting.  It's entitled <a href="http://upload.wikimedia.org/wikipedia/commons/c/cc/Robert_Blair,_The_Grave,_object_7_(Bentley435.6)_The_Soul_hovering_over_the_Body_reluctantly_parting_with_Life.jpg"><em>The Soul Hovering over the Body Reluctantly Parting with Life</em></a> and
-                    was illustrated by <a href="http://en.wikipedia.org/wiki/William_Blake">William Blake</a> for the re-release of the
-                    poem <a href="http://en.wikipedia.org/wiki/The_Grave_(poem)"><em>The Grave</em></a> by <a href="http://en.wikipedia.org/wiki/Robert_Blair_(poet)">Robert Blair.</a><br><br>
-                    She spray painted the bland Ikea frame and then decoupaged the illustration as well as the back matting.
-                    I love the texture brought out by the decoupage, as well as Kerry's subtle little touches like having
-                    the illustration slightly off-center relative to the frame and the LCD itself.  I think it just looks
-                    great!<br><br>
-                    Here's a new video of the display in action with the delay set to 12 seconds:
-                </p>
+    {% if two_months_ago_posts %}
+            {% for post in two_months_ago_posts %}
+                <div class="post {{ post.css_class }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                                <h2>{{ post.title }}</h2>
+                                <h4 class="bd">{{ post.subtitle }}</h4>
+                                <span class="post-date">{{ post.date }}</span>
+                                <hr>
+                                <p>
+                                    {{ post.content | markdown }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    {% endif %}
 
-                <div class="video">
-                    <iframe width="560" height="315" src="//www.youtube.com/embed/ibwFjEYeeCM" frameborder="0" allowfullscreen></iframe>
-                </div><br><br>
+    <hr class="hr75">
+    <a id="older-link" href="/archive" class="animate"><div>Older Posts</div></a>
 
-                <p>
-                    And there you have it.  I'm not quite going to close the book on this one just yet, as I eventually
-                    want to get a larger screen which will involve Kerry re-designing her work, but that is a project for
-                    another time!  I also still want to work on updating and finishing my write up of the process to
-                    be more useful and straightforward at some point.  For now, be sure to check the GIF Display's
-                    project page and current write-ups.<br><br>
-                    On a related note, my repository of GIFs that I use for the display and <a href="/gif_party">GIF Party</a> just hit
-                    <a href="https://github.com/kershner/blog/blob/master/app/templates/pi_display/logs/all_urls.txt">10,000 GIFs</a> this week!<br><br>
-                    <a class="top-link" href="/gif_display">GIF Display Project Page</a><br>
-                    <a class="top-link" href="/piproject1">Write Up</a>
-                </p>
-
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div class="grey">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicons/dogsicon7.png"><span class="ba">Tyler Kershner</span>
-				<h2>Gaining Experience</h2>
-                <h4 class="bd">September 23rd, 2014</h4>
-                <hr>
-				<p>
-                    <strong>My first professional programming-related project is complete.</strong>
-                    <br><br>
-                    Check it out at the official site, <a href="/campaign">http://www.ycsfirstchoice.com</a>, or
-                    at the projects section here on my blog.  Building the site and working with actual clients was a fantastic
-                    learning experience.  Even though the site was fairly simple from a code-complexity standpoint, the entire
-                    process has taught me so much and better prepared me for future opportunities.
-                    <br><br>
-                    I'm going to continue helping the YCS Board with maintaining the site through the November election, as I think
-                    they're a great group of people and I'm happy to help.  In the meantime I'm going to pursue some additional
-                    local web development work and if that doesn't end up panning out immediately I'll start back up with my
-                    Steam API project from a few weeks ago.  Always plenty to do.
-                    <br><br>
-                    <a class="top-link" href="/campaign">ycsfirstchoice.com</a>
-
-				</p>
-
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
-<div class="white">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicons/dogsicon2.png"><span class="ba">Tyler Kershner</span>
-				<h2>API Hijinks</h2>
-                <h4 class="bd">September 10th, 2014</h4>
-                <hr>
-				<p>
-                    <strong>In small bits of my spare time I've been investigating the <a href="https://developer.valvesoftware.com/wiki/Steam_Web_API">Steam API</a></strong>.<br><br>
-                    I'm looking to eventually make a simple app that will create a word cloud-like visualization of a Steam user's hours played for each game they
-                    own.  Well, that's the idea anyway!<br><br>
-                    I'll walk through a basic script I've been working on below.
-				</p>
-                <pre><code data-language="python">import urllib2
-import json
-
-# Two different API urls - Steam uses different URLs for different services within the API
-API_URL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
-API_URL_STEAMID = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
-API_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-</code></pre>
-                <p>
-                    The Steam Web API can output its response in either XML or JSON, and of course I chose JSON because
-                    I'm familiar with it, it works well with Python, and it's just plain cleaner than XML.<br><br>
-                    As I've noted in the comment, the API uses different URLs for different services.  So you'll end up
-                    using one URL for player data and a different one for game data, for example.
-                </p>
-
-                <pre><code data-language="python">user_input = raw_input('Enter your steam profile name: > ').lower()
-
-try:
-    steam_id = json.loads(urllib2.urlopen('%s?key=%s&vanityurl=%s' %
-                                          (API_URL_STEAMID, API_KEY, user_input)).read())['response']['steamid']
-
-    # Don't forget to include_appinfo=1 for extra data about entries
-    api_call = urllib2.urlopen('%s?key=%s&steamid=%s&format=json&include_appinfo=1' % (API_URL, API_KEY, steam_id))
-    data = json.loads(api_call.read())
-</code></pre>
-                <p>
-                    Here I'm grabbing the user's provided Steam profile name and adding it to the API's SteamID URL
-                    to return their corresponding 64-bit Steam ID, which is how the API identifies the user. I should
-                    note that in my finalized app I'll need to account for both a Steam vanity URL and the plain 17-digit SteamID as inputs
-                    in case the user has not yet established a vanity URL.<br><br>
-                    The finalized URL is fed to <a href="https://docs.python.org/2/library/urllib2.html#urllib2.urlopen">urllib2.urlopen()</a> and
-                    becomes my actual API call.  The response is then decoded by
-                    <a href="https://docs.python.org/2/library/json.html#json.loads">json.loads()</a> and read by Python.
-                </p>
-    <pre><code data-language="python">
-    minutes_played = []
-
-    for game in data['response']['games']:
-        minutes_played.append([game['name'], game['playtime_forever']])
-
-    # Using a reverse sort by the 2nd index of each entry in minutes_played
-    minutes_played = sorted(minutes_played, key=lambda entry: entry[1], reverse=True)
-</code></pre>
-                <p>
-                    Here I'm extracting a piece of data provided by the API call: the specified user's total playtime (since 2009 when Steam began
-                    collecting total playtime data) for the games in their library.  I then use Python's <a href="https://docs.python.org/2/library/functions.html#sorted">sorted()</a>
-                    function (with the reverse argument) to create a new list sorted by the index containing the playtime data in descending order.<br><br>
-                    In order to sort the list by the correct index (sorting by the game's name would be useless to me!) I had to make use of a yet-unknown concept to me: <a href="https://docs.python.org/2/reference/expressions.html#lambda">Lambda</a>.
-                    Lambda is apparently pretty confusing for many aspiring programmers, and I certainly don't fully understand it just yet.  As far as I can gather it's used as an 'anonymous' or
-                    'one-off' function as a sort of shortcut to save space/cut down on verbosity within other operations.  I'll be looking into it more to try and wrap my head around it further.
-                </p>
-    <pre><code data-language="python">
-    counter = 0
-    print '##################################################'
-    print '#   %s\'s Top 5 Most' % user_input
-    print '#   Played Steam Games'
-    print '##################################################'
-    for entry in minutes_played:
-        if counter == 5:
-            break
-        else:
-            print '#   ' + str(entry[0]) + ' -- %d hours' % (entry[1] / 60)
-            counter += 1
-    print '##################################################'
-
-except KeyError:
-    print '\nInvalid profile name, please try again.'</code></pre>
-                <p>
-                    And the final part - the output!  I create a counter variable because for this simple script I only want the top 5
-                    most played games to display.  The except clause is there to catch an invalid profile name/ID.<br><br>
-                    And here's what the output looks like:
-                </p>
-    <pre><code>Enter your steam profile name: > billcrystals
-
-##################################################
-#   billcrystals's Top 5 Most
-#   Played Steam Games
-##################################################
-#   Left 4 Dead 2 -- 882 hours
-#   The Elder Scrolls V: Skyrim -- 200 hours
-#   Battlefield: Bad Company 2 -- 128 hours
-#   DayZ -- 96 hours
-#   Left 4 Dead -- 85 hours
-##################################################</code></pre>
-                <p>
-                    And there you have it!  Apparently I've played entirely too much Left 4 Dead 2.<br><br>I think I've got a great
-                    start on this project.  Next up I will be building the algorithm to create the histogram/word cloud-like size variance
-                    of the individual game playtimes, and from there it's on to the front end for the website.<br><br>
-                    I'll find some time to continue working on the project and hopefully have a completed application to show off soon.<br><br>
-                    Thanks for reading!
-                </p>
-
-			</div>
-        </div><!-- /row -->
-	</div>
-</div>
-
-<div class="grey">
-    <div class="container">
-	    <div class="row">
-		    <div class="col-lg-8 col-lg-offset-2">
-			    <img src="/static/images/dogsicons/dogsicon3.png"><span class="ba">Tyler Kershner</span>
-				<h2>Professional?</h2>
-                <h4 class="bd">September 3rd, 2014</h4>
-                <hr>
-				<p>
-                    <strong>Well, roughly six months</strong> after I started teaching myself to program in earnest I'm nearing completion
-                    of my first paying gig.  I'm keeping it under wraps for now until it officially launches, but it's a pretty standard
-                    webdev job - more or less just setting up a static website, but with the added expectations of a paying client forcing a level of
-                    quality and professionalism I haven't yet been required to undertake.  It's a good kind of pressure, and the project
-                    is coming along nicely.<br><br>
-                    I just wanted to reflect on my progress toward a more satisfying career in computer science and maybe indulge in
-                    a little back-patting for a moment.<br><br>
-                    Alright, enough of that.  I'm still a crappy amateur programmer, back to work!
-				</p>
-
-			</div>
-        </div><!-- /row -->
-	</div> <!-- /container -->
-</div>
-
+<script>
+    $(document).ready(function() {
+        centerImages();
+        showTop();
+    });
+</script>
 {% endblock %}

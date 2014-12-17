@@ -46,7 +46,8 @@ a:visited {
 	height: 675px;
 	min-width: 500px;
 	max-width: 600px;
-	margin: 5% auto;
+	margin: 0 auto;
+	margin-top: 30px;
 }
 
 #welcome-div h1 {
@@ -188,7 +189,8 @@ input {
 }
 
 #suggestions {
-	margin: 10px auto;
+	margin: 0 auto;
+	margin-top: -10px;
 	text-align: center;
 	color: white;
 	text-shadow: 1px 1px 1px #000;

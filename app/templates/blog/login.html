@@ -1,0 +1,40 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+    <div class="white-inner">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        {% endwith %}
+
+        {% if form.errors %}
+            {% for message in form.username.errors %}
+                <p class="alert">{{ message }}</p>
+            {% endfor %}
+
+            {% for message in form.password.errors %}
+                <p class="alert">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form class="login" action="" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.username(placeholder="Username", class="animate") }}
+            {{ form.password(placeholder="Password", class="animate") }}
+
+            <div class="submit-preview">
+                {{ form.submit(class="login-submit animate button") }}
+            </div>
+        </form>
+    </div>
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function() {
+        cms();
+    }
+</script>
+{% endblock %}

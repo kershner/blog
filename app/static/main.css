@@ -163,20 +163,9 @@ a:after {
 	position: relative;
 	bottom: 0;
 	background-color: #2f2f2f;
-	height: 100px;
-	max-height: 100px;
+	height: 150px;
+	max-height: 150px;
 }
-
-#footer p {
-	color: white;
-}
-
-#footer h4 {
-	color: white;
-	text-transform: uppercase;
-	padding-bottom: 20px;
-}
-
 
 /* +++++ Color Wraps / Blog Page +++++ */
 
