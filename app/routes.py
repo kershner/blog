@@ -1441,7 +1441,7 @@ def dea_verify():
 def login_required_cstools(test):
     @wraps(test)
     def wrap(*args, **kwargs):
-        if 'logged_in_cstools' in session:
+        if 'cstoolslogged_in' in session:
             return test(*args, **kwargs)
         else:
             error = 'You need to log in first.'
@@ -1458,7 +1458,7 @@ def cstools_login():
         if request.form['username'] != 'cs' or request.form['password'] != 'cayman':
             error = 'Invalid credentials, please try again.'
         else:
-            session['logged_in_cstools'] = True
+            session['cstoolslogged_in'] = True
             return redirect(url_for('forms_without_orders'))
     return render_template('/cstools/login.html',
                            title='Login',
@@ -1467,8 +1467,8 @@ def cstools_login():
 
 @app.route('/cstools/logout')
 def cstools_logout():
-    if 'logged_in' in session:
-        session.pop('logged_in', None)
+    if 'logged_in_cstools' in session:
+        session.pop('cstoolslogged_in', None)
         return redirect(url_for('cstools'))
     else:
         return redirect(url_for('cstools'))
