@@ -1438,10 +1438,10 @@ def dea_verify():
                                color=color)
 
 
-def login_required(test):
+def login_required_cstools(test):
     @wraps(test)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session:
+        if 'logged_in_cstools' in session:
             return test(*args, **kwargs)
         else:
             error = 'You need to log in first.'
@@ -1458,7 +1458,7 @@ def cstools_login():
         if request.form['username'] != 'cs' or request.form['password'] != 'cayman':
             error = 'Invalid credentials, please try again.'
         else:
-            session['logged_in'] = True
+            session['logged_in_cstools'] = True
             return redirect(url_for('forms_without_orders'))
     return render_template('/cstools/login.html',
                            title='Login',
@@ -1475,7 +1475,7 @@ def cstools_logout():
 
 
 @app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
-@login_required
+@login_required_cstools
 def forms_without_orders():
     form = DeaForms()
     if request.method == 'POST':
@@ -1528,7 +1528,7 @@ def forms_without_orders():
 
 
 @app.route('/cstools/forms-without-orders/new-entry')
-@login_required
+@login_required_cstools
 def new_entry():
     form = DeaForms()
     entries = models.Entry.query.all()
@@ -1539,8 +1539,8 @@ def new_entry():
                            new_entry=True)
 
 
-@app.route('/cstools/forms-without-orders/edit-entry/<id>')
-@login_required
+@app.route('/cstools/forms-without-orders/edit-entry/<entry_id>')
+@login_required_cstools
 def edit_entry(entry_id):
     entry = models.Entry.query.get(entry_id)
 
@@ -1549,8 +1549,8 @@ def edit_entry(entry_id):
                            entry=entry)
 
 
-@app.route('/cstools/forms-without-orders/update-entry/<id>', methods=['GET', 'POST'])
-@login_required
+@app.route('/cstools/forms-without-orders/update-entry/<entry_id>', methods=['GET', 'POST'])
+@login_required_cstools
 def update_entry(entry_id):
     form = DeaForms()
     entry = models.Entry.query.get(entry_id)
@@ -1585,8 +1585,8 @@ def update_entry(entry_id):
                            form=form)
 
 
-@app.route('/cstools/forms-without-orders/delete-entry/<id>')
-@login_required
+@app.route('/cstools/forms-without-orders/delete-entry/<entry_id>')
+@login_required_cstools
 def delete_entry(entry_id):
     entry = models.Entry.query.get(entry_id)
 
