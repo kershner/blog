@@ -274,12 +274,12 @@ function codeTags() {
         	clicked = false;        	
         	$('#code-tag-options').fadeOut('fast');
         	$(this).removeClass('color-select-selected');
-        	$('.format-guide').css('height', '100px');
+        	$('.format-guide').css('height', '-=40px');
     	} else {
     		clicked = true;
     		$('#code-tag-options').fadeIn('fast');    		
         	$(this).addClass('color-select-selected');
-        	$('.format-guide').css('height', '115px');
+        	$('.format-guide').css('height', '+=40px');
     	}
     });
     $('#code-tag-options-python').on('click', function() {
@@ -299,12 +299,12 @@ function headerTags() {
         	clicked = false;
         	$('#header-tag-options').fadeOut('fast');
         	$(this).removeClass('color-select-selected');
-        	$('.format-guide').css('height', '100px');
+        	$('.format-guide').css('height', '-=60px');
     	} else {
     		clicked = true;
     		$('#header-tag-options').fadeIn('fast');
         	$(this).addClass('color-select-selected');
-        	$('.format-guide').css('height', '145px');
+        	$('.format-guide').css('height', '+=60px');
     	}
     });
     $('#header-tag-options-h1').on('click', function() {
@@ -354,12 +354,12 @@ function colorTags() {
         	clicked = false;
         	$('#color-tag-options').fadeOut('fast');
         	$(this).removeClass('color-select-selected');
-        	$('.format-guide').css('height', '100px');
+        	$('.format-guide').css('height', '-=40px');
     	} else {
     		clicked = true;
     		$('#color-tag-options').fadeIn('fast');
         	$(this).addClass('color-select-selected');
-        	$('.format-guide').css('height', '145px');
+        	$('.format-guide').css('height', '+=40px');
     	}
     });
     $('#color-tag-options-red').on('click', function() {
@@ -384,10 +384,56 @@ function colorTags() {
     });
 }
 
+function linkTag() {
+	var clicked = false;
+	$('#link-tag').on('click', function() {
+		if (clicked) {
+			clicked = false;
+			$('#link-tag-options').fadeOut('fast');
+			$(this).removeClass('color-select-selected');
+			$('.format-guide').css('height', '-=115x');
+		} else {
+			clicked = true;
+			$('#link-tag-options').fadeIn('fast');
+			$(this).addClass('color-select-selected');
+			$('.format-guide').css('height', '+=115px');
+		}
+	});
+	$('#link-tag-submit').on('click', function() {
+		var url = $('#link-url').val();		
+		$('#content').surroundSelectedText('[', '](' + url + ')')
+	});
+}
+
+function imgTag() {
+	var clicked = false;
+	$('#img-tag').on('click', function() {
+		if (clicked) {
+			clicked = false;
+			$('#img-tag-options').fadeOut('fast');
+			$(this).removeClass('color-select-selected');
+			$('.format-guide').css('height', '-=160x');
+		} else {
+			clicked = true;
+			$('#img-tag-options').fadeIn('fast');
+			$(this).addClass('color-select-selected');
+			$('.format-guide').css('height', '+=160px');
+		}
+	});
+	$('#img-tag-submit').on('click', function() {
+		var url = $('#img-url').val();
+		var alt = $('#img-alt-text').val();
+		var tag = '![' + alt + '](' + url + ')';
+		$('#content').surroundSelectedText(tag, '');
+	});
+}
+
 function addTags() {
 	codeTags();
 	boldTag();
 	italicTag();
 	headerTags();
 	colorTags();
+	linkTag();
+	imgTag();
 }
