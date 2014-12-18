@@ -297,6 +297,7 @@ iframe {
 #warning-links {
 	font-size: 22px;
 	margin-bottom: 60px;
+	text-align: center;
 }
 
 /* Additional class to apply to images to round their corners */
