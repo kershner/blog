@@ -14,7 +14,7 @@
 
                 <div class="github-links">
                     <i class="fa fa-github fa-3x"></i>
-                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1288">Python</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1606">Python</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/templates/reddit_scraper">HTML</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/scraper_welcome.css">CSS</a>
                 </div>
@@ -40,10 +40,15 @@
             </div>
         </div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="rounded-images"></a>
-            <a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="rounded-images"></a>
+        <div class="slick-images">
+            <div><a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="rounded-images"></a></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

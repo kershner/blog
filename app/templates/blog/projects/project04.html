@@ -14,7 +14,7 @@
 
                 <div class="github-links">
                     <i class="fa fa-github fa-3x"></i>
-                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L435">Python</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L760">Python</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/templates/gif_party">HTML</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party_welcome.css">CSS (Welcome Page)</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party.css">CSS (Application)</a>
@@ -44,10 +44,15 @@
 			</div>
 		</div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/gif_party1.png"><img src="/static/images/gif_party1thumb.png" class="img-responsive rounded-images"></a>
-            <a href="/static/images/gif_party2.png"><img src="/static/images/gif_party2thumb.png" class="img-responsive rounded-images"></a>
+        <div class="slick-images">
+            <div><a href="/static/images/gif_party1.png"><img src="/static/images/gif_party1thumb.png" class="rounded-images"></a></div>
+            <div><a href="/static/images/gif_party2.png"><img src="/static/images/gif_party2thumb.png" class="rounded-images"></a></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

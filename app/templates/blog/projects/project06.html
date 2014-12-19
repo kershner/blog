@@ -15,7 +15,7 @@
 
                 <div class="github-links">
                     <i class="fa fa-github fa-3x"></i>
-                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1458">Python</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L1775">Python</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/templates/campaign">HTML</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/static/campaign">CSS</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/campaign/js/campaign.js">Javascript</a>
@@ -35,9 +35,6 @@
                     learned a lot about expectations, professionalism, and working with deadlines.  I also put myself through a crash course on
                     SEO and focused heavily on a responsive design that would look good on almost every device.
                     <br><br>
-                    I'm not sure if I'll pursue web development as my ultimate career goal, but it was definitely an enjoyable and worthwhile
-                    experience.
-                    <br><br>
                     Note - the provided GitHub link is associated with the working demo site I maintained for my clients to view during development.
                     The final version's code does not differ in any substantial way.
                     <br>
@@ -45,11 +42,15 @@
             </div>
 		</div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/ycs-campaign-screenshot1.JPG"><img src="/static/images/ycs-campaign-screenshot1.JPG" class="rounded-images"></a>
-            <a href="/static/images/ycs-campaign-screenshot2.JPG"><img src="/static/images/ycs-campaign-screenshot2.JPG" class="rounded-images"></a>
+        <div class="slick-images">
+            <div><a href="/static/images/ycs-campaign-screenshot1.JPG"><img src="/static/images/ycs-campaign-screenshot1.JPG" class="rounded-images"></a></div>
+            <div><a href="/static/images/ycs-campaign-screenshot2.JPG"><img src="/static/images/ycs-campaign-screenshot2.JPG" class="rounded-images"></a></div>
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

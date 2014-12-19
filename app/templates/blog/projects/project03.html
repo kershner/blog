@@ -26,7 +26,7 @@
 
                 <div class="github-links">
                     <i class="fa fa-github fa-3x"></i>
-                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L125">Python</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L450">Python</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/templates/pi_display">HTML</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/pi_display_config.css">CSS (Config Site)</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/js/pi_display.js">JavaScript</a>
@@ -53,18 +53,21 @@
                 and incomplete.
                 </p>
 			</div>
-
-            <div class="project-screenshots">
-                <a href="/static/images/gif-display-final-01.jpg"><img src="/static/images/gif-display-final-01.jpg" class="rounded-images"/></a>
-                <a href="/static/images/gif-display-final-02.jpg"><img src="/static/images/gif-display-final-02.jpg" class="rounded-images"/></a>
-                <a href="/static/images/gif-display-final-03.jpg"><img src="/static/images/gif-display-final-03.jpg" class="rounded-images"/></a>
-                <a href="/static/images/Pi_1.jpg"><img src="/static/images/Pi_1.jpg" class="rounded-images"></a>
-                <a href="/static/images/pi_8.png"><img src="/static/images/pi_8.png" class="rounded-images"></a>
-                <a href="/static/images/pi_10.png"><img src="/static/images/pi_10.png" class="rounded-images"></a>
-            </div>
 		</div>
 
-        <p style="text-align:center;">A couple videos of the device, from the beginning and the end of the process:</p>
+        <div class="slick-images">
+            <div><a href="/static/images/gif-display-final-01.jpg"><img src="/static/images/gif-display-final-01.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/gif-display-final-02.jpg"><img src="/static/images/gif-display-final-02.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/gif-display-final-03.jpg"><img src="/static/images/gif-display-final-03.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/Pi_1.jpg"><img src="/static/images/Pi_1.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/pi_8.png"><img src="/static/images/pi_8.png" class="rounded-images"></a></div>
+            <div><a href="/static/images/pi_10.png"><img src="/static/images/pi_10.png" class="rounded-images"></a></div>
+        </div>
+
+        <br>
+        <br>
+
+        <p style="text-align:center; margin: 0;">A couple videos of the device, from the beginning and the end of the process:</p>
 
         <div class="video">
             <iframe width="560" height="315" src="//www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
@@ -72,4 +75,9 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

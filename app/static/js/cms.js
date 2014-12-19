@@ -428,6 +428,48 @@ function imgTag() {
 	});
 }
 
+function carouselTag() {
+	var clicked = false;
+	$('#carousel-tag').on('click', function() {
+		if (clicked) {
+			clicked = false;
+			$('#carousel-tag-options').fadeOut('fast');
+			$(this).removeClass('color-select-selected');
+			$('.format-guide').css('height', '-=110x');
+		} else {
+			clicked = true;
+			$('#carousel-tag-options').fadeIn('fast');
+			$(this).addClass('color-select-selected');
+			$('.format-guide').css('height', '+=110x');
+		}
+	});
+	$('#add-field').on('click', function() {
+		var html = '<input type="text" class="carousel-url" placeholder="URL">';
+		$(html).insertBefore($('#add-field'));
+	});
+	$('#carousel-tag-submit').on('click', function() {
+		var inputs = $('#carousel-tag-options').find('input');
+		var urls = [];
+		var htmlString = '';
+		var imageSlickStart = '<div class="slick-images">';		
+		var imageSlickEnd = '</div>';
+		inputs.each(function() {
+			urls.push($(this).val());
+		});		
+		for (var i = urls.length - 1; i >= 0; i--) {
+			tempString = '<div><a href="' + urls[i] + '"><img src="' + urls[i] + '" class="rounded-images"></a></div>';
+			htmlString += tempString;
+		};
+		$('#content').surroundSelectedText(imageSlickStart + htmlString + imageSlickEnd, '');
+	});
+}
+
+function videoTag() {
+	$('#video-tag').on('click', function() {
+		$('#content').surroundSelectedText('<div class="video-wrapper">', "</div>");
+	});
+}
+
 function addTags() {
 	codeTags();
 	boldTag();
@@ -436,4 +478,19 @@ function addTags() {
 	colorTags();
 	linkTag();
 	imgTag();
+	carouselTag();
+	videoTag();
+}
+
+function initSlick() {
+	options = {
+		autoplay: true,
+		autoplaySpeed: 3000,
+		fade: true,
+		dots: true,
+		pauseOnHover: true,
+		nextArrow: '<i></i>',
+		prevArrow: '<i></i>'
+	}
+	$('.slick-images').slick(options);
 }

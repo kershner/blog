@@ -30,14 +30,14 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <hr>
 				<p>
-                    SteamTime spawned from some <a href="/sep14#api-hijinks">API doodling</a> I was doing back in September.
+                    SteamTime spawned from some <a href="/archive/2014/09#20">API doodling</a> I was doing back in September.
                     I wanted a way to easily visualize data returned by the API, so I set about exploring the interfaces
                     and quickly building a simple CLI program to list a user's most played Steam games.  From there
                     the project grew and grew and I found myself plugging in all kinds of stuff like JavaScript libraries
                     and CSS transitions.  The end result is my most cohesive and full-featured app yet, and I'm quite
                     proud of the finished product and everything I learned in the process.<br><br>
                     A few days after I completed the project I got some feedback from reddit and refactored the code.
-                    I wrote a quick <a href="/#refactor">blog post</a> about it and have saved both versions
+                    I wrote a quick <a href="/archive/2014/11#24">blog post</a> about it and have saved both versions
                     for posterity.  You can view my changes below:
                 </p>
 
@@ -49,10 +49,18 @@
             </div>
         </div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/steamtime2.jpg"><img src="/static/images/steamtime2.jpg" class="rounded-images"></a>
-            <a href="/static/images/steamtime3.jpg"><img src="/static/images/steamtime3.jpg" class="rounded-images"></a>
+        <br>
+        <br>
+
+        <div class="slick-images">
+            <div><a href="/static/images/steamtime2.jpg"><img src="/static/images/steamtime2.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/steamtime3.jpg"><img src="/static/images/steamtime3.jpg" class="rounded-images"></a></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

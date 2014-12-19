@@ -281,7 +281,7 @@ def preview():
                     %s
             </div>
             <script>
-                centerImages();
+                initSlick();
             </script>
         </div>
     ''' % (div_class, icon, title, subtitle, date, content)

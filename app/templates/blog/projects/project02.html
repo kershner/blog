@@ -20,7 +20,7 @@
 
                 <div class="github-links">
                     <i class="fa fa-github fa-3x"></i>
-                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L679">Python</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/routes.py#L999">Python</a>
                     <a href="https://github.com/kershner/blog/tree/master/app/templates/cstools">HTML</a>
                     <a href="https://github.com/kershner/blog/blob/master/app/static/cstools-custom.css">CSS</a>
                 </div>
@@ -43,10 +43,15 @@
 			</div>
 		</div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/cstools2big.png"><img src="/static/images/cstools2.png" class="img-responsive"></a>
-            <a href="/static/images/cstools3big.png"><img src="/static/images/cstools3.png" class="img-responsive"></a>
+        <div class="slick-images">
+            <div><a href="/static/images/cstools2big.png"><img src="/static/images/cstools2.png"></a></div>
+            <div><a href="/static/images/cstools3big.png"><img src="/static/images/cstools3.png"></a></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}

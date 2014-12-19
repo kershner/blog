@@ -39,10 +39,15 @@
 			</div>
 		</div>
 
-        <div class="project-screenshots">
-            <a href="/static/images/pta1big.png"><img src="/static/images/pta1.png" class="img-responsive"></a>
-            <a href="/static/images/pta2big.png"><img src="/static/images/pta2.png" class="img-responsive"></a>
+        <div class="slick-images">
+            <div><a href="/static/images/pta1big.png"><img src="/static/images/pta1.png"></a></div>
+            <div><a href="/static/images/pta2big.png"><img src="/static/images/pta2.png"></a></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
 {% endblock %}
