@@ -109,7 +109,7 @@ def password_validate(username, password):
 
 
 def get_theme(color):
-    if color == 'rgb(227, 244, 241)' or color == 'green':
+    if color == 'rgb(29, 103, 89)' or color == 'green':
         return 'green'
     elif color == 'rgb(242, 242, 242)' or color == 'grey':
         return 'grey'

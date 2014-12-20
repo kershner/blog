@@ -53,7 +53,7 @@ class DiscrepancyForm(Form):
     po = StringField("Purchase Order or Sales Order", [Required("Please enter the PO or Sales Order Number.")])
     item_number = StringField("Item Number", [Required("Please enter the item's number.")])
     given_price = StringField("Customer's Given Price", [Required("Please enter the price given by the "
-                                                                           "customer.")])
+                                                                  "customer.")])
     actual_price = StringField("Actual Price", [Required("Please enter the item's actual price.")])
     submit = SubmitField("Submit")
 
