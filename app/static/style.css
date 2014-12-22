@@ -1206,37 +1206,42 @@ input:focus, textarea:focus {
 
 /* GREEN ********************************/
 .green, .green .post-thumb {
-	background-color: #1d6759;
-	color: white;
+	background-color: #dcf5dd;
+	color: black;
 }
 
-/* Green Headers */
+/* Headers */
 .green h1, .green h3, .green h4, .green h5, .green h6,
 .green .title-date .post-thumb-title {
-	color: #85c9ef;
+	color: #41abe6;
 }
 
+/* Title */
 .green h2, .green .title-date .post-thumb-title {
-	color: #b2ddf5;
+	color: #6ebfec;
 }
 
+/* Subtitle */
 .green .bd,
 .green .title-date .post-thumb-subtitle {
-	color: #FFA78E;
+	color: #ff6b42;
 }
 
+/* HR */
 .green hr, .green .post-thumb hr {
-	background-color: #44B39E;	
+	background-color: #A87688;	
 }
 
+/* Links */
 .green a {
-	color: #EFC185;
+	color: #1985c1;
 }
 
 .green a:hover {
-	color: #A7E0FF;
+	color: #85c9ef;
 }
 
+/* Bold */
 .green strong {
 	font-weight: 600;
 }
@@ -1246,24 +1251,23 @@ input:focus, textarea:focus {
 	background-color: #f2f2f2;
 }
 
-/* Grey Headers */
+/* Headers */
 .grey h1, .grey h3, .grey h4, .grey h5, .grey h6 {
 	color: #007E65;
 }
 
-.grey h2 {
-	color: #1abc9c;
-}
-
-.grey .title-date .post-thumb-title {
+/* Title */
+.grey h2, .grey .title-date .post-thumb-title {
 	color: #1abc9c;	
 }
 
+/* Subtitle */
 .grey .title-date .post-thumb-subtitle,
 .grey .bd {
 	color: #1a63bc;
 }
 
+/* HR */
 .grey hr, .grey .post-thumb hr {
 	background-color: #C72F48;	
 }
@@ -1275,15 +1279,18 @@ input:focus, textarea:focus {
 	color: #497DCB;
 }
 
+/* Title */
 .white h2 {
 	color: #1a63bc;
 }
 
+/* Subtitle */
 .white .title-date .post-thumb-subtitle,
 .white .bd {
 	color: #bc1a3a;
 }
 
+/* Override for CMS thumbnail */
 .white .post-thumb-title {
 	color: rgb(26, 139, 188);
 }
@@ -1294,23 +1301,28 @@ input:focus, textarea:focus {
 	color: white;
 }
 
+/* Headers */
 .blue h1, .blue h3, .blue h4, .blue h5, .blue h6 {
 	color: #FFD670;
 }
 
+/* Title */
 .blue h2, .blue .title-date .post-thumb-title {
 	color: #FFBE19;	
 }
 
+/* Subtitle */
 .blue .bd,
 .blue .title-date .post-thumb-subtitle {
 	color: #9ED2EC;
 }
 
+/* HR */
 .blue hr, .blue .post-thumb hr {
-	background-color: #FFD771;	
+	background-color: #CA503F;	
 }
 
+/* Links */
 .blue a {
 	color: #9ED2EC;
 }
@@ -1319,11 +1331,13 @@ input:focus, textarea:focus {
 	color: red;
 }
 
+/* Bold */
 .blue strong {
 	font-weight: 600;
 }
 
-/* Colors for Markdown Input */
+/* ************************ */
+/* Color tags for Markdown  */
 red {
 	color: #F40022;
 }
