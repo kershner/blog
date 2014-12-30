@@ -1206,7 +1206,7 @@ input:focus, textarea:focus {
 
 /* GREEN ********************************/
 .green, .green .post-thumb {
-	background-color: #dcf5dd;
+	background-color: #c8efca;
 	color: black;
 }
 
@@ -1218,13 +1218,13 @@ input:focus, textarea:focus {
 
 /* Title */
 .green h2, .green .title-date .post-thumb-title {
-	color: #6ebfec;
+	color: #0991db;
 }
 
 /* Subtitle */
 .green .bd,
 .green .title-date .post-thumb-subtitle {
-	color: #ff6b42;
+	color: #CB2F37;
 }
 
 /* HR */
@@ -1319,7 +1319,7 @@ input:focus, textarea:focus {
 
 /* HR */
 .blue hr, .blue .post-thumb hr {
-	background-color: #CA503F;	
+	background-color: #d57467;	
 }
 
 /* Links */
