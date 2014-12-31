@@ -4,12 +4,13 @@ import praw
 
 
 class Log(object):
-    def __init__(self, all_gifs, animals_gifs, gaming_gifs, strange_gifs, educational_gifs):
+    def __init__(self, all_gifs, animals_gifs, gaming_gifs, strange_gifs, educational_gifs, temp_count):
         self.all_gifs = all_gifs
         self.animals_gifs = animals_gifs
         self.gaming_gifs = gaming_gifs
         self.strange_gifs = strange_gifs
         self.educational_gifs = educational_gifs
+        self.temp_count = temp_count
 
     def gif_counter(self, category):
         if category == 'all':
@@ -22,6 +23,7 @@ class Log(object):
             self.strange_gifs += 1
         elif category == 'educational':
             self.educational_gifs += 1
+        self.temp_count += 1
 
     def readout(self):
         categories = ['all', 'animals', 'gaming', 'strange', 'educational']
@@ -34,8 +36,9 @@ class Log(object):
 
 
 def scrape_reddit(target_subreddit, path, category):
+    log.temp_count = 0
     clean_urls = []
-    print 'Gathering image URLs from /r/%s...' % target_subreddit
+    print '\nGathering image URLs from /r/%s...' % target_subreddit
 
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
@@ -72,6 +75,7 @@ def scrape_reddit(target_subreddit, path, category):
             else:
                 clean_urls.append(submission.url + '\n')
                 log.gif_counter(category)
+    print '%d GIFs added from /r/%s' % (log.temp_count, target_subreddit)
 
     # Appending contents of clean_urls to current url file
     with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
@@ -82,11 +86,15 @@ def scrape_reddit(target_subreddit, path, category):
                 continue
 
 if __name__ == '__main__':
-    prompt = raw_input('Are you scraping from work or home? > ').lower()
-    if prompt == 'work':
-        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
-    else:
-        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
+    # Uncomment to run script off server
+    # prompt = raw_input('Are you scraping from work or home? > ').lower()
+    # if prompt == 'work':
+    #     current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
+    # else:
+    #     current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
+
+    # Server path
+    current_path = '/home/tylerkershner/app/templates/pi_display/logs/'
 
     categories = ['all', 'animals', 'gaming', 'strange', 'educational']
 
@@ -96,14 +104,14 @@ if __name__ == '__main__':
          'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
          'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
          'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
-         'opticalillusions', 'wrestlinggifs'],
+         'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs'],
         ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs'],
         ['gaming_gifs', 'gaming', 'GamePhysics'],
         ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
         ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs']
     ]
 
-    log = Log(0, 0, 0, 0, 0)
+    log = Log(0, 0, 0, 0, 0, 0)
     count = 0
     for entry in categories:
         print '\n####################################'
