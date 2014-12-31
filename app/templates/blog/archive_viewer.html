@@ -2,7 +2,7 @@
 {% block content %}
     {% for post in selected_posts %}
         <a name="{{ post.id }}"></a>
-        <div class="white {{ post.css_class }}">
+        <div class="{{ post.css_class }}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
