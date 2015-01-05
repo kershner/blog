@@ -1194,7 +1194,7 @@ input:focus, textarea:focus {
 /* **************************************************** */
 /* Blog Post Themes
 /* **************************************************** */
-.grey, .white, .blue, .green {
+.grey, .white, .blue, .blue-grey {
 	padding-top: 60px;
 	padding-bottom: 60px;
 }
@@ -1282,8 +1282,7 @@ input:focus, textarea:focus {
 
 /* WHITE ********************************/
 /* White Headers */
-.white h1, .white h3, .white h4, .white h5, .white h6,
-.white .title-date .post-thumb-title {
+.white h1, .white h3, .white h4, .white h5, .white h6 {
 	color: #F44336;
 }
 
