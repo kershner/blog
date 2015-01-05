@@ -1,0 +1,32 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+    {% if posts %}
+            {% for post in posts %}
+                <div class="{{ post.css_class }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                                <h2>{{ post.title }}</h2>
+                                <h4 class="bd">{{ post.subtitle }}</h4>
+                                <span class="post-date">{{ post.date }}</span>
+                                <hr>
+                                <p>
+                                    {{ post.content | markdown }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    {% endif %}
+
+    <hr class="hr75">
+    <a id="older-link" href="/archive" class="animate"><div>Older Posts</div></a>
+
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
+{% endblock %}

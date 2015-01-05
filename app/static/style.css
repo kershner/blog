@@ -247,7 +247,7 @@ iframe {
 /* Big Logo on Header
 /* ************************** */
 .big-logo-row {
-  background-color: #1abc9c;
+  background-color: #00BFA5;
 }
 
 .big-logo-row .big-logo-container {
@@ -1204,90 +1204,111 @@ input:focus, textarea:focus {
 	padding: 25px;
 }
 
-/* GREEN ********************************/
-.green, .green .post-thumb {
-	background-color: #def9f4;
+/* BLUE-GREY ********************************/
+.blue-grey, .blue-grey .post-thumb {
+	background-color: #E8EAF6;
 	color: black;
 }
 
 /* Headers */
-.green h1, .green h3, .green h4, .green h5, .green h6,
-.green .title-date .post-thumb-title {
-	color: #194B66;
+.blue-grey h1, .blue-grey h3, .blue-grey h4, .blue-grey h5, .blue-grey h6,
+.blue-grey .title-date .post-thumb-title {
+	color: #3F51B5;
 }
 
 /* Title */
-.green h2, .green .title-date .post-thumb-title {
-	color: #194B66;
+.blue-grey h2, .blue-grey .title-date .post-thumb-title {
+	color: #FF7043;
 }
 
 /* Subtitle */
-.green .bd,
-.green .title-date .post-thumb-subtitle {
-	color: #3296cc;
+.blue-grey .bd,
+.blue-grey .title-date .post-thumb-subtitle {
+	color: #3F51B5;
 }
 
 /* HR */
-.green hr, .green .post-thumb hr {
-	background-color: #81C3E6;	
+.blue-grey hr, .blue-grey .post-thumb hr {
+	background-color: #FF7043;	
 }
 
 /* Links */
-.green a {
-	color: #23698f;
+.blue-grey a {
+	color: #FF7043;
 }
 
-.green a:hover {
-	color: #2878a3;
+.blue-grey a:hover {
+	color: #FFAB91;
 }
 
 /* Bold */
-.green strong {
+.blue-grey strong {
 	font-weight: 600;
 }
 
 /* GREY ********************************/
 .grey {
-	background-color: #f2f2f2;
+	background-color: #F5F5F5;
 }
 
 /* Headers */
 .grey h1, .grey h3, .grey h4, .grey h5, .grey h6 {
-	color: #007E65;
+	color: #9E9E9E;
 }
 
 /* Title */
 .grey h2, .grey .title-date .post-thumb-title {
-	color: #1abc9c;	
+	color: #03A9F4;	
 }
 
 /* Subtitle */
 .grey .title-date .post-thumb-subtitle,
 .grey .bd {
-	color: #1a63bc;
+	color: #9E9E9E;
 }
 
 /* HR */
 .grey hr, .grey .post-thumb hr {
-	background-color: #C72F48;	
+	background-color: #03A9F4;	
+}
+
+.grey a {
+	color: #03A9F4;
+}
+
+.grey a:hover {
+	color: #4FC3F7;
 }
 
 /* WHITE ********************************/
 /* White Headers */
 .white h1, .white h3, .white h4, .white h5, .white h6,
 .white .title-date .post-thumb-title {
-	color: #497DCB;
+	color: #F44336;
 }
 
 /* Title */
 .white h2 {
-	color: #1a63bc;
+	color: #2979FF;
 }
 
 /* Subtitle */
 .white .title-date .post-thumb-subtitle,
 .white .bd {
-	color: #bc1a3a;
+	color: #F44336;
+}
+
+/* HR */
+.white hr, .white .post-thumb hr {
+	background-color: #2979FF;	
+}
+
+.white a {
+	color: #2979FF;
+}
+
+.white a:hover {
+	color: #82B1FF;
 }
 
 /* Override for CMS thumbnail */
@@ -1297,38 +1318,38 @@ input:focus, textarea:focus {
 
 /* BLUE ********************************/
 .blue, .blue .post-thumb {
-	background-color: #C2D4EF;	
+	background-color: #E3F2FD;	
 	color: black;
 }
 
 /* Headers */
 .blue h1, .blue h3, .blue h4, .blue h5, .blue h6 {
-	color: #6889B9;
+	color: #2196F3;
 }
 
 /* Title */
 .blue h2, .blue .title-date .post-thumb-title {
-	color: #3064b5;	
+	color: #EF5350;	
 }
 
 /* Subtitle */
 .blue .bd,
 .blue .title-date .post-thumb-subtitle {
-	color: #6889B9;
+	color: #2196F3;
 }
 
 /* HR */
 .blue hr, .blue .post-thumb hr {
-	background-color: #6889B9;	
+	background-color: #EF5350;	
 }
 
 /* Links */
 .blue a {
-	color: #3064b5;
+	color: #EF5350;
 }
 
 .blue a:hover {
-	color: #497dcf;
+	color: #E57373;
 }
 
 /* Bold */
