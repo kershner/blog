@@ -19,7 +19,7 @@
 
                 {% if form.errors %}
                     <div class="alert">
-                        {% for message in form.color.errors %}
+                        {% for message in form.author.errors %}
                             <p>{{ message }}</p>
                         {% endfor %}
 
@@ -44,10 +44,14 @@
                 <div class="preview-format-wrapper">
                     <div id="preview" class="button animate">Preview</div>
                     <div id="formatting" class="button animate">Formatting</div>
-                    <div id="show-hidden" class="formatting-select animate">Show Hidden Fields</div>
+                    <div id="icon-select" class="color-select button animate">Icon</div>
                 </div>
 
-                <br>
+                <div id="icon-selections">
+                    {% for icon in icons %}
+                        <img class="animate" src="{{ icon }}">
+                    {% endfor %}
+                </div>
 
                 <div class="format-guide">
                     <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
@@ -107,7 +111,7 @@
                     </div>
                 </div>
 
-                <form class="cms" action="/cms-submit" method="POST">
+                <form class="cms" action="/public-cms-submit" method="POST">
                     {{ form.hidden_tag() }}
 
                     {{ form.color() }}
@@ -117,6 +121,9 @@
                     {{ form.year(placeholder="Year", class="animate") }}
                     {{ form.hidden_date(placeholder="Date String", class="animate") }}
 
+                    <div id="author-label" class="input-label animate">Your Name</div>
+                    {{ form.author(placeholder="Your Name", class="animate") }}
+
                     <div id="title-label" class="input-label animate">Title</div>
                     {{ form.title(placeholder="Title", class="animate") }}
 
@@ -125,16 +132,6 @@
 
                     <div id="content-label" class="input-label animate">Content</div>
                     {{ form.content(placeholder="Content", class="animate")|safe }}
-
-                    <div id="button-wrapper">
-                        <div id="icon-select" class="color-select button animate">Icon</div>
-                    </div>
-
-                    <div id="icon-selections">
-                        {% for icon in icons %}
-                            <img class="animate" src="{{ icon }}">
-                        {% endfor %}
-                    </div>
 
                     {{ form.submit(class="button animate") }}
                 </form>

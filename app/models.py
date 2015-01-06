@@ -19,6 +19,26 @@ class Post(db.Model):
         return '%d' % self.id
 
 
+# Model for public blog posts
+class PublicPost(db.Model):
+    __bind_key__ = 'db3'
+
+    id = db.Column(db.Integer, primary_key=True)
+    approved = db.Column(db.Integer, index=True)
+    css_class = db.Column(db.String(64), index=True)
+    title = db.Column(db.String(128), index=True)
+    subtitle = db.Column(db.String(128), index=True)
+    author = db.Column(db.String(128), index=True)
+    icon = db.Column(db.String(128), index=True)
+    content = db.Column(db.String(), index=True)
+    date = db.Column(db.String(64), index=True)
+    month = db.Column(db.String(64), index=True)
+    year = db.Column(db.String(32), index=True)
+
+    def __repr__(self):
+        return '%d' % self.id
+
+
 # Model for CSTools Forms DB
 class Entry(db.Model):
     __bind_key__ = 'db2'

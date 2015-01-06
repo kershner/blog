@@ -1,7 +1,5 @@
 function cms() {
-	showColorSelect();
 	showIconSelect();
-	colorSelect();
 	iconSelect();
 	masonry();
 	populateData();
@@ -21,6 +19,7 @@ function populateData(data) {
 	$('.posts-container').fadeOut('fast');
 	var color = $('#color').val();
 	var title = $('#title').val();
+	var author = $('#author').val();
 	var icon = $('#icon').val();
 	var subtitle = $('#subtitle').val();
 	var content = $('#content').val();
@@ -29,6 +28,7 @@ function populateData(data) {
 	$.getJSON($SCRIPT_ROOT + '/preview', {
 		color: color,
 		title: title,
+		author: author,
 		icon: icon,
 		subtitle: subtitle,
 		content: content,
@@ -36,13 +36,7 @@ function populateData(data) {
 	}, function(data) {
 		$('.preview').fadeIn('fast');
 		$('.preview').empty();
-		$('.preview').append(data.html); 
-		// if ($('.preview code').length > 0) {
-		// 	var html = '<script>Rainbow.color();</script>'
-		// 	$('.preview code').addClass('rainbow');
-		// 	$('.preview').append(html);
-		// 	console.log('Script element appended');
-		// }	 	
+		$('.preview').append(data.html);
 	});
 	return false;
 }
@@ -53,18 +47,6 @@ function preview() {
 	});
 }
 
-function colorSelect() {
-	var clicked = false;
-	$('#color-selections div').on('click', function() {
-		var color = $(this).css('background-color');
-		$('#color').val(color);
-		$('#color-selections > div').css('box-shadow', '1px 1px 3px #000');
-		$(this).css('box-shadow', '0px 0px 10px #1c87ff');
-		populateData();
-		notSubmitted();
-	});
-}
-
 function iconSelect() {
 	$('#icon-selections img').on('click', function() {
 		$('#icon').val($(this).get(0).src);
@@ -72,22 +54,6 @@ function iconSelect() {
 		$(this).css('border-bottom', '2px solid #1c87ff');
 		populateData();
 		notSubmitted();
-	});
-}
-
-function showColorSelect() {
-	var clicked = false;
-	$('#color-select').on('click', function() {
-		if (clicked) {
-			clicked = false;
-			$('#color-selections').fadeOut('fast');
-			$(this).removeClass('color-select-selected');
-		}
-		else {
-			clicked = true;
-			$('#color-selections').fadeIn('fast');
-			$(this).addClass('color-select-selected');
-		}
 	});
 }
 
@@ -138,6 +104,7 @@ function inputLabels() {
 	var title = $('#title').val();
 	var subtitle = $('#subtitle').val();
 	var content = $('#content').val();
+	var author = $('#author').val();
 	
 	if (title) {
 		if (title.length > 1) {
@@ -148,6 +115,9 @@ function inputLabels() {
 		}
 		if (content.length > 1) {
 			$('#content-label').css('color', 'black');
+		}
+		if (author.length > 1) {
+			$('#author-label').css('color', 'black');
 		}
 	}
 	
@@ -180,6 +150,17 @@ function inputLabels() {
 		}
 		else {
 			$('#content-label').css('color', 'black');
+			notSubmitted();
+		}
+	});
+
+	$('#author').on('input', function() {
+		var author = $('#author').val();
+		if (author.length < 1) {
+			$('#author-label').css('color', 'white');
+		}
+		else {
+			$('#author-label').css('color', 'black');
 			notSubmitted();
 		}
 	});
@@ -217,6 +198,7 @@ function instantPreview() {
 	detectInput('#title');
 	detectInput('#subtitle');
 	detectInput('#content');
+	detectInput('#author');
 }
 
 function showHiddenFields() {
@@ -267,6 +249,7 @@ function projectsMasonry() {
 	});
 }
 
+// Functions for applying markdown tags
 function codeTags() {
 	var clicked = false;
 	$('#code-tag').on('click', function() {

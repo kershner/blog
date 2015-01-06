@@ -108,6 +108,15 @@ def password_validate(username, password):
             return [False, message]
 
 
+# Return CSS class based on previous entry's primary ID
+def get_color(post_id):
+    if post_id % 2 == 0:
+        return 'grey'
+    else:
+        return 'white'
+
+
+# Legacy code for themes, might still re-implement
 def get_theme(color):
     if color == 'rgb(232, 234, 246)' or color == 'blue-grey':
         return 'blue-grey'

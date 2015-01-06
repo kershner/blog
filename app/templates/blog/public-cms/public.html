@@ -6,7 +6,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
-                                <img src="{{ post.icon }}"><span class="ba">Tyler Kershner</span>
+                                <img src="{{ post.icon }}"><span class="ba">{{ post.author }}</span>
                                 <h2>{{ post.title }}</h2>
                                 <h4 class="bd">{{ post.subtitle }}</h4>
                                 <span class="post-date">{{ post.date }}</span>
@@ -20,10 +20,6 @@
                 </div>
             {% endfor %}
     {% endif %}
-
-    <hr class="hr75">
-    <a id="older-link" href="/archive" class="animate"><div>Older Posts</div></a>
-
 <script>
     $(document).ready(function() {
         initSlick();

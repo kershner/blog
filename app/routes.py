@@ -33,6 +33,180 @@ def login_required(test):
 
 
 ##############################################################################
+# Public CMS #################################################################
+@app.route('/public')
+def public():
+    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    approved_posts = []
+    for post in posts:
+        if post.approved:
+            approved_posts.append(post)
+
+    return render_template('/blog/public-cms/public.html',
+                           posts=approved_posts)
+
+
+@app.route('/public-cms')
+def public_cms():
+    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    approved_posts = []
+    for post in posts:
+        if post.approved:
+            approved_posts.append(post)
+    statistics = cms_functions.stats(approved_posts)
+
+    return render_template('/blog/public-cms/public-cms.html',
+                           posts=approved_posts,
+                           stats=statistics,
+                           title='Public CMS')
+
+
+@app.route('/public-new-post')
+def public_new_post():
+    form = PublicDatabaseForm()
+    form.month.data = datetime.today().month
+    form.year.data = datetime.today().year
+    form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
+    # Grabbing most recent entry's primary key to determine next CSS class
+    latest_id = models.PublicPost.query.all()[-1].id + 1
+    form.color.data = cms_functions.get_color(latest_id)
+
+    return render_template('/blog/public-cms/public-new-post.html',
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           title='New Public Post')
+
+
+@app.route('/public-cms-submit', methods=['GET', 'POST'])
+def public_cms_submit():
+    form = PublicDatabaseForm()
+    if not form.validate_on_submit():
+        return render_template('/blog/public-cms/public-new-post.html',
+                               icons=cms_functions.dog_icons(),
+                               form=form)
+    else:
+        css_class = cms_functions.get_theme(form.color.data)
+        title = bleach.clean(form.title.data)
+        author = bleach.clean(form.author.data)
+        icon = form.icon.data
+        subtitle = bleach.clean(form.subtitle.data)
+        content = cms_functions.generate_markdown(form.content.data, True)
+        date_string = form.hidden_date.data
+        month = form.month.data
+        year = form.year.data
+
+        post = models.PublicPost(approved=0,
+                                 css_class=css_class,
+                                 title=title,
+                                 author=author,
+                                 icon=icon,
+                                 subtitle=subtitle,
+                                 date=date_string,
+                                 month=month,
+                                 content=content,
+                                 year=year)
+
+        db.session.add(post)
+        db.session.commit()
+
+        flash('Your post titled %s has been submitted for approval!' % title)
+        return redirect(url_for('public_cms'))
+
+
+@app.route('/need-approval')
+@login_required
+def need_approval():
+    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    to_be_approved = []
+    for post in posts:
+        if not post.approved:
+            to_be_approved.append(post)
+
+    return render_template('/blog/public-cms/posts-to-approve.html',
+                           posts=to_be_approved,
+                           title='Posts to Be Approved')
+
+
+@app.route('/public-edit-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def public_cms_edit(unique_id):
+    form = PublicDatabaseForm()
+    post = models.PublicPost.query.get(unique_id)
+
+    form.color.data = post.css_class
+    form.icon.data = post.icon
+    form.title.data = post.title
+    form.author.data = post.author
+    form.subtitle.data = post.subtitle
+    form.content.data = cms_functions.generate_markdown(post.content, True)
+    form.hidden_date.data = post.date
+    form.month.data = post.month
+    form.year.data = post.year
+
+    return render_template('/blog/public-cms/public-edit-post.html',
+                           post=post,
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           title='Edit Public Post')
+
+
+@app.route('/public-update-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def public_cms_update(unique_id):
+    form = PublicDatabaseForm()
+    post = models.PublicPost.query.get(unique_id)
+
+    if form.validate_on_submit():
+        post.css_class = cms_functions.get_theme(form.color.data)
+        post.title = bleach.clean(form.title.data)
+        post.author = bleach.clean(form.author.data)
+        post.icon = form.icon.data
+        post.subtitle = bleach.clean(form.subtitle.data)
+        post.content = cms_functions.generate_markdown(form.content.data, True)
+        post.month = form.month.data
+        post.year = form.year.data
+        db.session.commit()
+
+        flash('The post titled %s has been updated!' % post.title)
+        return redirect(url_for('public_cms'))
+
+    form.color.data = post.css_class
+    form.title.data = post.title
+    form.author.data = post.author
+    form.icon.data = post.icon
+    form.subtitle.data = post.subtitle
+    form.content.data = post.content
+
+    return render_template('/blog/public-cms/public-edit-post.html',
+                           form=form,
+                           post=post,
+                           icons=cms_functions.dog_icons())
+
+
+@app.route('/approve-public-post/<unique_id>')
+@login_required
+def approve_public_post(unique_id):
+    post = models.PublicPost.query.get(unique_id)
+    post.approved = 1
+
+    db.session.commit()
+    flash('The post titled %s has been approved!' % post.title)
+    return redirect(url_for('public_cms'))
+
+
+@app.route('/public-delete-post/<unique_id>')
+@login_required
+def public_cms_delete(unique_id):
+    post = models.PublicPost.query.get(unique_id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Successfully deleted post titled %s." % post.title)
+    return redirect(url_for('public_cms'))
+
+
+##############################################################################
 # Blog #######################################################################
 @app.route('/')
 def index():
@@ -180,6 +354,7 @@ def cms():
             else:
                 older_posts.append(post)
 
+    # Placeholder code to be used with a blank DB
     else:
         current_month_posts = ''
         last_month_posts = ''
@@ -213,6 +388,9 @@ def new_post():
     form.month.data = datetime.today().month
     form.year.data = datetime.today().year
     form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
+    # Grabbing most recent entry's primary key to determine next CSS class
+    latest_id = models.Post.query.all()[-1].id + 1
+    form.color.data = cms_functions.get_color(latest_id)
     link = '/cms'
     text = 'CMS'
 
@@ -259,7 +437,6 @@ def cms_submit():
 
 
 @app.route('/preview')
-@login_required
 def preview():
     color = request.args.get('color', 0, type=str)
     title = bleach.clean(request.args.get('title', 0, type=str))
@@ -269,11 +446,16 @@ def preview():
     content = cms_functions.generate_markdown(request.args.get('content', 0, type=str), False)
     div_class = cms_functions.get_theme(color)
     date = hidden_date
+    author = bleach.clean(request.args.get('author', 0, type=str))
+    if author:
+        author = author
+    else:
+        author = 'Tyler Kershner'
 
     html = '''
         <div class="dynamic %s" style="padding-top: 15px;">
             <div>
-                <img src="%s"><span class="ba">Tyler Kershner</span>
+                <img src="%s"><span class="ba">%s</span>
                     <h2>%s</h2>
                     <h4 class="bd">%s</h4>
                     <span class="post-date">%s</span>
@@ -284,7 +466,7 @@ def preview():
                 initSlick();
             </script>
         </div>
-    ''' % (div_class, icon, title, subtitle, date, content)
+    ''' % (div_class, icon, author, title, subtitle, date, content)
 
     data = {
         'html': html,

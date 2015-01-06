@@ -469,8 +469,6 @@ ul.rig.columns-3 li.article-image {
 /* Extra overrides for CMS form submit buttons */
 #submit {
 	display: block;
-	margin-top: 10px;
-	margin-bottom: -15px;
 	width: 150px;
 	height: 50px;
 	font-size: 24px;
@@ -494,7 +492,7 @@ ul.rig.columns-3 li.article-image {
 	font-size: 24px;
 }
 
-/* Edit and Delete buttons in CMS */
+/* Edit, Approve, Deny, and Delete buttons in CMS */
 .edit {
 	position: absolute;
 	bottom: -5px;
@@ -505,8 +503,8 @@ ul.rig.columns-3 li.article-image {
 	padding-top: 8px;
 }
 
-#delete{
-	display: block;
+#delete, #approve{
+	display: inline-block;
 	position: relative;
 	margin: 7px auto;
 	padding-top: 12px;
@@ -519,7 +517,7 @@ ul.rig.columns-3 li.article-image {
 	box-shadow: 1px 1px 3px #000;
 }
 
-#delete:hover {
+#delete:hover, #approve:hover {
 	color: black;
 	text-shadow: none;
 	background-color: #FFF;
@@ -828,6 +826,12 @@ div.project-screenshots img {
 	right: 10px;
 }
 
+.post-author {
+	position: absolute;
+	top: 5px;
+	left: 60px;
+}
+
 .title-date {
 	display: inline-block;
 	position: relative;
@@ -861,7 +865,7 @@ div.project-screenshots img {
 
 .alert {
 	position: relative;
-	margin: 15px auto;
+	margin: 5px auto;
 	width: 80%;
 	max-width: 375px;
 	box-shadow: 1px 1px 3px #000;
@@ -931,13 +935,13 @@ div.not-submitted {
 
 /* The actual CMS form */
 .cms {
-	margin: 20px auto;
+	margin: 0 auto;
 	width: 100%;	
 }
 
 .preview-format-wrapper {
 	position: relative;
-	top: 33px;
+	top: 20px;
 	width: 100%;
 	margin: 0 auto;
 	text-align: center;
@@ -1087,7 +1091,7 @@ input:focus, textarea:focus {
 	box-shadow: 0px 0px 10px #1c87ff;
 }
 
-#title, #subtitle, #content {
+#title, #subtitle, #content, #author {
 	display: block;
 	margin: 0 auto;
 }
@@ -1097,7 +1101,7 @@ input:focus, textarea:focus {
 }
 
 .input-label {
-	display: block;
+	display: block;	
 	width: 95%;
 	max-width: 625px;
 	margin: 0 auto;
@@ -1122,33 +1126,17 @@ input:focus, textarea:focus {
 	text-align: center;
 }
 
-#color-selections {
-	display: none;
-	position: relative;
-	margin: 0 auto;
-	margin-bottom: 5px;
-	padding: 10px;
-	width: 200px;
-	min-height: 50px;
-	text-align: center;
-	border-radius: 5px;
-	border: 1px solid black;
-}
-
-#color-selections > div {
-	display: inline-block;
-	margin: 0 5px;
-	width: 25px;
-	height: 25px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 3px #000;
+#icon-select {
+	display: block;
+	margin: 10px auto;
+	margin-bottom: 20px;
 }
 
 #icon-selections {
 	display: none;
 	position: relative;
 	margin: 0 auto;
-	margin-bottom: 5px;
+	margin-top: 25px;
 	padding: 10px;
 	width: 200px;
 	min-height: 50px;
@@ -1194,7 +1182,7 @@ input:focus, textarea:focus {
 /* **************************************************** */
 /* Blog Post Themes
 /* **************************************************** */
-.grey, .white, .blue, .blue-grey {
+.grey, .white {
 	padding-top: 60px;
 	padding-bottom: 60px;
 }
@@ -1204,156 +1192,58 @@ input:focus, textarea:focus {
 	padding: 25px;
 }
 
-/* BLUE-GREY ********************************/
-.blue-grey, .blue-grey .post-thumb {
-	background-color: #E8EAF6;
-	color: black;
-}
-
-/* Headers */
-.blue-grey h1, .blue-grey h3, .blue-grey h4, .blue-grey h5, .blue-grey h6,
-.blue-grey .title-date .post-thumb-title {
-	color: #3F51B5;
-}
-
-/* Title */
-.blue-grey h2, .blue-grey .title-date .post-thumb-title {
-	color: #FF7043;
-}
-
-/* Subtitle */
-.blue-grey .bd,
-.blue-grey .title-date .post-thumb-subtitle {
-	color: #3F51B5;
-}
-
-/* HR */
-.blue-grey hr, .blue-grey .post-thumb hr {
-	background-color: #FF7043;	
-}
-
-/* Links */
-.blue-grey a {
-	color: #FF7043;
-}
-
-.blue-grey a:hover {
-	color: #FFAB91;
-}
-
-/* Bold */
-.blue-grey strong {
-	font-weight: 600;
-}
-
 /* GREY ********************************/
 .grey {
 	background-color: #F5F5F5;
 }
 
-/* Headers */
-.grey h1, .grey h3, .grey h4, .grey h5, .grey h6 {
-	color: #9E9E9E;
-}
-
 /* Title */
 .grey h2, .grey .title-date .post-thumb-title {
-	color: #03A9F4;	
+	color: #007abf;	
 }
 
-/* Subtitle */
+/* Subtitle, Headers */
 .grey .title-date .post-thumb-subtitle,
-.grey .bd {
-	color: #9E9E9E;
+.grey .bd, .grey h1, .grey h3, .grey h4, .grey h5, .grey h6{
+	color: #00BFA5;
 }
 
 /* HR */
 .grey hr, .grey .post-thumb hr {
-	background-color: #03A9F4;	
+	background-color: #00BFA5;	
 }
 
 .grey a {
-	color: #03A9F4;
+	color: #00BFA5;
 }
 
 .grey a:hover {
-	color: #4FC3F7;
+	color: #00d9bb;
 }
 
 /* WHITE ********************************/
-/* White Headers */
-.white h1, .white h3, .white h4, .white h5, .white h6 {
-	color: #F44336;
-}
-
 /* Title */
-.white h2 {
-	color: #2979FF;
+.white h2, .white .post-thumb-title {
+	color: #f6594e;
 }
 
-/* Subtitle */
+/* Subtitle, Headers */
 .white .title-date .post-thumb-subtitle,
-.white .bd {
-	color: #F44336;
+.white .bd, .white h1, .white h3, .white h4, .white h5, .white h6 {
+	color: #007abf;
 }
 
 /* HR */
 .white hr, .white .post-thumb hr {
-	background-color: #2979FF;	
+	background-color: #007abf;	
 }
 
 .white a {
-	color: #2979FF;
+	color: #007abf;
 }
 
 .white a:hover {
 	color: #82B1FF;
-}
-
-/* Override for CMS thumbnail */
-.white .post-thumb-title {
-	color: rgb(26, 139, 188);
-}
-
-/* BLUE ********************************/
-.blue, .blue .post-thumb {
-	background-color: #E3F2FD;	
-	color: black;
-}
-
-/* Headers */
-.blue h1, .blue h3, .blue h4, .blue h5, .blue h6 {
-	color: #2196F3;
-}
-
-/* Title */
-.blue h2, .blue .title-date .post-thumb-title {
-	color: #EF5350;	
-}
-
-/* Subtitle */
-.blue .bd,
-.blue .title-date .post-thumb-subtitle {
-	color: #2196F3;
-}
-
-/* HR */
-.blue hr, .blue .post-thumb hr {
-	background-color: #EF5350;	
-}
-
-/* Links */
-.blue a {
-	color: #EF5350;
-}
-
-.blue a:hover {
-	color: #E57373;
-}
-
-/* Bold */
-.blue strong {
-	font-weight: 600;
 }
 
 /* ************************ */
