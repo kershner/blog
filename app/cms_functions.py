@@ -3,6 +3,7 @@ import bleach
 from datetime import datetime, timedelta
 import collections
 import os
+import models
 
 
 # Return filenames from a high-level directory
@@ -128,3 +129,17 @@ def get_theme(color):
         return 'blue'
     else:
         return
+
+
+# Return True if there are posts requiring approval
+def approval_notification():
+    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    to_be_approved = []
+    for post in posts:
+        if not post.approved:
+            to_be_approved.append(post)
+
+    if to_be_approved:
+        return True
+    else:
+        return False

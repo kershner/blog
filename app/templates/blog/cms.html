@@ -25,7 +25,13 @@
             </div>
         </div>
 
-        <a id="new-post-link" href="/new-post"><div id="new-post-button" class="button animate">New Post</div></a>
+        <a id="new-post-link" href="/new-post"><div class="button animate new-post-button">New Post</div></a>
+        <a href="/need-approval"><div class="button animate new-post-button">
+            View Public CMS
+            {% if needs_approval %}
+                <i class="fa fa-flag"></i>
+            {% endif %}
+        </div></a>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}

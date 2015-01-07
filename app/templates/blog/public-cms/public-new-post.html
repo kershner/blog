@@ -41,11 +41,7 @@
                     </div>
                 {% endif %}
 
-                <div class="preview-format-wrapper">
-                    <div id="preview" class="button animate">Preview</div>
-                    <div id="formatting" class="button animate">Formatting</div>
-                    <div id="icon-select" class="color-select button animate">Icon</div>
-                </div>
+                <div id="icon-select" class="color-select button animate">Icon</div>
 
                 <div id="icon-selections">
                     {% for icon in icons %}
@@ -53,63 +49,7 @@
                     {% endfor %}
                 </div>
 
-                <div class="format-guide">
-                    <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
-                    <span>Highlight your text and click the button to apply tags</span>
 
-                    <div class="formatting-buttons">
-                        <div id="code-tag" class="button animate">Code</div>
-                        <div id="bold-tag" class="button animate">Bold</div>
-                        <div id="italic-tag" class="button animate">Italic</div>
-                        <div id="header-tag" class="button animate">Header</div>
-                        <div id="color-tag" class="button animate">Color</div>
-                        <br>
-                        <div id="link-tag" class="button animate">Link</div>
-                        <div id="img-tag" class="button animate">Image</div>
-                        <div id="carousel-tag" class="button animate">Img Carousel</div>
-                        <div id="video-tag" class="button animate">Video</div>
-
-                        <div id="code-tag-options" class="tag-options">
-                            <div id="code-tag-options-python" class="button animate">Python</div>
-                            <div id="code-tag-options-js" class="button animate">JavaScript</div>
-                        </div>
-
-                        <div id="header-tag-options" class="tag-options">
-                            <div id="header-tag-options-h1" class="button animate">< h1 ></div>
-                            <div id="header-tag-options-h2" class="button animate">< h2 ></div>
-                            <div id="header-tag-options-h3" class="button animate">< h3 ></div>
-                            <br>
-                            <div id="header-tag-options-h4" class="button animate">< h4 ></div>
-                            <div id="header-tag-options-h5" class="button animate">< h5 ></div>
-                            <div id="header-tag-options-h6" class="button animate">< h6 ></div>
-                        </div>
-
-                        <div id="color-tag-options" class="tag-options">
-                            <div id="color-tag-options-red" class="button animate" style="background-color: #F40022; width: 20px;"></div>
-                            <div id="color-tag-options-blue" class="button animate" style="background-color: #0D4EAF; width: 20px;"></div>
-                            <div id="color-tag-options-yellow" class="button animate" style="background-color: #FFCD78; width: 20px;"></div>
-                            <div id="color-tag-options-green" class="button animate" style="background-color: #007E65; width: 20px;"></div>
-                            <div id="color-tag-options-purple" class="button animate" style="background-color: #8924C1; width: 20px;"></div>
-                        </div>
-
-                        <div id="link-tag-options" class="tag-options">
-                            <input type="text" id="link-url" placeholder="URL">
-                            <div id="link-tag-submit" class="button">Add Tag</div>
-                        </div>
-
-                        <div id="img-tag-options" class="tag-options">
-                            <input type="text" id="img-url" placeholder="URL">
-                            <input type="text" id="img-alt-text" placeholder="Alt Text">
-                            <div id="img-tag-submit" class="button">Add Tag</div>
-                        </div>
-
-                        <div id="carousel-tag-options" class="tag-options">
-                            <input type="text" class="carousel-url" placeholder="URL">
-                            <div id="add-field" class="button animate">Add Field</div>
-                            <div id="carousel-tag-submit" class="button">Add Tag</div>
-                        </div>
-                    </div>
-                </div>
 
                 <form class="cms" action="/public-cms-submit" method="POST">
                     {{ form.hidden_tag() }}
@@ -130,10 +70,103 @@
                     <div id="date-label" class="input-label animate">Subtitle</div>
                     {{ form.subtitle(placeholder="Subtitle", class="animate") }}
 
+                    <div id="formatting" class="button animate">Formatting</div>
+
+                    <div class="format-guide">
+                        <i id="format-guide-close" class="fa fa-times animate"></i>
+                        <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
+                        <span>Highlight your text and click the button to apply tags</span>
+
+                        <div class="formatting-buttons">
+                            <div id="code-tag" class="text-edit animate">
+                                <i class="fa fa-file-code-o fa-2x"></i>
+                                <p class="text-edit label">Code</p>
+                            </div>
+
+                            <div id="video-tag" class="text-edit animate">
+                                <i class="fa fa-play fa-2x"></i>
+                                <p class="text-edit label">Video</p>
+                            </div>
+
+                            <div id="img-tag" class="text-edit animate">
+                                <i class="fa fa-file-image-o fa-2x"></i>
+                                <p class="text-edit label">Img</p>
+                            </div>
+
+                            <div id="carousel-tag" class="text-edit animate">
+                                <i class="fa fa-file-image-o fa-2x"></i>
+                                <p class="text-edit label">Carousel</p>
+                            </div>
+
+                            <div id="color-tag" class="text-edit animate">
+                                <i class="fa fa-paint-brush fa-2x"></i>
+                                <p class="text-edit label">Color</p>
+                            </div>
+
+                            <div id="bold-tag" class="text-edit animate">
+                                <i class="fa fa-bold"></i>
+                            </div>
+
+                            <div id="italic-tag" class="text-edit animate">
+                                <i class="fa fa-italic"></i>
+                            </div>
+
+                            <div id="header-tag" class="text-edit animate">
+                                <i class="fa fa-header"></i>
+                            </div>
+
+                            <div id="link-tag" class="text-edit animate">
+                                <i class="fa fa-link"></i>
+                            </div>
+
+                            <div id="code-tag-options" class="tag-options">
+                                <div id="code-tag-options-python" class="button animate">Python</div>
+                                <div id="code-tag-options-js" class="button animate">JavaScript</div>
+                            </div>
+
+                            <div id="header-tag-options" class="tag-options">
+                                <div id="header-tag-options-h1" class="button animate">H1</div>
+                                <div id="header-tag-options-h2" class="button animate">H2</div>
+                                <div id="header-tag-options-h3" class="button animate">H3</div>
+                                <div id="header-tag-options-h4" class="button animate">H4</div>
+                                <div id="header-tag-options-h5" class="button animate">H5</div>
+                                <div id="header-tag-options-h6" class="button animate">H6</div>
+                            </div>
+
+                            <div id="color-tag-options" class="tag-options">
+                                <div id="color-tag-options-red" class="button animate" style="background-color: #F40022; width: 20px;"></div>
+                                <div id="color-tag-options-blue" class="button animate" style="background-color: #0D4EAF; width: 20px;"></div>
+                                <div id="color-tag-options-yellow" class="button animate" style="background-color: #FFCD78; width: 20px;"></div>
+                                <div id="color-tag-options-green" class="button animate" style="background-color: #007E65; width: 20px;"></div>
+                                <div id="color-tag-options-purple" class="button animate" style="background-color: #8924C1; width: 20px;"></div>
+                            </div>
+
+                            <div id="link-tag-options" class="tag-options">
+                                <input type="text" id="link-url" placeholder="URL" class="animate">
+                                <div id="link-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+
+                            <div id="img-tag-options" class="tag-options">
+                                <input type="text" id="img-url" placeholder="URL" class="animate">
+                                <input type="text" id="img-alt-text" placeholder="Alt Text" class="animate">
+                                <div id="img-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+
+                            <div id="carousel-tag-options" class="tag-options">
+                                <input type="text" class="carousel-url animate" placeholder="URL">
+                                <div id="add-field" class="button animate">Add Field</div>
+                                <div id="carousel-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="content-label" class="input-label animate">Content</div>
                     {{ form.content(placeholder="Content", class="animate")|safe }}
 
-                    {{ form.submit(class="button animate") }}
+                    <div id="preview-submit">
+                        <div id="preview" class="button animate">Preview</div>
+                        {{ form.submit(class="button animate") }}
+                    </div>
                 </form>
             </div>
         </div>

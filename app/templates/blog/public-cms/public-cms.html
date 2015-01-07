@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <a id="new-post-link" href="/public-new-post"><div id="new-post-button" class="button animate">New Post</div></a>
+        <a id="new-post-link" href="/public-new-post"><div class="button animate new-post-button">New Post</div></a>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -37,7 +37,7 @@
 
         {% if posts %}
             <br>
-            <div class="cms-date">{{ current_month }}</div>
+            <div class="cms-date">Public Posts</div>
             <hr style="width: 90%; margin: 0 auto">
             <br>
 

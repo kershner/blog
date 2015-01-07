@@ -134,6 +134,7 @@ class LoginForm(Form):
 class DatabaseForm(Form):
     color = StringField('Color', [DataRequired('Please choose a background-color.')])
     title = StringField('Title', [DataRequired('Please enter a title.')])
+    author = StringField('Your Name', [Optional()])
     icon = StringField('Icon', [DataRequired('Please choose an icon.')])
     subtitle = StringField('Subtitle', [DataRequired('Please enter a subtitle.')])
     content = TextAreaField('Content', [DataRequired('Please type your content.')])

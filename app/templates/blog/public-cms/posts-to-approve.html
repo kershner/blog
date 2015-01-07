@@ -1,7 +1,12 @@
 {% extends '/blog/base.html' %}
 {% block content %}
     <div class="white-inner">
-        <h1>Posts Needing Approval</h1>
+        <div class="cms-nav">
+            <a href="/public">Public Index </a>|
+            <a href="/public-cms">Public CMS </a>|
+            <a href="/cms">Private CMS</a>
+        </div>
+
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -12,12 +17,41 @@
 
         {% if posts %}
             <br>
-            <div class="cms-date">{{ current_month }}</div>
+            <div class="cms-date">Public Posts Pending Approval</div>
             <hr style="width: 90%; margin: 0 auto">
             <br>
 
             <div id="current-posts-container">
                 {% for post in posts %}
+                    <div class="post-thumb {{ post.css_class }}">
+                        <img src="{{ post.icon }}">
+                        <div class="post-author">{{ post.author }}</div>
+                        <div class="post-id">{{ post.id }}</div>
+
+                        <div class="title-date">
+                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
+                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.date }}</span>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/public-edit-post/{{ post.id }}"><div class="button edit animate">View</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if approved %}
+            <br>
+            <div class="cms-date">All Public Posts</div>
+            <hr style="width: 90%; margin: 0 auto">
+            <br>
+
+            <div id="old-posts-container">
+                {% for post in approved %}
                     <div class="post-thumb {{ post.css_class }}">
                         <img src="{{ post.icon }}">
                         <div class="post-author">{{ post.author }}</div>

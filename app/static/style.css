@@ -5,7 +5,11 @@
 
 body {
   background-color: white;
-  font-family: 'Drod Sans', sans-serif;
+  font-family: 'Droid Sans', sans-serif;
+}
+
+.hidden {
+	display: none;
 }
 
 /* Titles */
@@ -467,12 +471,18 @@ ul.rig.columns-3 li.article-image {
 }
 
 /* Extra overrides for CMS form submit buttons */
-#submit {
-	display: block;
+#preview-submit {
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+#submit, #preview {
+	display: inline-block;
 	width: 150px;
 	height: 50px;
 	font-size: 24px;
-	line-height: 25px;
+	line-height: 38px;
 	text-align: center;
 }
 
@@ -484,7 +494,8 @@ ul.rig.columns-3 li.article-image {
 	text-align: center
 }
 
-#new-post-button {
+.new-post-button {
+	display: block;
 	position: relative;
 	margin: 15px auto;
 	height: 45px;
@@ -503,7 +514,7 @@ ul.rig.columns-3 li.article-image {
 	padding-top: 8px;
 }
 
-#delete, #approve{
+#delete, #approve {
 	display: inline-block;
 	position: relative;
 	margin: 7px auto;
@@ -538,22 +549,34 @@ ul.rig.columns-3 li.article-image {
 	border: 1px solid Transparent;
 }
 
-/* Preview/Formatting Buttons in Text Editor */
-#preview, #formatting {
+/* Formatting Button in Text Editor */
+#formatting {
+	position: relative;
+	top: 20px;
+	left: 90px;
 	margin: 0;
+	margin-top: -25px;
 	background-color: #f2f2f2;
+	border-radius: 5px 5px 0 0;
 	width: 125px;
 	height: 30px;
 	text-shadow: none;
+	box-shadow: none;
+	border: 1px solid black;
+	border-bottom: none;
 	color: black;
+}
+
+#formatting:hover {
+	background-color: white;
 }
 
 /* Class applied when buttons are clicked */
 .color-select-selected {
 	background-color: white;
-	border: 1px solid black;
 	color: black;
 	text-shadow: none;
+	border: 1px solid #000;
 	box-shadow: none;
 }
 
@@ -939,14 +962,6 @@ div.not-submitted {
 	width: 100%;	
 }
 
-.preview-format-wrapper {
-	position: relative;
-	top: 20px;
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
-}
-
 .formatting-select {
 	display: inline-block;
 	position: relative;
@@ -991,14 +1006,28 @@ div.not-submitted {
 .format-guide {
 	display: none;
 	position: relative;
+	top: 20px;
 	margin: 0 auto;
-	margin-top: 25px;
-	width: 90%;
+	margin-top: -25px;
+	width: 60%;
 	min-width: 320px;
-	height: 135px;
+	height: 105px;
 	background-color: #f2f2f2;
-	box-shadow: 1px 1px 3px #000;
+	border-radius: 5px 5px 0 0;
+	border: 1px solid black;
+	border-bottom: none;
 	text-align: center;
+}
+
+#format-guide-close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+#format-guide-close:hover {
+	cursor: pointer;
+	color: rgb(73, 125, 203);
 }
 
 .format-guide p {
@@ -1020,20 +1049,44 @@ div.not-submitted {
 	padding: 0 5px 0 5px;
 }
 
-.formatting-buttons .button {
-	margin: 3px 0;
-	height: 35px;
+.text-edit {
+	display: inline-block;
+	margin: 0;
+	min-width: 10px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.text-edit:hover {
+	cursor: pointer;
+	background-color: white;
+	color: black;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.text-edit i {
+	margin: 0 auto;
+}
+
+.text-edit p {	
+	display: block;
+	position: relative;
+	color: black;
+	text-align: center;
+	font-size: 12px;
+	box-shadow: none;
+}
+
+.text-edit p:hover {
+	box-shadow: none;
 }
 
 .tag-options {
 	display: none;
 	margin: 0 auto;
 	margin-top: 5px;
-	min-height: 20px;
-	width: 200px;
-	background-color: #979696;
-	border-radius: 5px;
-	box-shadow: 1px 1px 3px #000;
+	min-height: 10px;
+	min-width: 10px;
 	padding: 5px;
 }
 
@@ -1042,10 +1095,18 @@ div.not-submitted {
 	margin: 0 auto;
 	min-width: 10px;
 	height: 20px !important;
-	color: white;
-	background-color: #2966C0;
+	color: black;
+	background-color: white;
 	font-size: 10px;
 	line-height: 10px;
+	border: 1px solid black;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.tag-options div:hover {
+	border: 1px solid Transparent;
+	box-shadow: 1px 1px 1px #000;
 }
 
 .video-wrapper {
@@ -1113,6 +1174,7 @@ input:focus, textarea:focus {
 .login {
 	margin: 0 auto;
 	width: 300px;
+	text-align: center;
 }
 
 /* Hidden forms inputs - accessed via JS */
@@ -1128,15 +1190,15 @@ input:focus, textarea:focus {
 
 #icon-select {
 	display: block;
-	margin: 10px auto;
-	margin-bottom: 20px;
+	margin: 0 auto;
 }
 
 #icon-selections {
 	display: none;
 	position: relative;
 	margin: 0 auto;
-	margin-top: 25px;
+	margin-top: 5px;
+	margin-bottom: -15px;
 	padding: 10px;
 	width: 200px;
 	min-height: 50px;
@@ -1246,8 +1308,7 @@ input:focus, textarea:focus {
 	color: #82B1FF;
 }
 
-/* ************************ */
-/* Color tags for Markdown  */
+/* Color tags for custom Markdown  */
 red {
 	color: #F40022;
 }
@@ -1266,4 +1327,21 @@ green {
 
 purple {
 	color: #8924C1;
+}
+
+/* **************************************************** */
+/* Public CMS
+/* **************************************************** */
+#new-post-wrapper {
+	width: 100%;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.cms-nav {
+	width: 30%;
+	min-width: 270px;
+	margin: 0 auto;
+	margin-top: -45px;
+	text-align: center;
 }

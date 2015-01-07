@@ -110,7 +110,10 @@ def public_cms_submit():
         db.session.commit()
 
         flash('Your post titled %s has been submitted for approval!' % title)
-        return redirect(url_for('public_cms'))
+        if 'logged_in' in session:
+            return redirect(url_for('need_approval'))
+        else:
+            return redirect(url_for('public_cms'))
 
 
 @app.route('/need-approval')
@@ -118,12 +121,16 @@ def public_cms_submit():
 def need_approval():
     posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
     to_be_approved = []
+    approved = []
     for post in posts:
         if not post.approved:
             to_be_approved.append(post)
+        else:
+            approved.append(post)
 
     return render_template('/blog/public-cms/posts-to-approve.html',
                            posts=to_be_approved,
+                           approved=approved,
                            title='Posts to Be Approved')
 
 
@@ -168,7 +175,10 @@ def public_cms_update(unique_id):
         db.session.commit()
 
         flash('The post titled %s has been updated!' % post.title)
-        return redirect(url_for('public_cms'))
+        if 'logged_in' in session:
+            return redirect(url_for('need_approval'))
+        else:
+            return redirect(url_for('public_cms'))
 
     form.color.data = post.css_class
     form.title.data = post.title
@@ -191,7 +201,7 @@ def approve_public_post(unique_id):
 
     db.session.commit()
     flash('The post titled %s has been approved!' % post.title)
-    return redirect(url_for('public_cms'))
+    return redirect(url_for('need_approval'))
 
 
 @app.route('/public-delete-post/<unique_id>')
@@ -203,7 +213,10 @@ def public_cms_delete(unique_id):
     db.session.commit()
 
     flash("Successfully deleted post titled %s." % post.title)
-    return redirect(url_for('public_cms'))
+    if 'logged_in' in session:
+            return redirect(url_for('need_approval'))
+    else:
+        return redirect(url_for('public_cms'))
 
 
 ##############################################################################
@@ -333,6 +346,7 @@ def cms():
     posts = models.Post.query.order_by(models.Post.id.desc()).all()
     link = '/logout'
     text = 'Logout'
+    needs_approval = cms_functions.approval_notification()
 
     if posts:
         current_month = datetime.today().strftime('%B %Y')
@@ -354,7 +368,7 @@ def cms():
             else:
                 older_posts.append(post)
 
-    # Placeholder code to be used with a blank DB
+    # Placeholder code to be used in case of a blank DB
     else:
         current_month_posts = ''
         last_month_posts = ''
@@ -378,6 +392,7 @@ def cms():
                            stats=statistics,
                            link=link,
                            text=text,
+                           needs_approval=needs_approval,
                            title='CMS')
 
 

@@ -171,18 +171,15 @@ function notSubmitted() {
 }
 
 function showFormatting() {
-	var clicked = false;
 	$('#formatting').on('click', function() {
-		if (clicked) {
-			clicked = false;
-			$('.format-guide').fadeOut('fast');
-			$(this).removeClass('color-select-selected');		
-		}
-		else {
-			clicked = true;
-			$('.format-guide').fadeIn('fast');
-			$(this).addClass('color-select-selected');
-		}
+        $('.format-guide').fadeIn('fast');
+        $(this).css('display', 'none');
+        console.log('Clicked');
+	});
+
+	$('#format-guide-close').on('click', function() {
+        $('.format-guide').fadeOut('fast');
+        $('#formatting').fadeIn('fast');
 	});
 }
 
@@ -218,7 +215,6 @@ function showHiddenFields() {
 		}
 	});
 }
-
 
 function centerImages() {
 	if ($('.white p img').length > 0) {
@@ -282,12 +278,12 @@ function headerTags() {
         	clicked = false;
         	$('#header-tag-options').fadeOut('fast');
         	$(this).removeClass('color-select-selected');
-        	$('.format-guide').css('height', '-=60px');
+        	$('.format-guide').css('height', '-=40px');
     	} else {
     		clicked = true;
     		$('#header-tag-options').fadeIn('fast');
         	$(this).addClass('color-select-selected');
-        	$('.format-guide').css('height', '+=60px');
+        	$('.format-guide').css('height', '+=40px');
     	}
     });
     $('#header-tag-options-h1').on('click', function() {
