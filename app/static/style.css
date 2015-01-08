@@ -988,7 +988,7 @@ div.not-submitted {
 	margin-top: -25px;
 	width: 60%;
 	min-width: 300px;
-	min-height: 125px;
+	height: 125px;
 	background-color: #f2f2f2;
 	border-radius: 5px 5px 0 0;
 	border: 1px solid black;

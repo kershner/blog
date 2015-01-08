@@ -1,5 +1,4 @@
 function cms() {
-	showIconSelect();
 	iconSelect();
 	masonry();
 	populateData();
@@ -12,6 +11,7 @@ function cms() {
 	addTags();
 }
 
+// AJAX request to /preview view function
 function populateData(data) {
 	console.log('Populating data...!');
 	$('.preview').fadeOut('fast');		
@@ -46,6 +46,7 @@ function preview() {
 	});
 }
 
+// Adds a visual indicator that icon has been selected
 function iconSelect() {
 	$('#icon-selections img').on('click', function() {
 		$('#icon').val($(this).get(0).src);
@@ -53,22 +54,6 @@ function iconSelect() {
 		$(this).css('border-bottom', '2px solid #1c87ff');
 		populateData();
 		notSubmitted();
-	});
-}
-
-function showIconSelect() {
-	var clicked = false;
-	$('#icon-select').on('click', function() {
-		if (clicked) {
-			clicked = false;
-			$('#icon-selections').fadeOut('fast');
-			$(this).removeClass('color-select-selected');		
-		}
-		else {
-			clicked = true;
-			$('#icon-selections').fadeIn('fast');
-			$(this).addClass('color-select-selected');
-		}
 	});
 }
 
@@ -88,6 +73,7 @@ function masonry() {
 	}
 }
 
+// Confirmation box when the delete button is pushed
 function confirmation() {
 	$('#delete').on('click', function() {
 		$('.confirm').fadeIn('fast');
@@ -99,6 +85,7 @@ function confirmation() {
 	});
 }
 
+// Adds a label above the input when text is entered
 function inputLabels() {
 	var title = $('#title').val();
 	var subtitle = $('#subtitle').val();
@@ -165,10 +152,12 @@ function inputLabels() {
 	});
 }
 
+// Fades in an indicator that the post has not yet been submitted
 function notSubmitted() {
 	$('.not-submitted').fadeIn('fast');
 }
 
+// Fires the /preview view function when the element loses focus
 function detectInput(element) {
 	$(element).one('keypress', function() {
 		$(element).focusout(function() {
@@ -202,6 +191,8 @@ function showHiddenFields() {
 	});
 }
 
+
+// Centers dynamically placed images and videos
 function centerImages() {
 	if ($('.white p img').length > 0) {
 		$('.white p img').parent().css({
@@ -231,20 +222,21 @@ function projectsMasonry() {
 	});
 }
 
-// Functions for applying markdown tags
+//////////////////////////////////////////////
+// Functions for applying markdown tags below
 function codeTags() {
 	var clicked = false;
 	$('#code-tag').on('click', function() {
         if (clicked) {
         	clicked = false;        	
-        	$('#code-tag-options').fadeOut('fast');
+        	$('#code-tag-options').fadeOut(50);
         	$(this).removeClass('color-select-selected');
-        	$('.format-guide').css('height', '-=40px');
+        	$('.format-guide').css('height', '-=45px');
     	} else {
     		clicked = true;
     		$('#code-tag-options').fadeIn('fast');    		
         	$(this).addClass('color-select-selected');
-        	$('.format-guide').css('height', '+=40px');
+        	$('.format-guide').css('height', '+=45px');
     	}
     });
     $('#code-tag-options-python').on('click', function() {
@@ -262,14 +254,14 @@ function headerTags() {
 	$('#header-tag').on('click', function() {
         if (clicked) {
         	clicked = false;
-        	$('#header-tag-options').fadeOut('fast');
+        	$('#header-tag-options').fadeOut(50);
         	$(this).removeClass('color-select-selected');
         	$('.format-guide').css('height', '-=40px');
     	} else {
-    		clicked = true;
-    		$('#header-tag-options').fadeIn('fast');
+    		clicked = true;    		
         	$(this).addClass('color-select-selected');
         	$('.format-guide').css('height', '+=40px');
+        	$('#header-tag-options').fadeIn('fast');
     	}
     });
     $('#header-tag-options-h1').on('click', function() {
@@ -317,14 +309,14 @@ function colorTags() {
 	$('#color-tag').on('click', function() {
         if (clicked) {
         	clicked = false;
-        	$('#color-tag-options').fadeOut('fast');
+        	$('#color-tag-options').fadeOut(50);
         	$(this).removeClass('color-select-selected');
         	$('.format-guide').css('height', '-=40px');
     	} else {
-    		clicked = true;
-    		$('#color-tag-options').fadeIn('fast');
+    		clicked = true;    		
         	$(this).addClass('color-select-selected');
         	$('.format-guide').css('height', '+=40px');
+        	$('#color-tag-options').fadeIn('fast');
     	}
     });
     $('#color-tag-options-red').on('click', function() {
@@ -356,12 +348,12 @@ function linkTag() {
 			clicked = false;
 			$('#link-tag-options').fadeOut('fast');
 			$(this).removeClass('color-select-selected');
-			$('.format-guide').css('height', '-=115x');
+			$('.format-guide').css('height', '-=105px');
 		} else {
 			clicked = true;
 			$('#link-tag-options').fadeIn('fast');
 			$(this).addClass('color-select-selected');
-			$('.format-guide').css('height', '+=115px');
+			$('.format-guide').css('height', '+=105px');
 		}
 	});
 	$('#link-tag-submit').on('click', function() {
@@ -375,14 +367,14 @@ function imgTag() {
 	$('#img-tag').on('click', function() {
 		if (clicked) {
 			clicked = false;
-			$('#img-tag-options').fadeOut('fast');
+			$('#img-tag-options').fadeOut(50);
 			$(this).removeClass('color-select-selected');
-			$('.format-guide').css('height', '-=160x');
+			$('.format-guide').css('height', '-=155px');
 		} else {
-			clicked = true;
-			$('#img-tag-options').fadeIn('fast');
+			clicked = true;			
 			$(this).addClass('color-select-selected');
-			$('.format-guide').css('height', '+=160px');
+			$('.format-guide').css('height', '+=155px');
+			$('#img-tag-options').fadeIn('fast');
 		}
 	});
 	$('#img-tag-submit').on('click', function() {
@@ -398,18 +390,22 @@ function carouselTag() {
 	$('#carousel-tag').on('click', function() {
 		if (clicked) {
 			clicked = false;
+			var inputCount = ($('#carousel-tag-options input').length + 1) * 52.5;
+			console.log(inputCount);
 			$('#carousel-tag-options').fadeOut('fast');
+			$('#carousel-tag-options input').slice(1).remove();
 			$(this).removeClass('color-select-selected');
-			$('.format-guide').css('height', '-=110x');
+			$('.format-guide').css('height', '-=' + inputCount + 'px');
 		} else {
-			clicked = true;
-			$('#carousel-tag-options').fadeIn('fast');
+			clicked = true;			
 			$(this).addClass('color-select-selected');
-			$('.format-guide').css('height', '+=110x');
+			$('.format-guide').css('height', '+=105px');
+			$('#carousel-tag-options').fadeIn('fast');
 		}
 	});
 	$('#add-field').on('click', function() {
-		var html = '<input type="text" class="carousel-url" placeholder="URL">';
+		$('.format-guide').css('height', '+=55px');
+		var html = '<input type="text" class="carousel-url animate" placeholder="URL">';
 		$(html).insertBefore($('#add-field'));
 	});
 	$('#carousel-tag-submit').on('click', function() {
@@ -447,6 +443,7 @@ function addTags() {
 	videoTag();
 }
 
+// Initialize 'slick' image carousel
 function initSlick() {
 	options = {
 		autoplay: true,
