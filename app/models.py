@@ -1,6 +1,5 @@
 from app import db
 
-
 # Model for blog posts
 class Post(db.Model):
     __bind_key__ = 'db1'

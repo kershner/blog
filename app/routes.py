@@ -139,6 +139,7 @@ def need_approval():
 def public_cms_edit(unique_id):
     form = PublicDatabaseForm()
     post = models.PublicPost.query.get(unique_id)
+    approved = post.approved
 
     form.color.data = post.css_class
     form.icon.data = post.icon
@@ -152,6 +153,7 @@ def public_cms_edit(unique_id):
 
     return render_template('/blog/public-cms/public-edit-post.html',
                            post=post,
+                           approved=approved,
                            form=form,
                            icons=cms_functions.dog_icons(),
                            title='Edit Public Post')

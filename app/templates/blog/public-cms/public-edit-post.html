@@ -9,7 +9,9 @@
 
                 <div id="button-wrapper">
                     <div id="delete" class="button animate">Delete</div>
-                    <a href="/approve-public-post/{{ post.id }}"><div id="approve" class="button animate">Approve</div></a>
+                    {% if not approved %}
+                        <a href="/approve-public-post/{{ post.id }}"><div id="approve" class="button animate">Approve</div></a>
+                    {% endif %}
                 </div>
 
                 <div class="confirm alert">
@@ -52,16 +54,6 @@
                     </div>
                 {% endif %}
 
-                <div id="icon-select" class="color-select button animate">Icon</div>
-
-                <div id="icon-selections">
-                    {% for icon in icons %}
-                        <img class="animate" src="{{ icon }}">
-                    {% endfor %}
-                </div>
-
-
-
                 <form class="cms" action="/public-cms-submit" method="POST">
                     {{ form.hidden_tag() }}
 
@@ -81,10 +73,7 @@
                     <div id="date-label" class="input-label animate">Subtitle</div>
                     {{ form.subtitle(placeholder="Subtitle", class="animate") }}
 
-                    <div id="formatting" class="button animate">Formatting</div>
-
                     <div class="format-guide">
-                        <i id="format-guide-close" class="fa fa-times animate"></i>
                         <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
                         <span>Highlight your text and click the button to apply tags</span>
 
@@ -113,6 +102,8 @@
                                 <i class="fa fa-paint-brush fa-2x"></i>
                                 <p class="text-edit label">Color</p>
                             </div>
+
+                            <br>
 
                             <div id="bold-tag" class="text-edit animate">
                                 <i class="fa fa-bold"></i>
@@ -173,6 +164,13 @@
 
                     <div id="content-label" class="input-label animate">Content</div>
                     {{ form.content(placeholder="Content", class="animate")|safe }}
+
+                    <div id="icon-selections">
+                        <div id="icon-selections-label">Choose Icon</div>
+                        {% for icon in icons %}
+                            <img class="animate" src="{{ icon }}">
+                        {% endfor %}
+                    </div>
 
                     <div id="preview-submit">
                         <div id="preview" class="button animate">Preview</div>

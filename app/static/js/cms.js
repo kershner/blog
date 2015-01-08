@@ -6,7 +6,6 @@ function cms() {
 	preview();
 	confirmation();
 	inputLabels();
-	showFormatting();
 	instantPreview();
 	showHiddenFields();
 	centerImages();
@@ -168,19 +167,6 @@ function inputLabels() {
 
 function notSubmitted() {
 	$('.not-submitted').fadeIn('fast');
-}
-
-function showFormatting() {
-	$('#formatting').on('click', function() {
-        $('.format-guide').fadeIn('fast');
-        $(this).css('display', 'none');
-        console.log('Clicked');
-	});
-
-	$('#format-guide-close').on('click', function() {
-        $('.format-guide').fadeOut('fast');
-        $('#formatting').fadeIn('fast');
-	});
 }
 
 function detectInput(element) {
