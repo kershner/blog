@@ -33,6 +33,347 @@ def login_required(test):
 
 
 ##############################################################################
+# Blog #######################################################################
+@app.route('/')
+def index():
+    # Sorting by ID (descending order)
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    current_month_posts = []
+    last_month_posts = []
+    two_months_ago_posts = []
+
+    for post in posts:
+        status = cms_functions.get_recent_posts(post)
+        if status == 'Current Month':
+            current_month_posts.append(post)
+        elif status == 'Last Month':
+            last_month_posts.append(post)
+        elif status == 'Two Months Ago':
+            two_months_ago_posts.append(post)
+
+    if 'logged_in' in session:
+        link = '/cms'
+        text = 'CMS'
+    else:
+        link = '/login'
+        text = 'Login'
+
+    return render_template('/blog/home.html',
+                           current_month_posts=current_month_posts,
+                           last_month_posts=last_month_posts,
+                           two_months_ago_posts=two_months_ago_posts,
+                           link=link,
+                           text=text)
+
+
+@app.route('/archive')
+def archive():
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    month_strings = []
+    month_year = []
+    month_list = []
+
+    for post in posts:
+        try:
+            date_string = '%s %s' % (str(calendar.month_name[int(post.month)]), str(post.year))
+            if date_string not in month_strings:
+                month_strings.append(date_string)
+                month_year.append([post.month, post.year])
+        except TypeError:
+            continue
+
+    counter = 0
+    numbers = [10, 11, 12]
+    for entry in month_strings:
+        year = month_year[counter][1]
+        month = month_year[counter][0]
+        # Pre-pending a 0 to month if needed
+        if int(month) in numbers:
+            month = '%s' % str(month)
+        else:
+            month = '0%s' % str(month)
+        year_month = '%s%s' % (str(year), month)
+
+        month_list.append([entry, month, year, int(year_month)])
+        counter += 1
+
+    # Sorting by third index - year + month
+    month_list.sort(key=lambda x: x[3], reverse=True)
+    return render_template('/blog/archive.html',
+                           title='Archive',
+                           months=month_list)
+
+
+@app.route('/archive/<year>/<month>')
+def archive_viewer(year, month):
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    selected_posts = []
+    month_string = calendar.month_name[int(month)]
+
+    for post in posts:
+        try:
+            if int(post.month) == int(month) and int(post.year) == int(year):
+                selected_posts.append(post)
+        except TypeError:
+            continue
+
+    return render_template('/blog/cms/archive_viewer.html',
+                           title='Archive - %s %d' % (month_string, int(year)),
+                           selected_posts=selected_posts)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        verify = cms_functions.password_validate(username, password)
+
+        if not verify[0]:
+            print 'Did not verify'
+            flash(verify[1])
+            return redirect(url_for('login'))
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('cms'))
+    else:
+        return render_template('/blog/cms/login.html',
+                               form=form,
+                               title='CMS Login')
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if 'logged_in' in session:
+        session.pop('logged_in', None)
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/cms', methods=['GET', 'POST'])
+@login_required
+def cms():
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    link = '/logout'
+    text = 'Logout'
+    needs_approval = cms_functions.approval_notification()
+
+    if posts:
+        current_month = datetime.today().strftime('%B %Y')
+        last_month = (datetime.today() - timedelta(weeks=4)).strftime('%B %Y')
+        two_months_ago = (datetime.today() - timedelta(weeks=8)).strftime('%B %Y')
+        current_month_posts = []
+        last_month_posts = []
+        two_months_ago_posts = []
+        older_posts = []
+        statistics = cms_functions.stats(posts, 0)
+
+        for post in posts:
+            if cms_functions.get_recent_posts(post) == 'Current Month':
+                current_month_posts.append(post)
+            elif cms_functions.get_recent_posts(post) == 'Last Month':
+                last_month_posts.append(post)
+            elif cms_functions.get_recent_posts(post) == 'Two Months Ago':
+                two_months_ago_posts.append(post)
+            else:
+                older_posts.append(post)
+
+    # Placeholder code to be used in case of a blank DB
+    else:
+        current_month_posts = ''
+        last_month_posts = ''
+        two_months_ago_posts = ''
+        older_posts = ''
+        current_month = ''
+        last_month = ''
+        two_months_ago = ''
+        statistics = ''
+
+    return render_template('/blog/cms/cms.html',
+                           icons=cms_functions.dog_icons(),
+                           form=DatabaseForm(),
+                           current_month_posts=current_month_posts,
+                           last_month_posts=last_month_posts,
+                           two_months_ago_posts=two_months_ago_posts,
+                           older_posts=older_posts,
+                           current_month=current_month,
+                           last_month=last_month,
+                           two_months_ago=two_months_ago,
+                           stats=statistics,
+                           link=link,
+                           text=text,
+                           needs_approval=needs_approval,
+                           title='CMS')
+
+
+@app.route('/new-post', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = DatabaseForm()
+    form.month.data = datetime.today().month
+    form.year.data = datetime.today().year
+    form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
+    # Grabbing most recent entry's primary key to determine next CSS class
+    latest_id = models.Post.query.all()[-1].id + 1
+    form.color.data = cms_functions.get_color(latest_id)
+    link = '/cms'
+    text = 'CMS'
+
+    return render_template('/blog/cms/new-post.html',
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           link=link,
+                           text=text,
+                           title='New Post')
+
+
+@app.route('/cms-submit', methods=['GET', 'POST'])
+@login_required
+def cms_submit():
+    form = DatabaseForm()
+    if not form.validate_on_submit():
+        return render_template('/blog/cms/new-post.html',
+                               icons=cms_functions.dog_icons(),
+                               form=form)
+    else:
+        css_class = cms_functions.get_theme(form.color.data)
+        title = bleach.clean(form.title.data)
+        icon = form.icon.data
+        subtitle = bleach.clean(form.subtitle.data)
+        content = cms_functions.generate_markdown(form.content.data, True)
+        date_string = form.hidden_date.data
+        month = form.month.data
+        year = form.year.data
+
+        post = models.Post(css_class=css_class,
+                           title=title,
+                           icon=icon,
+                           subtitle=subtitle,
+                           date=date_string,
+                           month=month,
+                           content=content,
+                           year=year)
+
+        db.session.add(post)
+        db.session.commit()
+
+        flash('Your post titled %s has been added to the database!' % title)
+        return redirect(url_for('cms'))
+
+
+@app.route('/preview')
+def preview():
+    color = request.args.get('color', 0, type=str)
+    title = bleach.clean(request.args.get('title', 0, type=str))
+    icon = request.args.get('icon', 0, type=str)
+    hidden_date = bleach.clean(request.args.get('hidden_date', 0, type=str))
+    subtitle = bleach.clean(request.args.get('subtitle', 0, type=str))
+    content = cms_functions.generate_markdown(request.args.get('content', 0, type=str), False)
+    div_class = cms_functions.get_theme(color)
+    date = hidden_date
+    author = bleach.clean(request.args.get('author', 0, type=str))
+    if author:
+        author = author
+    else:
+        author = 'Tyler Kershner'
+
+    html = '''
+        <div class="dynamic %s" style="padding-top: 15px;">
+            <div>
+                <img src="%s"><span class="ba">%s</span>
+                    <h2>%s</h2>
+                    <h4 class="bd">%s</h4>
+                    <span class="post-date">%s</span>
+                    <hr style="width: 90%%">
+                    %s
+            </div>
+            <script>
+                initSlick();
+            </script>
+        </div>
+    ''' % (div_class, icon, author, title, subtitle, date, content)
+
+    data = {
+        'html': html,
+        'content': content
+    }
+
+    return jsonify(data)
+
+
+@app.route('/edit-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def cms_edit(unique_id):
+    form = DatabaseForm()
+    post = models.Post.query.get(unique_id)
+    link = '/cms'
+    text = 'CMS'
+
+    form.color.data = post.css_class
+    form.icon.data = post.icon
+    form.title.data = post.title
+    form.subtitle.data = post.subtitle
+    form.content.data = cms_functions.generate_markdown(post.content, True)
+    form.hidden_date.data = post.date
+    form.month.data = post.month
+    form.year.data = post.year
+
+    return render_template('/blog/cms/edit-post.html',
+                           post=post,
+                           form=form,
+                           icons=cms_functions.dog_icons(),
+                           link=link,
+                           text=text,
+                           title='Edit Post')
+
+
+@app.route('/update-post/<unique_id>', methods=['GET', 'POST'])
+@login_required
+def cms_update(unique_id):
+    form = DatabaseForm()
+    post = models.Post.query.get(unique_id)
+
+    if form.validate_on_submit():
+        post.css_class = cms_functions.get_theme(form.color.data)
+        post.title = bleach.clean(form.title.data)
+        post.icon = form.icon.data
+        post.subtitle = bleach.clean(form.subtitle.data)
+        post.content = cms_functions.generate_markdown(form.content.data, True)
+        post.month = form.month.data
+        post.year = form.year.data
+        db.session.commit()
+
+        flash('The post titled %s has been updated!' % post.title)
+        return redirect(url_for('cms'))
+
+    form.color.data = post.css_class
+    form.title.data = post.title
+    form.icon.data = post.icon
+    form.subtitle.data = post.subtitle
+    form.content.data = post.content
+
+    return render_template('/blog/cms/edit-post.html',
+                           form=form,
+                           post=post,
+                           icons=cms_functions.dog_icons())
+
+
+@app.route('/delete-post/<unique_id>')
+@login_required
+def cms_delete(unique_id):
+    post = models.Post.query.get(unique_id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Successfully deleted post titled %s." % post.title)
+    return redirect(url_for('cms'))
+
+
+##############################################################################
 # Public CMS #################################################################
 @app.route('/public')
 def public():
@@ -219,347 +560,6 @@ def public_cms_delete(unique_id):
             return redirect(url_for('need_approval'))
     else:
         return redirect(url_for('public_cms'))
-
-
-##############################################################################
-# Blog #######################################################################
-@app.route('/')
-def index():
-    # Sorting by ID (descending order)
-    posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    current_month_posts = []
-    last_month_posts = []
-    two_months_ago_posts = []
-
-    for post in posts:
-        status = cms_functions.get_recent_posts(post)
-        if status == 'Current Month':
-            current_month_posts.append(post)
-        elif status == 'Last Month':
-            last_month_posts.append(post)
-        elif status == 'Two Months Ago':
-            two_months_ago_posts.append(post)
-
-    if 'logged_in' in session:
-        link = '/cms'
-        text = 'CMS'
-    else:
-        link = '/login'
-        text = 'Login'
-
-    return render_template('/blog/home.html',
-                           current_month_posts=current_month_posts,
-                           last_month_posts=last_month_posts,
-                           two_months_ago_posts=two_months_ago_posts,
-                           link=link,
-                           text=text)
-
-
-@app.route('/archive')
-def archive():
-    posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    month_strings = []
-    month_year = []
-    month_list = []
-
-    for post in posts:
-        try:
-            date_string = '%s %s' % (str(calendar.month_name[int(post.month)]), str(post.year))
-            if date_string not in month_strings:
-                month_strings.append(date_string)
-                month_year.append([post.month, post.year])
-        except TypeError:
-            continue
-
-    counter = 0
-    numbers = [10, 11, 12]
-    for entry in month_strings:
-        year = month_year[counter][1]
-        month = month_year[counter][0]
-        # Pre-pending a 0 to month if needed
-        if int(month) in numbers:
-            month = '%s' % str(month)
-        else:
-            month = '0%s' % str(month)
-        year_month = '%s%s' % (str(year), month)
-
-        month_list.append([entry, month, year, int(year_month)])
-        counter += 1
-
-    # Sorting by third index - year + month
-    month_list.sort(key=lambda x: x[3], reverse=True)
-    return render_template('/blog/archive.html',
-                           title='Archive',
-                           months=month_list)
-
-
-@app.route('/archive/<year>/<month>')
-def archive_viewer(year, month):
-    posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    selected_posts = []
-    month_string = calendar.month_name[int(month)]
-
-    for post in posts:
-        try:
-            if int(post.month) == int(month) and int(post.year) == int(year):
-                selected_posts.append(post)
-        except TypeError:
-            continue
-
-    return render_template('/blog/archive_viewer.html',
-                           title='Archive - %s %d' % (month_string, int(year)),
-                           selected_posts=selected_posts)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        verify = cms_functions.password_validate(username, password)
-
-        if not verify[0]:
-            print 'Did not verify'
-            flash(verify[1])
-            return redirect(url_for('login'))
-        else:
-            session['logged_in'] = True
-            return redirect(url_for('cms'))
-    else:
-        return render_template('/blog/login.html',
-                               form=form,
-                               title='CMS Login')
-
-
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    if 'logged_in' in session:
-        session.pop('logged_in', None)
-        return redirect(url_for('login'))
-    else:
-        return redirect(url_for('login'))
-
-
-@app.route('/cms', methods=['GET', 'POST'])
-@login_required
-def cms():
-    posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    link = '/logout'
-    text = 'Logout'
-    needs_approval = cms_functions.approval_notification()
-
-    if posts:
-        current_month = datetime.today().strftime('%B %Y')
-        last_month = (datetime.today() - timedelta(weeks=4)).strftime('%B %Y')
-        two_months_ago = (datetime.today() - timedelta(weeks=8)).strftime('%B %Y')
-        current_month_posts = []
-        last_month_posts = []
-        two_months_ago_posts = []
-        older_posts = []
-        statistics = cms_functions.stats(posts, 0)
-
-        for post in posts:
-            if cms_functions.get_recent_posts(post) == 'Current Month':
-                current_month_posts.append(post)
-            elif cms_functions.get_recent_posts(post) == 'Last Month':
-                last_month_posts.append(post)
-            elif cms_functions.get_recent_posts(post) == 'Two Months Ago':
-                two_months_ago_posts.append(post)
-            else:
-                older_posts.append(post)
-
-    # Placeholder code to be used in case of a blank DB
-    else:
-        current_month_posts = ''
-        last_month_posts = ''
-        two_months_ago_posts = ''
-        older_posts = ''
-        current_month = ''
-        last_month = ''
-        two_months_ago = ''
-        statistics = ''
-
-    return render_template('/blog/cms.html',
-                           icons=cms_functions.dog_icons(),
-                           form=DatabaseForm(),
-                           current_month_posts=current_month_posts,
-                           last_month_posts=last_month_posts,
-                           two_months_ago_posts=two_months_ago_posts,
-                           older_posts=older_posts,
-                           current_month=current_month,
-                           last_month=last_month,
-                           two_months_ago=two_months_ago,
-                           stats=statistics,
-                           link=link,
-                           text=text,
-                           needs_approval=needs_approval,
-                           title='CMS')
-
-
-@app.route('/new-post', methods=['GET', 'POST'])
-@login_required
-def new_post():
-    form = DatabaseForm()
-    form.month.data = datetime.today().month
-    form.year.data = datetime.today().year
-    form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
-    # Grabbing most recent entry's primary key to determine next CSS class
-    latest_id = models.Post.query.all()[-1].id + 1
-    form.color.data = cms_functions.get_color(latest_id)
-    link = '/cms'
-    text = 'CMS'
-
-    return render_template('/blog/new-post.html',
-                           form=form,
-                           icons=cms_functions.dog_icons(),
-                           link=link,
-                           text=text,
-                           title='New Post')
-
-
-@app.route('/cms-submit', methods=['GET', 'POST'])
-@login_required
-def cms_submit():
-    form = DatabaseForm()
-    if not form.validate_on_submit():
-        return render_template('/blog/new-post.html',
-                               icons=cms_functions.dog_icons(),
-                               form=form)
-    else:
-        css_class = cms_functions.get_theme(form.color.data)
-        title = bleach.clean(form.title.data)
-        icon = form.icon.data
-        subtitle = bleach.clean(form.subtitle.data)
-        content = cms_functions.generate_markdown(form.content.data, True)
-        date_string = form.hidden_date.data
-        month = form.month.data
-        year = form.year.data
-
-        post = models.Post(css_class=css_class,
-                           title=title,
-                           icon=icon,
-                           subtitle=subtitle,
-                           date=date_string,
-                           month=month,
-                           content=content,
-                           year=year)
-
-        db.session.add(post)
-        db.session.commit()
-
-        flash('Your post titled %s has been added to the database!' % title)
-        return redirect(url_for('cms'))
-
-
-@app.route('/preview')
-def preview():
-    color = request.args.get('color', 0, type=str)
-    title = bleach.clean(request.args.get('title', 0, type=str))
-    icon = request.args.get('icon', 0, type=str)
-    hidden_date = bleach.clean(request.args.get('hidden_date', 0, type=str))
-    subtitle = bleach.clean(request.args.get('subtitle', 0, type=str))
-    content = cms_functions.generate_markdown(request.args.get('content', 0, type=str), False)
-    div_class = cms_functions.get_theme(color)
-    date = hidden_date
-    author = bleach.clean(request.args.get('author', 0, type=str))
-    if author:
-        author = author
-    else:
-        author = 'Tyler Kershner'
-
-    html = '''
-        <div class="dynamic %s" style="padding-top: 15px;">
-            <div>
-                <img src="%s"><span class="ba">%s</span>
-                    <h2>%s</h2>
-                    <h4 class="bd">%s</h4>
-                    <span class="post-date">%s</span>
-                    <hr style="width: 90%%">
-                    %s
-            </div>
-            <script>
-                initSlick();
-            </script>
-        </div>
-    ''' % (div_class, icon, author, title, subtitle, date, content)
-
-    data = {
-        'html': html,
-        'content': content
-    }
-
-    return jsonify(data)
-
-
-@app.route('/edit-post/<unique_id>', methods=['GET', 'POST'])
-@login_required
-def cms_edit(unique_id):
-    form = DatabaseForm()
-    post = models.Post.query.get(unique_id)
-    link = '/cms'
-    text = 'CMS'
-
-    form.color.data = post.css_class
-    form.icon.data = post.icon
-    form.title.data = post.title
-    form.subtitle.data = post.subtitle
-    form.content.data = cms_functions.generate_markdown(post.content, True)
-    form.hidden_date.data = post.date
-    form.month.data = post.month
-    form.year.data = post.year
-
-    return render_template('/blog/edit-post.html',
-                           post=post,
-                           form=form,
-                           icons=cms_functions.dog_icons(),
-                           link=link,
-                           text=text,
-                           title='Edit Post')
-
-
-@app.route('/update-post/<unique_id>', methods=['GET', 'POST'])
-@login_required
-def cms_update(unique_id):
-    form = DatabaseForm()
-    post = models.Post.query.get(unique_id)
-
-    if form.validate_on_submit():
-        post.css_class = cms_functions.get_theme(form.color.data)
-        post.title = bleach.clean(form.title.data)
-        post.icon = form.icon.data
-        post.subtitle = bleach.clean(form.subtitle.data)
-        post.content = cms_functions.generate_markdown(form.content.data, True)
-        post.month = form.month.data
-        post.year = form.year.data
-        db.session.commit()
-
-        flash('The post titled %s has been updated!' % post.title)
-        return redirect(url_for('cms'))
-
-    form.color.data = post.css_class
-    form.title.data = post.title
-    form.icon.data = post.icon
-    form.subtitle.data = post.subtitle
-    form.content.data = post.content
-
-    return render_template('/blog/edit-post.html',
-                           form=form,
-                           post=post,
-                           icons=cms_functions.dog_icons())
-
-
-@app.route('/delete-post/<unique_id>')
-@login_required
-def cms_delete(unique_id):
-    post = models.Post.query.get(unique_id)
-
-    db.session.delete(post)
-    db.session.commit()
-
-    flash("Successfully deleted post titled %s." % post.title)
-    return redirect(url_for('cms'))
 
 
 @app.route('/about')
