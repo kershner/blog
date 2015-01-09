@@ -564,86 +564,92 @@ def cms_delete(unique_id):
 
 @app.route('/about')
 def about():
-    return render_template("/blog/about.html",
-                           title="About Me")
+    return render_template('/blog/about.html',
+                           title='About Me')
 
 
 @app.route('/projects')
 def projects():
-    return render_template("/blog/projects.html",
-                           title="Projects")
+    return render_template('/blog/projects.html',
+                           title='Projects')
 
 
 @app.route('/pta')
 def project1():
-    return render_template("/blog/projects/project01.html",
-                           title="Python Text Adventure")
+    return render_template('/blog/projects/project01.html',
+                           title='Python Text Adventure')
 
 
 @app.route('/cstools-project')
 def project2():
-    return render_template("/blog/projects/project02.html",
-                           title="CSTools")
+    return render_template('/blog/projects/project02.html',
+                           title='CSTools')
 
 
 @app.route('/gif_display')
 def gif_display():
-    return render_template("/blog/projects/project03.html",
-                           title="Raspberry Pi GIF Display")
+    return render_template('/blog/projects/project03.html',
+                           title='Raspberry Pi GIF Display')
 
 
 @app.route('/gif-party')
 def gif_party_project():
-    return render_template("/blog/projects/project04.html",
-                           title="Gif Party!")
+    return render_template('/blog/projects/project04.html',
+                           title='Gif Party!')
 
 
 @app.route('/reddit-scraper')
 def reddit_scraper_project():
-    return render_template("/blog/projects/project05.html",
-                           title="Reddit Scraper")
+    return render_template('/blog/projects/project05.html',
+                           title='Reddit Scraper')
 
 
 @app.route('/ycs-campaign')
 def ycs_campaign():
-    return render_template("/blog/projects/project06.html",
-                           title="YCS Re-election Website")
+    return render_template('/blog/projects/project06.html',
+                           title='YCS Re-election Website')
 
 
 @app.route('/steamtime-project')
 def steamtime_project():
-    return render_template("/blog/projects/project07.html",
-                           title="SteamTime")
+    return render_template('/blog/projects/project07.html',
+                           title='SteamTime')
+
+
+@app.route('/cms-project')
+def cms_project():
+    return render_template('/blog/projects/project08.html',
+                           title='CMS')
 
 
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
-    return render_template("/blog/writeups/project02-part1.html",
-                           title="CSTools Writeup")
+    return render_template('/blog/writeups/project02-part1.html',
+                           title='CSTools Writeup')
 
 
 @app.route('/cstoolswriteup-part2')
 def project2writeup2():
-    return render_template("/blog/writeups/project02-part2.html",
-                           title="CSTools Writeup")
+    return render_template('/blog/writeups/project02-part2.html',
+                           title='CSTools Writeup')
 
 
 @app.route('/piproject1')
 def piproject1():
-    return render_template("/blog/writeups/project03-part1.html",
-                           title="GIF Picture Frame Writeup Part 1")
+    return render_template('/blog/writeups/project03-part1.html',
+                           title='GIF Picture Frame Writeup Part 1')
 
 
 @app.route('/piproject2')
 def piproject2():
-    return render_template("/blog/writeups/project03-part2.html",
-                           title="GIF Picture Frame Writeup Part 2")
+    return render_template('/blog/writeups/project03-part2.html',
+                           title='GIF Picture Frame Writeup Part 2')
 
 
 @app.route('/warning')
 def warning():
-    return render_template("/blog/warning.html",
-                           title="Warning")
+    return render_template('/blog/warning.html',
+                           title='Warning')
 
 
 ##############################################################################

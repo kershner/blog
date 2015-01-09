@@ -1,8 +1,22 @@
 {% extends '/blog/base.html' %}
 {% block content %}
     <div id="new-post-wrapper">
-        <a href="/public-cms"><div class="button animate new-post-button">New Post / View CMS</div></a>
+        <div id="public-blurb">
+            <span id="public-title">Welcome!</span>
+            <span id="public-subtitle">To the <span style="color: #00BFA5;">kershner.org</span> Public CMS</span>
+            <div id="public-text">
+                Click the button below to view the public CMS, a replica of the tools I developed to publish my blog.
+                <br>
+                <br>
+                Feel free to leave a comment and let me know what you think.  Use my email at the bottom of the page to voice any concerns or to have a post removed.
+            </div>
+        </div>
+
+        <a href="/public-cms"><div id="pub-new-post" class="button animate new-post-button">New Post / View CMS</div></a>
     </div>
+
+    <div class="cms-date">Public Posts</div>
+    <hr style="margin: 0">
     {% if posts %}
             {% for post in posts %}
                 <div class="{{ post.pub_css_class }}">

@@ -1,0 +1,78 @@
+{% extends "/blog/base.html" %}
+{% block content %}
+
+<div class="grey">
+    <div class="container">
+		<div class="row">
+            <div class="project-page-info">
+                <span class="project-page-title">Content Management System</span>
+
+                <a href="/public">
+                <div class="button animate">
+                    <p>Public Demo</p>
+                </div>
+                </a>
+
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/steamtime">Python</a>
+                    <a href="https://github.com/kershner/steamtime/tree/master/templates">HTML</a>
+                    <a href="https://github.com/kershner/steamtime/blob/master/static/style.css">CSS</a>
+                    <a href="https://github.com/kershner/steamtime/blob/master/static/js/steamtime.js">Javascript</a>
+                </div>
+
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, Flask, HTML, CSS, Javascript, jQuery, SQLAlchemy</p>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+                <hr>
+				<p>
+                    I've been interested in developing my own <a href="http://en.wikipedia.org/wiki/Content_management_system">CMS</a> for some time.
+                    Managing numerous HTML files for my blog posts was quickly becoming unruly.  It was
+                    tedious, time consuming, and it violated basic principles of <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.
+                    I saw this problem of mine as the next opportunity to continue my programming education.  After <a href="/steamtime-project">SteamTime</a>
+                    I decided I wanted to get more comfortable with databases and a CMS would surely be one way to accomplish that goal.
+                    <br>
+                    <br>
+                    As with much of my programming trajectory, this project doesn't represent a massive leap forward in
+                    programming skill and knowledge, but another example of a continuing trend of gradual iteration and improvement
+                    on the abilities I've been acquiring all along.  It was more about pulling everything together to form a
+                    cohesive piece of software that is functional and easy to use.  The CMS project has further solidified
+                    my comfort level with languages like Python and JavaScript, and given me plenty of experience with databases - including
+                    some of the issues that can crop up with their use.  At the end of the day I've developed a tool
+                    that saves me a lot of time and is fun to use.
+                    <br>
+                    <br>
+                    I've written a few articles on some of the features of the CMS and the issues I had to tackle to
+                    complete the project, and I intend to write more.  This page will periodcally update with those links
+                    as I get them done, and in the meantime feel free to peruse the CMS for yourself.  The link above
+                    leads to a public facing replica of the same CMS I use for the blog, so go ahead test it out and see
+                    what you think!
+                    <br>
+                    <br>
+                    <strong>Blog posts and articles about the CMS project:</strong><br>
+                    <a href="/archive/2014/12#27">Responsive Design</a><br>
+                    <a href="/archive/2014/12#26">Up and Running</a><br>
+                    <a href="/archive/2014/12#25">Content Management System</a>
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="slick-images">
+            <div><a href="/static/images/CMS1.jpg"><img src="/static/images/CMS1.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/CMS2.jpg"><img src="/static/images/CMS2.jpg" class="rounded-images"></a></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
+{% endblock %}

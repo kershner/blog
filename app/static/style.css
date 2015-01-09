@@ -1319,8 +1319,43 @@ purple {
 /* Public CMS
 /* **************************************************** */
 #new-post-wrapper {
-	width: 100%;
+	margin: 10px auto;
+	margin-top: 25px;
+	width: 425px;
 	text-align: center;
+	padding: 5px;
+	background-color: #F5F5F5;
+	border: 2px solid #00BFA5;
+	box-shadow: 0 15px 25px -10px #000000;
+	border-radius: 5px;
+}
+
+#public-blurb {
+	width: 100%;
+}
+
+#public-title {
+	margin: 0;
+	color: #f6594e;
+	font-size: 56px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#public-subtitle {
+	display: block;
+	margin-top: -15px;
+	color: #007abf;
+	font-size: 28px;
+}
+
+#public-text {
+	margin: 10px auto;
+	width: 90%;
+	font-size: 16px;
+	text-align: justify;
+}
+
+#pub-new-post {
 	margin-top: 40px;
 }
 
