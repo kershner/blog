@@ -5,17 +5,17 @@
     </div>
     {% if posts %}
             {% for post in posts %}
-                <div class="{{ post.css_class }}">
+                <div class="{{ post.pub_css_class }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
-                                <img src="{{ post.icon }}"><span class="ba">{{ post.author }}</span>
-                                <h2>{{ post.title }}</h2>
-                                <h4 class="bd">{{ post.subtitle }}</h4>
-                                <span class="post-date">{{ post.date }}</span>
+                                <img src="{{ post.pub_icon }}"><span class="ba">{{ post.author }}</span>
+                                <h2>{{ post.pub_title }}</h2>
+                                <h4 class="bd">{{ post.pub_subtitle }}</h4>
+                                <span class="post-date">{{ post.pub_date }}</span>
                                 <hr>
                                 <p>
-                                    {{ post.content | markdown }}
+                                    {{ post.pub_content | markdown }}
                                 </p>
                             </div>
                         </div>

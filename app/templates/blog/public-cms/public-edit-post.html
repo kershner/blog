@@ -10,13 +10,13 @@
                 <div id="button-wrapper">
                     <div id="delete" class="button animate">Delete</div>
                     {% if not approved %}
-                        <a href="/approve-public-post/{{ post.id }}"><div id="approve" class="button animate">Approve</div></a>
+                        <a href="/approve-public-post/{{ post.pub_id }}"><div id="approve" class="button animate">Approve</div></a>
                     {% endif %}
                 </div>
 
                 <div class="confirm alert">
                     <p>Are you sure you want to delete this post?</p>
-                    <a href="/public-delete-post/{{ post.id }}"><div id="confirm-yes" class="button animate">Yes</div></a>
+                    <a href="/public-delete-post/{{ post.pub_id }}"><div id="confirm-yes" class="button animate">Yes</div></a>
                     <div id="confirm-no" class="button animate">No</div>
                 </div>
             </div>

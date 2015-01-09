@@ -36,7 +36,7 @@ def login_required(test):
 # Public CMS #################################################################
 @app.route('/public')
 def public():
-    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    posts = models.PublicPost.query.order_by(models.PublicPost.pub_id.desc()).all()
     approved_posts = []
     for post in posts:
         if post.approved:
@@ -48,12 +48,12 @@ def public():
 
 @app.route('/public-cms')
 def public_cms():
-    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    posts = models.PublicPost.query.order_by(models.PublicPost.pub_id.desc()).all()
     approved_posts = []
     for post in posts:
         if post.approved:
             approved_posts.append(post)
-    statistics = cms_functions.stats(approved_posts)
+    statistics = cms_functions.stats(approved_posts, 1)
 
     return render_template('/blog/public-cms/public-cms.html',
                            posts=approved_posts,
@@ -68,7 +68,7 @@ def public_new_post():
     form.year.data = datetime.today().year
     form.hidden_date.data = datetime.today().strftime('%A %B %d, %Y')
     # Grabbing most recent entry's primary key to determine next CSS class
-    latest_id = models.PublicPost.query.all()[-1].id + 1
+    latest_id = models.PublicPost.query.all()[-1].pub_id + 1
     form.color.data = cms_functions.get_color(latest_id)
 
     return render_template('/blog/public-cms/public-new-post.html',
@@ -96,15 +96,15 @@ def public_cms_submit():
         year = form.year.data
 
         post = models.PublicPost(approved=0,
-                                 css_class=css_class,
-                                 title=title,
+                                 pub_css_class=css_class,
+                                 pub_title=title,
                                  author=author,
-                                 icon=icon,
-                                 subtitle=subtitle,
-                                 date=date_string,
-                                 month=month,
-                                 content=content,
-                                 year=year)
+                                 pub_icon=icon,
+                                 pub_subtitle=subtitle,
+                                 pub_date=date_string,
+                                 pub_month=month,
+                                 pub_content=content,
+                                 pub_year=year)
 
         db.session.add(post)
         db.session.commit()
@@ -119,7 +119,7 @@ def public_cms_submit():
 @app.route('/need-approval')
 @login_required
 def need_approval():
-    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    posts = models.PublicPost.query.order_by(models.PublicPost.pub_id.desc()).all()
     to_be_approved = []
     approved = []
     for post in posts:
@@ -141,15 +141,15 @@ def public_cms_edit(unique_id):
     post = models.PublicPost.query.get(unique_id)
     approved = post.approved
 
-    form.color.data = post.css_class
-    form.icon.data = post.icon
-    form.title.data = post.title
+    form.color.data = post.pub_css_class
+    form.icon.data = post.pub_icon
+    form.title.data = post.pub_title
     form.author.data = post.author
-    form.subtitle.data = post.subtitle
-    form.content.data = cms_functions.generate_markdown(post.content, True)
-    form.hidden_date.data = post.date
-    form.month.data = post.month
-    form.year.data = post.year
+    form.subtitle.data = post.pub_subtitle
+    form.content.data = cms_functions.generate_markdown(post.pub_content, True)
+    form.hidden_date.data = post.pub_date
+    form.month.data = post.pub_month
+    form.year.data = post.pub_year
 
     return render_template('/blog/public-cms/public-edit-post.html',
                            post=post,
@@ -166,28 +166,28 @@ def public_cms_update(unique_id):
     post = models.PublicPost.query.get(unique_id)
 
     if form.validate_on_submit():
-        post.css_class = cms_functions.get_theme(form.color.data)
-        post.title = bleach.clean(form.title.data)
+        post.pub_css_class = cms_functions.get_theme(form.color.data)
+        post.pub_title = bleach.clean(form.title.data)
         post.author = bleach.clean(form.author.data)
-        post.icon = form.icon.data
-        post.subtitle = bleach.clean(form.subtitle.data)
-        post.content = cms_functions.generate_markdown(form.content.data, True)
-        post.month = form.month.data
-        post.year = form.year.data
+        post.pub_icon = form.icon.data
+        post.pub_subtitle = bleach.clean(form.subtitle.data)
+        post.pub_content = cms_functions.generate_markdown(form.content.data, True)
+        post.pub_month = form.month.data
+        post.pub_year = form.year.data
         db.session.commit()
 
-        flash('The post titled %s has been updated!' % post.title)
+        flash('The post titled %s has been updated!' % post.pub_title)
         if 'logged_in' in session:
             return redirect(url_for('need_approval'))
         else:
             return redirect(url_for('public_cms'))
 
-    form.color.data = post.css_class
-    form.title.data = post.title
+    form.color.data = post.pub_css_class
+    form.title.data = post.pub_title
     form.author.data = post.author
-    form.icon.data = post.icon
-    form.subtitle.data = post.subtitle
-    form.content.data = post.content
+    form.icon.data = post.pub_icon
+    form.subtitle.data = post.pub_subtitle
+    form.content.data = post.pub_content
 
     return render_template('/blog/public-cms/public-edit-post.html',
                            form=form,
@@ -202,7 +202,7 @@ def approve_public_post(unique_id):
     post.approved = 1
 
     db.session.commit()
-    flash('The post titled %s has been approved!' % post.title)
+    flash('The post titled %s has been approved!' % post.pub_title)
     return redirect(url_for('need_approval'))
 
 
@@ -214,7 +214,7 @@ def public_cms_delete(unique_id):
     db.session.delete(post)
     db.session.commit()
 
-    flash("Successfully deleted post titled %s." % post.title)
+    flash("Successfully deleted post titled %s." % post.pub_title)
     if 'logged_in' in session:
             return redirect(url_for('need_approval'))
     else:
@@ -358,7 +358,7 @@ def cms():
         last_month_posts = []
         two_months_ago_posts = []
         older_posts = []
-        statistics = cms_functions.stats(posts)
+        statistics = cms_functions.stats(posts, 0)
 
         for post in posts:
             if cms_functions.get_recent_posts(post) == 'Current Month':

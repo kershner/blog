@@ -57,13 +57,18 @@ def get_recent_posts(post):
 
 
 # Generate statistics from posts
-def stats(posts):
+def stats(posts, public):
     word_list = []
     total_posts = 0
     for post in posts:
-        words_1 = (str(post.title).split())
-        words_2 = (str(post.subtitle).split())
-        words_3 = (str(post.content).split())
+        if not public:
+            words_1 = (str(post.title).split())
+            words_2 = (str(post.subtitle).split())
+            words_3 = (str(post.content).split())
+        else:
+            words_1 = (str(post.pub_title).split())
+            words_2 = (str(post.pub_subtitle).split())
+            words_3 = (str(post.pub_content).split())
         for word in words_1:
             word_list.append(word)
         for word in words_2:
@@ -133,7 +138,7 @@ def get_theme(color):
 
 # Return True if there are posts requiring approval
 def approval_notification():
-    posts = models.PublicPost.query.order_by(models.PublicPost.id.desc()).all()
+    posts = models.PublicPost.query.order_by(models.PublicPost.pub_id.desc()).all()
     to_be_approved = []
     for post in posts:
         if not post.approved:

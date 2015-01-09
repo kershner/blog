@@ -43,16 +43,16 @@
 
             <div id="current-posts-container">
                 {% for post in posts %}
-                    <div class="post-thumb {{ post.css_class }}">
-                        <img src="{{ post.icon }}">
+                    <div class="post-thumb {{ post.pub_css_class }}">
+                        <img src="{{ post.pub_icon }}">
                         <div class="post-author">{{ post.author }}</div>
-                        <div class="post-id">{{ post.id }}</div>
+                        <div class="post-id">{{ post.pub_id }}</div>
 
                         <div class="title-date">
-                            <span class="post-thumb-title">{{ post.title }}</span>
+                            <span class="post-thumb-title">{{ post.pub_title }}</span>
                             <hr style="position: relative; bottom: 13px; left: 5px; width: 85%;">
-                            <span class="post-thumb-subtitle">{{ post.subtitle }}</span>
-                            <span class="post-thumb-date">{{ post.date }}</span>
+                            <span class="post-thumb-subtitle">{{ post.pub_subtitle }}</span>
+                            <span class="post-thumb-date">{{ post.pub_date }}</span>
                         </div>
 
                         <br>

@@ -1,5 +1,6 @@
 from app import db
 
+
 # Model for blog posts
 class Post(db.Model):
     __bind_key__ = 'db1'
@@ -22,20 +23,20 @@ class Post(db.Model):
 class PublicPost(db.Model):
     __bind_key__ = 'db3'
 
-    id = db.Column(db.Integer, primary_key=True)
+    pub_id = db.Column(db.Integer, primary_key=True)
     approved = db.Column(db.Integer, index=True)
-    css_class = db.Column(db.String(64), index=True)
-    title = db.Column(db.String(128), index=True)
-    subtitle = db.Column(db.String(128), index=True)
+    pub_css_class = db.Column(db.String(64), index=True)
+    pub_title = db.Column(db.String(128), index=True)
+    pub_subtitle = db.Column(db.String(128), index=True)
     author = db.Column(db.String(128), index=True)
-    icon = db.Column(db.String(128), index=True)
-    content = db.Column(db.String(), index=True)
-    date = db.Column(db.String(64), index=True)
-    month = db.Column(db.String(64), index=True)
-    year = db.Column(db.String(32), index=True)
+    pub_icon = db.Column(db.String(128), index=True)
+    pub_content = db.Column(db.String(), index=True)
+    pub_date = db.Column(db.String(64), index=True)
+    pub_month = db.Column(db.String(64), index=True)
+    pub_year = db.Column(db.String(32), index=True)
 
     def __repr__(self):
-        return '%d' % self.id
+        return '%d' % self.pub_id
 
 
 # Model for CSTools Forms DB
