@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
-CATEGORY = all
-CURRENT_GIF = http://i.imgur.com/mmDpkZH.gif
+CATEGORY = educational
+CURRENT_GIF = http://giant.gfycat.com/ShoddyWhirlwindAbyssiniancat.gif
 DELAY = 20

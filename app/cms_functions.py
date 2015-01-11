@@ -20,13 +20,16 @@ def dog_icons():
 
 # Strip out HTML tags, create markdown
 def generate_markdown(text, clean):
-    tags = ['pre', 'code', 'iframe', 'red', 'blue', 'yellow', 'green', 'purple', 'div', 'a', 'img']
+    tags = ['pre', 'code', 'iframe', 'red', 'blue', 'yellow', 'green',
+            'purple', 'div', 'a', 'img', 'br']
+
     attrs = {
         'code': ['data-language', 'class'],
         'iframe': ['class', 'width', 'height', 'src', 'frameborder', 'allowfullscreen'],
         'div': ['class'],
         'a': ['href'],
-        'img': ['src', 'class']
+        'img': ['src', 'class'],
+        'br': ['class']
     }
 
     if clean:

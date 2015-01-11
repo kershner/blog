@@ -429,7 +429,7 @@ ul.rig.columns-3 li.article-image {
 /* Individual Projects Pages */
 .project-page-info {
 	margin: 0;
-	text-align: center;	
+	text-align: center;
 }
 
 .project-page-title {
@@ -451,7 +451,7 @@ ul.rig.columns-3 li.article-image {
 	margin: 10px auto;
 	height: 40px;
 	max-width: 300px;
-	background-color: rgb(26, 139, 188);	
+	background-color: rgb(26, 139, 188);
 	padding: 5px 10px 5px 10px;
 	color: white;
 	text-align: center;
@@ -489,7 +489,7 @@ ul.rig.columns-3 li.article-image {
 /* 'New Post' button in CMS */
 #new-post-link {
 	display: block;
-	margin: 0 auto;	
+	margin: 0 auto;
 	width: 600px;
 	text-align: center
 }
@@ -539,7 +539,7 @@ ul.rig.columns-3 li.article-image {
 /* Theme/Icon select buttons in CMS */
 .color-select {
 	display: inline-block;
-	margin: 5px 2px;	
+	margin: 5px 2px;
 	padding-top: 7px;
 	width: 150px;
 	height: 35px;
@@ -617,7 +617,7 @@ div.project-screenshots img {
 }
 
 /* **************************************************** */
-/* Footer 
+/* Footer
 /* **************************************************** */
 #footer {
 	height: 140px;
@@ -717,7 +717,7 @@ div.project-screenshots img {
 .cms-navbar-wrapper {
 	position: relative;
 	height: 125px;
-	min-width: 650px;	
+	min-width: 650px;
 	box-shadow: 0px 1px 5px #000;
 }
 
@@ -844,7 +844,7 @@ div.project-screenshots img {
 
 .post-thumb-title {
 	margin: 0;
-	font-size: 20px;	
+	font-size: 20px;
 }
 
 .post-thumb-subtitle {
@@ -913,31 +913,31 @@ div.not-submitted {
 ::-webkit-input-placeholder {
    position: relative;
    left: 10px;
-   font-size: 24px;   
+   font-size: 24px;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    position: relative;
    left: 10px;
-   font-size: 24px;    
+   font-size: 24px;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    position: relative;
    left: 10px;
-   font-size: 24px;     
+   font-size: 24px;
 }
 
-:-ms-input-placeholder {  
+:-ms-input-placeholder {
    position: relative;
    left: 10px;
-   font-size: 24px;    
+   font-size: 24px;
 }
 
 /* The actual CMS form */
 .cms {
 	margin: 0 auto;
-	width: 100%;	
+	width: 100%;
 }
 
 .formatting-select {
@@ -1045,7 +1045,7 @@ div.not-submitted {
 	margin: 0 auto;
 }
 
-.text-edit p {	
+.text-edit p {
 	display: block;
 	position: relative;
 	color: black;
@@ -1104,9 +1104,9 @@ div.not-submitted {
 input, textarea {
 	display: block;
 	overflow-x: hidden;
-	margin: 10px auto;	
+	margin: 10px auto;
 	padding-left: 5px;
-	width: 95%;
+	width: 85%;
 	max-width: 625px;
 	height: 45px;
 	line-height: 30px;
@@ -1139,7 +1139,7 @@ input:focus, textarea:focus {
 }
 
 .input-label {
-	display: block;	
+	display: block;
 	width: 95%;
 	max-width: 625px;
 	margin: 0 auto;
@@ -1193,8 +1193,8 @@ input:focus, textarea:focus {
 	border-left: none;
 }
 
-#icon-selections img {	
-	margin: 13px 3px -5px 3px;	
+#icon-selections img {
+	margin: 13px 3px -5px 3px;
 	height: 50px;
 	width: 50px;
 	border-bottom: 2px solid Transparent;
@@ -1247,7 +1247,7 @@ input:focus, textarea:focus {
 
 /* Title */
 .grey h2, .grey .title-date .post-thumb-title {
-	color: #007abf;	
+	color: #007abf;
 }
 
 /* Subtitle, Headers */
@@ -1258,7 +1258,7 @@ input:focus, textarea:focus {
 
 /* HR */
 .grey hr, .grey .post-thumb hr {
-	background-color: #00BFA5;	
+	background-color: #00BFA5;
 }
 
 .grey a {
@@ -1283,7 +1283,7 @@ input:focus, textarea:focus {
 
 /* HR */
 .white hr, .white .post-thumb hr {
-	background-color: #007abf;	
+	background-color: #007abf;
 }
 
 .white a {
@@ -1319,15 +1319,14 @@ purple {
 /* Public CMS
 /* **************************************************** */
 #new-post-wrapper {
-	margin: 10px auto;
-	margin-top: 25px;
+	margin: 0 auto;
+	margin-top: 80px;
+	margin-bottom: 60px;
 	width: 425px;
 	text-align: center;
 	padding: 5px;
 	background-color: #F5F5F5;
-	border: 2px solid #00BFA5;
-	box-shadow: 0 15px 25px -10px #000000;
-	border-radius: 5px;
+	box-shadow: 0 15px 30px -10px #000000;
 }
 
 #public-blurb {
@@ -1336,8 +1335,8 @@ purple {
 
 #public-title {
 	margin: 0;
-	color: #f6594e;
-	font-size: 56px;
+	color: #007abf;
+	font-size: 70px;
 	font-family: 'Montserrat', sans-serif;
 }
 
@@ -1345,7 +1344,7 @@ purple {
 	display: block;
 	margin-top: -15px;
 	color: #007abf;
-	font-size: 28px;
+	font-size: 20px;
 }
 
 #public-text {
