@@ -1,4 +1,5 @@
 import requests
+from requests import exceptions
 from datetime import datetime
 
 
@@ -55,6 +56,32 @@ class Log(object):
         print 'Removed %d bad URLs from educational_urls.txt' % self.bad_urls_educational
 
 
+def remove_dupes(path, filename):
+    with open('%s/%s' % (path, filename), 'r') as f:
+        urls = list(f)
+        unique_urls = []
+        duplicate_urls = []
+
+        for line in urls:
+            end_point = line.find('\n')
+            url = line[:end_point]
+            if url + '\n' in unique_urls:
+                duplicate_urls.append(url + '\n')
+            else:
+                unique_urls.append(url + '\n')
+
+        # Open/close file in write mode to erase it
+        open('%s/%s' % (path, filename), 'w').close()
+
+        # Write contents of clean_urls list to file
+        with open('%s/%s' % (path, filename), 'a+') as clean_file:
+            for url in unique_urls:
+                clean_file.write(url)
+
+        print '%d duplicate URLs in %s' % (len(duplicate_urls), filename)
+        print '%d total unique URLs now in %s' % (len(unique_urls), filename)
+
+
 def clean_up_urls(path, filename):
     clean_urls = []
     url_number = 0
@@ -65,7 +92,8 @@ def clean_up_urls(path, filename):
         end_point = image_url.find('\n')
         url_test = image_url[:end_point]
         url_number += 1
-        print 'URL %d of %d' % (url_number, len(urls_list))
+        # Uncomment to see progress of script at runtime
+        #print 'URL %d of %d' % (url_number, len(urls_list))
 
         if image_url in bad_urls_list:
             log.counter(list_type, 'bad')
@@ -75,7 +103,11 @@ def clean_up_urls(path, filename):
             log.counter(list_type, 'bad')
             continue
         else:
-            r = requests.get(url_test, stream=True)
+            try:
+                r = requests.get(url_test, stream=True)
+            except exceptions.ConnectionError:
+                print 'Connection error, skipping URL...'
+                continue
             try:
                 size = int(r.headers['content-length'])
                 if size == 503:
@@ -127,6 +159,7 @@ if __name__ == '__main__':
         print '\n#########################'
         print 'Beginning clean up of %s...' % entry
         clean_up_urls(current_path, entry)
+        remove_dupes(current_path, entry)
     log.readout()
     time_end = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
 

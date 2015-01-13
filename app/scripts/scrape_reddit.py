@@ -104,11 +104,16 @@ if __name__ == '__main__':
          'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
          'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
          'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
-         'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs'],
-        ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs'],
+         'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs', 'IdiotsFightingThings', 'Whatcouldgowrong',
+         'interestingasfuck', 'AnimalsBeingBros', 'PerfectTiming', 'holdmybeer', 'StartledCats', 'combinedgifs',
+         'Damnthatsinteresting', 'shittyrobots', 'catpranks', 'Awwwducational', 'instant_regret', 'oddlysatisfying',
+         'Perfectfit', 'SuperShibe', 'shibe', 'corgi'],
+        ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs', 'SuperShibe',
+         'shibe', 'corgi', 'Awwducational', 'AnimalsBeingBros', 'StartledCats', 'catpranks'],
         ['gaming_gifs', 'gaming', 'GamePhysics', 'ps4gifs'],
         ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
-        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs']
+        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs', 'Damnthatsinteresting',
+         'interestingasfuck']
     ]
 
     log = Log(0, 0, 0, 0, 0, 0)
