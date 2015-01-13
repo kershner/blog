@@ -106,11 +106,15 @@ def clean_up_urls(path, filename):
             clean_file.write(url)
 
 if __name__ == '__main__':
-    prompt = raw_input('Are you running this file from work or home? > ').lower()
-    if prompt == 'work':
-        current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-    else:
-        current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    # Uncomment to run script off server
+    # prompt = raw_input('Are you running this file from work or home? > ').lower()
+    # if prompt == 'work':
+    #     current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
+    # else:
+    #     current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+
+    # Server path
+    current_path = '/home/tylerkershner/app/templates/pi_display/logs/'
 
     files = ['all_urls.txt', 'animals_urls.txt', 'gaming_urls.txt', 'strange_urls.txt', 'educational_urls.txt']
 

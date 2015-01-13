@@ -1250,11 +1250,11 @@ def datechecker():
         else:
             try:
                 form_date = form.form_date.data
-                date_object = datetime.datetime.date(datetime.datetime.strptime(form_date, '%m/%d/%y'))
-                form_expiry_date = date_object + datetime.timedelta(days=60)
+                date_object = datetime.date(datetime.strptime(form_date, '%m/%d/%y'))
+                form_expiry_date = date_object + timedelta(days=60)
                 form_expiry_date_nice = "%s %s" % (str(form_expiry_date.strftime("%B")), str(form_expiry_date.day))
-                days_expired = datetime.today() - form_expiry_date
-                if form_expiry_date > datetime.today():
+                days_expired = datetime.today().date() - form_expiry_date
+                if form_expiry_date > datetime.today().date():
                     message = "The form is valid until %s,  %s days from now." % \
                               (form_expiry_date_nice, str(abs(days_expired.days)))
                 else:

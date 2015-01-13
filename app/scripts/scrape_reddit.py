@@ -106,7 +106,7 @@ if __name__ == '__main__':
          'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
          'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs'],
         ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs'],
-        ['gaming_gifs', 'gaming', 'GamePhysics'],
+        ['gaming_gifs', 'gaming', 'GamePhysics', 'ps4gifs'],
         ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
         ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs']
     ]
