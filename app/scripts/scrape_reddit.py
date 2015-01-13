@@ -106,7 +106,7 @@ if __name__ == '__main__':
          'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
          'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs', 'IdiotsFightingThings', 'Whatcouldgowrong',
          'interestingasfuck', 'AnimalsBeingBros', 'PerfectTiming', 'holdmybeer', 'StartledCats', 'combinedgifs',
-         'Damnthatsinteresting', 'shittyrobots', 'catpranks', 'Awwwducational', 'instant_regret', 'oddlysatisfying',
+         'Damnthatsinteresting', 'shittyrobots', 'catpranks', 'Awwducational', 'instant_regret', 'oddlysatisfying',
          'Perfectfit', 'SuperShibe', 'shibe', 'corgi'],
         ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs', 'SuperShibe',
          'shibe', 'corgi', 'Awwducational', 'AnimalsBeingBros', 'StartledCats', 'catpranks'],
