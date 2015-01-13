@@ -63,7 +63,8 @@ def get_recent_posts(post):
 def stats(posts, public):
     word_list = []
     total_posts = 0
-    filter_list = ['class="rounded-images"', 'the', 'to', 'it', 'on']
+    filter_list = ['class="rounded-images"', 'the', 'to', 'it', 'on', 'a',
+                   'and', 'of', 'I']
     for post in posts:
         if not public:
             words_1 = (str(post.title).split())
