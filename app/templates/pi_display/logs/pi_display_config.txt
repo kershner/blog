@@ -1,4 +1,4 @@
 GIF_SIZE = 320x240
-CATEGORY = educational
-CURRENT_GIF = http://i.imgur.com/7sP99O5.gif
+CATEGORY = all
+CURRENT_GIF = https://lh5.googleusercontent.com/-YqRJqTdHfkE/VKrfmC27I1I/AAAAAAAAAro/zOZGMwS6G30/w495-h396-no/swng.gif
 DELAY = 20

@@ -63,6 +63,7 @@ def get_recent_posts(post):
 def stats(posts, public):
     word_list = []
     total_posts = 0
+    filter_list = ['class="rounded-images"', 'the', 'to', 'it', 'on']
     for post in posts:
         if not public:
             words_1 = (str(post.title).split())
@@ -73,11 +74,14 @@ def stats(posts, public):
             words_2 = (str(post.pub_subtitle).split())
             words_3 = (str(post.pub_content).split())
         for word in words_1:
-            word_list.append(word)
+            if word not in filter_list:
+                word_list.append(word)
         for word in words_2:
-            word_list.append(word)
+            if word not in filter_list:
+                word_list.append(word)
         for word in words_3:
-            word_list.append(word)
+            if word not in filter_list:
+                word_list.append(word)
         total_posts += 1
     counter = collections.Counter(word_list)
     most_common, number_occurrences = counter.most_common(1)[0]
