@@ -670,24 +670,8 @@ def pi_display_json():
     category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
     delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
 
-    if category == 'all':
-        filename = 'all_urls.txt'
-        toplay_filename = 'all_urls_to_play.txt'
-    elif category == 'animals':
-        filename = 'animals_urls.txt'
-        toplay_filename = 'animals_urls_to_play.txt'
-    elif category == 'gaming':
-        filename = 'gaming_urls.txt'
-        toplay_filename = 'gaming_urls_to_play.txt'
-    elif category == 'strange':
-        filename = 'strange_urls.txt'
-        toplay_filename = 'strange_urls_to_play.txt'
-    elif category == 'educational':
-        filename = 'educational_urls.txt'
-        toplay_filename = 'educational_urls_to_play.txt'
-    else:
-        filename = 'urls.txt'
-        toplay_filename = "urls_to_play.txt"
+    filename = category + '_urls.txt'
+    toplay_filename = category + '_urls_to_play.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
         urls_list = list(urls_file)
@@ -741,9 +725,12 @@ def pi_display_json():
 
 ##############################################################################
 # Pi Display Config
-@app.route('/pi_display_config', methods=['GET', 'POST'])
+##############################################################################
+@app.route('/pi_display_config')
 def pi_display_config():
-    form = SlideshowDelay()
+    session['prev'] = -1
+    session['prev_stop'] = -2
+    session['prev_start'] = 3
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
     with open('%s/all_urls.txt' % path, 'r') as urls_file:
@@ -764,202 +751,150 @@ def pi_display_config():
     with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
         config_file_list = list(urls_file)
 
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
-
     main_urls_count = len(main_urls_list)
     animals_urls_count = len(animals_urls_list)
     gaming_urls_count = len(gaming_urls_list)
     strange_urls_count = len(strange_urls_list)
     educational_urls_count = len(educational_urls_list)
-    last_played_1 = last_played_list[-6]
-    last_played_2 = last_played_list[-5]
-    last_played_3 = last_played_list[-4]
-    last_played_4 = last_played_list[-3]
-    last_played_5 = last_played_list[-2]
-
     category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
     delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
     current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
 
-    if request.method == 'POST':
-        if not form.validate():
-            flash('Enter a time delay (in seconds)')
-            return redirect(url_for('pi_display_config'))
-
-        else:
-            delay = str(form.delay.data)
-
-            with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-                config_file.write(config_file_list[0])
-                config_file.write(config_file_list[1])
-                config_file.write(config_file_list[2])
-                config_file.write('DELAY = %s' % delay + '\n')
-
-            return redirect(url_for('pi_display_config'))
-
-    elif request.method == 'GET':
-        return render_template("/pi_display/pi_display_config.html",
-                               current_gif=current_gif,
-                               form=form,
-                               main_urls_count=main_urls_count,
-                               animals_urls_count=animals_urls_count,
-                               gaming_urls_count=gaming_urls_count,
-                               strange_urls_count=strange_urls_count,
-                               educational_urls_count=educational_urls_count,
-                               last_played_1=last_played_1,
-                               last_played_2=last_played_2,
-                               last_played_3=last_played_3,
-                               last_played_4=last_played_4,
-                               last_played_5=last_played_5,
-                               category=category,
-                               delay=delay)
+    return render_template("/pi_display/pi_display_config.html",
+                           current_gif=current_gif,
+                           main_urls_count=main_urls_count,
+                           animals_urls_count=animals_urls_count,
+                           gaming_urls_count=gaming_urls_count,
+                           strange_urls_count=strange_urls_count,
+                           educational_urls_count=educational_urls_count,
+                           category=category.title(),
+                           delay=delay)
 
 
-@app.route('/pi_display_config_all')
+@app.route('/pi-display-config-update')
+def pi_display_config_update():
+    session['prev'] = -1
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
+        config_file_list = list(urls_file)
+        current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+        message = 'Currently Playing GIF'
+        data = {
+            'current_gif': current_gif,
+            'message': message
+        }
+
+        return jsonify(data)
+
+
+@app.route('/pi-display-config-prev')
+def pi_display_config_prev():
+    session['prev'] -= 1
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/last_played.txt' % path, 'a+') as last_played:
+        last_played = list(last_played)
+        last_played = last_played[int('%d' % session['prev'])][:last_played[int('%d' % session['prev'])].find('\n')]
+        message = 'Previous GIF'
+        data = {
+            'last_played': last_played,
+            'message': message
+        }
+
+        return jsonify(data)
+
+
+@app.route('/pi-display-config-auto')
+def pi_display_config_auto():
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+
+    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
+        config_file_list = list(urls_file)
+        delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+        data = {
+            'delay': delay + '000'
+        }
+
+        return jsonify(data)
+
+
+@app.route('/pi-display-config-categories')
 def pi_display_config_all():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = all' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_animals')
-def pi_display_config_animals():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
+    category = request.args.get('category', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
+        delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
 
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
         config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = animals' + '\n')
+        config_file.write('CATEGORY = %s' % category + '\n')
         config_file.write(config_file_list[2])
         config_file.write(config_file_list[3])
+        message = 'Category changed to %s' % category.title()
+        data = {
+            'message': message,
+            'category': category.title(),
+            'delay': delay
+        }
 
-    return redirect(url_for('pi_display_config'))
+        return jsonify(data)
 
 
-@app.route('/pi_display_config_gaming')
-def pi_display_config_gaming():
+@app.route('/pi-display-config-delay')
+def pi_display_config_delay():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    delay = request.args.get('delay', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
+        category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
 
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
         config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = gaming' + '\n')
+        config_file.write(config_file_list[1])
         config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+        config_file.write('DELAY = %s' % delay + '\n')
+        message = 'Delay changed to %s seconds' % delay
+        data = {
+            'message': message,
+            'category': category.title(),
+            'delay': delay
+        }
 
-    return redirect(url_for('pi_display_config'))
+        return jsonify(data)
 
 
-@app.route('/pi_display_config_strange')
-def pi_display_config_strange():
+@app.route('/previous-gifs')
+def previous_gifs():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    session['prev_stop'] -= 5
+    session['prev_start'] -= 5
 
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
+    with open('%s/last_played.txt' % path, 'a+') as last_played:
+        last_played = list(last_played)
+        prev_5 = ''.join(last_played[session['prev_start']:session['prev_stop']:-1]).split()
+        data = {
+            'prev_5': prev_5,
+            'id': session['prev_start']
+        }
 
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = strange' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
-
-
-@app.route('/pi_display_config_educational')
-def pi_display_config_educational():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-
-    with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = educational' + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
-
-    return redirect(url_for('pi_display_config'))
+        return jsonify(data)
 
 
-@app.route('/previously/1-20')
-def previously():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
+@app.route('/clear-session')
+def clear_session():
+    session['prev_stop'] = -2
+    session['prev_start'] = 3
+    message = 'Session cleared'
+    data = {
+        'message': message
+    }
 
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
-
-    list_length = len(last_played_list)
-    last_ten = ''.join(last_played_list[:-11:-1]).split()
-    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
-
-    return render_template('/pi_display/previously.html',
-                           list_length=list_length,
-                           last_ten=last_ten,
-                           next_ten=next_ten,
-                           number=20)
-
-
-@app.route('/previously/21-40')
-def previously_2():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
-
-    list_length = len(last_played_list)
-    last_ten = ''.join(last_played_list[:-11:-1]).split()
-    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
-    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
-    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
-
-    return render_template('/pi_display/previously.html',
-                           list_length=list_length,
-                           last_ten=last_ten,
-                           next_ten=next_ten,
-                           next_ten1=next_ten1,
-                           next_ten2=next_ten2,
-                           number=40)
-
-
-@app.route('/previously/41-60')
-def previously_3():
-    path = '/home/tylerkershner/app/templates/pi_display/logs'
-
-    with open('%s/last_played.txt' % path, 'r') as last_played_file:
-        last_played_list = list(last_played_file)
-
-    list_length = len(last_played_list)
-    last_ten = ''.join(last_played_list[:-11:-1]).split()
-    next_ten = ''.join(last_played_list[-11:-21:-1]).split()
-    next_ten1 = ''.join(last_played_list[-21:-31:-1]).split()
-    next_ten2 = ''.join(last_played_list[-31:-41:-1]).split()
-    next_ten3 = ''.join(last_played_list[-41:-51:-1]).split()
-    next_ten4 = ''.join(last_played_list[-51:-61:-1]).split()
-
-    return render_template('/pi_display/previously.html',
-                           list_length=list_length,
-                           last_ten=last_ten,
-                           next_ten=next_ten,
-                           next_ten1=next_ten1,
-                           next_ten2=next_ten2,
-                           next_ten3=next_ten3,
-                           next_ten4=next_ten4,
-                           number=60)
+    return jsonify(data)
 
 
 ##############################################################################

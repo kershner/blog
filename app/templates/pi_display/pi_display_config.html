@@ -6,128 +6,112 @@
 
     <link rel="icon" type="image/png" href="/static/images/mcp.png">
 
-    <!--Using jQuery and jQuery UI for display effects-->
+    <!--JS-->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-    <!-- Image center/resize JS -->
+    <script src="/static/js/pi_display_config.js"></script>
     <script src="/static/js/imgcentering.min.js"></script>
 
-    <!--Using the hamburger menu display code-->
-    <script src="/static/js/hamburger.js"></script>
-
-    <!--Using Media Queries, if the viewport is smaller than 700px use another stylesheet-->
+    <!-- CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="all" href="/static/pi_display_config.css" />
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
-
-    <!--This wrapping container is used to get the width of the whole content-->
-    <div id="container">
-
-        <!--The Hamburger Button in the Header-->
-        <header>
-            <div id="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <div id="title"><h2>Raspberry Pi GIF Display Config</h2></div>
-
-            <div id="settings-div">
-                <div id="settings-title">Current Settings</div>
-                <span class="settings">Category:</span> <span class="setting">{{ category }}</span><br>
-                <span class="settings">&nbsp;Delay: </span><span class="setting">{{ delay }}</span>
-            </div>
-
-        </header>
-
-        <!--The mobile navigation Markup hidden via css-->
-        <nav class="mobileNav">
-
-            <div id="menu">
-
-                <div id="settings-header">
-                    <h1>Settings</h1>
-                </div>
-
-                <div class="categories">
-
-                    <h3>Categories</h3>
-
-                    <a href="/pi_display_config_all">
-                        <div class="row" id="lightblue">All <span class="count">{{ main_urls_count }} GIFs</span></div>
-                    </a>
-
-                    <a href="/pi_display_config_animals">
-                        <div class="row" id="salmon">Animals<span class="count">{{ animals_urls_count }} GIFs</span></div>
-                    </a>
-
-                    <a href="/pi_display_config_gaming">
-                        <div class="row" id="green">Gaming<span class="count">{{ gaming_urls_count }} GIFs</span></div>
-                    </a>
-
-                    <a href="/pi_display_config_strange">
-                        <div class="row" id="blue">Strange<span class="count">{{ strange_urls_count }} GIFs</span></div>
-                    </a>
-
-                    <a href="/pi_display_config_educational">
-                        <div class="row" id="orange">Educational<span class="count">{{ educational_urls_count }} GIFs</span></div>
-                    </a>
-
-                </div>
-
-                <div id="form">
-                    <h3>Slideshow Delay (in seconds)</h3>
-                    <form action="{{ url_for('pi_display_config') }}" method=POST>
-                        {{ form.hidden_tag() }}
-
-                        {{ form.delay(class_='') }}<br>
-
-                        {{ form.submit(class_='button') }}
-                    </form>
-                </div>
-
-
-            </div>
-
-        </nav>
-
-        <!--The layer that will be laid over the content
-        so that the content is unclickable while menu is shown-->
-        <div id="contentLayer"></div>
-
-        <!--The content of the site-->
-        <div id="content">
-
-            <div id="current">
-                <h2>Currently Playing GIF</h2>
-                <a href="{{ current_gif }}">
-                    <div id="image"><img src="{{ current_gif }}"><br></div>
-                </a>
-            </div>
-
-            <div id="last-played">
-                <a href="/previously/1-20"><h3>Previously...</h3></a>
-                <a href="{{ last_played_5 }}"><img src="{{ last_played_5 }}"></a>
-                <a href="{{ last_played_4 }}"><img src="{{ last_played_4 }}"></a>
-                <a href="{{ last_played_3 }}"><img src="{{ last_played_3 }}"></a>
-                <a href="{{ last_played_2 }}"><img src="{{ last_played_2 }}"></a>
-                <a href="{{ last_played_1 }}"><img src="{{ last_played_1 }}"></a>
-            </div>
-
-            {% if message %}
-            <div id="message">
-                <p>{{ message }}</p>
-            </div>
-            {% endif %}
+<body class="animate">
+    <div id="content">
+        <div id="title">
+            <span>GIF Display Control Panel</span>
         </div>
 
+        <div id="current">
+            <div id="image">
+                <i id="settings-button" class="fa fa-cog fa-2x animate"></i>
+
+                <div id="notification"></div>
+
+                <div id="current-settings">
+                    <span>{{ category }}</span>
+                    <span>{{ delay }} seconds</span>
+                </div>
+
+                <img src="{{ current_gif }}">
+
+                <div id="settings">
+                    <i id="settings-close" class="fa fa-times animate"></i>
+                    <div id="update">
+                        <div class="update-button">
+                            <i id="update-gif" class="fa fa-refresh fa-2x animate"></i>
+                            <span>Update GIF</span>
+                        </div>
+
+                        <div class="update-button">
+                            <i id="auto-update" class="fa fa-retweet fa-2x animate"></i>
+                            <span>Auto Update</span>
+                        </div>
+                    </div>
+
+                    <div id="arrows">
+                        <div class="arrow-button">
+                            <i id="prev-gif" class="fa fa-long-arrow-left fa-3x animate"></i>
+                            <span>Prev GIF</span>
+                        </div>
+                    </div>
+
+                    <div id="categories">
+                        <div id="all" class="categories-button animate">
+                            <span class="categories-label">All</span>
+                            <span class="categories-number">{{ main_urls_count }} GIFs</span>
+                        </div>
+
+                        <div id="animals" class="categories-button animate">
+                            <span class="categories-label">Animals</span>
+                            <span class="categories-number">{{ animals_urls_count }} GIFs</span>
+                        </div>
+
+                        <div id="gaming" class="categories-button animate">
+                            <span class="categories-label">Gaming</span>
+                            <span class="categories-number">{{ gaming_urls_count }} GIFs</span>
+                        </div>
+
+                        <div id="strange" class="categories-button animate">
+                            <span class="categories-label">Strange</span>
+                            <span class="categories-number">{{ strange_urls_count }} GIFs</span>
+                        </div>
+
+                        <div id="educational" class="categories-button animate">
+                            <span class="categories-label">Educational</span>
+                            <span class="categories-number">{{ educational_urls_count }} GIFs</span>
+                        </div>
+                    </div>
+
+                    <div id="delay-form">
+                        <input id="delay" type="text" placeholder="Delay (seconds)">
+                        <input id="submit" type="submit" value="Update" class="animate">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-buttons">
+            <div id="previous-button" class="main-button animate">Previous GIFs</div>
+            <div id="theater-button" class="main-button animate">Theater Mode</div>
+        </div>
+
+        <div id="last-played">
+            <i id="prev-5-gifs" class="fa fa-chevron-circle-right fa-2x animate"></i>
+            <span id="prev-5-gifs-label">More</span>
+        </div>
     </div>
 
 <script>
 $(document).ready(function() {
+   var initialCategory = '{{ category }}'.toLowerCase();
+   $('#' + initialCategory).addClass('button-selected');
+   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+   piDisplayConfig();
    $("#image img").imgCentering();
 });
 </script>
