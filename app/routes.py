@@ -663,13 +663,13 @@ def pi_display():
 @app.route('/pi_display_json')
 def pi_display_json():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
+        config = list(config_file)
 
-    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
-    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+    category = config[0][:config[0].find('\n')]
+    delay = config[2][:config[2].find('\n')]
     filename = category + '_urls.txt'
     toplay_filename = category + '_urls_to_play.txt'
 
@@ -694,10 +694,9 @@ def pi_display_json():
     # Choose random URL from to_play list, writing to config file
     gif_url = random.choice(urls_toplay_list)
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write('CURRENT_GIF = %s' % gif_url)
-        config_file.write(config_file_list[3])
+        config_file.write(config[0])
+        config_file.write('%s' % gif_url)
+        config_file.write(config[2])
 
     # Opening/closing to_play_urls.txt (taking advantage of side effect to erase contents)
     open('%s/%s' % (path, toplay_filename), 'w').close()
@@ -732,7 +731,7 @@ def pi_display_config():
     session['prev_stop'] = -2
     session['prev_start'] = 3
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/all_urls.txt' % path, 'r') as urls_file:
         main_urls_list = list(urls_file)
@@ -749,17 +748,17 @@ def pi_display_config():
     with open('%s/educational_urls.txt' % path, 'r') as urls_file:
         educational_urls_list = list(urls_file)
 
-    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
-        config_file_list = list(urls_file)
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config = list(config_file)
 
     main_urls_count = len(main_urls_list)
     animals_urls_count = len(animals_urls_list)
     gaming_urls_count = len(gaming_urls_list)
     strange_urls_count = len(strange_urls_list)
     educational_urls_count = len(educational_urls_list)
-    category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
-    delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
-    current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+    category = config[0][:config[0].find('\n')]
+    current_gif = config[1][:config[1].find('\n')]
+    delay = config[2][:config[2].find('\n')]
 
     return render_template("/pi_display/pi_display_config.html",
                            current_gif=current_gif,
@@ -768,7 +767,7 @@ def pi_display_config():
                            gaming_urls_count=gaming_urls_count,
                            strange_urls_count=strange_urls_count,
                            educational_urls_count=educational_urls_count,
-                           category=category[:category.find('\n')].title(),
+                           category=category.title(),
                            delay=delay)
 
 
@@ -776,11 +775,11 @@ def pi_display_config():
 def pi_display_config_update():
     session['prev'] = -1
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
 
-    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
-        config_file_list = list(urls_file)
-        current_gif = config_file_list[2][config_file_list[2].find('=') + 2:config_file_list[2].find('\n')]
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config = list(config_file)
+        current_gif = config[1][:config[1].find('\n')]
         message = 'Currently Playing GIF'
         data = {
             'current_gif': current_gif,
@@ -794,7 +793,7 @@ def pi_display_config_update():
 def pi_display_config_prev():
     session['prev'] -= 1
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/last_played.txt' % path, 'a+') as last_played:
         last_played = list(last_played)
@@ -811,11 +810,11 @@ def pi_display_config_prev():
 @app.route('/pi-display-config-auto')
 def pi_display_config_auto():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
 
-    with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
-        config_file_list = list(urls_file)
-        delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+        config = list(config_file)
+        delay = config[2][:config[2].find('\n')]
         data = {
             'delay': delay + '000'
         }
@@ -826,18 +825,17 @@ def pi_display_config_auto():
 @app.route('/pi-display-config-categories')
 def pi_display_config_all():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
     category = request.args.get('category', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-        delay = config_file_list[3][config_file_list[3].find('=') + 2:config_file_list[3].find('\n')]
+        config = list(config_file)
+        delay = config[2][:config[2].find('\n')]
 
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write('CATEGORY = %s' % category + '\n')
-        config_file.write(config_file_list[2])
-        config_file.write(config_file_list[3])
+        config_file.write('%s' % category + '\n')
+        config_file.write(config[1])
+        config_file.write(config[2])
         message = 'Category changed to %s' % category.title()
         data = {
             'message': message,
@@ -851,18 +849,17 @@ def pi_display_config_all():
 @app.route('/pi-display-config-delay')
 def pi_display_config_delay():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
     delay = request.args.get('delay', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config_file_list = list(config_file)
-        category = config_file_list[1][config_file_list[1].find('=') + 2:config_file_list[1].find('\n')]
+        config = list(config_file)
+        category = config[0][:config[0].find('\n')]
 
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
-        config_file.write(config_file_list[0])
-        config_file.write(config_file_list[1])
-        config_file.write(config_file_list[2])
-        config_file.write('DELAY = %s' % delay + '\n')
+        config_file.write(config[0])
+        config_file.write(config[1])
+        config_file.write('%s' % delay + '\n')
         message = 'Delay changed to %s seconds' % delay
         data = {
             'message': message,
@@ -876,7 +873,7 @@ def pi_display_config_delay():
 @app.route('/previous-gifs')
 def previous_gifs():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-    #path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
+    #path = 'e:/programming/projects/blog/app/templates/pi_display/logs'
     session['prev_stop'] -= 5
     session['prev_start'] -= 5
 
