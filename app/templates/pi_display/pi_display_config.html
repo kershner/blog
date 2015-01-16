@@ -29,6 +29,7 @@
         <div id="current">
             <div id="image">
                 <i id="settings-button" class="fa fa-cog fa-3x animate"></i>
+                <i id="save-button" class="fa fa-floppy-o fa-2x animate"></i>
 
                 <div id="notification"></div>
 
@@ -37,7 +38,18 @@
                     <span>{{ delay }} seconds</span>
                 </div>
 
-                <img src="{{ current_gif }}">
+                <img id="normal-image" src="{{ current_gif }}">
+
+                <div id="save-gif">
+                    <i id="save-close" class="fa fa-times animate"></i>
+                    <span id="save-gif-title">Saved GIFs</span>
+
+                    <div id="saved-images">
+                    </div>
+
+                    <i id="email-icon" class="fa fa-paper-plane-o fa-2x animate"></i>
+                    <span id="icon-label">Email GIFs</span>
+                </div>
 
                 <div id="settings">
                     <i id="settings-close" class="fa fa-times animate"></i>
@@ -57,6 +69,11 @@
                         <div class="arrow-button">
                             <i id="prev-gif" class="fa fa-long-arrow-left fa-3x animate"></i>
                             <span>Prev GIF</span>
+                        </div>
+
+                        <div class="arrow-button">
+                            <i id="open-saved" class="fa fa-folder-open-o fa-2x animate"></i>
+                            <span>Saved GIFs</span>
                         </div>
                     </div>
 

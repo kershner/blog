@@ -8,6 +8,8 @@ function piDisplayConfig() {
 	showPrevious();
 	prev5();
 	theaterButton();
+	openSavedGifs();
+	saveGif();
 }
 
 function showNotification(message) {
@@ -25,14 +27,13 @@ function fadeNotification() {
 function updateGif() {
 	console.log('Updating GIF...');
 	$('#dynamic-image').remove();
-	$('#image img').remove();
+	$('#normal-image').remove();
 	$.getJSON($SCRIPT_ROOT + '/pi-display-config-update', {
 	}, function(data) {
-		var html = '<img style="display:none;" id="img" src="' + data['current_gif'] + '">';
-		$('#image img').fadeOut('fast');
+		var html = '<img id="normal-image" style="display:none;" id="img" src="' + data['current_gif'] + '">';
 		$('#image').append(html);
-		$('#img').fadeIn('slow');
-		$('#img').imgCentering();
+		$('#normal-image').fadeIn('slow');
+		$('#normal-image').imgCentering();
 		showNotification(data['message']);
 	});
 	return false;
@@ -113,6 +114,13 @@ function removeTheater() {
 	$('#title').css('margin-top', '+=125px');
 	$("#image img").imgCentering();
 	$("#dynamic-image img").imgCentering();
+}
+
+function showEmailGif() {
+	$('#email-icon, #icon-label').remove();
+	var html = '<div style="display: none;" id="email-div"><input id="email" type="text" placeholder="Email Address"><input id="email-gifs" type="submit" value="Submit" class="animate"></div>';
+	$('#save-gif').append(html);
+	$('#email-div').fadeIn('fast');
 }
 
 // Functions bound to HTML elements via click
@@ -270,11 +278,10 @@ function theaterButton() {
 	});
 }
 
-////////////////////////////////////
 function clickImage() {
 	$('#last-played img').on('click', function() {
 		$('#dynamic-image').remove();
-		$('#image img').remove();
+		$('#normal-image').remove();
 		var url = $(this)[0].src;
 		var imageHeight = $('#image').height();
 		if (imageHeight === 768) {
@@ -287,3 +294,70 @@ function clickImage() {
 		$('#dynamic-image img').imgCentering();
 	});
 }
+
+function openSavedGifs() {
+	$('#open-saved').on('click', function() {
+		$('#email-icon, #icon-label, #email-div').remove();
+		var html = '<i id="email-icon" class="fa fa-paper-plane-o fa-2x animate"></i><span id="icon-label">Email GIFs</span>';
+		$('#save-gif').append(html);
+		$('#save-gif').fadeIn('fast');
+		$('#email-icon').on('click', function() {
+			$('#email-link').remove();
+			showEmailGif();
+			sendEmail();
+		});
+	});
+	$('#save-close').on('click', function() {
+		$('#email-div').fadeOut('fast');
+		$('#save-gif').fadeOut('fast');
+	});
+	$('#email-icon').on('click', function() {
+		$('#email-link').remove();
+		showEmailGif();
+		sendEmail();
+	});	
+}
+
+function saveGif() {
+	$('#save-button').on('click', function() {
+		var dynamicImg = $('#dynamic-image img').length;
+		if (dynamicImg) {
+			var url = $('#dynamic-image img')[0].src;		
+		} else {
+			var url = $('#image img')[0].src;
+		}
+		var html = '<div class="saved-gif"><i class="fa fa-times save-img-close animate"></i><img style="height: 50px; width: 50px;" src="' + url + '" class="animate"></div>';
+		var message = 'GIF Saved!';
+		$('#saved-images').append(html);
+		showNotification(message);
+		removeSavedGif();
+	});
+}
+
+function removeSavedGif() {
+	$('.save-img-close').on('click', function() {
+		$(this).parent().remove();
+	});
+}
+
+function sendEmail() {
+	$('#email-gifs').on('click', function() {
+		$('#email-link').remove();
+		var email = $('#email').val();
+		var images = $('#saved-images').find('img').map(function() {
+			return $(this).attr('src')
+		}).get();
+
+		var imagesArray = JSON.stringify(images);
+
+		$.getJSON($SCRIPT_ROOT + '/email-gifs', {
+			email: email,
+			images: imagesArray
+		}, function(data) {
+			$('#email-div').fadeOut('fast');
+			var html = '<a href="' + data['link'] + '"><div id="email-link" class="animate">Email</div></a>';
+			$('#save-gif').append(html);
+		});
+		return false;		
+	});
+};

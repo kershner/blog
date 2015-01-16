@@ -92,22 +92,6 @@ a:hover {
 	top: 10px;
 }
 
-#settings-button {
-	position: absolute;
-	z-index: 5;
-	top: 10px;
-	left: 10px;
-	color: white;
-	opacity: 0.5;
-	text-shadow: 1px 1px 3px #000;
-}
-
-#settings-button:hover {
-	cursor: pointer;
-	color: #177adb;
-	opacity: 1.0;
-}
-
 #notification {
 	display: none;
 	position: absolute;
@@ -139,6 +123,119 @@ a:hover {
 	text-align: right;
 }
 
+#settings-button, #save-button {
+	position: absolute;
+	z-index: 5;
+	top: 10px;
+	left: 10px;
+	color: white;
+	opacity: 0.5;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#settings-button:hover, #save-button:hover {
+	cursor: pointer;
+	color: #177adb;
+	opacity: 1.0;
+}
+
+#save-button {
+	top: 70px;
+	left: 18px;
+}
+
+/* Saved GIFs div */
+#save-gif {
+	display: none;
+	position: absolute;
+	z-index: 5;
+	width: 250px;
+	top: 0;
+	right: 0;
+	min-height: 100px;
+	background-color: #F5F5F5;
+	border: 3px solid black;
+}
+
+#save-gif-title {
+	position: relative;
+	top: 5px;
+	left: 5px;
+}
+
+#saved-images {
+	margin: 10px auto;
+	width: 175px;
+	min-height: 75px;
+}
+
+.saved-gif {
+	position: relative;
+	display: inline-block;
+	margin: 2px;
+	height: 50px;
+	width: 50px;
+}
+
+.save-img-close {
+	position: absolute;
+	z-index: 5;
+	top: 0;
+	right: 2px;
+	font-size: 12px;
+	color: red;
+	text-shadow: 1px 1px 3px #000;
+}
+
+.save-img-close:hover {
+	cursor: pointer;
+	color: #177adb;
+}
+
+.saved-gif img {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	left: 0;
+	border-radius: 5px;
+}
+
+#email-icon {
+	display: block;
+	position: relative;
+	text-align: center;
+}
+
+#icon-label {
+	display: block;
+	text-align: center;
+	font-size: 10px;
+	margin-bottom: 5px;
+}
+
+#email-div {
+	display: none;
+	position: relative;
+	margin: 0 auto;
+	bottom: 5px;
+	text-align: center;
+}
+
+#email-link {
+	margin: 5px auto;
+	padding-top: 5px;
+	width: 100px;
+	height: 25px;
+	text-align: center;
+	color: black;
+	border: 3px solid black;
+}
+
+#email-link:hover {
+	color: white;
+	background-color: #177adb;
+}
+
 #settings {
 	display: none;
 	position: absolute;
@@ -150,7 +247,7 @@ a:hover {
 	border: 3px solid black;
 }
 
-#settings-close {
+#settings-close, #save-close {
 	position: absolute;
 	z-index: 5;
 	color: black;
@@ -158,7 +255,7 @@ a:hover {
 	top: 5px;
 }
 
-#settings-close:hover {
+#settings-close:hover, #save-close:hover {
 	cursor: pointer;
 	color: #177adb;
 }
@@ -214,6 +311,10 @@ a:hover {
 	display: inline-block;
 	position: relative;
 	margin: 0;
+}
+
+#open-saved {
+	bottom: 8px;
 }
 
 #arrows .arrow-button i:hover {
@@ -274,7 +375,7 @@ a:hover {
 	margin: 0 auto;
 }
 
-#delay {
+#delay, #email {
 	width: 205px;
 	height: 30px;
 	line-height: 30px;
@@ -282,7 +383,7 @@ a:hover {
 	font-size: 25px;
 }
 
-#submit {
+#submit, #email-gifs {
 	position: relative;
 	width: 100px;
 	height: 30px;
@@ -293,7 +394,7 @@ a:hover {
 	border-radius: 0;
 }
 
-#submit:hover {
+#submit:hover, #email-gifs:hover {
 	background-color: #177adb;
 	color: white;
 	cursor: pointer;
@@ -366,7 +467,7 @@ a:hover {
 	box-shadow: 0 15px 30px -10px #000000;
 }
 
-.last-played-images img:hover {
+.last-played-images img:hover, #saved-images img:hover {
 	cursor: pointer;
 	box-shadow: 0px 0px 10px 2px #177adb;	
 }
@@ -377,7 +478,7 @@ a:hover {
 	right: 10px;
 }
 
-#prev-5-gifs:hover {
+#prev-5-gifs:hover, #email-icon:hover {
 	cursor: pointer;
 	color: #177adb;
 }
