@@ -4,7 +4,8 @@ body {
     overflow-x: hidden;
     font-family: Helvetica;
     font-size: 18px;
-    background-color: white;
+    background-color: #F5F5F5;
+    background: url(../static/images/pi_display_config/swirl_pattern.png);
     color: black;    
 }
 
@@ -26,11 +27,6 @@ a:hover {
 
 .selected {
 	color: #177adb;
-}
-
-.button-selected {
-	background-color: #177adb;
-	color: white;
 }
 
 /* Styling Placeholder Text */
@@ -68,10 +64,13 @@ a:hover {
 }
 
 #title {
-	margin: 10px auto;	
+	margin: 0 auto;
+	margin-top: 100px;
+	margin-bottom: 20px;
 	width: 625px;
 	padding: 5px;
 	text-align: center;	
+	background-color: white;
 	box-shadow: 0 10px 10px -10px #000000;
 	border: 3px solid black;
 }
@@ -95,11 +94,12 @@ a:hover {
 
 #settings-button {
 	position: absolute;
-	z-index: 1;
+	z-index: 5;
 	top: 10px;
 	left: 10px;
-	opacity: 0.4;
-	text-shadow: 1px 1px .5px #000;
+	color: white;
+	opacity: 0.5;
+	text-shadow: 1px 1px 3px #000;
 }
 
 #settings-button:hover {
@@ -111,7 +111,7 @@ a:hover {
 #notification {
 	display: none;
 	position: absolute;
-	z-index: 2;
+	z-index: 5;
 	top: 5px;
 	right: 5px;
 	min-height: 10px;
@@ -126,7 +126,7 @@ a:hover {
 
 #current-settings {
 	position: absolute;
-	z-index: 2;
+	z-index: 5;
 	right: 5px;
 	bottom: 5px;
 }
@@ -142,16 +142,17 @@ a:hover {
 #settings {
 	display: none;
 	position: absolute;
-	z-index: 2;
+	z-index: 5;
 	top: 0;
 	width: 250px;	
 	height: 480px;
 	background-color: #F5F5F5;
+	border: 3px solid black;
 }
 
 #settings-close {
 	position: absolute;
-	z-index: 2;
+	z-index: 5;
 	color: black;
 	right: 5px;
 	top: 5px;
@@ -298,13 +299,20 @@ a:hover {
 	cursor: pointer;
 }
 
-#image {
+#image, #dynamic-image {
 	position: relative;
 	margin: 0;
 	width: 640px;
 	height: 480px;
 	bottom: 5px;
 	box-shadow: 0 15px 30px -10px #000000;
+}
+
+#dynamic-image {
+	display: none;
+	top: 3px;
+	z-index: 3;
+	box-shadow: none;
 }
 
 #main-buttons {
@@ -320,6 +328,7 @@ a:hover {
 	width: 100px;
 	text-align: center;
 	padding: 5px;
+	background-color: white;
 	border: 3px solid black;
 	box-shadow: 0 15px 30px -10px #000000;
 }
@@ -335,9 +344,10 @@ a:hover {
 	position: relative;
 	margin: 0 auto;
 	width: 580px;
-	min-height: 100px;
+	min-height: 125px;
 	border: 3px solid black;
 	box-shadow: 0 15px 30px -10px #000000;
+	background-color: white;
 }
 
 .last-played-images {
@@ -357,7 +367,8 @@ a:hover {
 }
 
 .last-played-images img:hover {
-	box-shadow: 0px 0px 10px 2px #177adb;
+	cursor: pointer;
+	box-shadow: 0px 0px 10px 2px #177adb;	
 }
 
 #prev-5-gifs {
@@ -376,4 +387,9 @@ a:hover {
 	bottom: 5px;
 	right: 10px;
 	font-size: 12px;
+}
+
+.button-selected {
+	background-color: #177adb;
+	color: white;
 }

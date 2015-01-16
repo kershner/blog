@@ -663,6 +663,7 @@ def pi_display():
 @app.route('/pi_display_json')
 def pi_display_json():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config_file_list = list(config_file)
@@ -732,6 +733,7 @@ def pi_display_config():
     session['prev_stop'] = -2
     session['prev_start'] = 3
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/all_urls.txt' % path, 'r') as urls_file:
         main_urls_list = list(urls_file)
@@ -775,6 +777,7 @@ def pi_display_config():
 def pi_display_config_update():
     session['prev'] = -1
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
         config_file_list = list(urls_file)
@@ -792,6 +795,7 @@ def pi_display_config_update():
 def pi_display_config_prev():
     session['prev'] -= 1
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/last_played.txt' % path, 'a+') as last_played:
         last_played = list(last_played)
@@ -808,6 +812,7 @@ def pi_display_config_prev():
 @app.route('/pi-display-config-auto')
 def pi_display_config_auto():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
 
     with open('%s/pi_display_config.txt' % path, 'r') as urls_file:
         config_file_list = list(urls_file)
@@ -822,7 +827,7 @@ def pi_display_config_auto():
 @app.route('/pi-display-config-categories')
 def pi_display_config_all():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
-
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
     category = request.args.get('category', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
@@ -847,6 +852,7 @@ def pi_display_config_all():
 @app.route('/pi-display-config-delay')
 def pi_display_config_delay():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
     delay = request.args.get('delay', 0, type=str)
 
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
@@ -871,6 +877,7 @@ def pi_display_config_delay():
 @app.route('/previous-gifs')
 def previous_gifs():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
+    path = 'h:/programming/projects/blog/app/templates/pi_display/logs'
     session['prev_stop'] -= 5
     session['prev_start'] -= 5
 

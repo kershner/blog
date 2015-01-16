@@ -24,12 +24,14 @@ function fadeNotification() {
 
 function updateGif() {
 	console.log('Updating GIF...');
+	$('#dynamic-image').remove();
 	$.getJSON($SCRIPT_ROOT + '/pi-display-config-update', {
 	}, function(data) {
-		var html = '<img src="' + data['current_gif'] + '">';
+		var html = '<img style="display:none;" id="img" src="' + data['current_gif'] + '">';		
 		$('#image img').fadeOut('fast');
 		$('#image').append(html);
-		$('#image img').imgCentering();
+		$('#img').fadeIn('slow');
+		$('#img').imgCentering();
 		showNotification(data['message']);
 	});
 	return false;
@@ -66,33 +68,50 @@ function populateImages() {
 		var html = '<div style="display: none;" id="' + data['id'] + '" class="last-played-images"></div>';
 		$('#last-played').append(html);
 		for (var i = 0; i < data['prev_5'].length; i++) {
-			var image = '<a href="' + data['prev_5'][i] + '"><img src="' + data['prev_5'][i] + '" class="animate"></a>';
-			console.log(image);
+			var image = '<img src="' + data['prev_5'][i] + '" class="animate">';
 			$('#' + data['id']).append(image);
 		};
 		$('#' + data['id']).fadeIn('slow');
+		clickImage();
 	});
 	return false;
 }
 
 function theaterMode() {
+	$('body').css('background-image', 'none');
 	$('body').css('background-color', '#000');
 	$('#image').css({
 		'width': 1024,
 		'height': 768,
 		'margin-left': '-=192px'
 	});
+	$('#dynamic-image').css({
+		'width': 1024,
+		'height': 768,
+	});
+
+	$('#title').css('margin-top', '-=125px');
 	$("#image img").imgCentering();
+	$("#dynamic-image img").imgCentering();
 }
 
 function removeTheater() {
 	$('body').css('background-color', '#FFF');
+	$('body').css('background-image', 'url(../static/images/pi_display_config/swirl_pattern.png)');
 	$('#image').css({
 		'width': 640,
 		'height': 480,
 		'margin-left': '+=192px'
 	});
+
+	$('#dynamic-image').css({
+		'width': 640,
+		'height': 480,
+	});
+
+	$('#title').css('margin-top', '+=125px');
 	$("#image img").imgCentering();
+	$("#dynamic-image img").imgCentering();
 }
 
 // Functions bound to HTML elements via click
@@ -139,10 +158,12 @@ function prevGif() {
 	$('#prev-gif').on('click', function() {
 		$.getJSON($SCRIPT_ROOT + '/pi-display-config-prev', {
 		}, function(data) {
-			var html = '<img src="' + data['last_played'] + '">';
-			$('#image img').fadeOut('fast');
+			var html = '<img style="display: none;" id="dynamic-image" src="' + data['last_played'] + '">';
+			$('#image img').remove();
+			$('#dynamic-image').remove();
 			$('#image').append(html);
-			$("#image img").imgCentering();
+			$("#dynamic-image").fadeIn('slow');
+			$("#dynamic-image img").imgCentering();
 			showNotification(data['message']);
 		});
 		return false;
@@ -202,10 +223,12 @@ function showPrevious() {
 		if (clicked) {
 			clicked = false;
 			closePrevious();
-			$(this).removeClass('button-selected');			
+			$(this).removeClass('button-selected');
+			$('#title').css('margin-top', '+=50px');		
 	} else {
 		clicked = true;
 		$(this).addClass('button-selected');
+		$('#title').css('margin-top', '-=50px');
 		$('#last-played').fadeIn('fast');
 		populateImages();
 		}
@@ -236,10 +259,30 @@ function theaterButton() {
 			clicked = false;
 			$(this).removeClass('button-selected');
 			removeTheater();
+			$('#title').css('display', 'block');
+			$("#dynamic-image img").imgCentering();
 		} else {
 			clicked = true;
 			$(this).addClass('button-selected');
+			$('#title').css('display', 'none');			
 			theaterMode();
+			$("#dynamic-image img").imgCentering();
 		}
+	});
+}
+
+////////////////////////////////////
+function clickImage() {
+	$('#last-played img').on('click', function() {
+		$('#dynamic-image').remove();
+		url = $(this)[0].src;
+		var html = '<div id="dynamic-image"><img src="' + url + '"></div>';
+		$('#image img').remove();
+		$('#image').prepend(html);
+		$('#dynamic-image').fadeIn('slow');
+		setTimeout(function() {
+			$('#dynamic-image img').imgCentering();
+			console.log('Hello');
+		}, 1000);		
 	});
 }
