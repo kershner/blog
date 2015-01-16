@@ -13,7 +13,7 @@ function piDisplayConfig() {
 function showNotification(message) {
 	var html = '<span>' + message + '</span>';
 	$('#notification').empty();
-	$('#notification').fadeIn(100);			
+	$('#notification').fadeIn(100);
 	$('#notification').append(html);
 	setTimeout(fadeNotification, 2000)
 }
@@ -25,9 +25,10 @@ function fadeNotification() {
 function updateGif() {
 	console.log('Updating GIF...');
 	$('#dynamic-image').remove();
+	$('#image img').remove();
 	$.getJSON($SCRIPT_ROOT + '/pi-display-config-update', {
 	}, function(data) {
-		var html = '<img style="display:none;" id="img" src="' + data['current_gif'] + '">';		
+		var html = '<img style="display:none;" id="img" src="' + data['current_gif'] + '">';
 		$('#image img').fadeOut('fast');
 		$('#image').append(html);
 		$('#img').fadeIn('slow');
@@ -134,7 +135,7 @@ function autoUpdate() {
 	var clicked = false;
 	$('#auto-update').on('click', function() {
 		if (clicked) {
-			clearInterval(window.delay);			
+			clearInterval(window.delay);
 			clicked = false;
 			$(this).removeClass('selected');
 			var message = 'Auto Update Off';
@@ -219,12 +220,12 @@ function setDelay() {
 
 function showPrevious() {
 	var clicked = false;
-	$('#previous-button').on('click', function() {		
+	$('#previous-button').on('click', function() {
 		if (clicked) {
 			clicked = false;
 			closePrevious();
 			$(this).removeClass('button-selected');
-			$('#title').css('margin-top', '+=50px');		
+			$('#title').css('margin-top', '+=50px');
 	} else {
 		clicked = true;
 		$(this).addClass('button-selected');
@@ -260,13 +261,11 @@ function theaterButton() {
 			$(this).removeClass('button-selected');
 			removeTheater();
 			$('#title').css('display', 'block');
-			$("#dynamic-image img").imgCentering();
 		} else {
 			clicked = true;
 			$(this).addClass('button-selected');
-			$('#title').css('display', 'none');			
+			$('#title').css('display', 'none');
 			theaterMode();
-			$("#dynamic-image img").imgCentering();
 		}
 	});
 }
@@ -275,14 +274,16 @@ function theaterButton() {
 function clickImage() {
 	$('#last-played img').on('click', function() {
 		$('#dynamic-image').remove();
-		url = $(this)[0].src;
-		var html = '<div id="dynamic-image"><img src="' + url + '"></div>';
 		$('#image img').remove();
+		var url = $(this)[0].src;
+		var imageHeight = $('#image').height();
+		if (imageHeight === 768) {
+		    var html = '<div style="width: 1024px; height: 768px;" id="dynamic-image"><img src="' + url + '"></div>';
+		} else {
+		    var html = '<div id="dynamic-image"><img src="' + url + '"></div>';
+		}
 		$('#image').prepend(html);
 		$('#dynamic-image').fadeIn('slow');
-		setTimeout(function() {
-			$('#dynamic-image img').imgCentering();
-			console.log('Hello');
-		}, 1000);		
+		$('#dynamic-image img').imgCentering();
 	});
 }

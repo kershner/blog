@@ -671,6 +671,9 @@ def pi_display_json():
     category = config[0][:config[0].find('\n')]
     delay = config[2][:config[2].find('\n')]
     filename = category + '_urls.txt'
+    print category
+    print delay
+    print filename
     toplay_filename = category + '_urls_to_play.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
