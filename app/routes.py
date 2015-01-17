@@ -691,9 +691,6 @@ def pi_display_json():
             urls_toplay_file.write(entry)
         urls_toplay_file.close()
 
-    with open('%s/%s' % (path, toplay_filename), 'r') as urls_toplay_file:
-        urls_toplay_list = list(urls_toplay_file)
-
     # Choose random URL from to_play list, writing to config file
     gif_url = random.choice(urls_toplay_list)
     with open('%s/pi_display_config.txt' % path, 'w+') as config_file:
@@ -708,7 +705,9 @@ def pi_display_json():
     with open('%s/%s' % (path, toplay_filename), 'a+') as urls_to_play:
         for entry in urls_toplay_list:
             if entry == gif_url:
-                pass
+                print gif_url
+                print entry
+                continue
             else:
                 urls_to_play.write(entry)
 

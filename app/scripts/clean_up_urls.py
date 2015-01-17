@@ -110,10 +110,14 @@ def clean_up_urls(path, filename):
                 continue
             try:
                 size = int(r.headers['content-length'])
+                float_size = float(size) / 1051038
                 if size == 503:
                     print '%s is a broken link (503 bytes), skipping...' % url_test
                     log.counter(list_type, 'bad')
                     continue
+                elif float_size > 6.00:
+                    continue
+
             except KeyError:
                 clean_urls.append(image_url)
             code = r.status_code

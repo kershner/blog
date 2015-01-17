@@ -48,6 +48,7 @@ def scrape_reddit(target_subreddit, path, category):
     with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
         current_urls = list(f)
 
+    large_urls = 0
     for submission in submissions:
         if submission.url + '\n' in current_urls:
             continue
@@ -63,7 +64,11 @@ def scrape_reddit(target_subreddit, path, category):
                 continue
             try:
                 size = int(request.headers['content-length'])
+                float_size = float(size) / 1051038
                 if size == 503:
+                    continue
+                elif float_size > 6.00:
+                    large_urls += 1
                     continue
             except KeyError:
                 clean_urls.append(submission.url + '\n')
@@ -75,7 +80,8 @@ def scrape_reddit(target_subreddit, path, category):
             else:
                 clean_urls.append(submission.url + '\n')
                 log.gif_counter(category)
-    print '%d GIFs added from /r/%s' % (log.temp_count, target_subreddit)
+    print '\n%d GIFs added from /r/%s' % (log.temp_count, target_subreddit)
+    print '%d large (>6MB) GIFs skipped' % large_urls
 
     # Appending contents of clean_urls to current url file
     with open('%s/%s_urls.txt' % (path, category), 'a+') as f:

@@ -315,16 +315,16 @@ function openSavedGifs() {
 		$('#email-link').remove();
 		showEmailGif();
 		sendEmail();
-	});	
+	});
 }
 
 function saveGif() {
 	$('#save-button').on('click', function() {
 		var dynamicImg = $('#dynamic-image img').length;
 		if (dynamicImg) {
-			var url = $('#dynamic-image img')[0].src;		
+			var url = $('#dynamic-image img')[0].src;
 		} else {
-			var url = $('#image img')[0].src;
+			var url = $('#normal-image')[0].src;
 		}
 		var html = '<div class="saved-gif"><i class="fa fa-times save-img-close animate"></i><img style="height: 50px; width: 50px;" src="' + url + '" class="animate"></div>';
 		var message = 'GIF Saved!';
@@ -358,6 +358,6 @@ function sendEmail() {
 			var html = '<a href="' + data['link'] + '"><div id="email-link" class="animate">Email</div></a>';
 			$('#save-gif').append(html);
 		});
-		return false;		
+		return false;
 	});
 };
