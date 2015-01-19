@@ -27,6 +27,12 @@
         </div>
 
         <div id="current">
+            <div id="last-played-viewer">
+                <i style="position: absolute; right: 5px; top: 5px;" id="last-played-viewer-close" class="fa fa-times animate"></i>
+                <div id="last-played-viewer-label">Last Played GIFs</div>
+                <div id="last-played-viewer-images"></div>
+            </div>
+
             <div id="image">
                 <i id="settings-button" class="fa fa-cog fa-3x animate"></i>
                 <i id="save-button" class="fa fa-floppy-o fa-2x animate"></i>
@@ -118,8 +124,14 @@
         </div>
 
         <div id="last-played">
+            <div id="last-played-nav">
+                <span id="last-played-10" class="animate">Previous 10 GIFs</span>
+                <span id="last-played-20" class="animate">Previous 20 GIFs</span>
+                <span id="last-played-50" class="animate">Previous 50 GIFs</span>
+            </div>
+
             <i id="prev-5-gifs" class="fa fa-chevron-circle-right fa-2x animate"></i>
-            <span id="prev-5-gifs-label">More</span>
+            <span id="prev-5-gifs-label">Next 5</span>
         </div>
     </div>
 

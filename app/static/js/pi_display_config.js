@@ -10,6 +10,7 @@ function piDisplayConfig() {
 	theaterButton();
 	openSavedGifs();
 	saveGif();
+	showPreviousNumber();
 }
 
 function showNotification(message) {
@@ -31,7 +32,7 @@ function updateGif() {
 	$.getJSON($SCRIPT_ROOT + '/pi-display-config-update', {
 	}, function(data) {
 		var html = '<img id="normal-image" style="display:none;" id="img" src="' + data['current_gif'] + '">';
-		$('#image').append(html);
+		$('#image').prepend(html);
 		$('#normal-image').fadeIn('slow');
 		$('#normal-image').imgCentering();
 		showNotification(data['message']);
@@ -74,7 +75,7 @@ function populateImages() {
 			$('#' + data['id']).append(image);
 		};
 		$('#' + data['id']).fadeIn('slow');
-		clickImage();
+		clickImage('last-played');
 	});
 	return false;
 }
@@ -165,19 +166,24 @@ function autoUpdate() {
 
 function prevGif() {
 	$('#prev-gif').on('click', function() {
+		$('#dynamic-image').remove();
+		$('#normal-image').remove();
 		$.getJSON($SCRIPT_ROOT + '/pi-display-config-prev', {
-		}, function(data) {
-			var html = '<img style="display: none;" id="dynamic-image" src="' + data['last_played'] + '">';
-			$('#image img').remove();
-			$('#dynamic-image').remove();
-			$('#image').append(html);
-			$("#dynamic-image").fadeIn('slow');
-			$("#dynamic-image img").imgCentering();
-			showNotification(data['message']);
+			}, function(data) {
+				var imageHeight = $('#image').height();
+				if (imageHeight === 768) {
+				    var html = '<div style="width: 1024px; height: 768px;" id="dynamic-image"><img src="' + data['last_played'] + '"></div>';
+				} else {
+				    var html = '<div id="dynamic-image"><img src="' + data['last_played'] + '"></div>';
+				}
+				$('#image').prepend(html);
+				$('#dynamic-image').fadeIn(600);
+				$('#dynamic-image img').imgCentering();
+				showNotification(data['message']);
+			});			
 		});
 		return false;
-	});
-}
+	}
 
 function categorySelect() {
 	$('#all').on('click', function() {
@@ -223,6 +229,42 @@ function setDelay() {
 			message = 'Delay must be at least 5 seconds';
 			showNotification(message);
 		}
+	});
+}
+
+function getPreviousImages(number) {	
+	$('#last-played-viewer-images').empty();
+	$('#last-played-viewer').fadeIn(600);
+	$.getJSON($SCRIPT_ROOT + '/last-played/' + number, {
+	}, function(data) {
+		var html = '<div id="last-played-viewer-label">Last ' + number + ' GIFs</div>';
+		$('#last-played-viewer-label').remove()
+		$('#last-played-viewer').prepend(html);
+		for (var i = 0; i < data['gifs'].length; i++) {
+			var image = '<img id="prev-image-' + i + '" style="display: none;" src="' + data['gifs'][i] + '" class="animate">';
+			$('#last-played-viewer-images').append(image);			
+		}
+		$('#last-played-viewer-images img').fadeIn(600);
+		clickImage('last-played-viewer-images');
+	});	
+	return false;
+}
+
+function showPreviousNumber() {
+	$('#last-played-10').on('click', function() {
+		var number = 10;
+		getPreviousImages(number);
+	});
+	$('#last-played-20').on('click', function() {
+		var number = 20;
+		getPreviousImages(number);
+	});
+	$('#last-played-50').on('click', function() {
+		var number = 50;
+		getPreviousImages(number);
+	});
+	$('#last-played-viewer-close').on('click', function() {
+		$('#last-played-viewer').fadeOut(600);
 	});
 }
 
@@ -278,8 +320,8 @@ function theaterButton() {
 	});
 }
 
-function clickImage() {
-	$('#last-played img').on('click', function() {
+function clickImage(div) {
+	$('#' + div + ' img').on('click', function() {
 		$('#dynamic-image').remove();
 		$('#normal-image').remove();
 		var url = $(this)[0].src;
@@ -331,12 +373,32 @@ function saveGif() {
 		$('#saved-images').append(html);
 		showNotification(message);
 		removeSavedGif();
+		viewSavedGif();
+	});
+}
+
+function viewSavedGif() {
+	$('.saved-gif img').on('click', function() {
+		$('#dynamic-image').remove();
+		$('#normal-image').remove();
+		var url = $(this).get(0).src;
+		var imageHeight = $('#image').height();
+		if (imageHeight === 768) {
+		    var html = '<div style="width: 1024px; height: 768px;" id="dynamic-image"><img src="' + url + '"></div>';
+		} else {
+		    var html = '<div id="dynamic-image"><img src="' + url + '"></div>';
+		}
+		$('#image').prepend(html);
+		$('#dynamic-image').fadeIn('slow');
+		$('#dynamic-image img').imgCentering();
 	});
 }
 
 function removeSavedGif() {
 	$('.save-img-close').on('click', function() {
-		$(this).parent().remove();
+		$(this).parent().fadeOut(300, function() {
+			$(this).remove();
+		});		
 	});
 }
 

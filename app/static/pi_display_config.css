@@ -247,7 +247,7 @@ a:hover {
 	border: 3px solid black;
 }
 
-#settings-close, #save-close {
+#settings-close, #save-close, #last-played-viewer-close {
 	position: absolute;
 	z-index: 5;
 	color: black;
@@ -255,7 +255,7 @@ a:hover {
 	top: 5px;
 }
 
-#settings-close:hover, #save-close:hover {
+#settings-close:hover, #save-close:hover, #last-played-viewer-close:hover {
 	cursor: pointer;
 	color: #177adb;
 }
@@ -405,13 +405,11 @@ a:hover {
 	margin: 0;
 	width: 640px;
 	height: 480px;
-	bottom: 5px;
 	box-shadow: 0 15px 30px -10px #000000;
 }
 
 #dynamic-image {
 	display: none;
-	top: 3px;
 	z-index: 3;
 	box-shadow: none;
 }
@@ -451,6 +449,55 @@ a:hover {
 	background-color: white;
 }
 
+#last-played-nav {
+	margin: 10px auto;
+	margin-bottom: 20px;
+	height: 20px;
+	width: 90%;
+	text-align: center;
+}
+
+#last-played-nav span {
+	display: inline-block;
+	margin: 0 2px;
+	padding: 5px;
+	color: black;
+	font-size: 14px;
+	border: 3px solid black;
+}
+
+#last-played-nav span:hover {
+	cursor: pointer;
+	color: white;
+	background-color: #177adb;
+}
+
+#last-played-viewer {
+	display: none;
+	position: absolute;
+	z-index: 6;
+	left: 30px;
+	width: 580px;
+	min-height: 200px;	
+	border: 3px solid black;
+	background-color: white;
+	color: black;
+}
+
+#last-played-viewer-label {
+	text-align: center;
+	font-size: 28px;
+	margin: 5px auto;
+	width: 100%;
+}
+
+#last-played-viewer-images {
+	margin: 10px auto;
+	width: 85%;
+	min-height: 50px;
+	text-align: center;
+}
+
 .last-played-images {
 	position: relative;
 	margin: 10px auto;
@@ -459,7 +506,7 @@ a:hover {
 	min-height: 50px;
 }
 
-.last-played-images img {
+.last-played-images img, #last-played-viewer-images img {
 	display: inline-block;
 	margin: 0 5px;
 	height: 80px;
@@ -467,7 +514,8 @@ a:hover {
 	box-shadow: 0 15px 30px -10px #000000;
 }
 
-.last-played-images img:hover, #saved-images img:hover {
+.last-played-images img:hover, #saved-images img:hover,
+#last-played-viewer-images img:hover {
 	cursor: pointer;
 	box-shadow: 0px 0px 10px 2px #177adb;	
 }
@@ -487,7 +535,7 @@ a:hover {
 	position: absolute;
 	bottom: 5px;
 	right: 10px;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 .button-selected {

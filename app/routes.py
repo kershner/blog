@@ -872,12 +872,27 @@ def previous_gifs():
     session['prev_stop'] -= 5
     session['prev_start'] -= 5
 
-    with open('%s/last_played.txt' % path, 'a+') as last_played:
-        last_played = list(last_played)
-        prev_5 = ''.join(last_played[session['prev_start']:session['prev_stop']:-1]).split()
+    with open('%s/last_played.txt' % path, 'a+') as f:
+        last_played_list = list(f)
+        prev_5 = ''.join(last_played_list[session['prev_start']:session['prev_stop']:-1]).split()
         data = {
             'prev_5': prev_5,
             'id': session['prev_start']
+        }
+
+        return jsonify(data)
+
+
+@app.route('/last-played/<number>')
+def last_played(number):
+    path = '/home/tylerkershner/app/templates/pi_display/logs'
+    number = 0 - int(number)
+
+    with open('%s/last_played.txt' % path, 'r') as f:
+        last_played_list = list(f)
+        gifs = ''.join(last_played_list[-2:number - 2:-1]).split()
+        data = {
+            'gifs': gifs
         }
 
         return jsonify(data)
