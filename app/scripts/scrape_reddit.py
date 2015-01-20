@@ -83,9 +83,26 @@ def scrape_reddit(target_subreddit, path, category):
     print '\n%d GIFs added from /r/%s' % (log.temp_count, target_subreddit)
     print '%d large (>6MB) GIFs skipped' % large_urls
 
+    unique_urls = []
+    duplicate_urls = []
+    for line in clean_urls:
+        end_point = line.find('\n')
+        url = line[:end_point]
+        if url + '\n' in unique_urls:
+            duplicate_urls.append(url + '\n')
+        else:
+            unique_urls.append(url + '\n')
+
     # Appending contents of clean_urls to current url file
     with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
-        for line in clean_urls:
+        for line in unique_urls:
+            try:
+                f.write(line)
+            except UnicodeEncodeError:
+                continue
+
+    with open('%s/%s_urls_to_play.txt' % (path, category), 'a+') as f:
+        for line in unique_urls:
             try:
                 f.write(line)
             except UnicodeEncodeError:
