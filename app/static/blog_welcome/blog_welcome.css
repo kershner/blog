@@ -27,7 +27,7 @@
 	}
 
 	.project-grid-title {
-		font-size: 2.5vh !important;
+		font-size: 2vh !important;
 	}
 
 	#contact-blurb span {
@@ -377,7 +377,8 @@ body {
 .project-grid-title {
 	margin: 0 auto;
 	font-size: 1.80vh;
-	text-shadow: 0 0 4px #000;
+	text-shadow: 1px 1px .5px #000;
+	font-family: 'Montserrat';
 }
 
 .project-grid-blurb {
@@ -469,9 +470,10 @@ body {
 
 .welcome-project-title {
 	margin: 0;
-	margin-top: 2vh;
-	text-shadow: 0 0 4px #000;
+	margin-top: 5vh;
+	text-shadow: 1px 1px .5px #000;
 	font-size: 3vh;
+	font-family: 'Montserrat';
 }
 
 .welcome-project-blurb {

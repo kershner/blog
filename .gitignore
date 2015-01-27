@@ -61,7 +61,7 @@ Bootstrap/
 # Various JS libraries/CSS
 jquery.hoverGrid.css
 rainbow.css
-'GIF Party Menu'/
+app/static/'GIF Party Menu'/
 slick/
 countUp.min.js
 hamburger.js
@@ -92,3 +92,10 @@ database/
 
 # README
 README.md
+
+# Unnecessary JS/CSS files
+previously.css
+scraper.css
+app/static/steamtime/js/steamtime.js
+app/static/steamtime/style.css
+app/static/welcome.css
