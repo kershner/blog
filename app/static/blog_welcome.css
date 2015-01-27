@@ -1,0 +1,296 @@
+/* **************************************************** */
+/* Welcome Page 
+/* **************************************************** */
+/* General class to add CSS animation to element */
+.animate {
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.welcome-hr {
+	margin: 15px 0;
+	margin: 0;
+	border: 0;
+    height: 1px;
+	background-color: #FFC761;
+	box-shadow: 0px 0px 1px #000;
+}
+
+a {
+	text-decoration: none;
+}
+
+.up-arrow {
+	position: fixed;
+	bottom: 0;
+	right: 5px;
+}
+
+body {
+	position: relative;
+	background-color: #00BFA5;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	color: white;
+	font-family: 'Droid Sans', sans-serif;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#welcome-container {
+	width: 100%;
+}
+
+#title-nav {
+	width: 100%;
+	height: 225px;
+	text-align: center;
+}
+
+#welcome-logo {
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+	min-width: 455px;
+}
+
+@media (min-width: 299px) {
+	#welcome-logo {
+		position: relative;
+		margin: 0 auto;		
+		top: 70px;
+		font-size: 3em;
+	}
+
+	#nav {
+		position: relative;
+		margin: 0 auto;
+		margin-top: 0px;
+		top: 80px;
+	}
+
+	#welcome-main {
+		margin-top: -20px;
+	}
+
+	.welcome-blurb {
+		font-size: 18px;
+	}
+}
+
+@media (min-width: 720px) {
+	#welcome-logo {
+		top: auto;
+		font-size: 6em;
+	}
+
+	#nav {
+		margin-top: -80px;
+	}
+
+	#welcome-main {
+		margin-top: -30px;
+	}
+
+	.welcome-blurb {
+		font-size: 24px;
+	}
+}
+
+#nav {
+	width: 100%;
+	min-width: 455px;
+}
+
+#nav a {
+	display: inline-block;
+	margin: 0 15px;
+	padding: 5px;
+	border-bottom: 4px solid transparent;
+	color: white;
+	font-size: 26px;
+	text-decoration: none;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#nav a:hover {
+	background-color: #00BFA5;
+	border-bottom: 4px solid white;
+	font-size: 30px;	
+}
+
+#welcome-main {
+	position: relative;
+	width: 100%;
+	min-width: 455px;
+	min-height: 10px;
+	text-align: center;
+}
+
+#welcome-picture {
+	display: block;
+	margin: 0 auto;
+	height: 330px;
+	width: 330px;
+	border-radius: 50%;
+	border: 4px solid white;
+	-webkit-box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
+    -moz-box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
+    box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);	
+}
+
+#welcome-greeting {
+	display: block;
+	margin-top: 5px;
+	font-size: 78px;
+	min-width: 255px;
+	font-family: 'Montserrat', sans-serif;
+	color: #FFC761;
+	text-shadow: 0px 0px 4px #000;
+}
+
+#welcome-blurbs {
+	display: block;
+	color: white;
+	text-shadow: 0px 0px 5px #000;
+	font-family: 'Raleway', sans-serif;
+}
+
+.welcome-blurb {
+	display: block;
+	margin: 25px 0;
+	width: 100%;
+}
+
+#first-blurb {
+	margin-top: 0;
+}
+
+#last-blurb {
+	margin-bottom: 10px;
+}
+
+#arrow, #projects-arrow {
+	position: absolute;
+	margin: 0 auto;
+	width: 85px;
+	left: 25%;
+	right: 25%;
+	bottom: -100px;
+	text-align: center;
+	color: #FFC761;
+	text-shadow: 0px 0px 3px #000;
+}
+
+#arrow:hover, #projects-arrow:hover {
+	cursor: pointer;
+	color: #FA3346;
+}
+
+#welcome-bottom {
+	margin: 150px auto;	
+	width: 100%;
+}
+
+#welcome-projects, #welcome-contact {
+	position: relative;
+	margin: 10px auto;
+	width: 80%;
+}
+
+.welcome-header {
+	position: relative;
+	margin: 0;
+	font-size: 28px;
+	color: #FFC761;
+	text-shadow: 0px 0px 2px #000;
+}
+
+#welcome-projects-carousel {
+	margin-top: 80px;
+	text-align: center;
+}
+
+.slick-images {
+	margin: 0 auto;
+	width: 100%;
+	min-width: 440px;
+}
+
+.welcome-project {
+	margin: 0 auto;
+	padding: 15px;
+	width: 300px;
+	background-color: #708FC5;
+	border: 3px solid white;	
+	box-shadow: 0px 0px 5px #000;
+	color: white;
+	text-shadow: 0px 0px 2px #000;
+}
+
+.welcome-project-image {
+	margin: 0 auto;
+	height: 300px;
+	width: 300px;
+	border-radius: 50%;
+	border: 4px solid white;
+	-webkit-box-shadow: 0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
+    box-shadow: 0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);	
+}
+
+.welcome-project-title {
+	margin: 5px;
+}
+
+.welcome-project-blurb {	
+	margin: 5px auto;
+	margin-bottom: 20px;
+	width: 300px;
+	text-align: justify;
+}
+
+.welcome-project-button {
+	margin: 5px auto;
+	padding-top: 5px;
+	width: 150px;
+	height: 35px;
+	box-shadow: 0px 0px 2px #000;
+	border: 3px solid white;
+	background-color: #1355C5;
+	text-align: center;
+	font-size: 24px;		
+}
+
+.welcome-project-button a {
+	color: white;
+}
+
+.welcome-project-button:hover {
+	cursor: pointer;
+	background-color: #FA3346;
+}
+
+#projects-arrow {
+	color: rgb(27, 64, 128);
+	bottom: -125px;	
+	width: 50%;
+	min-width: 300px;
+}
+
+#welcome-contact {
+	margin-top: 250px;
+	height: 50px;
+}
+.contact {
+	position: absolute;
+	right: 0;
+}
+
+.contact-hr {
+	position: relative;
+	top: 32px;
+}

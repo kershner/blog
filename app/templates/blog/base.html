@@ -25,6 +25,11 @@
     </head>
 
     <body>
+        <div class="small-logo-container">
+            <img id="small-logo-icon" alt="Tyler Kershner" src="/static/images/bacon4.jpg">
+            <span class="small-logo">Tyler Kershner</span>
+        </div>
+
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -34,14 +39,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <div class="small-logo-container">
-                        <a class="small-logo" href="/">Tyler Kershner</a>
-                    </div>
                 </div>
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/welcome">Home</a></li>
                         <li><a href="/">Blog</a></li>
                         <li><a href="/projects">Projects</a></li>
                         <li><a href="/about">About Me</a></li>
@@ -55,7 +57,7 @@
                 <div class="row">
                     <div class="col-xs-12 big-logo-container">
                         <img alt="Tyler's Blog" ID="face" src="/static/images/face.png">
-                        <h1 class="big-logo">Tyler Kershner</h1>
+                        <h1 class="big-logo"><a href="/welcome">Tyler Kershner</a></h1>
                     </div>
                 </div>
             </div>
@@ -84,24 +86,33 @@
                             </a>
                         </div>
 
+                        {% if link %}
                         <br>
 
                         <div class="footer-login">
-                            <a href="{{ link }}">{{ text }}</a>
+                            <a href="{{ link }}">CMS</a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- JavaScripts placed at the end of the document so the pages load faster -->
+        <!-- JavaScripts -->
         <script type="text/javascript" src="/static/Bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/static/js/masonry.min.js"></script>
         <script type="text/javascript" src="/static/js/imagesloaded.min.js"></script>
         <script type="text/javascript" src="/static/js/rainbow-custom.min.js"></script>
-        <script type="text/javascript" src="/static/js/parallax-navbar.js"></script>
         <script type="text/javascript" src="/static/js/countUp.min.js"></script>
         <script type="text/javascript" src="/static/slick/slick.min.js"></script>
+        <script type="text/javascript" src="/static/js/blog.js"></script>
         <script type="text/javascript" src="/static/js/cms.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                initSlick();
+                blog();
+            });
+        </script>
     </body>
 </html>

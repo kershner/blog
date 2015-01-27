@@ -54,17 +54,14 @@ def index():
 
     if 'logged_in' in session:
         link = '/cms'
-        text = 'CMS'
     else:
-        link = '/login'
-        text = 'Login'
+        link = ''
 
     return render_template('/blog/home.html',
                            current_month_posts=current_month_posts,
                            last_month_posts=last_month_posts,
                            two_months_ago_posts=two_months_ago_posts,
-                           link=link,
-                           text=text)
+                           link=link)
 
 
 @app.route('/archive')
@@ -711,8 +708,8 @@ def pi_display_json():
             else:
                 urls_to_play.write(entry)
 
-    with open('%s/last_played.txt' % path, 'a+') as last_played:
-        last_played.write(gif_url)
+    with open('%s/last_played.txt' % path, 'a+') as f:
+        f.write(gif_url)
 
     delay = str(delay) + '000'
 
@@ -794,12 +791,12 @@ def pi_display_config_prev():
     session['prev'] -= 1
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
-    with open('%s/last_played.txt' % path, 'a+') as last_played:
-        last_played = list(last_played)
-        last_played = last_played[int('%d' % session['prev'])][:last_played[int('%d' % session['prev'])].find('\n')]
+    with open('%s/last_played.txt' % path, 'a+') as f:
+        last_played_list = list(f)
+        gifs = last_played_list[int('%d' % session['prev'])][:last_played_list[int('%d' % session['prev'])].find('\n')]
         message = 'Previous GIF'
         data = {
-            'last_played': last_played,
+            'last_played': gifs,
             'message': message
         }
 
@@ -2042,3 +2039,8 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
+
+
+@app.route('/welcome')
+def welcome():
+    return render_template('/blog/welcome.html')

@@ -168,11 +168,6 @@ iframe {
   bottom: 25px;
 }
 
-/* *********************************
-   Parallax Navbar
-   credit to DesignMite
-   http://www.designmite.com/responsive-parallax-navbar-tutorial/
-   ********************************* */
 .navbar-inverse {
   background: rgba(62, 195, 246, 0);
   border-bottom: none;
@@ -183,8 +178,6 @@ iframe {
 }
 
 .navbar-inverse .navbar-toggle {
-  border: 1px solid #333;
-  border-color: rgba(255, 255, 255, 0.7);
   z-index: 1;
 }
 
@@ -194,8 +187,18 @@ iframe {
 
 @media (max-width: 767px) {
   .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(0, 41, 63, 0.75);
   }
+}
+
+.navbar-toggle {
+	bottom: 8px;
+	background-color: rgba(0, 41, 63, 0.50);
+	border: none;
+}
+
+.navbar-toggle:hover {
+	background-color: rgba(0, 41, 63, 1.00);
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -218,11 +221,13 @@ iframe {
 /* Toolbar Logo
 /* ************************** */
 .small-logo-container {
-  padding-top: 50px;
-  padding-left: 25px;
-  height: 50px;
+  display: none;
+  position: fixed;
+  z-index: 20;
+  height: 68px;
+  width: 100%;
   overflow: hidden;
-  position: absolute;
+  background-color: #007abf;
 }
 
 .small-logo:hover {
@@ -230,14 +235,34 @@ iframe {
 }
 
 .small-logo {
-  position: relative;
-  z-index: 5;
-  top: 10px;
+  position: absolute;
+  z-index: 20;
+  margin-top: 15px;
+  margin-left: 5px;
+  left: 50px;
   color: white;
   font-size: 1.3em;
   text-shadow: 0px 2px 3px rgba(0,0,0,0.4),
              0px 4px 13px rgba(0,0,0,0.1),
              0px 9px 23px rgba(0,0,0,0.1);
+}
+
+#small-logo-icon {
+	position: absolute;
+	top: 15px;
+	left: 10px;
+	border-radius: 50%;
+	box-shadow: 1px 1px 3px #000;
+	border: 2px solid white;
+	height: 40px;
+	width: 40px;
+}
+
+@media (min-width: 0) {
+	.small-logo {
+		font-size: 1.6em;
+		top: 5px;
+	}
 }
 
 @media (min-width: 430px) {
@@ -250,6 +275,14 @@ iframe {
 /* ************************** */
 /* Big Logo on Header
 /* ************************** */
+.big-logo a {
+	color: white;
+}
+
+.big-logo a:hover {
+	color: #b30000;
+}
+
 .big-logo-row {
   background-color: #00BFA5;
 }

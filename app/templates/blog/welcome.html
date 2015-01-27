@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-US">
+    <head>
+        <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/blog_welcome/blog_welcome.css"/>
+
+        <!-- Fonts -->
+        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Droid+Sans'>
+        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Montserrat'>
+        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Raleway:300'>
+
+        <title>Tyler Kershner</title>
+    </head>
+
+    <body id="welcome-body" class="animate">
+        <div id="welcome-container">
+            <i class="fa fa-chevron-up fa-2x up-arrow animate"></i>
+
+            <div id="welcome-main">
+                <div id="title-nav">
+                    <h1 id="welcome-logo">Tyler Kershner</h1>
+
+                    <div id="nav">
+                        <a href="/" class="animate">Blog</a>
+                        <a href="/projects" class="animate">Projects</a>
+                        <a href="/about" class="animate">About Me</a>
+                    </div>
+                </div>
+
+                <div class="image-wrapper">
+                    <img id="welcome-picture" src="/static/images/bacon6.jpg" alt="Tyler Kershner">
+                </div>
+
+                <span id="welcome-greeting">Hello!</span>
+
+                <div id="welcome-blurbs">
+                    <span class="welcome-blurb">My name is Tyler.</span>
+                    <span class="welcome-blurb">I'm a self-taught software developer.</span>
+                    <span class="welcome-blurb">I live with my girlfriend Kerry and our dog Bacon in Ann Arbor, MI.</span>
+                    <span class="welcome-blurb">View a quick snapshot of my work below.</span>
+                </div>
+
+                <i id="arrow" class="fa fa-chevron-down fa-5x animate"></i>
+            </div>
+
+            <div id="welcome-projects">
+                <span class="welcome-header">Projects</span>
+                <hr class="hr projects-hr">
+
+                <div id="projects-blurb">
+                    <span>Each project's code is viewable on my <a class="animate" href="https://github.com/kershner">GitHub</a>.</span>
+                    <span>Check the project pages for direct links.</span>
+                </div>
+
+                <i id="grid-select" class="fa fa-th-large fa-3x animate"></i>
+
+                <div id="projects-grid" class="animate" style="max-width: 1030px;">
+                    <div class="project-grid">
+                        <div class="grid-image-wrapper">
+                            <a href="/cms-project"><img class="project-grid-image animate" src="/static/images/CMS2.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">Custom CMS</h1>
+                        <div class="project-grid-blurb">A custom CMS I developed for my blog.</div>
+                    </div>
+
+                    <div class="project-grid blue">
+                        <div class="grid-image-wrapper">
+                            <a href="/steamtime-project"><img class="project-grid-image animate" src="/static/images/steamtime3.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">SteamTime</h1>
+                        <div class="project-grid-blurb">Display data from the Steam Web API.</div>
+                    </div>
+
+                    <div class="project-grid dark-green">
+                        <div class="grid-image-wrapper">
+                            <a href="/reddit-scraper"><img class="project-grid-image animate" src="/static/images/reddit-scraper.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">Reddit Image Scraper</h1>
+                        <div class="project-grid-blurb">Quickly grab images from a subreddit.</div>
+                    </div>
+
+                    <div class="project-grid dark-orange">
+                        <div class="grid-image-wrapper">
+                            <a href="/gif-party"><img class="project-grid-image animate" src="/static/images/gif-party.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">Gif Party!</h1>
+                        <div class="project-grid-blurb">A project to help me learn JavaScript.</div>
+                    </div>
+
+                    <div class="project-grid red">
+                        <div class="grid-image-wrapper">
+                            <a href="/gif_display"><img class="project-grid-image animate" src="/static/images/gif-display-icon.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">Raspberry Pi GIF Display</h1>
+                        <div class="project-grid-blurb">A combination of hardware and code.</div>
+                    </div>
+
+                    <div class="project-grid dark-blue">
+                        <div class="grid-image-wrapper">
+                            <a href="/cstools-project"><img class="project-grid-image animate" src="/static/images/cstools.jpg" alt="Tyler Kershner"></a>
+                        </div>
+                        <h1 class="project-grid-title">CSTools</h1>
+                        <div class="project-grid-blurb">A set of programs I use daily at work.</div>
+                    </div>
+                </div>
+
+                <div id="welcome-projects-carousel" class="slick-images animate">
+                    <div>
+                        <div class="welcome-project">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/CMS2.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">Custom CMS</h1>
+                            <div class="welcome-project-blurb">A project to make contributing to and hosting my blog a simpler and more enjoyable undertaking.<br><br>The project involved setting up a database, models for my posts, and a front end to manage the whole thing.</div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, Flask, Javascript, jQuery, SQLAlchemy</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/cms-project">View Project</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="welcome-project blue">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/steamtime3.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">SteamTime</h1>
+                            <div class="welcome-project-blurb">SteamTime is a project to grab and organize data returned from the Steam web API.<br><br>Users can enter a SteamID and get all kinds of information about time spent in their Steam library.</div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, CSS, Javascript, jQuery, Flask</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/steamtime-project">View Project</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="welcome-project dark-green">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/reddit-scraper.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">Reddit Image Scraper</h1>
+                            <div class="welcome-project-blurb">A weekend project that turned out to be a fairly useful application.<br><br> A simple front end allows the user to query the Reddit API and get an organized list of images from a specified subreddit.</div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, CSS, jQuery, Flask</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/reddit-scraper">View Project</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="welcome-project dark-orange">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/gif-party.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">GIF Party!</h1>
+                            <div class="welcome-project-blurb">GIF Party was my first larger-scale JavaScript project.<br><br>Settings are taken from the user and then passed to a JavaScript file which animates GIFs to float around their screen.<br><br></div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, CSS, JavaScript, jQuery, AJAX, Flask</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/gif-party">View Project</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="welcome-project red">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/gif-display-icon.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">Raspberry Pi<br>GIF Display</h1>
+                            <div class="welcome-project-blurb">A personal favorite of mine, this project pulls GIFs from Reddit and then displays them on a custom RPi powered device I created.<br><br>The process is fully automated, pulling in ~300 new GIFs daily, and requires very little maintenance.</div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, CSS, JavaScript, Flask, Linux</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/gif_display">View Project</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="welcome-project dark-blue">
+                            <div class="project-image-wrapper">
+                                <img class="welcome-project-image" src="/static/images/cstools.jpg" alt="Tyler Kershner">
+                            </div>
+                            <h1 class="welcome-project-title">CSTools</h1>
+                            <div class="welcome-project-blurb">A collection of applications directly related to my current day-job.<br><br>These are simple solutions that help speed up and standardize many of the repeatable tasks my department is responsible for.  The suite is a big hit at the office!</div>
+                            <div class="tech-used">
+                                <div class="tech-used-header">Technologies Used</div>
+                                <div class="tech-used-list">Python, CSS, Twitter Bootstrap, Flask</div>
+                            </div>
+                            <div class="welcome-project-button animate"><a href="/cstools-project">View Project</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <i id="projects-arrow" class="fa fa-chevron-down fa-5x animate"></i>
+            </div>
+
+             <div id="welcome-contact">
+                <span class="welcome-header contact">Contact Me</span>
+                <hr class="hr contact-hr">
+
+                <div id="contact-form">
+                    <div id="notification"></div>
+
+                    <div id="contact-blurb">
+                        <span>Have some feedback or a project for me?</span>
+                    </div>
+
+                    <input type="text" placeholder="Subject" id="subject" class="animate" name="Subject">
+                    <textarea rows="4" cols="50" id="body" class="animate" placeholder="Body"></textarea>
+                    <div id="submit" class="animate">Submit</div>
+                </div>
+            </div>
+
+            <div id="footer">
+                <div id="footer-title">Tyler Kershner</div>
+
+                <div id="footer-links">
+                    <div class="icon-link">
+                        <a href="mailto:tylerkershner@gmail.com">
+                            <i class="fa fa-paper-plane fa-3x animate"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+
+                    <div class="icon-link">
+                        <a href="http://github.com/kershner/">
+                            <i class="fa fa-github fa-3x animate"></i>
+                            <span>Github</span>
+                        </a>
+                    </div>
+
+                    <div id="footer-nav">
+                        <a href="/" class="animate"><span>BLOG</span></a>
+                        <a href="/projects" class="animate"><span>PROJECTS</span></a>
+                        <a href="/about" class="animate"><span>ABOUT ME</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScripts -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/static/js/masonry.min.js"></script>
+        <script type="text/javascript" src="/static/slick/slick.min.js"></script>
+        <script type="text/javascript" src="/static/blog_welcome/js/jquery.waypoints.js"></script>
+        <script type="text/javascript" src="/static/blog_welcome/js/blog_welcome.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                welcomeBlog();
+            });
+        </script>
+    </body>
+</html>
