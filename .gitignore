@@ -62,9 +62,9 @@ Bootstrap/
 jquery.hoverGrid.css
 rainbow.css
 app/static/'GIF Party Menu'/
-css/component.css
-css/default.css
-js/jquery.dlmenu.js
+component.css
+default.css
+jquery.dlmenu.js
 js/modernizr.custom.js
 slick/
 countUp.min.js
