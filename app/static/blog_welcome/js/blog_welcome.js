@@ -10,6 +10,7 @@ function welcomeBlog() {
 	masonry();
 }
 
+// Called by blinkingArrow(), animates element's opacity
 function checkOpacity(element) {
 	var opacity = $(element).css('opacity');
 	if (opacity === '0.5') {
@@ -19,6 +20,7 @@ function checkOpacity(element) {
 	}
 }
 
+// Called by waypoints(), alters color of some HTML elements
 function changeTheme(backgroundColor) {
 	if (backgroundColor === '#FFC761') {
 		var secondColor = '#1B4080';
@@ -40,22 +42,7 @@ function blinkingArrow() {
 	}, 800);
 }
 
-function clickArrows() {
-	$('#arrow').on('click', function() {
-		console.log('Clicked first arrow');
-		$('html, body').animate({
-			scrollTop: $('#welcome-projects').offset().top
-		}, 800);
-	});
-
-	$('#projects-arrow').on('click', function() {
-		console.log('Clicked second arrow');
-		$('html, body').animate({
-			scrollTop: $('#welcome-contact').offset().top
-		}, 800);
-	});
-}
-
+// Calls changeTheme() when scrolled to certain divs
 function waypoints() {
 	// Scrolling up
 	var welcomeMain = new Waypoint ({
@@ -93,6 +80,22 @@ function waypoints() {
 	});
 }
 
+// Controls fixed scrolling when nav arrows clicked
+function clickArrows() {
+	$('#arrow').on('click', function() {
+		$('html, body').animate({
+			scrollTop: $('#welcome-projects').offset().top
+		}, 800);
+	});
+
+	$('#projects-arrow').on('click', function() {
+		$('html, body').animate({
+			scrollTop: $('#welcome-contact').offset().top
+		}, 800);
+	});
+}
+
+// Controls action when 'top' arrow is clicked
 function toTop() {
 	$('.up-arrow').on('click', function() {
 		$(this).stop().fadeOut(400);
@@ -102,6 +105,7 @@ function toTop() {
 	});
 }
 
+// Initializes the slick.js image carousel
 function initSlick() {
 	$('.slick-images').slick({
 		focusOnSelect: true,
@@ -118,10 +122,10 @@ function initSlick() {
 		lazyLoad: 'progressive',
 		responsive: [
 		{
-			breakpoint: 1200,
+			breakpoint: 1300,
 			settings: {
-			slidesToShow: 4,
-			slidesToScroll: 4
+			slidesToShow: 3,
+			slidesToScroll: 3
 		}
 			},
 		{
@@ -132,7 +136,7 @@ function initSlick() {
 		}
 			},
 		{
-			breakpoint: 600,
+			breakpoint: 700,
 			settings: {
 			slidesToShow: 1,
 			slidesToScroll: 1
@@ -142,6 +146,7 @@ function initSlick() {
 	});
 }
 
+// Logic to control contact form
 function sendEmail() {
 	$('#submit').on('click', function() {
 		var email = 'tylerkershner@gmail.com';
@@ -160,6 +165,7 @@ function sendEmail() {
 	});
 }
 
+// Fades in div with error messages related to contact form
 function showNotification(message) {
 	$('#notification').empty();
 	var html = '<span>' + message + '</span>'
@@ -170,6 +176,7 @@ function showNotification(message) {
 	}, 2000);
 }
 
+// Fades out carousel, fades in image grid when icon clicked
 function grid() {
 	var clicked = false;
 	$('#grid-select').on('click', function() {
@@ -197,6 +204,7 @@ function grid() {
 	});
 }
 
+// Controls loading in/out of images for main image circle
 function imageRotation() {
 	var counter = 0;
 	var images = [
@@ -215,6 +223,7 @@ function imageRotation() {
 	}, 8000);
 }
 
+// Called by imageRotation()
 function swapImage(url) {
 	$('#welcome-picture').fadeOut(600, 'linear', function() {
 		$(this).remove();
@@ -224,6 +233,7 @@ function swapImage(url) {
 	});
 }
 
+// Initializes masonry grid
 function masonry() {
 	$('#projects-grid').masonry({
 		itemSelector: '.project-grid',

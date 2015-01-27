@@ -6,14 +6,6 @@
 		font-size: 13vw !important;
 	}
 
-	#nav a {
-		font-size: 4vh !important;
-	}
-
-	#nav a:hover {
-		font-size: 5vw !important;
-	}
-
 	#welcome-greeting {
 		font-size: 10vw !important;
 	}
@@ -48,14 +40,6 @@
 @media (min-width: 650px) {	
 	#welcome-logo {
 		font-size: 9vh !important;
-	}
-
-	#nav a {
-		font-size: 4vh !important;
-	}
-
-	#nav a:hover {
-		font-size: 4.5vh !important;
 	}
 
 	#welcome-greeting {
@@ -178,14 +162,13 @@ body {
 	padding: 5px;
 	border-bottom: 4px solid transparent;
 	color: white;
-	font-size: 4vh;
+	font-size: 3vh;
 	text-decoration: none;
 	text-shadow: 1px 1px 3px #000;
 }
 
 #nav a:hover {
 	border-bottom: 4px solid white;
-	font-size: 4.5vh;	
 }
 
 .image-wrapper {
@@ -261,11 +244,11 @@ body {
 }
 
 .up-arrow {
+	display: none;
 	position: fixed;	
 	z-index: 5;
 	bottom: 0;
 	right: 1vw;
-	opacity: 0.40;
 	text-shadow: 1px 1px 3px #000;
 }
 
