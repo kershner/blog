@@ -65,7 +65,7 @@ app/static/'GIF Party Menu'/
 component.css
 default.css
 jquery.dlmenu.js
-js/modernizr.custom.js
+modernizr.custom.js
 slick/
 countUp.min.js
 hamburger.js
