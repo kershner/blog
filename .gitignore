@@ -53,5 +53,39 @@ coverage.xml
 docs/_build/
 
 # Pi Display Files
-*_to_play.txt
-pi_display_config.txt
+templates/pi_display/logs/
+
+# Bootstrap
+Bootstrap/
+
+# Various JS libraries/CSS
+jquery.hoverGrid.css
+rainbow.css
+"GIF Party Menu"/
+slick/
+countUp.min.js
+hamburger.js
+imagesloaded.min.js
+imgcentering.min.js
+jquery.customSelect.min.js
+jquery.hoverGrid.js
+masonry.min.js
+rainbow-custom.min.js
+randomColor.js
+rangyInputs.js
+jquery.waypoints.js
+Chart.min.js
+jquery-ui.min.js
+parallax-navbar.js
+
+# Distribution Folder
+distribute/
+
+# Documents for CSTools
+documents/
+
+# Images
+images/
+
+# Database scripts not written by me
+database/
