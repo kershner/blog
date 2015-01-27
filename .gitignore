@@ -53,7 +53,7 @@ coverage.xml
 docs/_build/
 
 # Pi Display Files
-templates/pi_display/logs/
+app/templates/pi_display/logs/
 
 # Bootstrap
 Bootstrap/
@@ -61,7 +61,7 @@ Bootstrap/
 # Various JS libraries/CSS
 jquery.hoverGrid.css
 rainbow.css
-"GIF Party Menu"/
+'GIF Party Menu'/
 slick/
 countUp.min.js
 hamburger.js
@@ -89,3 +89,6 @@ images/
 
 # Database scripts not written by me
 database/
+
+# README
+README.md
