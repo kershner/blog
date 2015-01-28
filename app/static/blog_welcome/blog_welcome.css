@@ -33,6 +33,20 @@
 	#contact-blurb span {
 		margin-top: 3.50vw !important;
 		font-size: 3vw !important;
+	}	
+
+	#notification {
+		height: 85% !important;
+	}
+
+	#notification span {
+		font-size: 2vh !important;
+	}
+}
+
+@media (min-width: 570px) {
+	#projects-grid {
+		margin-top: 8vh !important;
 	}
 }
 
@@ -53,6 +67,10 @@
 
 	#welcome-blurbs span {
 		margin: 3vh auto !important;
+	}
+
+	#projects-grid {
+		margin-top: 0 !important;
 	}
 
 	.project-grid {
@@ -84,10 +102,6 @@
 	#contact-blurb span {
 		margin-top: 4vh !important;
 		font-size: 2.75vh !important;
-	}
-
-	#notification span {
-		font-size: 2vh !important;
 	}
 }
 
@@ -571,19 +585,21 @@ body {
 
 #notification {
 	position: absolute;
+	top: -6vh;
 	left: 0;
 	right: 0;
 	display: none;	
 	margin: 0 auto;
-	padding-top: 1.50vh;
+	padding-top: 1vh;
 	width: 90%;
 	height: 4vh;
 	max-width: 700px;
 	max-height: 4vh;
 	background-color: #1655BF;
-	color: white;
-	font-size: 1.75vh;
 	text-align: center;
+	color: white;
+	font-size: 1.5vh;
+	text-shadow: 1px 1px 3px #000;	
 }
 
 #contact-form {
@@ -627,11 +643,34 @@ input, textarea {
 }
 
 /* Input Placeholder Text */
-::-ms-input-placeholder, ::-moz-placeholder,
-:-moz-placeholder, ::-webkit-input-placeholder {
+::-ms-input-placeholder {
+    position: relative;
+    left: 1vh;
+    top: 1vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+::-moz-placeholder {
+	position: relative;	
+    left: 1vh;
+    top: 1vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+:-moz-placeholder {
+	position: relative;
+    top: 1vh;
+    font-size: 2.5vh;
+    color: white;
+}
+
+::-webkit-input-placeholder {
    position: relative;
+   left: 1vh;
    top: 1vh;
-   font-size: 5vh;
+   font-size: 2.5vh;
    color: white;
 }
 
@@ -647,12 +686,16 @@ input, textarea {
 
 #subject {
 	padding-bottom: 1vh;
-	height: 4.5vh;	
+	height: 4.5vh;
+	line-height: 4.5vh;
 }
 
 #body {
-	overflow: hidden;
+	overflow: auto;
+	overflow-x: hidden;
 	height: 20vh;
+	max-width: 100%;
+	line-height: 2vh;
 }
 
 #subject:hover, #body:hover,
@@ -665,7 +708,7 @@ input, textarea {
 	height: 4vh;
 	line-height: 4vh;
 	background-color: #FA3346;
-	border: .75vh solid white;
+	border-bottom: .25vh solid white;
 	text-align: center;
 	color: white;
 	font-size: 2.5vh;
@@ -677,7 +720,7 @@ input, textarea {
 #submit:hover {
 	cursor: pointer;
 	background-color: #5D89D4;
-	border: .75vh solid transparent;
+	border-bottom: .25vh solid transparent;
 }
 
 #footer {

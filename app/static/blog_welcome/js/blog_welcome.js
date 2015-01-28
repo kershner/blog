@@ -6,7 +6,6 @@ function welcomeBlog() {
 	initSlick();
 	sendEmail();
 	grid();
-	imageRotation();
 	masonry();
 }
 
@@ -201,35 +200,6 @@ function grid() {
 			});
 			$(this).addClass('grid-selected');
 		}
-	});
-}
-
-// Controls loading in/out of images for main image circle
-function imageRotation() {
-	var counter = 0;
-	var images = [
-		'http://www.kershner.org/static/images/bacon1.jpg',
-		'http://www.kershner.org/static/images/bacon3.jpg',
-		'http://www.kershner.org/static/images/bacon4.jpg'
-	];
-
-	setInterval(function() {
-		if (counter >= images.length) {
-			counter = 0;
-		} else {
-			swapImage(images[counter]);
-			counter += 1
-		}
-	}, 8000);
-}
-
-// Called by imageRotation()
-function swapImage(url) {
-	$('#welcome-picture').fadeOut(600, 'linear', function() {
-		$(this).remove();
-		var html = '<img style="display: none;" id="welcome-picture" src="' + url + '">';
-		$('#welcome-main > .image-wrapper').append(html);
-		$('#welcome-picture').fadeIn(600, 'linear');
 	});
 }
 
