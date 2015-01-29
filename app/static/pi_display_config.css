@@ -123,7 +123,7 @@ a:hover {
 	text-align: right;
 }
 
-#settings-button, #save-button {
+#settings-button, #save-button, #prev-button {
 	position: absolute;
 	z-index: 5;
 	top: 10px;
@@ -133,7 +133,7 @@ a:hover {
 	text-shadow: 1px 1px 3px #000;
 }
 
-#settings-button:hover, #save-button:hover {
+#settings-button:hover, #save-button:hover, #prev-button:hover {
 	cursor: pointer;
 	color: #177adb;
 	opacity: 1.0;
@@ -142,6 +142,11 @@ a:hover {
 #save-button {
 	top: 70px;
 	left: 18px;
+}
+
+#prev-button {
+	top: 110px;
+	left: 15px;
 }
 
 /* Saved GIFs div */

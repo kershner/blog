@@ -560,6 +560,11 @@ def public_cms_delete(unique_id):
         return redirect(url_for('public_cms'))
 
 
+@app.route('/welcome')
+def welcome():
+    return render_template('/blog/welcome.html')
+
+
 @app.route('/about')
 def about():
     return render_template('/blog/about.html',
@@ -651,8 +656,7 @@ def warning():
 
 
 ##############################################################################
-# Pi Display
-##############################################################################
+# Pi Display #################################################################
 @app.route('/pi_display')
 def pi_display():
     return render_template('/pi_display/pi_display.html')
@@ -662,15 +666,13 @@ def pi_display():
 def pi_display_json():
     path = '/home/tylerkershner/app/templates/pi_display/logs'
 
+    # Open config file, grab variables from it
     with open('%s/pi_display_config.txt' % path, 'r') as config_file:
         config = list(config_file)
 
     category = config[0][:config[0].find('\n')]
     delay = config[2][:config[2].find('\n')]
     filename = category + '_urls.txt'
-    print category
-    print delay
-    print filename
     toplay_filename = category + '_urls_to_play.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
@@ -695,7 +697,7 @@ def pi_display_json():
         config_file.write('%s' % gif_url)
         config_file.write(config[2])
 
-    # Opening/closing to_play_urls.txt (taking advantage of side effect to erase contents)
+    # Open/close to_play_urls.txt (taking advantage of side effect to erase contents)
     open('%s/%s' % (path, toplay_filename), 'w').close()
 
     # Rewrite to_play.txt without current gif URL (won't play twice)
@@ -708,22 +710,22 @@ def pi_display_json():
             else:
                 urls_to_play.write(entry)
 
+    # Add currently playing GIF to last_played file
     with open('%s/last_played.txt' % path, 'a+') as f:
         f.write(gif_url)
 
     delay = str(delay) + '000'
 
-    obj = {
+    data = {
         "URL": gif_url,
         "delay": delay
     }
 
-    return jsonify(obj)
+    return jsonify(data)
 
 
 ##############################################################################
-# Pi Display Config
-##############################################################################
+# Pi Display Config ##########################################################
 @app.route('/pi_display_config')
 def pi_display_config():
     session['prev'] = -1
@@ -758,7 +760,7 @@ def pi_display_config():
     current_gif = config[1][:config[1].find('\n')]
     delay = config[2][:config[2].find('\n')]
 
-    return render_template("/pi_display/pi_display_config.html",
+    return render_template('/pi_display/pi_display_config.html',
                            current_gif=current_gif,
                            main_urls_count=main_urls_count,
                            animals_urls_count=animals_urls_count,
@@ -923,11 +925,10 @@ def email_gifs():
 
 
 ##############################################################################
-# Gif Party
+# Gif Party ##################################################################
 @app.route('/gif_party')
 def gif_party_welcome():
     path = '/home/tylerkershner/app/templates/gif_party'
-
     filename = 'welcome_urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
@@ -943,7 +944,6 @@ def gif_party_welcome():
 @app.route('/gif_party_about')
 def gif_party_about():
     path = '/home/tylerkershner/app/templates/gif_party'
-
     filename = 'welcome_urls.txt'
 
     with open('%s/%s' % (path, filename), 'r') as urls_file:
@@ -1051,10 +1051,10 @@ def gif_party_json():
         urls.append(choice)
 
     data = {
-        "URLs": urls,
-        "number": number,
-        "delay": delay,
-        "category": category
+        'URLs': urls,
+        'number': number,
+        'delay': delay,
+        'category': category
     }
 
     return jsonify(data)
@@ -1120,7 +1120,7 @@ def gif_party_json_5():
     session['number'] = 5
 
     data = {
-        "number": session['number']
+        'number': session['number']
     }
 
     return jsonify(data)
@@ -1131,7 +1131,7 @@ def gif_party_json_10():
     session['number'] = 10
 
     data = {
-        "number": session['number']
+        'number': session['number']
     }
 
     return jsonify(data)
@@ -1142,7 +1142,7 @@ def gif_party_json_20():
     session['number'] = 20
 
     data = {
-        "number": session['number']
+        'number': session['number']
     }
 
     return jsonify(data)
@@ -1155,7 +1155,7 @@ def gif_party_json_delay():
     session['delay'] = delay
 
     data = {
-        "delay": session['delay']
+        'delay': session['delay']
     }
 
     return jsonify(data)
@@ -1168,7 +1168,7 @@ class GetClass(object):
         self.count = count
         self.color = color
 
-    # Simple logic to determine what color (CSS class) the elements will be
+    # Logic to determine what color (CSS class) the elements will be
     def get_color(self):
         if self.count == 1:
             self.color = 'purple'
@@ -1195,8 +1195,8 @@ get_class_well = GetClass(1, 'blue')
 
 @app.route('/cstools')
 def cstools():
-    return render_template("/cstools/index.html",
-                           title="Home")
+    return render_template('/cstools/index.html',
+                           title='Home')
 
 
 @app.route('/cstools/datechecker', methods=['GET', 'POST'])
@@ -1204,36 +1204,36 @@ def datechecker():
     form = DateCheckerForm()
     if request.method == 'POST':
         if not form.validate():
-            return render_template("/cstools/datechecker.html",
-                                   title="222 Form Date Checker",
+            return render_template('/cstools/datechecker.html',
+                                   title='222 Form Date Checker',
                                    form=form)
         else:
             try:
                 form_date = form.form_date.data
                 date_object = datetime.date(datetime.strptime(form_date, '%m/%d/%y'))
                 form_expiry_date = date_object + timedelta(days=60)
-                form_expiry_date_nice = "%s %s" % (str(form_expiry_date.strftime("%B")), str(form_expiry_date.day))
+                form_expiry_date_nice = '%s %s' % (str(form_expiry_date.strftime('%B')), str(form_expiry_date.day))
                 days_expired = datetime.today().date() - form_expiry_date
                 if form_expiry_date > datetime.today().date():
-                    message = "The form is valid until %s,  %s days from now." % \
+                    message = 'The form is valid until %s,  %s days from now.' % \
                               (form_expiry_date_nice, str(abs(days_expired.days)))
                 else:
-                    message = "The form expired on %s, %s days ago." % \
+                    message = 'The form expired on %s, %s days ago.' % \
                               (str(form_expiry_date_nice), str(days_expired.days))
 
-                return render_template("/cstools/datechecker.html",
+                return render_template('/cstools/datechecker.html',
                                        title="222 Form Date Checker",
                                        form=form,
                                        message=message)
             except ValueError:
-                message = "Enter the form's issue date in the format MM/DD/YY."
-                return render_template("/cstools/datechecker.html",
-                                       title="222 Form Date Checker",
+                message = 'Enter the form\'s issue date in the format MM/DD/YY.'
+                return render_template('/cstools/datechecker.html',
+                                       title='222 Form Date Checker',
                                        form=form,
                                        message=message)
     elif request.method == 'GET':
-        return render_template("/cstools/datechecker.html",
-                               title="222 Form Date Checker",
+        return render_template('/cstools/datechecker.html',
+                               title='222 Form Date Checker',
                                form=form)
 
 
@@ -1246,31 +1246,31 @@ def backorder():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/backorder.html",
-                                   title="Backorder Template",
+            return render_template('/cstools/backorder.html',
+                                   title='Backorder Template',
                                    form=form,
                                    color=color)
         else:
             email = form.email.data
-            subject = "Cayman Chemical Backorder Notification %s" % form.po.data
-            body = "Hello %s,\n\nUnfortunately we need to inform you that one "\
-                   "of your items is currently not available.  Item # %s is " \
-                   "in production with an approximate lead time of %s." % \
+            subject = 'Cayman Chemical Backorder Notification %s' % form.po.data
+            body = 'Hello %s,\n\nUnfortunately we need to inform you that one '\
+                   'of your items is currently not available.  Item # %s is ' \
+                   'in production with an approximate lead time of %s.' % \
                    (form.name.data, form.item_number.data, form.lead_time.data)
-            signoff = "\n\nI apologize for the inconvenience.  Let me know if you have any questions." \
-                      "\n\nHave a great day,\n\n"
+            signoff = '\n\nI apologize for the inconvenience.  Let me know if you have any questions.' \
+                      '\n\nHave a great day,\n\n'
             body += signoff
 
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/backorder.html",
-                                   title="Backorder Template",
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/backorder.html',
+                                   title='Backorder Template',
                                    link=link,
                                    form=form,
                                    color=color)
 
     elif request.method == 'GET':
-        return render_template("/cstools/backorder.html",
-                               title="Backorder Template",
+        return render_template('/cstools/backorder.html',
+                               title='Backorder Template',
                                form=form,
                                color=color)
 
@@ -1284,25 +1284,25 @@ def backorder_report():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/backorder-report.html",
-                                   title="Backorder Report Template",
+            return render_template('/cstools/backorder-report.html',
+                                   title='Backorder Report Template',
                                    form=form,
                                    color=color)
         else:
             name = form.name.data
             email = form.email.data
-            subject = "Cayman Chemical Backorder Report"
-            body = "Hello %s,\n\nAttached find an updated copy of your institution's backorder report.\n\n" \
-                   "Please let me know if you have any questions.\n\n" % name
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/backorder-report.html",
-                                   title="Backorder Report Template",
+            subject = 'Cayman Chemical Backorder Report'
+            body = 'Hello %s,\n\nAttached find an updated copy of your institution\'s backorder report.\n\n' \
+                   'Please let me know if you have any questions.\n\n' % name
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/backorder-report.html',
+                                   title='Backorder Report Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/backorder-report.html",
-                               title="Backorder Report Template",
+        return render_template('/cstools/backorder-report.html',
+                               title='Backorder Report Template',
                                form=form,
                                color=color)
 
@@ -1316,27 +1316,27 @@ def application():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/application.html",
-                                   title="Account Application Template",
+            return render_template('/cstools/application.html',
+                                   title='Account Application Template',
                                    form=form,
                                    color=color)
         else:
             name = form.name.data
             email = form.email.data
-            subject = "Cayman Chemical Account Application"
-            body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order " \
-                   "processed and your items shipped you will need to establish an account with our company.  I have " \
-                   "attached our customer account application which has all the instructions you will need, " \
-                   "though please don't hesitate to call if you have any questions.\n\n" % name
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/application.html",
-                                   title="Account Application Template",
+            subject = 'Cayman Chemical Account Application'
+            body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order ' \
+                   'processed and your items shipped you will need to establish an account with our company.  I have ' \
+                   'attached our customer account application which has all the instructions you will need, ' \
+                   'though please don\'t hesitate to call if you have any questions.\n\n' % name
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/application.html',
+                                   title='Account Application Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/application.html",
-                               title="Account Application Template",
+        return render_template('/cstools/application.html',
+                               title='Account Application Template',
                                form=form,
                                color=color)
 
@@ -1350,29 +1350,30 @@ def dea():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/dea.html",
-                                   title="DEA Protocol Template",
+            return render_template('/cstools/dea.html',
+                                   title='DEA Protocol Template',
                                    form=form,
                                    color=color)
         else:
             name = form.name.data
             email = form.email.data
             items = form.dea_items.data
-            subject = "Cayman Chemical DEA Scheduled Compounds Protocol"
-            body = "Hello %s,\n\nThank you for your order with Cayman Chemical!  This is an email to inform you " \
-                   "that the following item(s) are DEA scheduled compounds and as such will require additional " \
-                   "paperwork before they can be processed: %s.  Attached please find the Cayman Chemical " \
-                   "protocol for ordering scheduled compounds as well as a guide for filling out the required 222 " \
-                   "form.\n\nIf you have any questions, please don't hesitate to ask.\n\nThank you,\n\n" % (name, items)
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/dea.html",
-                                   title="DEA Protocol Template",
+            subject = 'Cayman Chemical DEA Scheduled Compounds Protocol'
+            body = 'Hello %s,\n\nThank you for your order with Cayman Chemical!  This is an email to inform you ' \
+                   'that the following item(s) are DEA scheduled compounds and as such will require additional ' \
+                   'paperwork before they can be processed: %s.  Attached please find the Cayman Chemical ' \
+                   'protocol for ordering scheduled compounds as well as a guide for filling out the required 222 ' \
+                   'form.\n\nIf you have any questions, please don\'t hesitate to ask.\n\nThank you,\n\n' % \
+                   (name, items)
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/dea.html',
+                                   title='DEA Protocol Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/dea.html",
-                               title="DEA Protocol Template",
+        return render_template('/cstools/dea.html',
+                               title='DEA Protocol Template',
                                form=form,
                                color=color)
 
@@ -1386,41 +1387,41 @@ def newaccount():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/newaccount.html",
-                                   title="New Account Template",
+            return render_template('/cstools/newaccount.html',
+                                   title='New Account Template',
                                    form=form,
                                    color=color)
         else:
             name = form.name.data
             acct_number = form.acct.data
             email = form.email.data
-            subject = "New Account with Cayman Chemical"
+            subject = 'New Account with Cayman Chemical'
 
             if form.net30.data:
-                body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A net 30 term account has been " \
-                       "established for you.  We accept Purchase Orders, Visa, MasterCard, Discover, American Express, checks, and bank " \
-                       "transfers.\n\nTo place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
-                       "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
-                       "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
-                       "business with you!\n\n" % (name, acct_number)
+                body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  A net 30 term account has been ' \
+                       'established for you.  We accept Purchase Orders, Visa, MasterCard, Discover, American Express, checks, and bank ' \
+                       'transfers.\n\nTo place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897' \
+                       '\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com' \
+                       '\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing ' \
+                       'business with you!\n\n' % (name, acct_number)
             else:
-                body = "Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been " \
-                       "established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank " \
-                       "transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo " \
-                       "place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897" \
-                       "\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com" \
-                       "\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing " \
-                       "business with you!\n\n" % (name, acct_number)
+                body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been ' \
+                       'established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank ' \
+                       'transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo ' \
+                       'place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897' \
+                       '\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com' \
+                       '\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing ' \
+                       'business with you!\n\n' % (name, acct_number)
 
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/newaccount.html",
-                                   title="New Account Template",
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/newaccount.html',
+                                   title='New Account Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/newaccount.html",
-                               title="New Account Template",
+        return render_template('/cstools/newaccount.html',
+                               title='New Account Template',
                                form=form,
                                color=color)
 
@@ -1434,33 +1435,33 @@ def shadyblurb():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/shadyblurb.html",
-                                   title="Shady Customer Blurb",
+            return render_template('/cstools/shadyblurb.html',
+                                   title='Shady Customer Blurb',
                                    form=form,
                                    color=color)
         else:
             email = form.email.data
             order_no = form.order_no.data
-            subject = "Cayman Chemical Web Order# %s" % order_no
-            body = "To whom it may concern,\n\nCayman Chemical is a biochemical company dedicated to providing " \
-                   "quality research grade material to pharmaceutical, academic, and medical institutions.  Our " \
-                   "products are manufactured at Cayman Chemical for research purposes only and are not approved by " \
-                   "the FDA for over-the-counter use in humans or animals as therapeutic agents.  If you can provide " \
-                   "details of the research institution you are affiliated with we may be able to proceed " \
-                   "with your order.  We do require that all new customers complete an account application that can " \
-                   "be provided to you once we receive the requested information about your institution.\n\nPlease " \
-                   "be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to " \
-                   "businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please " \
-                   "feel free to contact me if you have any questions.\n\nBest regards,\n\n"
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/shadyblurb.html",
-                                   title="Shady Customer Blurb",
+            subject = 'Cayman Chemical Web Order# %s' % order_no
+            body = 'To whom it may concern,\n\nCayman Chemical is a biochemical company dedicated to providing ' \
+                   'quality research grade material to pharmaceutical, academic, and medical institutions.  Our ' \
+                   'products are manufactured at Cayman Chemical for research purposes only and are not approved by ' \
+                   'the FDA for over-the-counter use in humans or animals as therapeutic agents.  If you can provide ' \
+                   'details of the research institution you are affiliated with we may be able to proceed ' \
+                   'with your order.  We do require that all new customers complete an account application that can ' \
+                   'be provided to you once we receive the requested information about your institution.\n\nPlease ' \
+                   'be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to ' \
+                   'businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please ' \
+                   'feel free to contact me if you have any questions.\n\nBest regards,\n\n'
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/shadyblurb.html',
+                                   title='Shady Customer Blurb',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/shadyblurb.html",
-                               title="Shady Customer Blurb",
+        return render_template('/cstools/shadyblurb.html',
+                               title='Shady Customer Blurb',
                                form=form,
                                color=color)
 
@@ -1474,28 +1475,28 @@ def price_discrepancy():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/pricediscrepancy.html",
-                                   title="Price Discrepancy Template",
+            return render_template('/cstools/pricediscrepancy.html',
+                                   title='Price Discrepancy Template',
                                    form=form,
                                    color=color)
         else:
             email = form.email.data
-            subject = "Cayman Chemical Price Discrepancy %s" % form.po.data
-            body = "Hello %s,\n\nWe have received your order but have a pricing discrepancy that needs to be " \
-                   "resolved before we can ship any items.  For item #%s you reference a price of $%s but the " \
-                   "item's actual cost is $%s.  Please confirm whether we should process or cancel the item.\n\n" \
-                   "Please let me know if you have any questions,\n\n" % \
+            subject = 'Cayman Chemical Price Discrepancy %s' % form.po.data
+            body = 'Hello %s,\n\nWe have received your order but have a pricing discrepancy that needs to be ' \
+                   'resolved before we can ship any items.  For item #%s you reference a price of $%s but the ' \
+                   'item\'s actual cost is $%s.  Please confirm whether we should process or cancel the item.\n\n' \
+                   'Please let me know if you have any questions,\n\n' % \
                    (form.name.data, form.item_number.data, form.given_price.data, form.actual_price.data)
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/pricediscrepancy.html",
-                                   title="Price Discrepancy Template",
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/pricediscrepancy.html',
+                                   title='Price Discrepancy Template',
                                    link=link,
                                    form=form,
                                    color=color)
 
     elif request.method == 'GET':
-        return render_template("/cstools/pricediscrepancy.html",
-                               title="Price Discrepancy Template",
+        return render_template('/cstools/pricediscrepancy.html',
+                               title='Price Discrepancy Template',
                                form=form,
                                color=color)
 
@@ -1509,8 +1510,8 @@ def still_need():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/stillneed.html",
-                                   title="Still Need Item? Template",
+            return render_template('/cstools/stillneed.html',
+                                   title='Still Need Item? Template',
                                    form=form,
                                    color=color)
         else:
@@ -1518,20 +1519,20 @@ def still_need():
             email = form.email.data
             item = form.item_number.data
             order_no = form.order_no.data
-            subject = "Regarding your Cayman Chemical Order %s" % order_no
-            body = "Hello %s,\n\nYour order for item #%s is now available and ready to ship!  Since the item has " \
-                   "been on a lengthy backorder we're sending this email to verify that you still need the item and " \
-                   "would like it to be shipped as soon as possible.  Please let me know how you would like " \
-                   "to proceed.\n\n" % (name, item)
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/stillneed.html",
-                                   title="Still Need Item? Template",
+            subject = 'Regarding your Cayman Chemical Order %s' % order_no
+            body = 'Hello %s,\n\nYour order for item #%s is now available and ready to ship!  Since the item has ' \
+                   'been on a lengthy backorder we\'re sending this email to verify that you still need the item and ' \
+                   'would like it to be shipped as soon as possible.  Please let me know how you would like ' \
+                   'to proceed.\n\n' % (name, item)
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/stillneed.html',
+                                   title='Still Need Item? Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/stillneed.html",
-                               title="Still Need Item? Template",
+        return render_template('/cstools/stillneed.html',
+                               title='Still Need Item? Template',
                                form=form,
                                color=color)
 
@@ -1545,28 +1546,28 @@ def license_needed():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/licenseneeded.html",
-                                   title="DEA License Needed Template",
+            return render_template('/cstools/licenseneeded.html',
+                                   title='DEA License Needed Template',
                                    form=form,
                                    color=color)
         else:
             name = form.name.data
             email = form.email.data
             order_no = form.order_no.data
-            subject = "DEA License Still Needed Order #%s" % order_no
-            body = "Hello %s,\n\nWe have received your 222 form but we still need an updated copy of your DEA " \
-                   "registration before the order can be processed.  Unlike the 222 form, the registration does not " \
-                   "need to be an original - you can simply scan your license and email it to me.  Please send us " \
-                   "your license as soon as possible to ensure prompt delivery of your order.\n\n" % name
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/licenseneeded.html",
-                                   title="DEA License Needed Template",
+            subject = 'DEA License Still Needed Order #%s' % order_no
+            body = 'Hello %s,\n\nWe have received your 222 form but we still need an updated copy of your DEA ' \
+                   'registration before the order can be processed.  Unlike the 222 form, the registration does not ' \
+                   'need to be an original - you can simply scan your license and email it to me.  Please send us ' \
+                   'your license as soon as possible to ensure prompt delivery of your order.\n\n' % name
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/licenseneeded.html',
+                                   title='DEA License Needed Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/licenseneeded.html",
-                               title="DEA License Needed Template",
+        return render_template('/cstools/licenseneeded.html',
+                               title='DEA License Needed Template',
                                form=form,
                                color=color)
 
@@ -1580,25 +1581,25 @@ def dea_verify():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template("/cstools/deaverify.html",
-                                   title="DEA Documents Verification Template",
+            return render_template('/cstools/deaverify.html',
+                                   title='DEA Documents Verification Template',
                                    form=form,
                                    color=color)
         else:
-            email = "Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com"
+            email = 'Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com'
             order_no = form.order_no.data
             institution = form.institution.data
-            subject = "%s / %s" % (order_no, institution)
-            body = "Hello,\n\nPlease verify these documents.\n\n"
-            link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-            return render_template("/cstools/deaverify.html",
-                                   title="DEA Documents Verification Template",
+            subject = '%s / %s' % (order_no, institution)
+            body = 'Hello,\n\nPlease verify these documents.\n\n'
+            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            return render_template('/cstools/deaverify.html',
+                                   title='DEA Documents Verification Template',
                                    link=link,
                                    form=form,
                                    color=color)
     elif request.method == 'GET':
-        return render_template("/cstools/deaverify.html",
-                               title="DEA Documents Verification Template",
+        return render_template('/cstools/deaverify.html',
+                               title='DEA Documents Verification Template',
                                form=form,
                                color=color)
 
@@ -1647,8 +1648,8 @@ def forms_without_orders():
         if not form.validate():
             entries = models.Entry.query.all()
             flash('All fields are required.')
-            return render_template("/cstools/forms_without_orders.html",
-                                   title="DEA Forms Without Orders",
+            return render_template('/cstools/forms_without_orders.html',
+                                   title='DEA Forms Without Orders',
                                    form=form,
                                    entries=entries,
                                    new_entry=True)
@@ -1681,14 +1682,14 @@ def forms_without_orders():
 
             message = 'Successfully added entry for %s.' % institution
 
-            return render_template("/cstools/forms_without_orders.html",
-                                   title="DEA Forms Without Orders",
+            return render_template('/cstools/forms_without_orders.html',
+                                   title='DEA Forms Without Orders',
                                    entries=entries,
                                    message=message)
     elif request.method == 'GET':
         entries = models.Entry.query.all()
-        return render_template("/cstools/forms_without_orders.html",
-                               title="DEA Forms Without Orders",
+        return render_template('/cstools/forms_without_orders.html',
+                               title='DEA Forms Without Orders',
                                entries=entries)
 
 
@@ -1697,8 +1698,8 @@ def forms_without_orders():
 def new_entry():
     form = DeaForms()
     entries = models.Entry.query.all()
-    return render_template("/cstools/forms_without_orders.html",
-                           title="DEA Forms Without Orders",
+    return render_template('/cstools/forms_without_orders.html',
+                           title='DEA Forms Without Orders',
                            form=form,
                            entries=entries,
                            new_entry=True)
@@ -1709,8 +1710,8 @@ def new_entry():
 def edit_entry(entry_id):
     entry = models.Entry.query.get(entry_id)
 
-    return render_template("/cstools/forms_without_orders_edit.html",
-                           title="DEA Forms Without Orders - Edit Entry",
+    return render_template('/cstools/forms_without_orders_edit.html',
+                           title='DEA Forms Without Orders - Edit Entry',
                            entry=entry)
 
 
@@ -1732,8 +1733,8 @@ def update_entry(entry_id):
         entries = models.Entry.query.all()
         message = 'The entry for %s has been updated.' % entry.institution
 
-        return render_template("/cstools/forms_without_orders.html",
-                               title="DEA Forms Without Orders",
+        return render_template('/cstools/forms_without_orders.html',
+                               title='DEA Forms Without Orders',
                                entries=entries,
                                message=message)
 
@@ -1744,8 +1745,8 @@ def update_entry(entry_id):
     form.notes.data = entry.notes
     form.csr_name.data = entry.csr_name
 
-    return render_template("/cstools/forms_without_orders_update.html",
-                           title="DEA Forms Without Orders - Update Entry",
+    return render_template('/cstools/forms_without_orders_update.html',
+                           title='DEA Forms Without Orders - Update Entry',
                            entry=entry,
                            form=form)
 
@@ -1760,16 +1761,16 @@ def delete_entry(entry_id):
 
     entries = models.Entry.query.all()
 
-    message = "Successfully deleted entry for %s." % entry.institution
+    message = 'Successfully deleted entry for %s.' % entry.institution
 
-    return render_template("/cstools/forms_without_orders.html",
-                           title="DEA Forms Without Orders",
+    return render_template('/cstools/forms_without_orders.html',
+                           title='DEA Forms Without Orders',
                            message=message,
                            entries=entries)
 
 
 ##############################################################################
-# Reddit Image Scraper
+# Reddit Image Scraper ######################################################
 @app.route('/scrape', methods=['GET', 'POST'])
 def scrape_home():
     form = RedditImageScraper()
@@ -1938,7 +1939,7 @@ def scrape():
 
 
 ##############################################################################
-# Campaign Demo Site
+# Campaign Demo Site #########################################################
 @app.route('/campaign')
 def campaign():
     return render_template('/campaign/home.html')
@@ -1981,11 +1982,11 @@ def article():
     article_snip = random.choice(articles)
 
     data = {
-        "title": article_snip[0],
-        "link": article_snip[1],
-        "author": article_snip[2],
-        "journal": article_snip[3],
-        "length": article_snip[4]
+        'title': article_snip[0],
+        'link': article_snip[1],
+        'author': article_snip[2],
+        'journal': article_snip[3],
+        'length': article_snip[4]
     }
 
     return jsonify(data)
@@ -2016,11 +2017,11 @@ def article2():
     article_snip = random.choice(articles)
 
     data = {
-        "title": article_snip[0],
-        "link": article_snip[1],
-        "author": article_snip[2],
-        "journal": article_snip[3],
-        "length": article_snip[4]
+        'title': article_snip[0],
+        'link': article_snip[1],
+        'author': article_snip[2],
+        'journal': article_snip[3],
+        'length': article_snip[4]
     }
 
     return jsonify(data)
@@ -2039,8 +2040,3 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
-
-
-@app.route('/welcome')
-def welcome():
-    return render_template('/blog/welcome.html')

@@ -165,7 +165,7 @@ function autoUpdate() {
 }
 
 function prevGif() {
-	$('#prev-gif').on('click', function() {
+	$('#prev-gif, #prev-button').on('click', function() {
 		$('#dynamic-image').remove();
 		$('#normal-image').remove();
 		$.getJSON($SCRIPT_ROOT + '/pi-display-config-prev', {
