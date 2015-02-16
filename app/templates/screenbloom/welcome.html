@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-US">
+    <head>
+        <link rel="icon" type="image/png" href="/static/images/screenbloom/favicon.ico">
+
+        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/screenbloom/screenbloom.css"/>
+
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+        <!-- jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+        <title>ScreenBloom</title>
+    </head>
+<body>
+    <div id="main-container" class="container">
+        <div id="welcome-section" class="container">
+            <div id="welcome-inner" class="container">
+                <div id="logo-container" class="container">
+                    <div id="logo" class="container box-shadow-animate">
+                        <h1 class="raleway">Screen</h1><h1 id="bloom" class="lobster color-animate">Bloom</h1>
+
+                        <span>Sync your Philips Hue lights to your PC screen in real time</span>
+                    </div>
+                </div>
+
+                <div id="buttons-container" class="container">
+                    <div id="download-button" class="button animate">Download</div>
+                    <div id="about-button" class="button animate">About</div>
+                    <div id="help-button" class="button animate">Help</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="download-section" class="container">
+            <div id="download-section-title" class="section-title lobster color-animate">Download</div>
+
+            <div id="download-inner" class="container">
+                <div id="version">
+                    <div id="version-left">
+                        <span class="version-blurb">Latest Version:</span>
+                        <span class="version-blurb">Released:</span>
+                    </div>
+
+                    <div id="version-right">
+                        <span class="version-value">0.80</span>
+                        <span class="version-value">February 2015</span>
+                    </div>
+                </div>
+
+                <div id="download-link" class="button background-color-animate">Get ScreenBloom</div>
+                <div id="download-size">7 MB</div>
+            </div>
+        </div>
+
+        <div id="about-section" class="container">
+            <div id="about-section-title" class="section-title lobster color-animate">About ScreenBloom</div>
+
+        </div>
+    </div>
+
+    <!-- JavaScripts -->
+    <script type="text/javascript" src="/static/screenbloom/js/jquery.waypoints.js"></script>
+    <script type="text/javascript" src="/static/screenbloom/js/randomColor.js"></script>
+    <script type="text/javascript" src="/static/screenbloom/js/screenbloom.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            screenBloom();
+        });
+    </script>
+</body>
+</html>

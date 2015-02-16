@@ -2040,3 +2040,9 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
+
+
+# ScreenBloom Site development ###################################
+@app.route('/screenbloom')
+def screenbloom():
+    return render_template('/screenbloom/welcome.html')
