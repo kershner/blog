@@ -2,7 +2,6 @@ body, html {
 	position: relative;
 	margin: 0;
 	width: 100%;
-	height: 100%;
 	overflow-x: hidden;
 	font-family: 'Open Sans', sans-serif;
 	background: url(../images/screenbloom/batthern.png);
@@ -71,10 +70,114 @@ body, html {
 	text-align: center;
 }
 
+.button {
+	display: inline-block;
+	margin: 1.25vh 1.5vw;
+	padding: 2.75vw;
+	width: 13vh;
+	font-size: 2.5vh;
+	border: .25vh solid black;
+	border-radius: .5vh;
+	box-shadow: 0 20px 15px -20px #000;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: #004d67;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+.section-title {
+	position: absolute;
+	padding: 1vh;
+	font-size: 3vh;
+	background-color: white;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#hidden-menu {
+	position: fixed;
+	z-index: 5;
+	height: 8%;
+	width: 100%;
+	background-color: rgba(0, 77, 103, 0.9);
+	box-shadow: 0 2px 5px #000;
+	opacity: 0;
+}
+
+#top {
+	position: fixed;
+	left: 1vh;
+	top: 2.25vh;
+	width: 3vh;
+	text-align: center;
+	color: white;
+	text-shadow: .5px .5px .5px #000;
+}
+
+#top:hover {
+	cursor: pointer;
+	color: red;
+}
+
+#top i {
+	font-size: 2vh;
+}
+
+#top span {
+	position: relative;
+	bottom: .25vh;
+	font-size: 1.25vh;
+}
+
+#hidden-logo {
+	position: fixed;
+	top: .1vh;
+	right: 1vh;
+	font-size: 3vh;
+	width: 18vh;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#hidden-nav {
+	position: fixed;
+	right: 1vh;
+	top: 3.5vh;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#hidden-nav span {
+	margin: 0 .5vh;
+	font-size: 1.75vh;
+}
+
+#hidden-nav span:hover {
+	cursor: pointer;
+	color: red;
+}
+
 #main-container {
+	position: relative;
 	background-color: white;
 	box-shadow: 1px 1px 15px 1px #000;	
-	width: 80%;
+	width: 95%;
 }
 
 #welcome-section {
@@ -89,8 +192,10 @@ body, html {
 }
 
 #logo {
-	padding: 2vw;
-	width: 60%;
+	padding: 5vw;
+	padding-top: 10vw;
+	padding-bottom: 10vw;
+	width: 85%;
 	border: 1.75vw solid black;
 	border-radius: 1vh;
 }
@@ -111,29 +216,12 @@ body, html {
 	margin-top: 7vw;
 }
 
-.button {
-	display: inline-block;
-	margin: 0 1.5vw;
-	padding: 2.75vw;
-	width: 10vw;
-	font-size: 2.25vw;
-	border: .25vh solid black;
-	border-radius: .5vh;
-	box-shadow: 0 20px 15px -20px #000;
-}
-
-.button:hover {
-	cursor: pointer;
-	background-color: #004d67;
-	color: white;
-	text-shadow: 1px 1px 3px #000;
-}
-
 @media (min-width: 1200px) {
 	#logo {
 		width: 80%;
-		padding: 5vh;
 		border: 2vh solid black;
+		padding-top: 10vw;
+		padding-bottom: 10vw;
 	}
 
 	#logo h1 {
@@ -161,14 +249,6 @@ body, html {
 		top: -4.5vh !important;
 		font-size: 5vh !important;
 	}
-
-	#version span {
-		font-size: 3.5vh;
-	}
-
-	#download-size {
-		font-size: 2.5vh;
-	}
 }
 
 #download-section {
@@ -177,13 +257,6 @@ body, html {
 	height: 60vh;
 	border-top: .5vh solid black;
 	border-radius: 1vh;
-}
-
-.section-title {
-	position: absolute;
-	padding: 1vh;
-	font-size: 3vh;
-	background-color: white;
 }
 
 #download-section-title {
@@ -195,52 +268,39 @@ body, html {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 60%;
-}
-
-#version {
-	margin: 0 auto;
-	width: 30vw;
-}
-
-#version-left {
-	margin: 0;
-	float: left;
-	text-align: right;
-}
-
-#version-right {
-	margin: 0;
-	float: right;
-	text-align: left;
-}
-
-#version span {
-	display: block;
-	font-size: 2vw;
-}
-
-.version-value {
-	font-style: italic;
 }
 
 #download-link {
+	margin: 0 auto;
 	margin-top: 5vh;
-	width: 60%;
+	width: 40vh;
 	color: white;
+	font-size: 3vh;
 	text-shadow: 1px 1px 3px #000;
 }
 
-#download-size {
+#download-link:hover {
+	box-shadow: 0 0 2vw .5vw #004d67;
+}
+
+.version {
+	display: inline-block;
+	margin: 0 .75vw;
+	font-size: 1.5vh;
+	text-shadow: .5px .5px .5px #000;
+}
+
+.download-size {
+	display: block;
 	margin: 0;
-	font-size: 2vw;
+	font-size: 2vh;
 }
 
 /* About Section ************************/
 #about-section {
 	position: relative;
 	margin: 5vh auto;
-	height: 60vh;
+	min-height: 60vh;
 	border-top: .5vh solid black;
 	border-radius: 1vh;
 }
@@ -253,6 +313,63 @@ body, html {
 
 @media (min-width: 1200px) {
 	#about-section-title {
+		top: -4.5vh !important;
+		font-size: 5vh;
+	}
+}
+
+#about-text {
+	position: relative;
+	margin-top: 8vh;
+	margin-bottom: 3vh;
+	width: 50vh;
+	font-size: 2vh;
+	text-align: justify;
+}
+
+#github-link {
+	display: block;
+	margin: 3vh auto;
+	text-align: center;
+	font-size: 1.5vh;
+}
+
+#github-link a {
+	display: block;
+	margin: 0 auto;
+	width: 10vh;
+	color: black;
+	font-size: 10vh;	
+	text-decoration: none;
+}
+
+#github-link a:hover {
+	color: #004d67;
+}
+
+.video {
+	display: inline-block;
+	margin: 0 auto;
+	width: 45%;
+}
+
+/* Support Section ***********/
+#support-section {
+	position: relative;
+	margin: 12vh auto;
+	min-height: 60vh;
+	border-top: .5vh solid black;
+	border-radius: 1vh;
+}
+
+#support-section-title {
+	top: -2.75vh;
+	left: 5vh;
+	font-size: 2vh;
+}
+
+@media (min-width: 1200px) {
+	#support-section-title {
 		top: -4.5vh !important;
 		font-size: 5vh;
 	}

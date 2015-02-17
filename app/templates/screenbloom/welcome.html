@@ -20,6 +20,23 @@
         <title>ScreenBloom</title>
     </head>
 <body>
+    <div id="hidden-menu" class="animate">
+        <div id="top" class="animate">
+            <i class="fa fa-arrow-circle-up"></i>
+            <span>Top</span>
+        </div>
+
+        <div id="hidden-logo">
+            <span class="raleway">Screen</span><span id="hidden-bloom" class="lobster color-animate">Bloom</span>
+        </div>
+
+        <div id="hidden-nav">
+            <span id="nav-download" class="animate">Download</span>
+            <span id="nav-about" class="animate">About</span>
+            <span id="nav-support" class="animate">Support</span>
+        </div>
+    </div>
+
     <div id="main-container" class="container">
         <div id="welcome-section" class="container">
             <div id="welcome-inner" class="container">
@@ -34,7 +51,7 @@
                 <div id="buttons-container" class="container">
                     <div id="download-button" class="button animate">Download</div>
                     <div id="about-button" class="button animate">About</div>
-                    <div id="help-button" class="button animate">Help</div>
+                    <div id="help-button" class="button animate">Support</div>
                 </div>
             </div>
         </div>
@@ -43,31 +60,66 @@
             <div id="download-section-title" class="section-title lobster color-animate">Download</div>
 
             <div id="download-inner" class="container">
-                <div id="version">
-                    <div id="version-left">
-                        <span class="version-blurb">Latest Version:</span>
-                        <span class="version-blurb">Released:</span>
-                    </div>
-
-                    <div id="version-right">
-                        <span class="version-value">0.80</span>
-                        <span class="version-value">February 2015</span>
-                    </div>
+                <div id="download-link" class="button animate">
+                    Get ScreenBloom
+                    <br>
+                    <span class="version">Version 0.80</span><span class="version">February 2015</span>
+                    <span class="download-size">7 MB</span>
                 </div>
-
-                <div id="download-link" class="button background-color-animate">Get ScreenBloom</div>
-                <div id="download-size">7 MB</div>
             </div>
         </div>
 
         <div id="about-section" class="container">
             <div id="about-section-title" class="section-title lobster color-animate">About ScreenBloom</div>
 
+            <div id="about-inner">
+                <div id="about-text" class="container">
+                    ScreenBloom uses <a href="https://www.python.org/">Python</a> to grab the average color of your current screen and sends that value to your Hue Lights.
+                        <div id="github-link">
+                            View Source Code
+                            <a href="https://github.com/kershner/screenbloom" class="animate"><i class="fa fa-github"></i></a>
+                        </div>
+                    Roughly once per second a very small screenshot of your current screen is taken and converted into
+                    a list of RGB (red, green, blue) values for each pixel.
+                    <br>
+                    <br>
+                    Each pixel is then looped through and its RGB values added to a running total.  At the end of the
+                    loop these totals are averaged to give a good approximation of the current screen's average color.
+                    <br>
+                    <br>
+                    Along with some other functions like accounting for the number of dark pixels, this average color
+                    value is converted to the <a href="http://en.wikipedia.org/wiki/CIE_1931_color_space">CIE</a> value used by Hue and the lights are updated.
+                    <br>
+                    <br>
+                    Check out some videos of ScreenBloom in action:
+                </div>
+
+                <div class="video">
+                    <div class=video-wrapper>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="video">
+                    <div class=video-wrapper>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ibwFjEYeeCM" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="support-section" class="container">
+            <div id="support-section-title" class="section-title lobster color-animate">Support</div>
+
+            <div id="support-inner">
+                <div id="support-text" class="container">
+
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- JavaScripts -->
-    <script type="text/javascript" src="/static/screenbloom/js/jquery.waypoints.js"></script>
     <script type="text/javascript" src="/static/screenbloom/js/randomColor.js"></script>
     <script type="text/javascript" src="/static/screenbloom/js/screenbloom.js"></script>
 
