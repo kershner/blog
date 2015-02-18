@@ -7,7 +7,15 @@ body, html {
 	background: url(../images/screenbloom/batthern.png);
 }
 
-/* General class to add CSS animation to element */
+/* Site-wide Overrides ****************/
+#main-container {
+	position: relative;
+	background-color: #EEEEEE;
+	box-shadow: 1px 1px 15px 1px #000;	
+	width: 95%;
+	min-width: 53vh;
+}
+
 .animate {
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
@@ -93,7 +101,7 @@ body, html {
 	padding: 1vh;
 	top: -4.5vh;
 	font-size: 5vh;
-	background-color: white;
+	background-color: #EEEEEE;
 }
 
 .video-wrapper {
@@ -111,6 +119,7 @@ body, html {
     height: 100%;
 }
 
+/* Hidden Menu *********************/
 #hidden-menu {
 	position: fixed;
 	z-index: 5;
@@ -174,14 +183,7 @@ body, html {
 	color: red;
 }
 
-#main-container {
-	position: relative;
-	background-color: white;
-	box-shadow: 1px 1px 15px 1px #000;	
-	width: 95%;
-	min-width: 53vh;
-}
-
+/* Welcome Section ******************/
 #welcome-section {
 	position: relative;
 	height: 100vh;
@@ -218,12 +220,13 @@ body, html {
 	margin-top: 7vw;
 }
 
+/* Converting from VW to VH units at max-width *****/
 @media (min-width: 1200px) {
 	#logo {
 		width: 80%;
 		border: 2vh solid black;
-		padding-top: 10vw;
-		padding-bottom: 10vw;
+		padding-top: 20vh;
+		padding-bottom: 20vh;
 	}
 
 	#logo h1 {
@@ -240,57 +243,12 @@ body, html {
 
 	#buttons-container .button {
 		margin: 0 3vh;
-		padding: none;
+		padding: 4vh !important;
 		height: 3vh;
 		line-height: 3vh;
 		width: 16vh;
 		font-size: 3vh;
 	}
-}
-
-#download-section {
-	position: relative;
-	margin: 5vh auto;
-	height: 60vh;
-	border-top: .5vh solid black;
-	border-radius: 1vh;
-}
-
-#download-section-title {
-	left: 5vh;
-}
-
-#download-inner {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}
-
-#download-link {
-	margin: 0 auto;
-	margin-top: 5vh;
-	width: 40vh !important;
-	color: white;
-	font-size: 3vh;
-	text-shadow: 1px 1px 3px #000;
-}
-
-#download-link:hover {
-	box-shadow: 0 0 2vw .5vw #004d67;
-	color: red;
-	text-shadow: none;
-}
-
-.version {
-	display: inline-block;
-	margin: 0 .75vw;
-	font-size: 1.5vh;
-}
-
-.download-size {
-	display: block;
-	margin: 0;
-	font-size: 2vh;
 }
 
 /* About Section ************************/
@@ -304,13 +262,6 @@ body, html {
 
 #about-section-title {
 	right: 5vh;
-}
-
-@media (min-width: 1200px) {
-	#about-section-title {
-		top: -4.5vh !important;
-		font-size: 5vh;
-	}
 }
 
 #about-text {
@@ -348,6 +299,46 @@ body, html {
 	width: 45%;
 }
 
+/* Download Section *******************/
+#download-section {
+	position: relative;
+	margin: 20vh auto;
+	height: 20vh;
+	border-top: .5vh solid black;
+	border-radius: 1vh;
+}
+
+#download-section-title {
+	left: 5vh;
+}
+
+#download-link {
+	position: relative;	
+	margin: 10vh auto;
+	width: 40vh !important;
+	color: white;
+	font-size: 3vh;
+	text-shadow: 1px 1px 3px #000;
+}
+
+#download-link:hover {
+	box-shadow: 0 0 .5vw .25vw #004d67;
+	color: red;
+	text-shadow: none;
+}
+
+.version {
+	display: inline-block;
+	margin: 0 .75vw;
+	font-size: 1.5vh;
+}
+
+.download-size {
+	display: block;
+	margin: 0;
+	font-size: 2vh;
+}
+
 /* Support Section ***********/
 #support-section {
 	position: relative;
@@ -358,5 +349,88 @@ body, html {
 }
 
 #support-section-title {
-	left: 5vh;
+	right: 5vh;
+}
+
+#support-text {
+	margin: 5vh auto;
+	width: 50vh;
+}
+
+#support-text span {
+	display: block;
+	margin: .25vh auto;
+	font-size: 1.5vh;
+}
+
+#faq-container {
+	margin: 0 auto;
+	position: relative;
+}
+
+.faq {
+	position: relative;
+	margin: 3vh auto;
+	width: 80%;
+}
+
+.faq hr {
+	width: 40%;
+	height: 2px;
+	background-color: black;
+	border: none;
+}
+
+.faq a {
+	text-decoration: none;
+}
+
+.faq img {
+	display: block;
+	margin: 2vh auto;
+	height: 15vh;
+	width: 35vh;
+	box-shadow: 0 20px 15px -20px #000;
+}
+
+.question {
+	display: inline-block;
+	margin: 0 2vh;
+	font-size: 3.5vh;
+	color: #004d67;
+}
+
+.answer {
+	margin: 1vh auto;
+	line-height: 2.75vh;
+	font-size: 1.75vh;
+	width: 45vh;
+	text-align: justify;
+}
+
+#borderless-link {
+	display: block;
+	margin: 3vh auto;
+	width: 30vh;
+	height: 5vh;
+	line-height: 5vh;
+	background-color: #004d67;
+	border-radius: .25vh;
+	box-shadow: 0 20px 15px -20px #000;
+	font-size: 1.5vh;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	text-align: center;
+}
+
+#borderless-link:hover {
+	box-shadow: 0 0 .5vw .25vw #004d67;
+	color: red;
+	text-shadow: none;
+}
+
+#ip-demo {
+	margin: 2vh auto;
+	width: 20vh;
+	font-size: 1.5vh;
 }

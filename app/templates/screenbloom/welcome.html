@@ -31,8 +31,8 @@
         </div>
 
         <div id="hidden-nav">
-            <span id="nav-download" class="animate">Download</span>
             <span id="nav-about" class="animate">About</span>
+            <span id="nav-download" class="animate">Download</span>
             <span id="nav-support" class="animate">Support</span>
         </div>
     </div>
@@ -49,22 +49,9 @@
                 </div>
 
                 <div id="buttons-container" class="container">
-                    <div id="download-button" class="button animate">Download</div>
                     <div id="about-button" class="button animate">About</div>
+                    <div id="download-button" class="button animate">Download</div>
                     <div id="help-button" class="button animate">Support</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="download-section" class="container">
-            <div id="download-section-title" class="section-title lobster color-animate">Download</div>
-
-            <div id="download-inner" class="container">
-                <div id="download-link" class="button animate">
-                    Get ScreenBloom
-                    <br>
-                    <span class="version">Version 0.80</span><span class="version">February 2015</span>
-                    <span class="download-size">7 MB</span>
                 </div>
             </div>
         </div>
@@ -72,48 +59,142 @@
         <div id="about-section" class="container">
             <div id="about-section-title" class="section-title lobster color-animate">About ScreenBloom</div>
 
-            <div id="about-inner">
-                <div id="about-text" class="container">
-                    ScreenBloom uses <a href="https://www.python.org/">Python</a> to grab the average color of your current screen and sends that value to your Hue Lights.
-                        <div id="github-link">
-                            View Source Code
-                            <a href="https://github.com/kershner/screenbloom" class="animate"><i class="fa fa-github"></i></a>
-                        </div>
-                    Roughly once per second a very small screenshot of your current screen is taken and converted into
-                    a list of RGB (red, green, blue) values for each pixel.
-                    <br>
-                    <br>
-                    Each pixel is then looped through and its RGB values added to a running total.  At the end of the
-                    loop these totals are averaged to give a good approximation of the current screen's average color.
-                    <br>
-                    <br>
-                    Along with some other functions like accounting for the number of dark pixels, the average color
-                    is then converted to a <a href="http://en.wikipedia.org/wiki/CIE_1931_color_space">CIE</a> value used by Hue and the lights are updated.
-                    <br>
-                    <br>
-                    Check out some videos of ScreenBloom in action:
-                </div>
-
-                <div class="video">
-                    <div class=video-wrapper>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
+            <div id="about-text" class="container">
+                ScreenBloom uses <a href="https://www.python.org/">Python</a> to grab the average color of your current screen and sends that value to your Hue Lights.
+                    <div id="github-link">
+                        View Source Code
+                        <a href="https://github.com/kershner/screenbloom" class="animate"><i class="fa fa-github"></i></a>
                     </div>
-                </div>
+                Roughly once per second a very small screenshot of your current screen is taken and converted into
+                a list of RGB (red, green, blue) values for each pixel.
+                <br>
+                <br>
+                Each pixel is then looped through and its RGB values added to a running total.  At the end of the
+                loop these totals are averaged to give a good approximation of the current screen's average color.
+                <br>
+                <br>
+                Along with some other functions like accounting for the number of dark pixels, the average color
+                is then converted to a <a href="http://en.wikipedia.org/wiki/CIE_1931_color_space">CIE</a> value used by Hue and the lights are updated.
+                <br>
+                <br>
+                Check out some videos of ScreenBloom in action:
+            </div>
 
-                <div class="video">
-                    <div class=video-wrapper>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ibwFjEYeeCM" frameborder="0" allowfullscreen></iframe>
-                    </div>
+            <div class="video">
+                <div class=video-wrapper>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
+
+            <div class="video">
+                <div class=video-wrapper>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ibwFjEYeeCM" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="download-section" class="container">
+            <div id="download-link" class="button animate">
+                Get ScreenBloom
+                <br>
+                <span class="version">Version 0.80</span><span class="version">February 2015</span>
+                <span class="download-size">7 MB</span>
+            </div>
+
+            <div id="download-section-title" class="section-title lobster color-animate">Download</div>
         </div>
 
         <div id="support-section" class="container">
             <div id="support-section-title" class="section-title lobster color-animate">Support</div>
 
-            <div id="support-inner">
-                <div id="support-text" class="container">
+            <div id="support-text" class="container">
+                <span>Have a question about ScreenBloom?</span>
+                <span>Check out the FAQ below or send me an <a href="mailto:tylerkershner@gmail.com">email</a> directly</span>
+            </div>
 
+            <div id="faq-container">
+                <div class="faq">
+                    <div class="question raleway">Can I use ScreenBloom with videogames?</div>
+
+                    <div class="answer">
+                        Definitely, but with one caveat.
+                        <br>
+                        <br>
+                        Games need to be run in windowed mode to have their pixels parsed by
+                        ScreenBloom.  Many games offer an official 'Fullscreen Windowed' mode which makes this process
+                        very simple.
+                        <br>
+                        <br>
+                        For everything else there is a free program available.
+                        <a href="http://westechsolutions.net/sites/WindowedBorderlessGaming/">
+                            <span id="borderless-link" class="animate">Windowed Borderless Gaming</span>
+                        </a>
+                        With this software you can turn any windowed application into a borderless fullscreen one.  Perfect for ScreenBloom!
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <div class="question raleway">What kind of resources does ScreenBloom consume?</div>
+
+                    <div class="answer">
+                        The fully installed application takes up roughly 20MB of disk space.
+                        <br>
+                        <br>
+                        While running, ScreenBloom lives in ~16MB of RAM and uses just 1%
+                        of the CPU.
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <div class="question raleway">What is this DOS-looking window?</div>
+                    <img src="console.png" alt="ScreenBloom diagnostic console">
+
+                    <div class="answer">
+                        This is the diagnostic console for the program.  This window is where ScreenBloom will output
+                        messages about its status and any error messages that have occurred.
+                        <br>
+                        <br>
+                        If you experience any problems with ScreenBloom the diagnostic console is the first place to
+                        look.
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <div class="question raleway">I'm getting a 'permission denied' error</div>
+
+                    <div class="answer">
+                        ScreenBloom needs to create and write to a configuration file to hold your specified settings.
+                        This error can occur if ScreenBloom does not have write permissions for files in its directory.
+                        <br>
+                        <br>
+                        The issue is usually resolved by running the program as an administrator.
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <div class="question raleway">Can I access ScreenBloom from a mobile device?</div>
+
+                    <div class="answer">
+                        Absolutely!
+                        <br>
+                        <br>
+                        ScreenBloom runs on a specific IP address and port on your local network in the format below:
+                    </div>
+
+                    <div id="ip-demo">
+                        192.168.0.X:5000
+                    </div>
+
+                    <div class="answer">
+                        Your machine-specific address is displayed in the diagnostic console window every time ScreenBloom starts up.
+                    </div>
+
+                    <img src="mobile-ipv4.png" alt="IPV4 address for ScreenBloom" style="height: 5vh; width: 35vh;">
+
+                    <div class="answer">
+                        Simply navigate to this address on your mobile device and you'll have full control of
+                        the ScreenBloom process.
+                    </div>
                 </div>
             </div>
         </div>

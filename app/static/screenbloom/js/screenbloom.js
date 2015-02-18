@@ -14,9 +14,11 @@ function fakeScreenBloom() {
 	var newBoxShadow = '0 0 10vw 1vw ' + color
 	var borderBottom = '.5vh solid ' + color
 	var elements = ['#bloom', '#hidden-bloom', '#download-section-title', '#about-section-title', '#support-section-title'];
+	
 	for (i = 0; i < elements.length; i++) {
 		$(elements[i]).css({'color': color});
 	}	
+	
 	$('#logo').css({'box-shadow': newBoxShadow});
 	$('#download-link').css({'background-color': color});
 	$('#hidden-menu').css({'border-bottom': borderBottom});
@@ -54,7 +56,7 @@ function clickScroll() {
 function hiddenMenu() {
 	var windowHeight = $(window).height();
 	var newOffset = (windowHeight * 0.12) + (windowHeight * 0.021);
-	var offset = $('#download-section').offset().top - newOffset;
+	var offset = $('#about-section').offset().top - newOffset;
 
 	$(document).scroll(function() {
 		var scrollTop = $(document).scrollTop();
