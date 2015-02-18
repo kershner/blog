@@ -91,7 +91,8 @@ body, html {
 .section-title {
 	position: absolute;
 	padding: 1vh;
-	font-size: 3vh;
+	top: -4.5vh;
+	font-size: 5vh;
 	background-color: white;
 }
 
@@ -178,6 +179,7 @@ body, html {
 	background-color: white;
 	box-shadow: 1px 1px 15px 1px #000;	
 	width: 95%;
+	min-width: 53vh;
 }
 
 #welcome-section {
@@ -244,11 +246,6 @@ body, html {
 		width: 16vh;
 		font-size: 3vh;
 	}
-
-	#download-section-title {
-		top: -4.5vh !important;
-		font-size: 5vh !important;
-	}
 }
 
 #download-section {
@@ -260,7 +257,6 @@ body, html {
 }
 
 #download-section-title {
-	top: -3.25vh;
 	left: 5vh;
 }
 
@@ -273,7 +269,7 @@ body, html {
 #download-link {
 	margin: 0 auto;
 	margin-top: 5vh;
-	width: 40vh;
+	width: 40vh !important;
 	color: white;
 	font-size: 3vh;
 	text-shadow: 1px 1px 3px #000;
@@ -281,13 +277,14 @@ body, html {
 
 #download-link:hover {
 	box-shadow: 0 0 2vw .5vw #004d67;
+	color: red;
+	text-shadow: none;
 }
 
 .version {
 	display: inline-block;
 	margin: 0 .75vw;
 	font-size: 1.5vh;
-	text-shadow: .5px .5px .5px #000;
 }
 
 .download-size {
@@ -306,9 +303,7 @@ body, html {
 }
 
 #about-section-title {
-	top: -2.75vh;
 	right: 5vh;
-	font-size: 2vh;
 }
 
 @media (min-width: 1200px) {
@@ -363,14 +358,5 @@ body, html {
 }
 
 #support-section-title {
-	top: -2.75vh;
 	left: 5vh;
-	font-size: 2vh;
-}
-
-@media (min-width: 1200px) {
-	#support-section-title {
-		top: -4.5vh !important;
-		font-size: 5vh;
-	}
 }

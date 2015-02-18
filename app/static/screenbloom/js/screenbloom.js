@@ -53,7 +53,7 @@ function clickScroll() {
 
 function hiddenMenu() {
 	var windowHeight = $(window).height();
-	var newOffset = windowHeight * 0.12 + 20;
+	var newOffset = (windowHeight * 0.12) + (windowHeight * 0.021);
 	var offset = $('#download-section').offset().top - newOffset;
 
 	$(document).scroll(function() {
