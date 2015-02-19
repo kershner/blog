@@ -26,41 +26,54 @@ body, html {
 /* Special animate classes for color transitions */
 .color-animate {
 	-moz-transition-property: color;  /* FF4+ */
-	-moz-transition-duration: 1s;
+	-moz-transition-duration: 2s;
 	-webkit-transition-property: color;  /* Saf3.2+, Chrome */
-	-webkit-transition-duration: 1s;
+	-webkit-transition-duration: 2s;
 	-o-transition-property: color;  /* Opera 10.5+ */
-	-o-transition-duration: 1s;
+	-o-transition-duration: 2s;
 	-ms-transition-property: color;  /* IE10? */
-	-ms-transition-duration: 1s;
+	-ms-transition-duration: 2s;
 	transition-property: color;  /* Standard */
-	transition-duration: 1s;
+	transition-duration: 2s;
 }
 
 .background-color-animate {
 	-moz-transition-property: background-color;  /* FF4+ */
-	-moz-transition-duration: 1s;
+	-moz-transition-duration: 2s;
 	-webkit-transition-property: background-color;  /* Saf3.2+, Chrome */
-	-webkit-transition-duration: 1s;
+	-webkit-transition-duration: 2s;
 	-o-transition-property: background-color;  /* Opera 10.5+ */
-	-o-transition-duration: 1s;
+	-o-transition-duration: 2s;
 	-ms-transition-property: background-color;  /* IE10? */
-	-ms-transition-duration: 1s;
+	-ms-transition-duration: 2s;
 	transition-property: background-color;  /* Standard */
-	transition-duration: 1s;
+	transition-duration: 2s;
 }
 
 .box-shadow-animate {
 	-moz-transition-property: box-shadow;  /* FF4+ */
-	-moz-transition-duration: 1s;
+	-moz-transition-duration: 2s;
 	-webkit-transition-property: box-shadow;  /* Saf3.2+, Chrome */
-	-webkit-transition-duration: 1s;
+	-webkit-transition-duration: 2s;
 	-o-transition-property: box-shadow;  /* Opera 10.5+ */
-	-o-transition-duration: 1s;
+	-o-transition-duration: 2s;
 	-ms-transition-property: box-shadow;  /* IE10? */
-	-ms-transition-duration: 1s;
+	-ms-transition-duration: 2s;
 	transition-property: box-shadow;  /* Standard */
-	transition-duration: 1s;
+	transition-duration: 2s;
+}
+
+.border-animate {
+	-moz-transition-property: border;  /* FF4+ */
+	-moz-transition-duration: 2s;
+	-webkit-transition-property: border;  /* Saf3.2+, Chrome */
+	-webkit-transition-duration: 2s;
+	-o-transition-property: border;  /* Opera 10.5+ */
+	-o-transition-duration: 2s;
+	-ms-transition-property: border;  /* IE10? */
+	-ms-transition-duration: 2s;
+	transition-property: border;  /* Standard */
+	transition-duration: 2s;
 }
 
 .lobster {
@@ -94,6 +107,28 @@ body, html {
 	background-color: #004d67;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
+}
+
+.click-button {
+	position: relative;
+	text-shadow: 1px 1px 3px #000;
+	color: white;
+	border-radius: .25vh;
+	background-color: #004d67;
+	-webkit-box-shadow: 0px 9px 0px #002734;
+        -moz-box-shadow: 0px 9px 0px #002734;
+        box-shadow: 0px 9px 0px #002734;
+}
+
+.click-button:hover {
+	cursor: pointer;
+}
+
+.click-button:active {
+	top: 7px;
+	-webkit-box-shadow: 0px 2px 0px #002734;
+        -moz-box-shadow: 0px 2px 0px #002734;
+        box-shadow: 0px 2px 0px #002734;
 }
 
 .section-title {
@@ -249,6 +284,10 @@ body, html {
 		width: 16vh;
 		font-size: 3vh;
 	}
+
+	#download-link {
+		padding: 1vh !important;
+	}
 }
 
 /* About Section ************************/
@@ -256,7 +295,7 @@ body, html {
 	position: relative;
 	margin: 5vh auto;
 	min-height: 60vh;
-	border-top: .5vh solid black;
+	border-top: .5vh solid #007AA3;
 	border-radius: 1vh;
 }
 
@@ -266,10 +305,11 @@ body, html {
 
 #about-text {
 	position: relative;
-	margin-top: 8vh;
-	margin-bottom: 3vh;
+	margin: 3vh auto;
 	width: 50vh;
 	font-size: 2vh;
+	line-height: 2.75vh;
+	font-size: 1.75vh;
 	text-align: justify;
 }
 
@@ -280,7 +320,7 @@ body, html {
 	font-size: 1.5vh;
 }
 
-#github-link a {
+#git-link {
 	display: block;
 	margin: 0 auto;
 	width: 10vh;
@@ -289,8 +329,74 @@ body, html {
 	text-decoration: none;
 }
 
-#github-link a:hover {
+#git-link a:hover {
 	color: #004d67;
+}
+
+.code-link {
+	margin: 0 .5vh;
+	padding: 0;
+	display: inline-block;
+}
+
+.code-link a {
+	color: #004d67;
+	font-size: 1.25vh;
+	text-decoration: none;
+}
+
+.code-link a:hover {
+	color: red;
+}
+
+#demonstration {
+	margin: 2vh auto;
+	width: 100%;
+}
+
+.demo-text {
+	display: block;
+	margin: -.5vh auto;
+	font-size: 1vh;
+	text-align: center;
+}
+
+#demonstration img {
+	display: block;
+	margin: 0 auto;
+}
+
+#responsive-image {
+	margin: 0 auto;
+	max-width: 400px;
+}
+
+#responsive-image img {
+	width: 100%;
+}
+
+#demonstration i {
+	display: block;
+	margin: 1.25vh auto;
+	width: 2vh;
+	color: #5c1e1e;
+	font-size: 2vh;
+	text-align: center;
+}
+
+#color-swatch {
+	display: block;
+	margin: 0 auto;
+	height: 75px;
+	width: 75px;
+	background-color: #5c1e1e;
+}
+
+#lightbulb {
+	margin: 0 auto !important;
+	width: 6vh !important;
+	font-size: 10vh !important;
+	color: #5c1e1e !important;
 }
 
 .video {
@@ -302,9 +408,8 @@ body, html {
 /* Download Section *******************/
 #download-section {
 	position: relative;
-	margin: 20vh auto;
-	height: 20vh;
-	border-top: .5vh solid black;
+	min-height: 1vh;
+	border-top: .5vh solid #007AA3;
 	border-radius: 1vh;
 }
 
@@ -312,25 +417,58 @@ body, html {
 	left: 5vh;
 }
 
-#download-link {
-	position: relative;	
-	margin: 10vh auto;
-	width: 40vh !important;
-	color: white;
-	font-size: 3vh;
-	text-shadow: 1px 1px 3px #000;
+#download-info {
+	position: relative;
+	margin: 8vh auto;
+	width: 50vh;
+	border: .5vh solid #007AA3;
+	border-radius: 1vh;
 }
 
-#download-link:hover {
-	box-shadow: 0 0 .5vw .25vw #004d67;
-	color: red;
-	text-shadow: none;
+#latest-version {
+	font-size: 2.5vh;
+	top: -3vh;
+	right: 5vh;
+}
+
+#release-notes {
+	margin: 3vh auto;
+	margin-bottom: 0;
+	width: 90%;
 }
 
 .version {
 	display: inline-block;
-	margin: 0 .75vw;
-	font-size: 1.5vh;
+	margin: .25vh .75vw;
+	font-size: 2vh;
+}
+
+#release-notes-title {
+	display: block;
+	font-size: 3vh;
+	border-bottom: .25vh solid black;
+}
+
+#release-notes-text {
+	margin: 2vh auto;
+	margin-left: 4vh;
+	width: 100%;
+	min-height: 5vh;
+}
+
+#release-notes-text span {
+	display: block;
+	margin: 1.5vh auto;
+	width: 90%;
+	text-align: left;
+	font-size: 1.75vh;
+	text-indent: -1em;
+}
+
+#download-link {	
+	margin: 3vh auto;
+	width: 35vh;
+	font-size: 3vh;
 }
 
 .download-size {
@@ -342,9 +480,8 @@ body, html {
 /* Support Section ***********/
 #support-section {
 	position: relative;
-	margin: 12vh auto;
 	min-height: 60vh;
-	border-top: .5vh solid black;
+	border-top: .5vh solid #007AA3;
 	border-radius: 1vh;
 }
 
@@ -414,23 +551,14 @@ body, html {
 	width: 30vh;
 	height: 5vh;
 	line-height: 5vh;
-	background-color: #004d67;
-	border-radius: .25vh;
-	box-shadow: 0 20px 15px -20px #000;
 	font-size: 1.5vh;
-	color: white;
-	text-shadow: 1px 1px 3px #000;
 	text-align: center;
-}
-
-#borderless-link:hover {
-	box-shadow: 0 0 .5vw .25vw #004d67;
-	color: red;
-	text-shadow: none;
 }
 
 #ip-demo {
 	margin: 2vh auto;
+	padding: 1.5vh;
 	width: 20vh;
 	font-size: 1.5vh;
+	background-color: #c8c8c8;
 }

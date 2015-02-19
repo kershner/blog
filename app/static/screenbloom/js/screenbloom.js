@@ -20,7 +20,6 @@ function fakeScreenBloom() {
 	}	
 	
 	$('#logo').css({'box-shadow': newBoxShadow});
-	$('#download-link').css({'background-color': color});
 	$('#hidden-menu').css({'border-bottom': borderBottom});
 }
 

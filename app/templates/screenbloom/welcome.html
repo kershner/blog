@@ -20,7 +20,7 @@
         <title>ScreenBloom</title>
     </head>
 <body>
-    <div id="hidden-menu" class="animate">
+    <div id="hidden-menu" class="border-animate">
         <div id="top" class="animate">
             <i class="fa fa-arrow-circle-up"></i>
             <span>Top</span>
@@ -63,16 +63,38 @@
                 ScreenBloom uses <a href="https://www.python.org/">Python</a> to grab the average color of your current screen and sends that value to your Hue Lights.
                     <div id="github-link">
                         View Source Code
-                        <a href="https://github.com/kershner/screenbloom" class="animate"><i class="fa fa-github"></i></a>
+                        <a id="git-link" href="https://github.com/kershner/screenbloom" class="animate"><i class="fa fa-github"></i></a>
+                        <span class="code-link"><a href="https://github.com/kershner/screenBloom/blob/master/app/screenbloom.py">Python Routes</a></span>
+                        <span class="code-link"><a href="https://github.com/kershner/screenBloom/blob/master/app/modules/screenbloom_functions.py">Python Logic</a></span>
+                        <span class="code-link"><a href="https://github.com/kershner/screenBloom/tree/master/app/static/js">JavaScript</a></span>
                     </div>
-                Roughly once per second a very small screenshot of your current screen is taken and converted into
+                Roughly once per second a screenshot of your current screen is taken and converted into
                 a list of RGB (red, green, blue) values for each pixel.
                 <br>
                 <br>
                 Each pixel is then looped through and its RGB values added to a running total.  At the end of the
                 loop these totals are averaged to give a good approximation of the current screen's average color.
-                <br>
-                <br>
+                    <div id="demonstration">
+                        <div id="responsive-image">
+                            <img src="/static/images/screenbloom/large.jpg">
+                        </div>
+                        <span class="demo-text">Original Desktop Image</span>
+
+                        <i class="fa fa-chevron-down"></i>
+
+                        <img src="/static/images/screenbloom/small.jpg">
+                        <span class="demo-text">Desktop Image Resized</span>
+
+                        <i class="fa fa-chevron-down"></i>
+
+                        <div id="color-swatch"></div>
+                        <span class="demo-text">Avg Color Extracted</span>
+
+                        <i class="fa fa-chevron-down"></i>
+
+                        <i id="lightbulb" class="fa fa-lightbulb-o"></i>
+                        <span class="demo-text">Color Sent to Hues</span>
+                    </div>
                 Along with some other functions like accounting for the number of dark pixels, the average color
                 is then converted to a <a href="http://en.wikipedia.org/wiki/CIE_1931_color_space">CIE</a> value used by Hue and the lights are updated.
                 <br>
@@ -94,11 +116,28 @@
         </div>
 
         <div id="download-section" class="container">
-            <div id="download-link" class="button animate">
-                Get ScreenBloom
-                <br>
-                <span class="version">Version 0.80</span><span class="version">February 2015</span>
-                <span class="download-size">7 MB</span>
+            <div id="download-info" class="animate">
+                <div id="release-notes">
+                    <span class="version">Version 0.80</span>
+                    <span class="version">February 2015</span>
+
+                    <span id="release-notes-title" class="raleway">Release Notes</span>
+
+                    <div id="release-notes-text">
+                        <span>- Screengrab is now re-sized down immediately, huge performance increase</span>
+                        <span>- Dynamic brightness working properly with user set max/min brightness settings</span>
+                        <span>- First-run functionality, Hue lights automatically detected and config file generated</span>
+                        <span>- Responsive interface, will work/look as intended on all mobile devices</span>
+                    </div>
+                </div>
+
+                <div id="download-link" class="click-button">
+                    Get ScreenBloom
+                    <br>
+                    <span class="download-size">7 MB</span>
+                </div>
+
+                <div id="latest-version" class="section-title lobster">Latest Version</div>
             </div>
 
             <div id="download-section-title" class="section-title lobster color-animate">Download</div>
@@ -127,7 +166,7 @@
                         <br>
                         For everything else there is a free program available.
                         <a href="http://westechsolutions.net/sites/WindowedBorderlessGaming/">
-                            <span id="borderless-link" class="animate">Windowed Borderless Gaming</span>
+                            <span id="borderless-link" class="click-button">Windowed Borderless Gaming</span>
                         </a>
                         With this software you can turn any windowed application into a borderless fullscreen one.  Perfect for ScreenBloom!
                     </div>
