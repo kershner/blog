@@ -1,9 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-US">
     <head>
-        <link rel="icon" type="image/png" href="/static/images/screenbloom/favicon.ico">
-
         <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/static/images/screenbloom/favicon.png">
 
         <!-- CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -75,7 +76,7 @@
                 Each pixel is then looped through and its RGB values added to a running total.  At the end of the
                 loop these totals are averaged to give a good approximation of the current screen's average color.
                     <div id="demonstration">
-                        <div id="responsive-image">
+                        <div class="responsive-image">
                             <img src="/static/images/screenbloom/large.jpg">
                         </div>
                         <span class="demo-text">Original Desktop Image</span>
@@ -104,7 +105,7 @@
 
             <div class="video">
                 <div class=video-wrapper>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Suv3HkiSDbc" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -186,7 +187,9 @@
 
                 <div class="faq">
                     <div class="question raleway">What is this DOS-looking window?</div>
-                    <img src="console.png" alt="ScreenBloom diagnostic console">
+                    <div class="responsive-image">
+                        <img src="/static/images/screenbloom/console.png" alt="ScreenBloom diagnostic console">
+                    </div>
 
                     <div class="answer">
                         This is the diagnostic console for the program.  This window is where ScreenBloom will output
@@ -228,7 +231,7 @@
                         Your machine-specific address is displayed in the diagnostic console window every time ScreenBloom starts up.
                     </div>
 
-                    <img src="mobile-ipv4.png" alt="IPV4 address for ScreenBloom" style="height: 5vh; width: 35vh;">
+                    <img src="/static/images/screenbloom/ip.png" alt="IPV4 address for ScreenBloom">
 
                     <div class="answer">
                         Simply navigate to this address on your mobile device and you'll have full control of

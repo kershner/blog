@@ -76,6 +76,15 @@ body, html {
 	transition-duration: 2s;
 }
 
+.responsive-image {
+	margin: 0 auto;
+	max-width: 400px;
+}
+
+.responsive-image img {
+	width: 100%;
+}
+
 .lobster {
 	font-family: 'Lobster', cursive;
 }
@@ -260,8 +269,8 @@ body, html {
 	#logo {
 		width: 80%;
 		border: 2vh solid black;
-		padding-top: 20vh;
-		padding-bottom: 20vh;
+		padding-top: 15vh;
+		padding-bottom: 15vh;
 	}
 
 	#logo h1 {
@@ -364,15 +373,6 @@ body, html {
 #demonstration img {
 	display: block;
 	margin: 0 auto;
-}
-
-#responsive-image {
-	margin: 0 auto;
-	max-width: 400px;
-}
-
-#responsive-image img {
-	width: 100%;
 }
 
 #demonstration i {
@@ -525,8 +525,7 @@ body, html {
 .faq img {
 	display: block;
 	margin: 2vh auto;
-	height: 15vh;
-	width: 35vh;
+	min-width: 1vh;
 	box-shadow: 0 20px 15px -20px #000;
 }
 
