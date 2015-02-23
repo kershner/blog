@@ -625,6 +625,12 @@ def cms_project():
                            title='CMS')
 
 
+@app.route('/screenbloom-project')
+def screenbloom_project():
+    return render_template('/blog/projects/project09.html',
+                           title='ScreenBloom')
+
+
 @app.route('/cstoolswriteup-part1')
 def project2writeup1():
     return render_template('/blog/writeups/project02-part1.html',

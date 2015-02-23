@@ -1,110 +1,6 @@
 /* **************************************************** */
 /* Welcome Page 
 /* **************************************************** */
-@media (min-width: 420px) {
-	#welcome-logo {
-		font-size: 13vw !important;
-	}
-
-	#welcome-greeting {
-		font-size: 10vw !important;
-	}
-
-	#welcome-blurbs {
-		font-size: 3vw !important;
-	}
-
-	.project-image-wrapper {
-		width: 90%;
-	}
-
-	#projects-blurb {
-		font-size: 2vh !important;
-	}
-
-	#projects-grid {
-		top: 0 !important;
-	}
-
-	.project-grid-title {
-		font-size: 2vh !important;
-	}
-
-	#contact-blurb span {
-		margin-top: 3.50vw !important;
-		font-size: 3vw !important;
-	}	
-
-	#notification {
-		height: 85% !important;
-	}
-
-	#notification span {
-		font-size: 2vh !important;
-	}
-}
-
-@media (min-width: 570px) {
-	#projects-grid {
-		margin-top: 8vh !important;
-	}
-}
-
-/* Normal desktop size locked in */
-@media (min-width: 650px) {	
-	#welcome-logo {
-		font-size: 9vh !important;
-	}
-
-	#welcome-greeting {
-		margin: 1vh auto !important;
-		font-size: 7vh !important;
-	}
-
-	#welcome-blurbs {
-		font-size: 2.25vh !important;
-	}
-
-	#welcome-blurbs span {
-		margin: 3vh auto !important;
-	}
-
-	#projects-grid {
-		margin-top: 0 !important;
-	}
-
-	.project-grid {
-		max-width: 300px !important;
-		max-height: 300px !important;	
-		height: 26vw !important;
-		width: 26vw !important;
-	}
-
-	.grid-image-wrapper {
-		margin-top: 0 !important;
-	}
-
-	.project-grid-title {
-		margin-top: -0.10vh !important;
-		font-size: 2.75vw !important;
-	}
-}
-
-@media (min-width: 1200px) {
-	.project-grid-title {
-		font-size: 3vh !important;
-	}
-
-	.project-grid-blurb {
-		display: inline !important;
-	}
-
-	#contact-blurb span {
-		margin-top: 4vh !important;
-		font-size: 2.75vh !important;
-	}
-}
-
 /* General class to add CSS animation to element */
 .animate {
 	-webkit-transition: all 0.2s ease-in-out;
@@ -159,14 +55,12 @@ body {
 	margin: 0;
 	color: white;
 	font-family: 'Montserrat', sans-serif;
-	font-size: 8vh;
+	font-size: 7vh;
 	text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);	
 }
 
 #nav {
-	margin: 0;
-	margin-top: -1vh !important;
-	margin-bottom: 1vh !important;
+	margin: .25vh auto;
 	width: 100%;	
 }
 
@@ -185,26 +79,13 @@ body {
 	border-bottom: 4px solid white;
 }
 
-.image-wrapper {
-	position: relative;
-	margin: 0 auto;
-	width: 70%;
-	max-width: 375px;
-}
-
-.image-wrapper img {
-	display: block;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: auto;
-}
-
 #welcome-picture {	
-	margin: 1vh auto;
 	display: block;
+	margin: 1vh auto;
+	height: 40vh;
+	width: 40vh;
 	border-radius: 50%;
-	border: 4px solid white;
+	border: .5vh solid white;
 	-webkit-box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
     -moz-box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);
     box-shadow:0px -1px 5px rgba(0,0,0,0.5), 0px 1px 5px rgba(0,0,0,0.7);	
@@ -213,7 +94,7 @@ body {
 #welcome-greeting {
 	display: block;
 	margin: 1vh auto;
-	font-size: 6vh;
+	font-size: 7vh;
 	font-family: 'Montserrat', sans-serif;
 	color: #FFC761;
 	text-shadow: 0px 0px 4px #000;
@@ -222,15 +103,14 @@ body {
 #welcome-blurbs {
 	display: block;
 	margin: 0 auto;
-	margin-top: -2.5vh;
 	color: white;
 	text-shadow: 0px 0px 5px #000;
 	font-family: 'Raleway', sans-serif;
-	font-size: 1.5vh;
+	font-size: 2.25vh;
 }
 
 #welcome-blurbs span {
-	margin: 2vh auto;
+	margin: 3vh auto;
 }
 
 .welcome-blurb {
@@ -303,7 +183,7 @@ body {
 	margin-top: 5vh;
 	text-align: center;
 	color: #1B4080;
-	font-size: 14px;
+	font-size: 1.75vh;
 }
 
 #projects-blurb span {
@@ -327,7 +207,7 @@ body {
 	margin: 1vh;
 	color: #1B4080;
 	opacity: 0.70;
-	font-size: 5vh;
+	font-size: 4vh;
 }
 
 #grid-select:hover {
@@ -342,8 +222,7 @@ body {
 #projects-grid {
 	position: relative;
 	float: none;
-	margin: 0 auto;
-	top: -3vh;
+	margin: 1vh auto;
 	opacity: 0.0;
 	text-align: center;
 }
@@ -628,7 +507,7 @@ body {
 	display: block;
 	margin: 1vh auto;
 	text-align: center;
-	font-size: 1.5vh;
+	font-size: 2vh;
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -790,4 +669,3 @@ input, textarea {
 #footer-nav a:hover {
 	border-bottom: 0.40vh solid white;
 }
-
