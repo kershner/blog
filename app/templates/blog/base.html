@@ -9,6 +9,7 @@
         <link type="text/css" rel="stylesheet" href="/static/style.css"/>
         <link type="text/css" rel="stylesheet" href="/static/rainbow.css"/>
         <link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/jplayer/css/jplayer.pink.flag.min.css"/>
 
         <!-- Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
@@ -105,6 +106,7 @@
         <script type="text/javascript" src="/static/js/rainbow-custom.min.js"></script>
         <script type="text/javascript" src="/static/js/countUp.min.js"></script>
         <script type="text/javascript" src="/static/slick/slick.min.js"></script>
+        <script type="text/javascript" src="/static/jplayer/js/jquery.jplayer.min.js"></script>
         <script type="text/javascript" src="/static/js/blog.js"></script>
         <script type="text/javascript" src="/static/js/cms.js"></script>
 
@@ -112,6 +114,9 @@
             $(document).ready(function() {
                 initSlick();
                 blog();
+                {% if title == 'Music' %}
+                jPlayer();
+                {% endif %}
             });
         </script>
 

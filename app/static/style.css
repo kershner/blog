@@ -1398,3 +1398,117 @@ purple {
 	margin-top: -45px;
 	text-align: center;
 }
+
+/* JPlayer Overrides */
+#jplayer-wrapper {
+	position: relative;
+	margin: 3vh auto;
+	width: 450px;
+	height: 500px;
+	background-color: #3a2a45;
+	border-radius: 5px;
+}
+
+#music-selection {
+	position: absolute;
+	height: 100%;
+	width: 200px;
+	color: white;
+	text-align: center;
+	text-shadow: 1px 1px 3px #000;
+	border-right: 1px solid #180a1f;
+}
+
+#music-type {
+	position: relative;
+	height: 51px;
+	border: 1px solid #554461;
+	border-right: none;
+	border-bottom: 1px solid #180a1f;
+	border-radius: 5px 0 0 0;
+}
+
+#song-selection {
+	float: right;
+	width: 50%;
+	height: 50px;
+	line-height: 50px;
+	border-left: 1px solid #180a1f !important;
+	border-bottom: 1px solid #180a1f !important;
+}
+
+#loop-selection {
+	float: left;
+	width: 50%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #180a1f !important;
+}
+
+#song-selection:hover, #loop-selection:hover {
+	cursor: pointer;
+	background-color: #491C38;
+}
+
+#songs, #loops {
+	position: absolute;
+	opacity: 0.0;
+	width: 100%;
+	height: 90%;
+	border-radius: 0 0 0 5px;
+}
+
+#loops {
+	opacity: 1.0;
+	overflow: auto;
+}
+
+.audio-text {
+	position: relative;
+	margin: 0 auto;
+	padding: 5px 10px;
+	width: 100%;
+	height: 30px;	
+}
+
+.audio-text-highlight {
+	background-color: #491C38 !important;
+}
+
+.audio-text:hover {
+	cursor: pointer;
+	background-color: #491C38;
+}
+
+.highlight {
+	background-color: #554461;
+}
+
+.audio-name {
+	float: left;
+}
+
+.audio-length {
+	float: right;
+}
+
+.jp-audio {
+	position: absolute;
+	right: 0;
+	min-height: 100px;
+	min-width: 240px;
+	border: none !important;
+	border-radius: 0 5px 0 0;
+}
+
+.jp-progress {
+	margin: 0 auto;
+	width: 200px !important;
+	padding: 0 !important;
+}
+
+.jp-volume-bar {
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}

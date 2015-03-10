@@ -2046,3 +2046,9 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
+
+
+@app.route('/music')
+def music():
+    return render_template('/blog/music.html',
+                           title='Music')
