@@ -12,6 +12,8 @@ from functools import wraps
 from markdown import markdown
 import json
 import cms_functions
+import os
+from mutagen.mp3 import MP3
 from app import app, db, models
 
 
@@ -2050,5 +2052,28 @@ def press():
 
 @app.route('/music')
 def music():
+    path = os.path.dirname(os.path.realpath(__file__)) + '\static\music\\'
+    files = os.listdir(path)
+    known_songs = ['23', '25', '27', '28', '29', '30']
+    songs = []
+    loops = []
+    for item in files:
+        name = item[:item.find('.')]
+        length = MP3(path + name + '.mp3').info.length
+        m, s = divmod(length, 60.0)
+        length = '%d:%d' % (int(m), int(s))
+        if name in known_songs:
+            if name == '29':
+                length = '4:05'
+            songs.append([name, length])
+        else:
+            if name == '18':
+                length = '1:05'
+            loops.append([name, length])
+
+    songs = sorted(songs)
+    loops = sorted(loops)
     return render_template('/blog/music.html',
-                           title='Music')
+                           title='Music',
+                           songs=songs,
+                           loops=loops)

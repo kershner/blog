@@ -8,130 +8,23 @@
         </div>
 
         <div id="songs">
-            <div id="23" class="audio-text highlight">
-                <span class="audio-name">23</span><span class="audio-length">2:53</span>
-            </div>
-
-            <div id="25" class="audio-text audio-text-highlight">
-                <span class="audio-name">25</span><span class="audio-length">2:22</span>
-            </div>
-
-            <div id="27" class="audio-text highlight">
-                <span class="audio-name">27</span><span class="audio-length">2:16</span>
-            </div>
-
-            <div id="28" class="audio-text">
-                <span class="audio-name">28</span><span class="audio-length">2:48</span>
-            </div>
-
-            <div id="29" class="audio-text highlight">
-                <span class="audio-name">29</span><span class="audio-length">4:05</span>
-            </div>
-
-            <div id="30" class="audio-text">
-                <span class="audio-name">30</span><span class="audio-length">1:30</span>
-            </div>
+            {% for entry in songs %}
+                <div id="{{ entry[0] }}" class="audio-text highlight">
+                    <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
+                </div>
+            {% endfor %}
         </div>
 
         <div id="loops">
-            <div id="1" class="audio-text highlight">
-                <span class="audio-name">1</span><span class="audio-length">0:32</span>
-            </div>
-
-            <div id="3" class="audio-text">
-                <span class="audio-name">3</span><span class="audio-length">0:39</span>
-            </div>
-
-            <div id="4" class="audio-text highlight">
-                <span class="audio-name">4</span><span class="audio-length">0:32</span>
-            </div>
-
-            <div id="5" class="audio-text">
-                <span class="audio-name">5</span><span class="audio-length">0:30</span>
-            </div>
-
-            <div id="7" class="audio-text highlight">
-                <span class="audio-name">7</span><span class="audio-length">0:31</span>
-            </div>
-
-            <div id="8" class="audio-text">
-                <span class="audio-name">8</span><span class="audio-length">0:26</span>
-            </div>
-
-            <div id="8 (Drums)" class="audio-text highlight">
-                <span class="audio-name">8 (Drums)</span><span class="audio-length">0:34</span>
-            </div>
-
-            <div id="8 (Alt)" class="audio-text">
-                <span class="audio-name">8 (Alt)</span><span class="audio-length">0:34</span>
-            </div>
-
-            <div id="9" class="audio-text highlight">
-                <span class="audio-name">9</span><span class="audio-length">0:16</span>
-            </div>
-
-            <div id="10" class="audio-text">
-                <span class="audio-name">10</span><span class="audio-length">0:28</span>
-            </div>
-
-            <div id="11" class="audio-text highlight">
-                <span class="audio-name">11</span><span class="audio-length">0:50</span>
-            </div>
-
-            <div id="12" class="audio-text">
-                <span class="audio-name">12</span><span class="audio-length">0:31</span>
-            </div>
-
-            <div id="13" class="audio-text highlight">
-                <span class="audio-name">13</span><span class="audio-length">0:36</span>
-            </div>
-
-            <div id="14" class="audio-text">
-                <span class="audio-name">14</span><span class="audio-length">0:34</span>
-            </div>
-
-            <div id="15" class="audio-text highlight">
-                <span class="audio-name">15</span><span class="audio-length">0:34</span>
-            </div>
-
-            <div id="16" class="audio-text">
-                <span class="audio-name">16</span><span class="audio-length">0:44</span>
-            </div>
-
-            <div id="17" class="audio-text highlight">
-                <span class="audio-name">17</span><span class="audio-length">0:32</span>
-            </div>
-
-            <div id="18" class="audio-text">
-                <span class="audio-name">18</span><span class="audio-length">1:05</span>
-            </div>
-
-            <div id="19" class="audio-text highlight">
-                <span class="audio-name">19</span><span class="audio-length">0:55</span>
-            </div>
-
-            <div id="20" class="audio-text">
-                <span class="audio-name">20</span><span class="audio-length">0:28</span>
-            </div>
-
-            <div id="21" class="audio-text highlight">
-                <span class="audio-name">21</span><span class="audio-length">0:28</span>
-            </div>
-
-            <div id="22" class="audio-text">
-                <span class="audio-name">22</span><span class="audio-length">1:23</span>
-            </div>
-
-            <div id="24" class="audio-text highlight">
-                <span class="audio-name">24</span><span class="audio-length">0:32</span>
-            </div>
-
-            <div id="26" class="audio-text">
-                <span class="audio-name">26</span><span class="audio-length">0:53</span>
-            </div>
+            {% for entry in loops %}
+                <div id="{{ entry[0] }}" class="audio-text highlight">
+                    <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
+    <!-- jPlayer -->
     <div id="jquery_jplayer_1" class="jp-jplayer"></div>
 
     <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
@@ -176,6 +69,12 @@
                 To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
             </div>
         </div>
+    </div>
+</div>
+
+<div style="max-width: 600px; margin: 10px auto;">
+    <div class="video-wrapper">
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/w1t-Mevr9YM" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>
 {% endblock %}

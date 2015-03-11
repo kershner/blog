@@ -64,6 +64,10 @@ function jPlayer() {
 			},
 			swfPath: '/js',
 			supplied: 'mp3',
+			size: {
+				height: '140px',
+				width: '225px'
+			},
 			useStateClassSkin: true,
 			autoBlur: false,
 			smoothPlayBar: true,
