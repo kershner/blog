@@ -56,8 +56,9 @@ function jPlayer() {
 		$('#jquery_jplayer_1').jPlayer({
 			ready: function() {
 				$(this).jPlayer('setMedia', {
-					title: id + '.mp3',
-					mp3: url + id + '.mp3'
+					title: id,
+					mp3: url + id + '.mp3',
+					poster: 'http://i.ytimg.com/vi/pzPxhaYQQK8/hqdefault.jpg'
 				});
 			$(this).jPlayer('play', 0);
 			},
@@ -65,7 +66,7 @@ function jPlayer() {
 			supplied: 'mp3',
 			useStateClassSkin: true,
 			autoBlur: false,
-			smoothPlayBar: false,
+			smoothPlayBar: true,
 			keyEnabled: true,
 			remainingDuration: true,
 			toggleDuration: true
@@ -74,17 +75,22 @@ function jPlayer() {
 
 	$("#jquery_jplayer_1").jPlayer({
 		ready: function () {
-			$(this).jPlayer("setMedia", {
-				title: "27",
-				mp3: "/static/music/27.mp3"				
+			$(this).jPlayer('setMedia', {
+				title: '25',
+				mp3: '/static/music/25.mp3',
+				poster: 'http://i.ytimg.com/vi/pzPxhaYQQK8/hqdefault.jpg'
 			});
 		},
-		cssSelectorAncestor: "#jp_container_1",
-		swfPath: "/js",
-		supplied: "mp3",
-		useStateClassSkin: true,
+		cssSelectorAncestor: '#jp_container_1',
+		swfPath: '/js',
+		supplied: 'mp3',
+		size: {
+			height: '140px',
+			width: '225px'
+		},
+		useStateClassSkin: true,		
 		autoBlur: false,
-		smoothPlayBar: false,
+		smoothPlayBar: true,
 		keyEnabled: true,
 		remainingDuration: true,
 		toggleDuration: true
