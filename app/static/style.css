@@ -1401,6 +1401,76 @@ purple {
 }
 
 /* Music Page **************************************************************/
+#music-images-wrapper {
+	margin: 0 auto;
+	position: relative;
+	max-width: 600px;
+}
+
+.music-clickable {
+
+}
+
+.music-clickable:hover {
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#collage-1 {
+	position: absolute;
+	height: 31%;
+	width: 40%;
+}
+
+#collage-2 {
+	position: absolute;
+	left: 40%;
+	height: 62%;
+	width: 60%;
+}
+
+#collage-3 {
+	position: absolute;
+	top: 31%;
+	height: 31%;
+	width: 16%;
+}
+
+#collage-4 {
+	position: absolute;
+	top: 31%;
+	left: 16%;
+	height: 31%;
+	width: 24%;
+}
+
+#collage-5 {
+	position: absolute;
+	top: 62%;
+	height: 38%;
+	width: 40%;
+}
+
+#collage-6 {
+	position: absolute;
+	top: 62%;
+	left: 40%;
+	height: 38%;
+	width: 30%;
+}
+
+#collage-7 {
+	position: absolute;
+	top: 62%;
+	left: 70%;
+	height: 38%;
+	width: 30%;
+}
+
+#music-images-wrapper img {
+	width: 100%;
+}
+
 /* JPlayer Overrides */
 #jplayer-wrapper {
 	position: relative;
@@ -1486,7 +1556,7 @@ div::-webkit-scrollbar-thumb {
 	height: 50px;
 	line-height: 50px;
 	border-left: 1px solid #180a1f !important;
-	border-bottom: 1px solid #180a1f !important;
+	border-bottom: 1px solid #180a1f;
 }
 
 #loop-selection {
@@ -1494,7 +1564,7 @@ div::-webkit-scrollbar-thumb {
 	width: 50%;
 	height: 50px;
 	line-height: 50px;
-	border-bottom: 1px solid #180a1f !important;
+	border-bottom: 1px solid #180a1f;
 }
 
 #song-selection:hover, #loop-selection:hover {
@@ -1534,6 +1604,7 @@ div::-webkit-scrollbar-thumb {
 
 .highlight {
 	background-color: #554461;
+	border-bottom: none !important;
 }
 
 .audio-name {

@@ -1,5 +1,17 @@
 {% extends "/blog/base.html" %}
 {% block content %}
+
+<div id="music-images-wrapper">
+    <div id="collage-1" class="music-clickable animate"></div>
+    <div id="collage-2" class="music-clickable animate"></div>
+    <div id="collage-3" class="music-clickable animate"></div>
+    <div id="collage-4" class="music-clickable animate"></div>
+    <div id="collage-5" class="music-clickable animate"></div>
+    <div id="collage-6" class="music-clickable animate"></div>
+    <div id="collage-7" class="music-clickable animate"></div>
+    <img src="/static/images/music/music_collage.jpg">
+</div>
+
 <div id="jplayer-wrapper">
     <div id="music-selection">
         <div id="music-type">
@@ -9,7 +21,11 @@
 
         <div id="songs">
             {% for entry in songs %}
+                {% if entry[2] == 'highlight' %}
                 <div id="{{ entry[0] }}" class="audio-text highlight">
+                {% else %}
+                <div id="{{ entry[0] }}" class="audio-text">
+                {% endif %}
                     <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                 </div>
             {% endfor %}
@@ -17,7 +33,11 @@
 
         <div id="loops">
             {% for entry in loops %}
+                {% if entry[2] == 'highlight' %}
                 <div id="{{ entry[0] }}" class="audio-text highlight">
+                {% else %}
+                <div id="{{ entry[0] }}" class="audio-text">
+                {% endif %}
                     <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                 </div>
             {% endfor %}

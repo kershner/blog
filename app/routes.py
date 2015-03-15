@@ -2057,22 +2057,35 @@ def music():
     known_songs = ['23', '25', '27', '28', '29', '30']
     songs = []
     loops = []
+    song_count = 1
+    loop_count = 1
     for item in files:
         name = item[:item.find('.')]
         length = MP3(path + name + '.mp3').info.length
         m, s = divmod(length, 60.0)
         length = '%d:%d' % (int(m), int(s))
         if name in known_songs:
+            if song_count % 2 == 0:
+                css_class = 'highlight'
+            else:
+                css_class = 0
             if name == '29':
                 length = '4:05'
-            songs.append([name, length])
+            songs.append([name, length, css_class])
+            song_count += 1
         else:
+            if loop_count % 2 == 0:
+                css_class = 'highlight'
+            else:
+                css_class = 0
             if name == '18':
                 length = '1:05'
-            loops.append([name, length])
+            loops.append([name, length, css_class])
+            loop_count += 1
 
     songs = sorted(songs)
     loops = sorted(loops)
+
     return render_template('/blog/music.html',
                            title='Music',
                            songs=songs,
