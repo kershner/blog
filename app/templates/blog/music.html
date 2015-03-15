@@ -1,15 +1,9 @@
 {% extends "/blog/base.html" %}
 {% block content %}
 
-<div id="music-images-wrapper">
-    <div id="collage-1" class="music-clickable animate"></div>
-    <div id="collage-2" class="music-clickable animate"></div>
-    <div id="collage-3" class="music-clickable animate"></div>
-    <div id="collage-4" class="music-clickable animate"></div>
-    <div id="collage-5" class="music-clickable animate"></div>
-    <div id="collage-6" class="music-clickable animate"></div>
-    <div id="collage-7" class="music-clickable animate"></div>
-    <img src="/static/images/music/music_collage.jpg">
+<div id="music-welcome" class="music-welcome">
+    <span>I like to play guitar in my spare time and I'll sometimes record a quick loop or a simple song.</span>
+    <span>These are recorded with a cheap web cam, which is why they sound like crap.</span>
 </div>
 
 <div id="jplayer-wrapper">
@@ -92,7 +86,54 @@
     </div>
 </div>
 
-<div style="max-width: 600px; margin: 10px auto;">
+<div class="music-welcome" style="margin: 1vh auto; margin-top: 5vh">
+    <span style="font-size: 3vh; font-family: 'Raleway'">My Equipment</span>
+</div>
+
+<div id="music-lightbox" class="animate">
+    <img src="/static/images/music/music01.jpg">
+
+    <span>(Click anywhere to close)</span>
+</div>
+
+<div id="music-images-wrapper">
+    <div id="collage-1" class="music-clickable animate">
+        <span>Roland Cube Amp</span>
+    </div>
+
+    <div id="collage-2" class="music-clickable animate">
+        <span>Fender Telecaster</span>
+    </div>
+
+    <div id="collage-3" class="music-clickable animate">
+        <span>Boss Loop Station</span>
+    </div>
+
+    <div id="collage-4" class="music-clickable animate">
+        <span>Click to Enlarge</span>
+    </div>
+
+    <div id="collage-5" class="music-clickable animate">
+        <span>Click to Enlarge</span>
+    </div>
+
+    <div id="collage-6" class="music-clickable animate">
+        <span>Click to Enlarge</span>
+    </div>
+
+    <div id="collage-7" class="music-clickable animate">
+        <span>Click to Enlarge</span>
+    </div>
+
+    <img src="/static/images/music/music_collage.jpg">
+</div>
+
+<div class="music-welcome" style="margin: 1vh auto; margin-top: 3vh">
+    <span>Bonus video from an old 2007 jam session</span>
+</div>
+
+
+<div style="max-width: 600px; margin: 10px auto; margin-bottom: 4vh;">
     <div class="video-wrapper">
         <iframe width="420" height="315" src="https://www.youtube.com/embed/w1t-Mevr9YM" frameborder="0" allowfullscreen></iframe>
     </div>

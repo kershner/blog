@@ -100,3 +100,45 @@ function jPlayer() {
 		toggleDuration: true
 	});
 }
+
+function closeLightbox() {
+	$('#music-lightbox').on('click', function() {
+		$('#music-lightbox').css({
+			'opacity': '0.0',
+			'z-index': '0'});
+	});
+}
+
+function musicLightbox() {
+	$('.music-clickable').on('click', function() {
+		var id = $(this).attr('id');
+		var path = '/static/images/music/';
+		var image = '';
+
+		if (id === 'collage-1') {
+			image = 'music06.jpg';
+		} else if (id === 'collage-2') {
+			image = 'music04.jpg';
+		} else if (id === 'collage-3') {
+			image = 'music05.jpg';
+		} else if (id === 'collage-4') {
+			image = 'music07.jpg';
+		} else if (id === 'collage-5') {
+			image = 'music01.jpg';
+		} else if (id === 'collage-6') {
+			image = 'music03.jpg';
+		} else if (id === 'collage-7') {
+			image = 'music02.jpg'
+		}
+
+		var html = '<img src="' + path + image + '"><span>(Click anywhere to close)</span>';
+		
+		$('#music-lightbox').empty();
+		$('#music-lightbox').append(html);
+
+		$('#music-lightbox').css({
+			'opacity': '1.0',
+			'z-index': '6'});
+		closeLightbox();
+	});
+}

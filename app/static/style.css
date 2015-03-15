@@ -1401,6 +1401,54 @@ purple {
 }
 
 /* Music Page **************************************************************/
+#music-welcome {
+	margin-top: 7vh;
+}
+
+#music-lightbox {
+	position: fixed;
+	z-index: 0;
+	opacity: 0.0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#music-lightbox img {
+	position: absolute;
+	margin: 0 auto;
+	top: 12vh;
+	left: 0;
+	right: 0;
+	box-shadow: 0px 0px 20px 5px #000;
+}
+
+#music-lightbox span {
+	position: absolute;
+	margin: 0 auto;
+	top: 9vh;
+	left: 0;
+	right: 0;
+	width: 160px;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+}
+
+.music-welcome {
+	margin: 0 auto;	
+	max-width: 600px;
+	min-height: 10px;
+	text-align: center;
+}
+
+.music-welcome span {
+	display: block;
+	margin: 1vh auto;
+	font-family: 'Droid Sans';
+}
+
 #music-images-wrapper {
 	margin: 0 auto;
 	position: relative;
@@ -1408,63 +1456,72 @@ purple {
 }
 
 .music-clickable {
-
+	padding: 1vh;
+	opacity: 0.0;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
 }
 
 .music-clickable:hover {
 	cursor: pointer;
+	opacity: 1.0;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
 #collage-1 {
 	position: absolute;
-	height: 31%;
-	width: 40%;
+	top: .5%;
+	left: .5%;
+	height: 30%;
+	width: 39.5%;
 }
 
 #collage-2 {
 	position: absolute;
-	left: 40%;
-	height: 62%;
-	width: 60%;
+	top: .5%;
+	left: 40.5%;
+	height: 61.5%;
+	width: 59%;
 }
 
 #collage-3 {
 	position: absolute;
-	top: 31%;
-	height: 31%;
-	width: 16%;
+	top: 31.5%;
+	left: .5%;
+	height: 30.5%;
+	width: 15%;
 }
 
 #collage-4 {
 	position: absolute;
-	top: 31%;
+	top: 31.5%;
 	left: 16%;
-	height: 31%;
+	height: 30%;
 	width: 24%;
 }
 
 #collage-5 {
 	position: absolute;
-	top: 62%;
-	height: 38%;
-	width: 40%;
+	top: 62.5%;
+	left: .5%;
+	height: 36.75%;
+	width: 39.5%;
 }
 
 #collage-6 {
 	position: absolute;
-	top: 62%;
-	left: 40%;
-	height: 38%;
-	width: 30%;
+	top: 62.5%;
+	left: 40.5%;
+	height: 36.75%;
+	width: 29%;
 }
 
 #collage-7 {
 	position: absolute;
-	top: 62%;
+	top: 62.5%;
 	left: 70%;
-	height: 38%;
-	width: 30%;
+	height: 36.75%;
+	width: 29%;
 }
 
 #music-images-wrapper img {
@@ -1474,7 +1531,8 @@ purple {
 /* JPlayer Overrides */
 #jplayer-wrapper {
 	position: relative;
-	margin: 3vh auto;
+	z-index: 5;
+	margin: 2vh auto;
 	width: 450px;
 	height: 300px;
 	background-color: #3a2a45;
