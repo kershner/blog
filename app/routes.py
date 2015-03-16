@@ -562,11 +562,6 @@ def public_cms_delete(unique_id):
         return redirect(url_for('public_cms'))
 
 
-@app.route('/welcome')
-def welcome():
-    return render_template('/blog/welcome.html')
-
-
 @app.route('/about')
 def about():
     return render_template('/blog/about.html',

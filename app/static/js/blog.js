@@ -1,5 +1,6 @@
 function blog() {
 	smallMenu();
+	getImage();
 }
 
 function projectsMasonry() {
@@ -25,6 +26,10 @@ function smallMenu() {
 }
 
 function jPlayer() {
+	var html = '<a href="/static/music/25.mp3" download>Download</a>';
+	$('#song-download').empty();
+	$('#song-download').append(html);
+
 	$('#song-selection').on('click', function() {
 		$('#loop-selection').removeClass('highlight');
 		$(this).addClass('highlight');
@@ -34,7 +39,7 @@ function jPlayer() {
 		$('#loops').css({
 			'opacity': '0.0',
 			'z-index': '0'
-			});
+		});
 	});
 
 	$('#loop-selection').on('click', function() {
@@ -48,17 +53,20 @@ function jPlayer() {
 			'z-index': '0'});
 	});
 
-	$('.audio-text').on('click', function() {
+	$('.audio-text').on('click', function() {		
 		$("#jquery_jplayer_1").jPlayer("destroy");
 		$(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
 		var id = $(this).attr('id');
 		var url = '/static/music/';
+		var html = '<a href="' + url + id + '.mp3" download>Download</a>';
+		$('#song-download').empty();
+		$('#song-download').append(html);
 		$('#jquery_jplayer_1').jPlayer({
 			ready: function() {
 				$(this).jPlayer('setMedia', {
-					title: id,
+					title: id + '.mp3',
 					mp3: url + id + '.mp3',
-					poster: 'http://i.ytimg.com/vi/pzPxhaYQQK8/hqdefault.jpg'
+					poster: getImage()
 				});
 			$(this).jPlayer('play', 0);
 			},
@@ -77,12 +85,12 @@ function jPlayer() {
 		});
 	});
 
-	$("#jquery_jplayer_1").jPlayer({
+	$("#jquery_jplayer_1").jPlayer({		
 		ready: function () {
 			$(this).jPlayer('setMedia', {
-				title: '25',
+				title: '25.mp3',
 				mp3: '/static/music/25.mp3',
-				poster: 'http://i.ytimg.com/vi/pzPxhaYQQK8/hqdefault.jpg'
+				poster: getImage()
 			});
 		},
 		cssSelectorAncestor: '#jp_container_1',
@@ -99,6 +107,17 @@ function jPlayer() {
 		remainingDuration: true,
 		toggleDuration: true
 	});
+}
+
+function getImage() {
+	var path = '/static/images/dogs/dogs';
+	var images = [];
+	for (i = 1; i < 13; i++) {
+		var imagePath = path + i + '.jpg';
+		images.push(imagePath);
+	};
+	var item = images[Math.floor(Math.random() * images.length)];
+	return item
 }
 
 function closeLightbox() {
