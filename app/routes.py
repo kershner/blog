@@ -2047,7 +2047,7 @@ def press():
 
 @app.route('/music')
 def music():
-    path = os.path.dirname(os.path.realpath(__file__)) + '\static\music\\'
+    path = os.path.dirname(os.path.realpath(__file__)) + '/static/music/'
     files = os.listdir(path)
     known_songs = ['23', '25', '27', '28', '29', '30']
     songs = []
@@ -2055,6 +2055,7 @@ def music():
     song_count = 1
     loop_count = 1
     for item in files:
+        css_class = ''
         name = item[:item.find('.')]
         length = MP3(path + name + '.mp3').info.length
         m, s = divmod(length, 60.0)
@@ -2062,8 +2063,6 @@ def music():
         if name in known_songs:
             if song_count % 2 == 0:
                 css_class = 'highlight'
-            else:
-                css_class = 0
             if name == '29':
                 length = '4:05'
             songs.append([name, length, css_class])
@@ -2071,8 +2070,6 @@ def music():
         else:
             if loop_count % 2 == 0:
                 css_class = 'highlight'
-            else:
-                css_class = 0
             if name == '18':
                 length = '1:05'
             loops.append([name, length, css_class])

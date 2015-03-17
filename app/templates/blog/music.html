@@ -15,11 +15,7 @@
 
         <div id="songs">
             {% for entry in songs %}
-                {% if entry[2] == 'highlight' %}
-                <div id="{{ entry[0] }}" class="audio-text highlight">
-                {% else %}
-                <div id="{{ entry[0] }}" class="audio-text">
-                {% endif %}
+                <div id="{{ entry[0] }}" class="audio-text {{ entry[2] }}">
                     <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                 </div>
             {% endfor %}
@@ -27,11 +23,7 @@
 
         <div id="loops">
             {% for entry in loops %}
-                {% if entry[2] == 'highlight' %}
-                <div id="{{ entry[0] }}" class="audio-text highlight">
-                {% else %}
-                <div id="{{ entry[0] }}" class="audio-text">
-                {% endif %}
+                <div id="{{ entry[0] }}" class="audio-text {{ entry[2] }}">
                     <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                 </div>
             {% endfor %}
