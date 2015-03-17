@@ -2048,7 +2048,7 @@ def press():
 @app.route('/music')
 def music():
     path = os.path.dirname(os.path.realpath(__file__)) + '/static/music/'
-    files = os.listdir(path)
+    files = sorted(os.listdir(path))
     known_songs = ['23', '25', '27', '28', '29', '30']
     songs = []
     loops = []
@@ -2074,9 +2074,6 @@ def music():
                 length = '1:05'
             loops.append([name, length, css_class])
             loop_count += 1
-
-    songs = sorted(songs)
-    loops = sorted(loops)
 
     return render_template('/blog/music.html',
                            title='Music',
