@@ -148,6 +148,8 @@ iframe {
 .slick-images {
 	max-width: 362px;
 	margin: 0 auto;
+	text-align: center;
+	font-size: 12px;
 }
 
 .slick-images div img {
