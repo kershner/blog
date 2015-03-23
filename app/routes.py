@@ -2048,7 +2048,7 @@ def press():
 @app.route('/music')
 def music():
     path = os.path.dirname(os.path.realpath(__file__)) + '/static/music/'
-    files = sorted(os.listdir(path))
+    files = sorted(os.listdir(path), reverse=True)
     known_songs = ['23', '25', '27', '28', '29', '30']
     songs = []
     loops = []
@@ -2072,6 +2072,8 @@ def music():
                 css_class = 'highlight'
             if name == '18':
                 length = '1:05'
+            if name == '33':
+                length = '1:09'
             loops.append([name, length, css_class])
             loop_count += 1
 
