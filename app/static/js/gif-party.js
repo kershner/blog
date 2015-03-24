@@ -1,16 +1,23 @@
+$(document).ready(function() {
+	// Setting background color initially, calling changer function
+	var color = randomColor();
+	$('#content').animate({backgroundColor: color}, {queue: false, duration: 13});
+	$('body').animate({backgroundColor: color}, {queue: false, duration: 13});
+	setInterval(backgroundChange, 10000);
+	
+	// Function to disable pressing ENTER in the text field
+	$('#delay').keypress(function(e){
+    	if (e.keyCode == 13) {
+        	return false;
+	}});
+
+	alterSesseion();
+});
+
 // Creating a global dictionary to be used in the on-click 'focus'
 var options = {};
 window.elements = [];
-elements_array = window.elements.slice();
-
-// Function to disable pressing ENTER in the text field
-// Need user to hit 'submit' to trigger JavaScript function
-$(document).ready(function() {
-    $('#delay').keypress(function(e){
-        if (e.keyCode == 13) {
-            return false;
-    }});
-});
+var elements_array = window.elements.slice();
 
 // Automatic random background color changer
 function backgroundChange() {
@@ -19,14 +26,6 @@ function backgroundChange() {
 	$('#content').animate({backgroundColor: color}, {queue: false, duration: randomNumber});
 	$('body').animate({backgroundColor: color}, {queue: false, duration: randomNumber});
 }
-
-// Setting background color initially, calling changer function
-$(document).ready(function() {
-	var color = randomColor();
-	$('#content').animate({backgroundColor: color}, {queue: false, duration: 13});
-	$('body').animate({backgroundColor: color}, {queue: false, duration: 13});
-	setInterval(backgroundChange, 10000);
-});
 
 // Function to click on GIF and 'focus' on it - animation stops,
 // CSS height/width and Z index get larger.
@@ -56,7 +55,7 @@ function focusGif() {
 	// isn't focused on twice in a row, which could cause its dimensions to get
 	// messed up over time.
 	if (elements_array.length === 0) {
-        elements_array = elements.slice();
+		elements_array = elements.slice();
 	}
 	var rand_gif = elements_array.pop();
 	var orig_height = 'height';
@@ -85,21 +84,9 @@ function draggableImage() {
 }
 
 // The functions below define the animation of the images
-function makeNewPosition($content) {
-
-    // Get viewport dimensions (remove the dimension of the div)
-    var h = $content.height() - 300;
-    var w = $content.width() - 200;
-
-    var nh = Math.floor(Math.random() * h);
-    var nw = Math.floor(Math.random() * w);
-
-    return [nh, nw];
-}
-
 function getStartPos($target) {
 	var h = $("#content").height(); 
-    var w = $("#content").width();
+	var w = $("#content").width();
 	$target.css({
 		"top": (Math.random() * h) + 'px',
 		"left": (Math.random() * w) + 'px'
@@ -107,12 +94,33 @@ function getStartPos($target) {
 	$target.fadeIn(900);
 }
 
+function makeNewPosition($content) {
+	// Get viewport dimensions (remove the dimension of the div)
+	var h = $content.height() - 300;
+	var w = $content.width() - 200;
+
+	var nh = Math.floor(Math.random() * h);
+	var nw = Math.floor(Math.random() * w);
+
+	return [nh, nw];
+}
+
+function calcSpeed(prev, next) {
+	var x = Math.abs(prev[1] - next[1]);
+	var y = Math.abs(prev[0] - next[0]);
+	var greatest = x > y ? x : y;
+	var speedModifier = 0.1;
+	var speed = Math.ceil(greatest / speedModifier);
+
+	return speed;
+}
+
 function animateDiv($target) {
-    var newq = makeNewPosition($target.parent());
-    var oldq = $target.position();
-    var speed = calcSpeed([oldq.top, oldq.left], newq);
+	var newq = makeNewPosition($target.parent());
+	var oldq = $target.position();
+	var speed = calcSpeed([oldq.top, oldq.left], newq);
 	
-    $target.animate({
+	$target.animate({
 		top: newq[0],
 		left: newq[1]
 	}, speed, function () {
@@ -120,23 +128,9 @@ function animateDiv($target) {
 	});
 }
 
-function calcSpeed(prev, next) {
-
-    var x = Math.abs(prev[1] - next[1]);
-    var y = Math.abs(prev[0] - next[0]);
-
-    var greatest = x > y ? x : y;
-
-    var speedModifier = 0.1;
-
-    var speed = Math.ceil(greatest / speedModifier);
-
-    return speed;
-}
-
 // Json Function to Retrieve Images from Server
 function getImages() {
-    $('img').fadeOut(2000);
+	$('img').fadeOut(2000);
 	setTimeout($('img').remove(), 3000);
 	clearInterval(window.delay);
 	$.getJSON($SCRIPT_ROOT + '/gif_party_json', 
@@ -150,112 +144,36 @@ function getImages() {
 			var slider3 = $('#slider3').slider('option', 'value');
 			var slider4 = $('#slider4').slider('option', 'value');
 			
-			if ((data.number) === 5) {
-                url1 = data.URLs[0];
-                url2 = data.URLs[1];
-                url3 = data.URLs[2];
-                url4 = data.URLs[3];
-                url5 = data.URLs[4];
-                $('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
-                $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
-                $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
-                $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
-                $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
-				window.elements = ['.a','.b','.c','.d','.e'];
-            }
-            else if ((data.number) === 10) {
-                url1 = data.URLs[0];
-                url2 = data.URLs[1];
-                url3 = data.URLs[2];
-                url4 = data.URLs[3];
-                url5 = data.URLs[4];
-                url6 = data.URLs[5];
-                url7 = data.URLs[6];
-                url8 = data.URLs[7];
-                url9 = data.URLs[8];
-                url10 = data.URLs[9];
-				$('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
-                $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
-                $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
-                $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
-                $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
-				$('<img src="' + url6 + '"/>').addClass('f').appendTo('#content');
-                $('<img src="' + url7 + '"/>').addClass('g').appendTo('#content');
-                $('<img src="' + url8 + '"/>').addClass('h').appendTo('#content');
-                $('<img src="' + url9 + '"/>').addClass('i').appendTo('#content');
-                $('<img src="' + url10 + '"/>').addClass('j').appendTo('#content');
-				window.elements = ['.a','.b','.c','.d','.e','.f','.g','.h','.i','.j'];
-            }
-            else if ((data.number) === 20) {
-                url1 = data.URLs[0];
-                url2 = data.URLs[1];
-                url3 = data.URLs[2];
-                url4 = data.URLs[3];
-                url5 = data.URLs[4];
-                url6 = data.URLs[5];
-                url7 = data.URLs[6];
-                url8 = data.URLs[7];
-                url9 = data.URLs[8];
-                url10 = data.URLs[9];
-				url11 = data.URLs[10];
-                url12 = data.URLs[11];
-                url13 = data.URLs[12];
-                url14 = data.URLs[13];
-                url15 = data.URLs[14];
-                url16 = data.URLs[15];
-                url17 = data.URLs[16];
-                url18 = data.URLs[17];
-                url19 = data.URLs[18];
-                url20 = data.URLs[19];
-				$('<img src="' + url1 + '"/>').addClass('a').appendTo('#content');
-                $('<img src="' + url2 + '"/>').addClass('b').appendTo('#content');
-                $('<img src="' + url3 + '"/>').addClass('c').appendTo('#content');
-                $('<img src="' + url4 + '"/>').addClass('d').appendTo('#content');
-                $('<img src="' + url5 + '"/>').addClass('e').appendTo('#content');
-				$('<img src="' + url6 + '"/>').addClass('f').appendTo('#content');
-                $('<img src="' + url7 + '"/>').addClass('g').appendTo('#content');
-                $('<img src="' + url8 + '"/>').addClass('h').appendTo('#content');
-                $('<img src="' + url9 + '"/>').addClass('i').appendTo('#content');
-                $('<img src="' + url10 + '"/>').addClass('j').appendTo('#content');
-				$('<img src="' + url11 + '"/>').addClass('k').appendTo('#content');
-                $('<img src="' + url12 + '"/>').addClass('l').appendTo('#content');
-                $('<img src="' + url13 + '"/>').addClass('m').appendTo('#content');
-                $('<img src="' + url14 + '"/>').addClass('n').appendTo('#content');
-                $('<img src="' + url15 + '"/>').addClass('o').appendTo('#content');
-				$('<img src="' + url16 + '"/>').addClass('p').appendTo('#content');
-                $('<img src="' + url17 + '"/>').addClass('q').appendTo('#content');
-                $('<img src="' + url18 + '"/>').addClass('r').appendTo('#content');
-                $('<img src="' + url19 + '"/>').addClass('s').appendTo('#content');
-                $('<img src="' + url20 + '"/>').addClass('t').appendTo('#content');
-				window.elements = ['.a','.b','.c','.d','.e','.f','.g','.h','.i','.j','.k','.l','.m','.n','.o','.p','.q','.r','.s','.t'];
-            }
-			else {
-				console.log('Shit didn\'t work!');
+			window.elements = [];
+			for (i = 0; i < data.number; i++) {
+				$('<img src="' + data.URLs[i] + '"/>').addClass(String(i)).appendTo('#content');
+				window.elements.push('.' + i );
 			}
-			
+
 			for (i = 0; i < elements.length; i++) {
 				getStartPos($(elements[i]));
 				animateDiv($(elements[i]));
 				focusClick($(elements[i]));
-			}
-			
-			draggableImage();
+			}			
 			window.delay = setInterval(getImages, delay);
+			$('img').css({
+				'border-top-left-radius': slider1_1 + '%',
+				'border-top-right-radius': slider1_2 + '%',
+				'border-bottom-left-radius': slider1_3 + '%',
+				'border-bottom-right-radius': slider1_4 + '%',
+				'min-width': slider2 + 'px',
+				'min-height': slider2 + 'px',
+				'max-width': slider3 + 'px',
+				'max-height': slider3 + 'px'
+			});
+			draggableImage();
 			getSettings();
-			$('img').css('border-top-left-radius', slider1_1 + '%');
-			$('img').css('border-top-right-radius', slider1_2 + '%');
-			$('img').css('border-bottom-left-radius', slider1_3 + '%');
-			$('img').css('border-bottom-right-radius', slider1_4 + '%');
-			$('img').css('min-width', slider2 + 'px');
-			$('img').css('min-height', slider2 + 'px');
-			$('img').css('max-width', slider3 + 'px');
-			$('img').css('max-height', slider3 + 'px');
 		});
     return false;
 }
 
 // Functions to alter Flask session data via JSON
-$(document).ready(function() {
+function alterSesseion() {
 	// Number of GIFs selection
 	$('#5').click(function() {
 		$.getJSON($SCRIPT_ROOT + '/gif_party_json_5',
@@ -327,7 +245,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-});
+}
 
 // Function to display the current settings
 function getSettings() {
@@ -344,7 +262,6 @@ function getSettings() {
 	});
 }
 
-//////////////////////////////////////////////////
 // Sliders////////////////////////////////////////
 // Border-radius sliders
 function alterBorderRadiusTopLeft() {
@@ -368,50 +285,50 @@ function alterBorderRadiusBottomRight() {
 }
 
 $(function() {
-    $('#slider1-1').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        max: 50,
-        min: 5,
-        value: 5,
-        slide: alterBorderRadiusTopLeft,
-        change: alterBorderRadiusTopLeft
+	$('#slider1-1').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		max: 50,
+		min: 5,
+		value: 5,
+		slide: alterBorderRadiusTopLeft,
+		change: alterBorderRadiusTopLeft
 	});
 });
 
 $(function() {
-    $('#slider1-2').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        max: 50,
-        min: 5,
-        value: 5,
-        slide: alterBorderRadiusTopRight,
-        change: alterBorderRadiusTopRight
+	$('#slider1-2').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		max: 50,
+		min: 5,
+		value: 5,
+		slide: alterBorderRadiusTopRight,
+		change: alterBorderRadiusTopRight
 	});
 });
 
 $(function() {
-    $('#slider1-3').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        max: 50,
-        min: 5,
-        value: 5,
-        slide: alterBorderRadiusBottomLeft,
-        change: alterBorderRadiusBottomLeft
+	$('#slider1-3').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		max: 50,
+		min: 5,
+		value: 5,
+		slide: alterBorderRadiusBottomLeft,
+		change: alterBorderRadiusBottomLeft
 	});
 });
 
 $(function() {
-    $('#slider1-4').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        max: 50,
-        min: 5,
-        value: 5,
-        slide: alterBorderRadiusBottomRight,
-        change: alterBorderRadiusBottomRight
+	$('#slider1-4').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		max: 50,
+		min: 5,
+		value: 5,
+		slide: alterBorderRadiusBottomRight,
+		change: alterBorderRadiusBottomRight
 	});
 });
 
@@ -423,14 +340,14 @@ function alterImageSize() {
 }
 
 $(function() {
-    $('#slider2').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        step: 100,
-        max: 500,
-        value: 0,
-        slide: alterImageSize,
-        change: alterImageSize
+	$('#slider2').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		step: 100,
+		max: 500,
+		value: 0,
+		slide: alterImageSize,
+		change: alterImageSize
 	});
 });
 
@@ -442,14 +359,14 @@ function alterImageSize1() {
 }
 
 $(function() {
-    $('#slider3').slider({
-        orientation: 'horizontal',
-        range: 'min',
-        step: 100,
-        max: 500,
-        min: 100,
-        value: 500,
-        slide: alterImageSize1,
-        change: alterImageSize1
+	$('#slider3').slider({
+		orientation: 'horizontal',
+		range: 'min',
+		step: 100,
+		max: 500,
+		min: 100,
+		value: 500,
+		slide: alterImageSize1,
+		change: alterImageSize1
 	});
 });

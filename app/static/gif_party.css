@@ -14,6 +14,16 @@ body {
 	top: 15px;
 	left: 15px;
 	z-index: 30;
+	list-style-type: none;
+}
+
+#dl-menu li a:hover {
+	cursor: pointer;
+}
+
+.dl-menuwrapper li.dl-back:after,
+.dl-menuwrapper li > a:not(:only-child):after {
+	display: none;
 }
 
 .settings {
@@ -158,6 +168,7 @@ img {
 }
 
 #submit:hover {
+  cursor: pointer;
   background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
   background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
@@ -200,7 +211,7 @@ img {
 }
 
 #slider1-1, #slider1-2, #slider1-3, #slider1-4 {
-	margin-bottom: 5px;
+	margin: 10px auto !important;
 }
 
 /* Width of the slider track */
@@ -208,13 +219,15 @@ img {
 	margin: 0 auto;
 	margin-bottom: 5px;
 	width: 80%;
+	height: 10px;
+	border-radius: 10px;
 }
 
 
 /* Getting rid of inherited padding on the handles */
 #sliders a {
 	padding: 0;
-	top: -2.5px;
+	height: 15px;
 	border-style: none;
 }
 
@@ -225,7 +238,11 @@ img {
 	margin: 0;
 }
 
-#sliders a:hover , #sliders a:active{
+#sliders a:hover {
+	cursor: pointer;
+}
+
+#sliders a:hover, #sliders a:active{
 	background: rgb(179, 255, 255);
 	background: -moz-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);
 	background: -webkit-linear-gradient(30deg, rgb(179, 255, 255) 30%, rgb(152, 218, 255) 70%);

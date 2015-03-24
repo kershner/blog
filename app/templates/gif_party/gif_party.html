@@ -12,10 +12,6 @@
 
     <script src="//code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-    <script src="/static/js/randomColor.js"></script>
-    <script src="/static/js/gif-party.js"></script>
-    <script src="/static/GIF Party Menu/js/modernizr.custom.js"></script>
-    <script src="/static/GIF Party Menu/js/jquery.dlmenu.js"></script>
 
 </head>
 
@@ -90,14 +86,15 @@
     </div>
 </body>
 
-<script>
-$(function() {
-    $( '#dl-menu' ).dlmenu();
-});
-</script>
+<script src="/static/js/randomColor.js"></script>
+<script src="/static/js/gif-party.js"></script>
+<script src="/static/GIF Party Menu/js/modernizr.custom.js"></script>
+<script src="/static/GIF Party Menu/js/jquery.dlmenu.js"></script>
+
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
+    $('#dl-menu').dlmenu();
     getImages();
     setInterval(focusGif, 10000);
 });
