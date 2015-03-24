@@ -73,8 +73,8 @@ function jPlayer() {
 			swfPath: '/js',
 			supplied: 'mp3',
 			size: {
-				height: '140px',
-				width: '225px'
+				height: '50%',
+				width: '80%'
 			},
 			useStateClassSkin: true,
 			autoBlur: false,
@@ -97,8 +97,8 @@ function jPlayer() {
 		swfPath: '/js',
 		supplied: 'mp3',
 		size: {
-			height: '140px',
-			width: '225px'
+			height: '50%',
+			width: '80%'
 		},
 		useStateClassSkin: true,		
 		autoBlur: false,
