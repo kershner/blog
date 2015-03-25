@@ -1536,7 +1536,8 @@ purple {
 	position: relative;
 	z-index: 5;
 	margin: 2vh auto;
-	max-width: 50%;
+	width: 50%;
+	max-width: 650px;
 	min-width: 400px;
 	height: 400px;
 	background-color: #3a2a45;
