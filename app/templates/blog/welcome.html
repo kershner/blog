@@ -2,13 +2,16 @@
 {% block content %}
 <div class="welcome-container">
     <span id="hello">Hello!</span>
-    <span class="welcome-blurb">My name is Tyler Kershner.</span>
+
+    <img class="img-responsive about-pics" src="/static/images/aboutimages.png">
+
+    <span class="welcome-blurb" style="margin-top: 6vh;">My name is Tyler Kershner.</span>
     <span class="welcome-blurb">I'm a software developer in Ann Arbor, MI.</span>
-    <span class="welcome-blurb">Don't hesitate to <a href="#contact">get in touch</a>.</span>
+    <span class="welcome-blurb" style="margin-bottom: 10vh;">Don't hesitate to <a href="#contact">get in touch</a>.</span>
 </div>
 
 <div id="projects-section" class="welcome-container green">
-    <div class="welcome-section-title" style="top: 2vh;">Projects</div>
+    <div class="welcome-section-title" style="top: 2vh; text-shadow: 1px 1px 3px #000">Projects</div>
 
     <div id="projects-container">
         <div id="welcome-projects-small">
@@ -29,13 +32,6 @@
             </a>
 
             <br>
-
-            <a href="#">
-                <div class="welcome-project">
-                    <img src="/static/images/bacon3.jpg">
-                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
-                </div>
-            </a>
         </div>
 
         <div id="welcome-projects-med">
@@ -129,7 +125,7 @@
     <div class="welcome-section-title light-blue">Contact</div>
     <br>
 
-    <span class="welcome-blurb">Have some feedback or some work for me?</span>
+    <span class="welcome-blurb">Have some feedback or work for me?</span>
 
     <a name="contact"></a>
 

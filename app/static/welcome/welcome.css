@@ -141,8 +141,8 @@ body {
 	display: block;
 	position: relative;
 	margin: 0 auto;
-	height: 8vh;
-	line-height: 8vh;
+	height: 6vh;
+	line-height: 6vh;
 	background-color: #009480;
 	font-size: 3vh;
 	color: rgba(255, 255, 255, 0.5);
@@ -163,7 +163,7 @@ body {
 
 #contact-form-container {
 	margin: 0 auto;
-	max-width: 60%;
+	max-width: 95%;
 	min-width: 250px;
 }
 
@@ -175,7 +175,7 @@ input, textarea {
 #email-content {
 	height: 20vh;
 	max-height: 20vh;
-	max-width: 85%;
+	max-width: 625px;
 }
 
 #send {
