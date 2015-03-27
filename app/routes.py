@@ -2081,3 +2081,9 @@ def music():
                            title='Music',
                            songs=songs,
                            loops=loops)
+
+
+@app.route('/welcome')
+def welcome():
+    return render_template('/blog/welcome.html',
+                           title='Welcome')

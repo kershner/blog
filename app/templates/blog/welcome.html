@@ -1,0 +1,142 @@
+{% extends '/blog/base.html' %}
+{% block content %}
+<div class="welcome-container">
+    <span id="hello">Hello!</span>
+    <span class="welcome-blurb">My name is Tyler Kershner.</span>
+    <span class="welcome-blurb">I'm a software developer in Ann Arbor, MI.</span>
+    <span class="welcome-blurb">Don't hesitate to <a href="#contact">get in touch</a>.</span>
+</div>
+
+<div id="projects-section" class="welcome-container green">
+    <div class="welcome-section-title" style="top: 2vh;">Projects</div>
+
+    <div id="projects-container">
+        <div id="welcome-projects-small">
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon1.jpg">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon2.jpg">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon3.jpg">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+        </div>
+
+        <div id="welcome-projects-med">
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon1.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon2.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon3.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon4.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+        </div>
+
+        <div id="welcome-projects-large">
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon1.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon2.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon3.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon4.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon5.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="welcome-project">
+                    <img src="/static/images/bacon6.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">Blah Blah Blah</div>
+                </div>
+            </a>
+        </div>
+
+        <a id="more-projects-link" href="/projects"><div id="more-projects" class="animate">See More Projects</div></a>
+
+        <br>
+        <br>
+
+    </div>
+</div>
+
+
+<div id="contact-section" class="welcome-container">
+    <div class="welcome-section-title light-blue">Contact</div>
+    <br>
+
+    <span class="welcome-blurb">Have some feedback or some work for me?</span>
+
+    <a name="contact"></a>
+
+    <div id="contact-form-container">
+        <input id="subject" type="text" placeholder="Subject" class="animate">
+        <textarea id="email-content" placeholder="Email" class="animate"></textarea>
+        <input id="send" type="submit" value="Send" class="animate">
+    </div>
+</div>
+{% endblock %}

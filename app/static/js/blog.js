@@ -161,3 +161,13 @@ function musicLightbox() {
 		closeLightbox();
 	});
 }
+
+function sendEmail() {
+	$('#send').on('click', function() {
+		var subject = $('#subject').val();
+		var email = $('#email-content').val();
+		var myEmail = 'tylerkershner@gmail.com';
+		var link = 'mailto:' + myEmail + '?subject=' + subject + '&body=' + email;
+		window.location.href = link;
+	});
+}

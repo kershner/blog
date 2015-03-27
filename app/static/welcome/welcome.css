@@ -1,0 +1,191 @@
+body {
+	background-color: #F5F5F5;
+	color: #4a4a4a;
+}
+
+#projects-container a {
+	color: white;
+}
+
+#projects-container a:hover {
+	color: white;
+}
+
+.welcome-container {
+	position: relative;
+	margin: 2vh auto;
+	min-height: 30vh;
+	width: 100%;
+	text-align: center;
+}
+
+.welcome-blurb {
+	display: block;
+	margin: 2vh 0;
+	font-size: 2vh;
+}
+
+.green {
+	background-color: #00BFA5;
+	color: #f2f2f2;
+
+}
+
+#hello {
+	margin: 0;
+	font-size: 10vh;
+	font-family: 'Raleway';
+}
+
+.welcome-section-title {
+	position: relative;
+	margin: 0 auto;
+	font-family: 'Raleway';
+	font-size: 6vh;
+	background-color: rgba(255, 255, 255, 0.0);
+}
+
+#projects-container {
+	position: relative;
+	margin: 2vh auto;
+	min-height: 20vh;
+	max-width: 100%;
+}
+
+#welcome-projects-small {
+	position: relative;
+}
+
+#welcome-projects-small img {
+	width: 200px;
+}
+
+#welcome-projects-med {
+	display: none;
+}
+
+#welcome-projects-large {
+	display: none;
+}
+
+.welcome-project {
+	display: inline-block;
+	position: relative;
+	margin: 2vh 1vh;
+	max-width: 100%;
+}
+
+.welcome-project-blurb {
+	position: absolute;
+	padding: 10px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	text-align: left;
+	opacity: 0.0;
+}
+
+.welcome-project-blurb:hover {
+	opacity: 1.0;
+}
+
+.responsive-image {
+	width: 100%;
+}
+
+@media (min-width: 500px) {
+	.welcome-project {
+		max-width: 45%;
+	}
+
+	#welcome-projects-small {
+		display: none;
+	}
+
+	#welcome-projects-med {
+		display: block;
+	}
+
+	#welcome-projects-large {
+		display: none;
+	}
+}
+
+@media (min-width: 850px) {	
+	.welcome-project {
+		max-width: 25%;
+	}
+
+	#welcome-projects-small {
+		display: none;
+	}
+
+	#welcome-projects-med {
+		display: none;
+	}
+
+	#welcome-projects-large {
+		display: block;
+	}
+}
+
+#more-projects-link {
+	display: inline-block;
+	width: 60%;
+	min-width: 240px;
+}
+
+#more-projects {
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	height: 8vh;
+	line-height: 8vh;
+	background-color: #009480;
+	font-size: 3vh;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+#more-projects:hover {
+	background-color: #007b6a;
+	color: rgba(255, 255, 255, 1.0);
+}
+
+@media (max-width: 545px) {
+	#more-projects {
+		font-size: 1.5vh;
+		height: 5vh;
+		line-height: 5vh;
+	}
+}
+
+#contact-form-container {
+	margin: 0 auto;
+	max-width: 60%;
+	min-width: 250px;
+}
+
+input, textarea {
+	border: none;
+	box-shadow: 0 3px 10px -5px #000;
+}
+
+#email-content {
+	height: 20vh;
+	max-height: 20vh;
+	max-width: 85%;
+}
+
+#send {
+	background-color: rgba(250, 51, 70, 0.5);
+	color: #f2f2f2;
+	border: none;
+}
+
+#send:hover {
+	cursor: pointer;
+	background-color: rgba(250, 51, 70, 1.0);
+	box-shadow: none;
+}
