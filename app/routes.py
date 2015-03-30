@@ -1,19 +1,15 @@
 from flask import jsonify, render_template, request, flash, redirect, url_for, session, Markup
 from forms import *
 from urllib import quote
-import bleach
-from datetime import datetime, timedelta
-import random
-import calendar
-import re
-import praw
-import requests
 from functools import wraps
 from markdown import markdown
+from datetime import datetime, timedelta
+from modules import music_files, campaign_logic, reddit_scraper, cstools_logic
+import bleach
+import random
+import calendar
 import json
 import cms_functions
-import os
-from mutagen.mp3 import MP3
 from app import app, db, models
 
 
@@ -1166,36 +1162,6 @@ def gif_party_json_delay():
 
 ###################################################################################
 #  CS Tools Apps ##################################################################
-class GetClass(object):
-    def __init__(self, count, color):
-        self.count = count
-        self.color = color
-
-    # Logic to determine what color (CSS class) the elements will be
-    def get_color(self):
-        if self.count == 1:
-            self.color = 'purple'
-        elif self.count == 2:
-            self.color = 'blue'
-        elif self.count == 3:
-            self.color = 'red'
-        elif self.count == 4:
-            self.color = 'light-purple'
-        elif self.count == 5:
-            self.color = 'dark-green'
-        elif self.count == 6:
-            self.color = 'dark-blue'
-        elif self.count == 7:
-            self.color = 'dark-red'
-        elif self.count == 9:
-            self.color = 'orange-entry'
-            self.count = 1
-        self.count += 1
-
-get_class_li = GetClass(1, 'purple')
-get_class_well = GetClass(1, 'blue')
-
-
 @app.route('/cstools')
 def cstools():
     return render_template('/cstools/index.html',
@@ -1213,21 +1179,10 @@ def datechecker():
         else:
             try:
                 form_date = form.form_date.data
-                date_object = datetime.date(datetime.strptime(form_date, '%m/%d/%y'))
-                form_expiry_date = date_object + timedelta(days=60)
-                form_expiry_date_nice = '%s %s' % (str(form_expiry_date.strftime('%B')), str(form_expiry_date.day))
-                days_expired = datetime.today().date() - form_expiry_date
-                if form_expiry_date > datetime.today().date():
-                    message = 'The form is valid until %s,  %s days from now.' % \
-                              (form_expiry_date_nice, str(abs(days_expired.days)))
-                else:
-                    message = 'The form expired on %s, %s days ago.' % \
-                              (str(form_expiry_date_nice), str(days_expired.days))
-
                 return render_template('/cstools/datechecker.html',
                                        title="222 Form Date Checker",
                                        form=form,
-                                       message=message)
+                                       message=cstools_logic.datechecker_logic(form_date))
             except ValueError:
                 message = 'Enter the form\'s issue date in the format MM/DD/YY.'
                 return render_template('/cstools/datechecker.html',
@@ -1243,368 +1198,276 @@ def datechecker():
 @app.route('/cstools/backorder', methods=['GET', 'POST'])
 def backorder():
     form = BackorderForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/backorder.html',
                                    title='Backorder Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             email = form.email.data
-            subject = 'Cayman Chemical Backorder Notification %s' % form.po.data
-            body = 'Hello %s,\n\nUnfortunately we need to inform you that one '\
-                   'of your items is currently not available.  Item # %s is ' \
-                   'in production with an approximate lead time of %s.' % \
-                   (form.name.data, form.item_number.data, form.lead_time.data)
-            signoff = '\n\nI apologize for the inconvenience.  Let me know if you have any questions.' \
-                      '\n\nHave a great day,\n\n'
-            body += signoff
-
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            po = form.po.data
+            name = form.name.data
+            item_no = form.item_number.data
+            lead_time = form.lead_time.data
+            link = cstools_logic.backorder_logic(po, email, name, item_no, lead_time)
             return render_template('/cstools/backorder.html',
                                    title='Backorder Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
 
     elif request.method == 'GET':
         return render_template('/cstools/backorder.html',
                                title='Backorder Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/backorder-report', methods=['GET', 'POST'])
 def backorder_report():
     form = BackorderReport()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/backorder-report.html',
                                    title='Backorder Report Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             email = form.email.data
-            subject = 'Cayman Chemical Backorder Report'
-            body = 'Hello %s,\n\nAttached find an updated copy of your institution\'s backorder report.\n\n' \
-                   'Please let me know if you have any questions.\n\n' % name
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.backorder_report_logic(name, email)
             return render_template('/cstools/backorder-report.html',
                                    title='Backorder Report Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/backorder-report.html',
                                title='Backorder Report Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/application.html',
                                    title='Account Application Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             email = form.email.data
-            subject = 'Cayman Chemical Account Application'
-            body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  Before you can have your order ' \
-                   'processed and your items shipped you will need to establish an account with our company.  I have ' \
-                   'attached our customer account application which has all the instructions you will need, ' \
-                   'though please don\'t hesitate to call if you have any questions.\n\n' % name
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.application_logic(name, email)
             return render_template('/cstools/application.html',
                                    title='Account Application Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/application.html',
                                title='Account Application Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/dea', methods=['GET', 'POST'])
 def dea():
     form = DeaForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/dea.html',
                                    title='DEA Protocol Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             email = form.email.data
             items = form.dea_items.data
-            subject = 'Cayman Chemical DEA Scheduled Compounds Protocol'
-            body = 'Hello %s,\n\nThank you for your order with Cayman Chemical!  This is an email to inform you ' \
-                   'that the following item(s) are DEA scheduled compounds and as such will require additional ' \
-                   'paperwork before they can be processed: %s.  Attached please find the Cayman Chemical ' \
-                   'protocol for ordering scheduled compounds as well as a guide for filling out the required 222 ' \
-                   'form.\n\nIf you have any questions, please don\'t hesitate to ask.\n\nThank you,\n\n' % \
-                   (name, items)
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.dea_logic(name, email, items)
             return render_template('/cstools/dea.html',
                                    title='DEA Protocol Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/dea.html',
                                title='DEA Protocol Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/newaccount', methods=['GET', 'POST'])
 def newaccount():
     form = NewAccountForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/newaccount.html',
                                    title='New Account Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             acct_number = form.acct.data
             email = form.email.data
-            subject = 'New Account with Cayman Chemical'
-
-            if form.net30.data:
-                body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  A net 30 term account has been ' \
-                       'established for you.  We accept Purchase Orders, Visa, MasterCard, Discover, American Express, checks, and bank ' \
-                       'transfers.\n\nTo place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897' \
-                       '\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com' \
-                       '\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing ' \
-                       'business with you!\n\n' % (name, acct_number)
-            else:
-                body = 'Hello %s,\n\nThank you for your interest in Cayman Chemical!  A prepay account has been ' \
-                       'established for you.  We accept Visa, MasterCard, Discover, American Express, checks, and bank ' \
-                       'transfers.  If you would like net 30 terms, please provide bank and trade references.\n\nTo ' \
-                       'place an order, please contact customer service at one of the following:\n\nPhone:\t\t 800-364-9897' \
-                       '\nFax:\t\t    734-971-3640\nEmail:\t\t  orders@caymanchem.com\nWebsite:\thttp://www.caymanchem.com' \
-                       '\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing ' \
-                       'business with you!\n\n' % (name, acct_number)
-
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            net30 = form.net30.data
+            link = cstools_logic.newaccount_logic(name, acct_number, email, net30)
             return render_template('/cstools/newaccount.html',
                                    title='New Account Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/newaccount.html',
                                title='New Account Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
 def shadyblurb():
     form = ShadyForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/shadyblurb.html',
                                    title='Shady Customer Blurb',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             email = form.email.data
             order_no = form.order_no.data
-            subject = 'Cayman Chemical Web Order# %s' % order_no
-            body = 'To whom it may concern,\n\nCayman Chemical is a biochemical company dedicated to providing ' \
-                   'quality research grade material to pharmaceutical, academic, and medical institutions.  Our ' \
-                   'products are manufactured at Cayman Chemical for research purposes only and are not approved by ' \
-                   'the FDA for over-the-counter use in humans or animals as therapeutic agents.  If you can provide ' \
-                   'details of the research institution you are affiliated with we may be able to proceed ' \
-                   'with your order.  We do require that all new customers complete an account application that can ' \
-                   'be provided to you once we receive the requested information about your institution.\n\nPlease ' \
-                   'be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to ' \
-                   'businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please ' \
-                   'feel free to contact me if you have any questions.\n\nBest regards,\n\n'
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.shadyblurb_logic(email, order_no)
             return render_template('/cstools/shadyblurb.html',
                                    title='Shady Customer Blurb',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/shadyblurb.html',
                                title='Shady Customer Blurb',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
 def price_discrepancy():
     form = DiscrepancyForm()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/pricediscrepancy.html',
                                    title='Price Discrepancy Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             email = form.email.data
-            subject = 'Cayman Chemical Price Discrepancy %s' % form.po.data
-            body = 'Hello %s,\n\nWe have received your order but have a pricing discrepancy that needs to be ' \
-                   'resolved before we can ship any items.  For item #%s you reference a price of $%s but the ' \
-                   'item\'s actual cost is $%s.  Please confirm whether we should process or cancel the item.\n\n' \
-                   'Please let me know if you have any questions,\n\n' % \
-                   (form.name.data, form.item_number.data, form.given_price.data, form.actual_price.data)
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            po = form.po.data
+            name = form.name.data
+            item_no = form.item_number.data
+            given_price = form.given_price.data
+            actual_price = form.actual_price.data
+            link = cstools_logic.price_discrepancy_logic(email, po, name, item_no, given_price, actual_price)
             return render_template('/cstools/pricediscrepancy.html',
                                    title='Price Discrepancy Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
 
     elif request.method == 'GET':
         return render_template('/cstools/pricediscrepancy.html',
                                title='Price Discrepancy Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/stillneed', methods=['GET', 'POST'])
 def still_need():
     form = StillNeed()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/stillneed.html',
                                    title='Still Need Item? Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             email = form.email.data
             item = form.item_number.data
             order_no = form.order_no.data
-            subject = 'Regarding your Cayman Chemical Order %s' % order_no
-            body = 'Hello %s,\n\nYour order for item #%s is now available and ready to ship!  Since the item has ' \
-                   'been on a lengthy backorder we\'re sending this email to verify that you still need the item and ' \
-                   'would like it to be shipped as soon as possible.  Please let me know how you would like ' \
-                   'to proceed.\n\n' % (name, item)
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.stillneed_logic(name, email, item, order_no)
             return render_template('/cstools/stillneed.html',
                                    title='Still Need Item? Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/stillneed.html',
                                title='Still Need Item? Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
 def license_needed():
     form = LicenseNeeded()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/licenseneeded.html',
                                    title='DEA License Needed Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
             name = form.name.data
             email = form.email.data
             order_no = form.order_no.data
-            subject = 'DEA License Still Needed Order #%s' % order_no
-            body = 'Hello %s,\n\nWe have received your 222 form but we still need an updated copy of your DEA ' \
-                   'registration before the order can be processed.  Unlike the 222 form, the registration does not ' \
-                   'need to be an original - you can simply scan your license and email it to me.  Please send us ' \
-                   'your license as soon as possible to ensure prompt delivery of your order.\n\n' % name
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.license_needed_logic(name, email, order_no)
             return render_template('/cstools/licenseneeded.html',
                                    title='DEA License Needed Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/licenseneeded.html',
                                title='DEA License Needed Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 @app.route('/cstools/deaverify', methods=['GET', 'POST'])
 def dea_verify():
     form = DeaVerify()
-    get_class_well.get_color()
-    color = get_class_well.color
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
             return render_template('/cstools/deaverify.html',
                                    title='DEA Documents Verification Template',
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
         else:
-            email = 'Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com'
             order_no = form.order_no.data
             institution = form.institution.data
-            subject = '%s / %s' % (order_no, institution)
-            body = 'Hello,\n\nPlease verify these documents.\n\n'
-            link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+            link = cstools_logic.dea_verify_logic(order_no, institution)
             return render_template('/cstools/deaverify.html',
                                    title='DEA Documents Verification Template',
                                    link=link,
                                    form=form,
-                                   color=color)
+                                   color=cstools_logic.get_css_color())
     elif request.method == 'GET':
         return render_template('/cstools/deaverify.html',
                                title='DEA Documents Verification Template',
                                form=form,
-                               color=color)
+                               color=cstools_logic.get_css_color())
 
 
 def login_required_cstools(test):
@@ -1657,38 +1520,17 @@ def forms_without_orders():
                                    entries=entries,
                                    new_entry=True)
         else:
-            get_class_li.get_color()
-
-            color = get_class_li.color
             institution = form.institution.data
             name = form.name.data
             email = form.email.data
             csr_name = form.csr_name.data
             item_numbers = form.item_numbers.data
             notes = form.notes.data
-            now = datetime.utcnow()
-            date_nice = now.strftime('%m/%d/%Y')
-
-            entry = models.Entry(institution=institution,
-                                 contact_name=name,
-                                 contact_email=email,
-                                 timestamp=date_nice,
-                                 item_numbers=item_numbers,
-                                 notes=notes,
-                                 csr_name=csr_name,
-                                 color=color)
-
-            db.session.add(entry)
-            db.session.commit()
-
-            entries = models.Entry.query.all()
-
-            message = 'Successfully added entry for %s.' % institution
-
+            d = cstools_logic.add_e(institution, name, email, item_numbers, notes, csr_name)
             return render_template('/cstools/forms_without_orders.html',
                                    title='DEA Forms Without Orders',
-                                   entries=entries,
-                                   message=message)
+                                   entries=d['entries'],
+                                   message=d['message'])
     elif request.method == 'GET':
         entries = models.Entry.query.all()
         return render_template('/cstools/forms_without_orders.html',
@@ -1712,7 +1554,6 @@ def new_entry():
 @login_required_cstools
 def edit_entry(entry_id):
     entry = models.Entry.query.get(entry_id)
-
     return render_template('/cstools/forms_without_orders_edit.html',
                            title='DEA Forms Without Orders - Edit Entry',
                            entry=entry)
@@ -1724,22 +1565,17 @@ def update_entry(entry_id):
     form = DeaForms()
     entry = models.Entry.query.get(entry_id)
     if form.validate_on_submit():
-        entry.institution = form.institution.data
-        entry.contact_name = form.name.data
-        entry.contact_email = form.email.data
-        entry.csr_name = form.csr_name.data
-        entry.item_numbers = form.item_numbers.data
-        entry.notes = form.notes.data
-
-        db.session.commit()
-
-        entries = models.Entry.query.all()
-        message = 'The entry for %s has been updated.' % entry.institution
-
+        institution = form.institution.data
+        contact_name = form.name.data
+        contact_email = form.email.data
+        csr_name = form.csr_name.data
+        item_numbers = form.item_numbers.data
+        notes = form.notes.data
+        d = cstools_logic.edit_e(entry_id, institution, contact_name, contact_email, csr_name, item_numbers, notes)
         return render_template('/cstools/forms_without_orders.html',
                                title='DEA Forms Without Orders',
-                               entries=entries,
-                               message=message)
+                               entries=d['entries'],
+                               message=d['message'])
 
     form.institution.data = entry.institution
     form.name.data = entry.contact_name
@@ -1757,19 +1593,11 @@ def update_entry(entry_id):
 @app.route('/cstools/forms-without-orders/delete-entry/<entry_id>')
 @login_required_cstools
 def delete_entry(entry_id):
-    entry = models.Entry.query.get(entry_id)
-
-    db.session.delete(entry)
-    db.session.commit()
-
-    entries = models.Entry.query.all()
-
-    message = 'Successfully deleted entry for %s.' % entry.institution
-
+    d = cstools_logic.delete_e(entry_id)
     return render_template('/cstools/forms_without_orders.html',
                            title='DEA Forms Without Orders',
-                           message=message,
-                           entries=entries)
+                           message=d['message'],
+                           entries=d['entries'])
 
 
 ##############################################################################
@@ -1777,172 +1605,57 @@ def delete_entry(entry_id):
 @app.route('/scrape', methods=['GET', 'POST'])
 def scrape_home():
     form = RedditImageScraper()
-    suggestions = ['pugs', 'earthporn', 'kittens', 'gaming', 'pics', 'awww', 'funny', 'adviceanimals', 'gifs',
-                   'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
-                   'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
-    picks = []
-    for number in range(0, 3):
-        pick = random.choice(suggestions)
-        if pick in picks:
-            continue
-        else:
-            picks.append(pick)
-
     return render_template('/reddit_scraper/home.html',
                            form=form,
-                           picks=picks)
+                           picks=reddit_scraper.picks())
 
 
 @app.route('/scrape-reddit', methods=['GET', 'POST'])
 def scrape():
     form = RedditImageScraper()
-    suggestions = ['pugs', 'earthporn', 'kittens', 'gaming', 'pics', 'awww', 'funny', 'adviceanimals', 'gifs',
-                   'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
-                   'oldschoolcool', 'perfecttiming', 'abandonedporn', 'roomporn']
-    picks = []
-    for number in range(0, 3):
-        pick = random.choice(suggestions)
-        if pick in picks:
-            continue
-        else:
-            picks.append(pick)
-
     if request.method == 'POST':
         if not form.validate():
             return render_template('/reddit_scraper/home.html',
                                    form=form,
-                                   picks=picks)
+                                   picks=reddit_scraper.picks())
         else:
             form = RedditImageScraper()
-
-            def find_string(sub_string):
-                return re.compile(r'\b({0})\b'.format(sub_string), flags=re.IGNORECASE).search
-
             subreddit = str(form.subreddit_choice.data)
-
+            results_from = int(form.results_from.data)
+            number = int(form.number.data)
             try:
                 min_score = int(form.minimum_score.data)
             except ValueError:
                 message = 'Enter a numerical value for minimum score'
                 return render_template('/reddit_scraper/home.html',
                                        form=form,
-                                       picks=picks,
+                                       picks=reddit_scraper.picks(),
                                        message=message)
 
-            results_from = int(form.results_from.data)
-            number = int(form.number.data)
-            good_urls = []
-            indirect_urls = []
-
-            r = praw.Reddit(user_agent='reddit scraper by billcrystals')
-
-            if results_from == 1:
-                submissions = r.get_subreddit(subreddit).get_hot(limit=number)
-                results_from = 'Hot'
-            elif results_from == 2:
-                submissions = r.get_subreddit(subreddit).get_top_from_all(limit=number)
-                results_from = 'All'
-            elif results_from == 3:
-                submissions = r.get_subreddit(subreddit).get_top_from_year(limit=number)
-                results_from = 'Year'
-            else:
-                submissions = r.get_subreddit(subreddit).get_top_from_month(limit=number)
-                results_from = 'Month'
-
-            try:
-                for submission in submissions:
-                    if submission.score < min_score:
-                        print 'Submission (%s) lower than requested min score.' % submission.url
-                        continue
-                    elif submission.url.startswith('imgur.com/'):
-                        endpoint = submission.url.find('.com/')
-                        url = 'i.' + submission.url[:endpoint] + '.jpg'
-                        good_urls.append([url, submission.short_link, submission.title])
-                    elif find_string('/r/')(submission.url):
-                        if find_string('imgur')(submission.url):
-                            print '/r/ found in %s' % submission.url
-                            endpoint = submission.url.rfind('/')
-                            url = 'http://i.imgur.com' + submission.url[endpoint:] + '.jpg'
-                            good_urls.append([url, submission.short_link, submission.title])
-                        else:
-                            indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    elif find_string('/gallery/')(submission.url):
-                        print 'Submission (%s) is an Imgur album link' % submission.url
-                        indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    elif find_string('http://imgur.com/')(submission.url):
-                        if find_string('/a/')(submission.url):
-                            print 'Submission (%s) is an Imgur album link' % submission.url
-                            indirect_urls.append([submission.url, submission.short_link, submission.title])
-                        else:
-                            endpoint = submission.url.find('.com/')
-                            url = submission.url[endpoint + 5:]
-                            new_url = 'http://i.imgur.com/%s.jpg' % url
-                            if len(submission.title) > 75:
-                                try:
-                                    submission.title = str(submission.title[:75]) + '...'
-                                    good_urls.append([new_url, submission.short_link, submission.title])
-                                except UnicodeError:
-                                    continue
-                            else:
-                                good_urls.append([new_url, submission.short_link, submission.title])
-                    elif find_string('qkme')(submission.url):
-                        print 'QKME link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    elif find_string('youtube')(submission.url):
-                        print 'Youtube link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    elif find_string('twitter')(submission.url):
-                        print 'Twitter link, adding to indirect_urls...'
-                        indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    elif '?' in submission.url:
-                        endpoint = submission.url.find('?')
-                        url = submission.url[:endpoint]
-                        if len(submission.title) > 75:
-                            try:
-                                submission.title = str(submission.title[:75]) + '...'
-                                good_urls.append([url, submission.short_link, submission.title])
-                            except UnicodeError:
-                                continue
-                        else:
-                            good_urls.append([url, submission.short_link, submission.title])
-                    elif not submission.url.endswith(('.gif', '.png', '.jpg', '.jpeg')):
-                        print 'Indirect URL: %s' % submission.url
-                        indirect_urls.append([submission.url, submission.short_link, submission.title])
-                    else:
-                        if len(submission.title) > 75:
-                            try:
-                                submission.title = str(submission.title[:75]) + '...'
-                                good_urls.append([submission.url, submission.short_link, submission.title])
-                            except UnicodeError:
-                                continue
-                        else:
-                            good_urls.append([submission.url, submission.short_link, submission.title])
-            except (praw.errors.RedirectException, requests.HTTPError):
+            s = reddit_scraper.scrape_reddit(subreddit, results_from, number, min_score)
+            if s == 'no subreddit':
                 message = 'It looks like /r/%s doesn\'t exist!' % subreddit
                 return render_template('/reddit_scraper/home.html',
-                                       form=form,
+                                       form=RedditImageScraper(),
                                        message=message,
-                                       picks=picks)
-
-            good_urls_number = len(good_urls)
-            indirect_urls_number = len(indirect_urls)
-
-            return render_template('/reddit_scraper/results.html',
-                                   good_urls=good_urls,
-                                   indirect_urls=indirect_urls,
-                                   good_urls_number=good_urls_number,
-                                   indirect_urls_number=indirect_urls_number,
-                                   subreddit=subreddit,
-                                   min_score=min_score,
-                                   results_from=results_from,
-                                   number=number)
+                                       picks=reddit_scraper.picks())
+            else:
+                return render_template('/reddit_scraper/results.html',
+                                       good_urls=s['good_urls'],
+                                       indirect_urls=s['indirect_urls'],
+                                       good_urls_number=s['good_urls_number'],
+                                       indirect_urls_number=s['indirect_urls_number'],
+                                       subreddit=subreddit,
+                                       min_score=min_score,
+                                       results_from=s['results_from'],
+                                       number=number)
     else:
         return render_template('/reddit_scraper/home.html',
                                form=form)
 
 
 ##############################################################################
-# Campaign Demo Site #########################################################
+# YCS Campaign Site ##########################################################
 @app.route('/campaign')
 def campaign():
     return render_template('/campaign/home.html')
@@ -1950,84 +1663,20 @@ def campaign():
 
 @app.route('/slogan')
 def slogan():
-    slogans = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
-    variable = random.choice(slogans)
-
-    data = {
-        "variable": variable
-    }
-
-    return jsonify(data)
+    d = campaign_logic.slogan()
+    return jsonify(d)
 
 
 @app.route('/article')
 def article():
-    articles = [
-        ['"Ypsilanti Community Schools graduates inaugural senior class."',
-         'http://www.mlive.com/news/ann-arbor/index.ssf/2014/06/ypsilanti_community_schools_gr.html',
-         '- Amy Biolchini', 'MLive | 6/03/2014', '61'],
-        ['"Ypsilanti schools to pursue college scholarship program similar to Kalamazoo Promise."',
-         'http://www.annarbor.com/news/ypsilanti/ypsilanti-community-schools-to-pursue-college-scholarship-program-'
-         'similar-to-kalamazoo-promise/',
-         '- Danielle Arndt', 'The Ann Arbor News | 7/25/2013', '85'],
-        ['"Ypsilanti New Tech High School sends off its inaugural graduating class."',
-         'http://www.heritage.com/articles/2014/05/23/ypsilanti_courier/news/doc537f84b324c9c781733383.txt',
-         '- Krystal Elliott', 'The Ypsilanti Courier | 5/23/2014', '74'],
-        ['"State Superintendent Mike Flanagan says school district deficits \'reducing\' overall."',
-         'http://www.mlive.com/lansing-news/index.ssf/2014/06/flanagan_deficit_districts.html',
-         '- Brian Smith', 'MLive | 6/08/2014', '86'],
-        ['"Ypsilanti schools authorizes restructuring $18.8M debt to no longer be a deficit district."',
-         'http://www.annarbor.com/news/ypsilanti/ypsilanti-schools-authorizes-restructuring-its-188m-debt-to-no-'
-         'longer-be-a-deficit-district/',
-         '- Danielle Arndt', 'The Ann Arbor News | 6/26/2013', '92'],
-    ]
-
-    article_snip = random.choice(articles)
-
-    data = {
-        'title': article_snip[0],
-        'link': article_snip[1],
-        'author': article_snip[2],
-        'journal': article_snip[3],
-        'length': article_snip[4]
-    }
-
-    return jsonify(data)
+    d = campaign_logic.article()
+    return jsonify(d)
 
 
 @app.route('/article2')
 def article2():
-    articles = [
-        ['"Year-round school? Ypsilanti schools considering expanding use of balanced calendar."',
-         'http://www.mlive.com/news/ann-arbor/index.ssf/2014/08/ypsilanti_schools_to_consider.html',
-         '- Amy Biolchini', 'MLive | 8/09/2014', '86'],
-        ['"Holmes Elementary School starts off strong as first to pilot balanced calendar in Ypsilanti Community '
-         'Schools."',
-         'http://www.heritage.com/articles/2014/08/21/ypsilanti_courier/news/doc53f61a1be160f522813720.txt',
-         '- Krystal Elliott', 'The Ypsilanti Courier | 8/21/2014', '112'],
-        ['"City officials propose stationing police officer at Ypsilanti Community Middle School."',
-         'http://www.heritage.com/articles/2014/06/17/ypsilanti_courier/news/doc53a054c6786f5399518913.txt',
-         '- Krystal Elliott', 'The Ypsilanti Courier | 6/17/2014', '88'],
-        ['"Ypsilanti teachers, district \'satisfied\' overall with union contract despite some concerns over '
-         'salaries."',
-         'http://www.heritage.com/articles/2014/09/17/ypsilanti_courier/news/doc541221141ab45551957933.txt',
-         '- Krystal Elliott', 'The Ypsilanti Courier | 9/17/2014', '106'],
-        ['"Ypsilanti Community Schools Adopts Elementary Reconfiguration Plan."',
-         'http://wemu.org/post/ypsilanti-community-schools-adopts-elementary-reconfiguration-plan',
-         '- Bob Eccles', 'WEMU 89.1 | 4/22/2014', '68']
-    ]
-
-    article_snip = random.choice(articles)
-
-    data = {
-        'title': article_snip[0],
-        'link': article_snip[1],
-        'author': article_snip[2],
-        'journal': article_snip[3],
-        'length': article_snip[4]
-    }
-
-    return jsonify(data)
+    d = campaign_logic.article2()
+    return jsonify(d)
 
 
 @app.route('/candidates')
@@ -2047,40 +1696,11 @@ def press():
 
 @app.route('/music')
 def music():
-    path = os.path.dirname(os.path.realpath(__file__)) + '/static/music/'
-    files = sorted(os.listdir(path), reverse=True)
-    known_songs = ['23', '25', '27', '28', '29', '30']
-    songs = []
-    loops = []
-    song_count = 1
-    loop_count = 1
-    for item in files:
-        css_class = ''
-        name = item[:item.find('.')]
-        length = MP3(path + name + '.mp3').info.length
-        m, s = divmod(length, 60.0)
-        length = '%d:%d' % (int(m), int(s))
-        if name in known_songs:
-            if song_count % 2 == 0:
-                css_class = 'highlight'
-            if name == '29':
-                length = '4:05'
-            songs.append([name, length, css_class])
-            song_count += 1
-        else:
-            if loop_count % 2 == 0:
-                css_class = 'highlight'
-            if name == '18':
-                length = '1:05'
-            if name == '33':
-                length = '1:09'
-            loops.append([name, length, css_class])
-            loop_count += 1
-
+    m = music_files.get_songs()
     return render_template('/blog/music.html',
                            title='Music',
-                           songs=songs,
-                           loops=loops)
+                           songs=m['songs'],
+                           loops=m['loops'])
 
 
 @app.route('/welcome')

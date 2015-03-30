@@ -52,6 +52,11 @@ body {
 	max-width: 100%;
 }
 
+#projects-container img {
+	border-radius: 1vh;
+	box-shadow: 0 5px 20px -5px #000;
+}
+
 #welcome-projects-small {
 	position: relative;
 }
@@ -85,10 +90,20 @@ body {
 	background-color: rgba(0, 0, 0, 0.8);
 	text-align: left;
 	opacity: 0.0;
+	border-radius: 1vh;
 }
 
 .welcome-project-blurb:hover {
 	opacity: 1.0;
+}
+
+.welcome-project-blurb span {
+	font-size: 2vh;	
+}
+
+.welcome-project-blurb hr {
+	position: relative;
+	margin: 0;
 }
 
 .responsive-image {
@@ -113,7 +128,7 @@ body {
 	}
 }
 
-@media (min-width: 850px) {	
+@media (min-width: 890px) {	
 	.welcome-project {
 		max-width: 25%;
 	}
@@ -165,6 +180,17 @@ body {
 	margin: 0 auto;
 	max-width: 95%;
 	min-width: 250px;
+}
+
+#contact-icons {
+	margin: 0 auto;
+	height: 10vh;
+	max-width: 625px;
+}
+
+#contact-icons div {
+	display: inline-block;
+	margin: .5vh;
 }
 
 input, textarea {
