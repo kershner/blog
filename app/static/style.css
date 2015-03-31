@@ -700,6 +700,7 @@ div.project-screenshots img {
 /* CMS */
 /* **************************************************** */
 .white {
+	background-color: white;
 	padding-top: 10px;
 }
 
