@@ -700,6 +700,7 @@ div.project-screenshots img {
 /* CMS */
 /* **************************************************** */
 .white {
+	background-color: white;
 	padding-top: 10px;
 }
 
@@ -1404,7 +1405,7 @@ purple {
 
 /* Music Page **************************************************************/
 #music-welcome {
-	margin-top: 7vh;	
+	margin-top: 7vh;
 	text-align: left;
 }
 
