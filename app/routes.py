@@ -1,10 +1,10 @@
 from flask import jsonify, render_template, request, flash, redirect, url_for, session, Markup
+from modules import music_files, campaign_logic, reddit_scraper, cstools_logic
 from forms import *
 from urllib import quote
 from functools import wraps
 from markdown import markdown
 from datetime import datetime, timedelta
-from modules import music_files, campaign_logic, reddit_scraper, cstools_logic
 import bleach
 import random
 import calendar
@@ -31,37 +31,21 @@ def login_required(test):
     return wrap
 
 
+def login_required_cstools(test):
+    @wraps(test)
+    def wrap(*args, **kwargs):
+        if 'cstoolslogged_in' in session:
+            return test(*args, **kwargs)
+        else:
+            error = 'You need to log in first.'
+            return render_template('/cstools/login.html',
+                                   title='Login',
+                                   error=error)
+    return wrap
+
+
 ##############################################################################
-# Blog #######################################################################
-@app.route('/')
-def index():
-    # Sorting by ID (descending order)
-    posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    current_month_posts = []
-    last_month_posts = []
-    two_months_ago_posts = []
-
-    for post in posts:
-        status = cms_functions.get_recent_posts(post)
-        if status == 'Current Month':
-            current_month_posts.append(post)
-        elif status == 'Last Month':
-            last_month_posts.append(post)
-        elif status == 'Two Months Ago':
-            two_months_ago_posts.append(post)
-
-    if 'logged_in' in session:
-        link = '/cms'
-    else:
-        link = ''
-
-    return render_template('/blog/home.html',
-                           current_month_posts=current_month_posts,
-                           last_month_posts=last_month_posts,
-                           two_months_ago_posts=two_months_ago_posts,
-                           link=link)
-
-
+# CMS ########################################################################
 @app.route('/archive')
 def archive():
     posts = models.Post.query.order_by(models.Post.id.desc()).all()
@@ -558,6 +542,52 @@ def public_cms_delete(unique_id):
         return redirect(url_for('public_cms'))
 
 
+##############################################################################
+# Blog #######################################################################
+@app.route('/')
+def index():
+    # Sorting by ID (descending order)
+    posts = models.Post.query.order_by(models.Post.id.desc()).all()
+    current_month_posts = []
+    last_month_posts = []
+    two_months_ago_posts = []
+
+    for post in posts:
+        status = cms_functions.get_recent_posts(post)
+        if status == 'Current Month':
+            current_month_posts.append(post)
+        elif status == 'Last Month':
+            last_month_posts.append(post)
+        elif status == 'Two Months Ago':
+            two_months_ago_posts.append(post)
+
+    if 'logged_in' in session:
+        link = '/cms'
+    else:
+        link = ''
+
+    return render_template('/blog/home.html',
+                           current_month_posts=current_month_posts,
+                           last_month_posts=last_month_posts,
+                           two_months_ago_posts=two_months_ago_posts,
+                           link=link)
+
+
+@app.route('/music')
+def music():
+    m = music_files.get_songs()
+    return render_template('/blog/music.html',
+                           title='Music',
+                           songs=m['songs'],
+                           loops=m['loops'])
+
+
+@app.route('/welcome')
+def welcome():
+    return render_template('/blog/welcome.html',
+                           title='Welcome')
+
+
 @app.route('/about')
 def about():
     return render_template('/blog/about.html',
@@ -570,6 +600,7 @@ def projects():
                            title='Projects')
 
 
+# Project Pages
 @app.route('/pta')
 def project1():
     return render_template('/blog/projects/project01.html',
@@ -1470,19 +1501,6 @@ def dea_verify():
                                color=cstools_logic.get_css_color())
 
 
-def login_required_cstools(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'cstoolslogged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            error = 'You need to log in first.'
-            return render_template('/cstools/login.html',
-                                   title='Login',
-                                   error=error)
-    return wrap
-
-
 @app.route('/cstools/login', methods=['GET', 'POST'])
 def cstools_login():
     error = None
@@ -1692,18 +1710,3 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
-
-
-@app.route('/music')
-def music():
-    m = music_files.get_songs()
-    return render_template('/blog/music.html',
-                           title='Music',
-                           songs=m['songs'],
-                           loops=m['loops'])
-
-
-@app.route('/welcome')
-def welcome():
-    return render_template('/blog/welcome.html',
-                           title='Welcome')

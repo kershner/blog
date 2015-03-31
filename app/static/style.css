@@ -1404,7 +1404,8 @@ purple {
 
 /* Music Page **************************************************************/
 #music-welcome {
-	margin-top: 7vh;
+	margin-top: 7vh;	
+	text-align: left;
 }
 
 #music-lightbox {
@@ -1442,6 +1443,7 @@ purple {
 	margin: 0 auto;
 	max-width: 600px;
 	min-height: 10px;
+	font-size: 2vh;
 	text-align: center;
 }
 
