@@ -1179,7 +1179,7 @@ input:focus, textarea:focus {
 	width: 95%;
 	max-width: 625px;
 	margin: 0 auto;
-	color: white;
+	opacity: 0.0;
 	text-shadow: none;
 }
 

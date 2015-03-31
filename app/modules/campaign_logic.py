@@ -1,6 +1,7 @@
 import random
 
 
+# Return words for slogan ajax calls
 def slogan():
     slogans = ['student success', 'fiscal stability', 'student achievement', 'community satisfaction']
     variable = random.choice(slogans)
@@ -12,6 +13,7 @@ def slogan():
     return data
 
 
+# Return article info for ajax calls
 def article():
     articles = [
         ['"Ypsilanti Community Schools graduates inaugural senior class."',

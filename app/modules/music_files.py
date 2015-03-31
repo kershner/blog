@@ -2,6 +2,7 @@ import os
 from mutagen.mp3 import MP3
 
 
+# Sorts through directory containing MP3s, returns organized lists
 def get_songs():
     path = os.path.dirname(os.path.realpath(__file__))
     path = os.path.dirname(path) + '/static/music/'

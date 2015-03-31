@@ -201,7 +201,8 @@ body {
 	margin: .5vh;
 }
 
-input, textarea {
+#contact-form-container input, 
+#contact-form-container textarea {
 	border: none;
 	box-shadow: 0 3px 10px -5px #000;
 }

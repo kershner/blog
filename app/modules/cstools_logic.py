@@ -4,6 +4,7 @@ from urllib import quote
 import random
 
 
+# Overly complex code get a random color
 class GetClass(object):
     def __init__(self, count, color):
         self.count = count
@@ -39,7 +40,8 @@ def get_css_color():
 
     return color
 
-
+##############
+# CSTools apps
 def datechecker_logic(form_date):
     date_object = datetime.date(datetime.strptime(form_date, '%m/%d/%y'))
     form_expiry_date = date_object + timedelta(days=60)
@@ -184,7 +186,8 @@ def dea_verify_logic(order_no, institution):
 
     return link
 
-
+#########################################
+# Forms Without Orders Database Functions
 def add_e(institution, name, email, item_numbers, notes, csr_name):
     color = get_css_color()
     now = datetime.utcnow()

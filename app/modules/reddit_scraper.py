@@ -2,14 +2,14 @@ import random
 import re
 import praw
 import requests
-from flask import render_template
-from app import forms
 
 
+# Simple code to match substring
 def find_string(sub_string):
     return re.compile(r'\b({0})\b'.format(sub_string), flags=re.IGNORECASE).search
 
 
+# Returns list of suggestions for subreddits
 def picks():
     suggestions = ['pugs', 'earthporn', 'kittens', 'gaming', 'pics', 'awww', 'funny', 'adviceanimals', 'gifs',
                    'wallpapers', 'foodporn', 'historyporn', 'photoshopbattles', 'mildlyinteresting', 'woahdude',
@@ -24,6 +24,7 @@ def picks():
     return p
 
 
+# Main API scraper
 def scrape_reddit(subreddit, results_from, number, min_score):
     good_urls = []
     indirect_urls = []
