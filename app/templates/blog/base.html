@@ -28,13 +28,15 @@
     </head>
 
     <body>
-        <div class="small-logo-container">
-            <img id="small-logo-icon" alt="Tyler Kershner" src="/static/images/bacon4.jpg">
-            <span class="small-logo">Tyler Kershner</span>
-        </div>
-
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
+            <div class="small-logo-container">
+                <a id="small-logo-link" href="/">
+                    <img class="small-logo-icon animate" alt="Tyler Kershner" src="/static/images/bacon4.jpg">
+                </a>
+                <span class="small-logo">Tyler Kershner</span>
+            </div>
+
+            <div class="container" style="position: relative; z-index: 20;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle animate" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -46,7 +48,7 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Blog</a></li>
+                        <li><a href="/blog">Blog</a></li>
                         <li><a href="/projects">Projects</a></li>
                         <li><a href="/music">Music</a></li>
                         <li><a href="/about">About Me</a></li>
@@ -60,7 +62,7 @@
                 <div class="row">
                     <div class="col-xs-12 big-logo-container">
                         <img alt="Tyler's Blog" ID="face" src="/static/images/face.png">
-                        <h1 class="big-logo"><a href="/welcome">Tyler Kershner</a></h1>
+                        <h1 class="big-logo"><a href="/">Tyler Kershner</a></h1>
                     </div>
                 </div>
             </div>

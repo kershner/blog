@@ -8,14 +8,14 @@ from app import app, models
 
 ##############################################################################
 # Blog #######################################################################
-@app.route('/welcome')
-def welcome():
+@app.route('/')
+def index():
     return render_template('/blog/welcome.html',
                            title='Welcome')
 
 
-@app.route('/')
-def index():
+@app.route('/blog')
+def blog():
     data = cms_logic.get_posts()
     return render_template('/blog/home.html',
                            current_month_posts=data['current_month_posts'],

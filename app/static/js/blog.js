@@ -1,6 +1,7 @@
 function blog() {
 	smallMenu();
 	getImage();
+	setInterval(loadBacon, 8000);
 }
 
 function projectsMasonry() {
@@ -23,6 +24,26 @@ function smallMenu() {
 			$('.small-logo-container').fadeOut('fast');
 		}
 	});	
+}
+
+function loadBacon() {
+	var path = 'static/images/bacon';
+	var images = [];
+	for (i = 1; i < 7; i++) {
+		var imagePath = path + i + '.jpg';
+		images.push(imagePath);
+	};
+	var item = images[Math.floor(Math.random() * images.length)];
+	var html = '<img style="opacity: 0.0" class="small-logo-icon animate" alt="Tyler Kershner" src="' + item + '">';
+	$('#small-logo-link').append(html);
+	$('#small-logo-link :first-child').animate({
+		'opacity': '0.0'
+	}, 1200, function() {
+		$('#small-logo-link :first-child').remove();
+	});	
+	$('.small-logo-icon').animate({
+		'opacity': '1.0'
+	}, 1200);
 }
 
 function jPlayer() {

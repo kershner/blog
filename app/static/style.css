@@ -226,6 +226,7 @@ iframe {
 .small-logo-container {
   display: none;
   position: fixed;
+  top: 0;
   z-index: 20;
   height: 68px;
   width: 100%;
@@ -234,13 +235,8 @@ iframe {
   box-shadow: 0 2px 6px #000;
 }
 
-.small-logo:hover {
-  color: #bc1a3a;
-}
-
 .small-logo {
   position: absolute;
-  z-index: 20;
   margin-top: 15px;
   margin-left: 5px;
   left: 50px;
@@ -251,7 +247,7 @@ iframe {
              0px 9px 23px rgba(0,0,0,0.1);
 }
 
-#small-logo-icon {
+.small-logo-icon {
 	position: absolute;
 	top: 15px;
 	left: 10px;
@@ -260,6 +256,10 @@ iframe {
 	border: 2px solid white;
 	height: 40px;
 	width: 40px;
+}
+
+.small-logo-icon:hover {
+	box-shadow: 0 0 20px #FFF;
 }
 
 @media (min-width: 0) {
@@ -1443,7 +1443,7 @@ purple {
 	margin: 0 auto;
 	max-width: 600px;
 	min-height: 10px;
-	font-size: 2vh;
+	font-size: 1.8vh;
 	text-align: center;
 }
 
@@ -1538,9 +1538,7 @@ purple {
 	position: relative;
 	z-index: 5;
 	margin: 2vh auto;
-	width: 50%;
-	max-width: 650px;
-	min-width: 400px;
+	width: 575px;
 	height: 400px;
 	background-color: #3a2a45;
 	border-radius: 5px;
