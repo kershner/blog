@@ -43,7 +43,7 @@ function loadBacon() {
 	});	
 	$('.small-logo-icon').animate({
 		'opacity': '1.0'
-	}, 1200);
+	}, 800);
 }
 
 function jPlayer() {

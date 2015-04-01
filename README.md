@@ -11,7 +11,7 @@ The following web apps are hosted on this domain:
 along with a handful of other small projects.
 <br>
 <br>
-The code for each individual project can typically be found in the **/app/routes.py** file, and all my JavaScripts and CSS are located in the **/app/static/** directory.
+The code for each individual project can typically be found in the **/app/modules** directory, and all my JavaScripts and CSS are located in the **/app/static/** directory.
 <br>
 <br>
 Thanks for checking out my repo, and let me know if you have any questions!

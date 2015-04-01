@@ -24,6 +24,12 @@ def blog():
                            link=data['link'])
 
 
+@app.route('/projects')
+def projects():
+    return render_template('/blog/projects.html',
+                           title='Projects')
+
+
 @app.route('/music')
 def music():
     m = music_files.get_songs()
@@ -37,12 +43,6 @@ def music():
 def about():
     return render_template('/blog/about.html',
                            title='About Me')
-
-
-@app.route('/projects')
-def projects():
-    return render_template('/blog/projects.html',
-                           title='Projects')
 
 
 # Project Pages
