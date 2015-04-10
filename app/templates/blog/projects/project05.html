@@ -28,12 +28,16 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <hr>
                <p>
-                    A friend of mine was in the habit of grabbing images from reddit to use as his desktop wallpaper.
+                    A friend of mine was in the habit of grabbing images from Reddit to use as his desktop wallpaper.
                     As I thought about him manually finding the links and downloading the images the idea for this app
-                    came to me.
+                    came to me and I developed it over a weekend.
                     <br><br>
-                    It's basically just a heavily modified version of the script I use to pull GIFs for GIF Party and
-                    my Pi Display refactored to run live on a website and with a user-friendly front end.<br><br>
+                    The project was in large part an exercise in refactoring, as I took some old code developed for my GIF Display
+                    and re-engineered it to be more Pythonic and better suited to this specific task.  Like the GIF Display,
+                    a Python script interfaces with the Reddit API and pulls out image URLs from a specified subreddit.  Those URLs
+                    are then put through a number of tests - like making sure the HTTP status code isn't 404 - and then displayed in an
+                    organized grid via HTML/CSS.
+                    <br><br>
                     Check out the live site!
                     <br>
                 </p>
