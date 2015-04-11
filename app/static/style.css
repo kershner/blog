@@ -152,6 +152,10 @@ iframe {
 	font-size: 12px;
 }
 
+.slick-images div {
+	box-shadow: 0 15px 45px -5px #000
+}
+
 .slick-images div img {
 	width: 100%;
 }
@@ -374,8 +378,8 @@ iframe {
 }
 
 /* Additional class to apply to images to round their corners */
-.rounded-images {
-	border-radius: 15px;
+.kersh-image {
+
 }
 
 ul.rig.columns-3 li.article-image {
