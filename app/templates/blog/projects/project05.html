@@ -1,15 +1,19 @@
 {% extends "/blog/base.html" %}
 {% block content %}
 <div class="grey">
+    <div id="project-wide">
+        <div><img src="static/images/scraper_wide.png"></div>
+    </div>
+
     <div class="container">
 		<div class="row">
             <div class="project-page-info">
                 <span class="project-page-title">Reddit Image Scraper</span>
 
                 <a href="/scrape">
-                <div class="live-demo-button animate">
-                    <p class="animate">Live Site</p>
-                </div>
+                    <div class="live-demo-button">
+                        <p class="animate">Live Site</p>
+                    </div>
                 </a>
 
                 <div class="github-links">
@@ -28,12 +32,16 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <hr>
                <p>
-                    A friend of mine was in the habit of grabbing images from reddit to use as his desktop wallpaper.
-                    As I thought about him manually finding the links and downloading the images the idea for this app
-                    came to me.
+                    A friend of mine was in the habit of grabbing images from Reddit to use as his desktop wallpaper.
+                    I thought about how all the manual work involved in finding the links and downloading the images could be automated.
+                    The idea for this app came to me and I developed it over a weekend.
                     <br><br>
-                    It's basically just a heavily modified version of the script I use to pull GIFs for GIF Party and
-                    my Pi Display refactored to run live on a website and with a user-friendly front end.<br><br>
+                    The project was in large part an exercise in refactoring, as I took some old code developed for my GIF Display
+                    and re-engineered it to be more Pythonic and better suited to this specific task.  Like the GIF Display,
+                    a Python script interfaces with the Reddit API and pulls out image URLs from a specified subreddit.  Those URLs
+                    are then put through a number of tests - like making sure the HTTP status code isn't 404 - and then displayed in an
+                    organized grid via HTML/CSS.
+                    <br><br>
                     Check out the live site!
                     <br>
                 </p>
@@ -41,8 +49,11 @@
         </div>
 
         <div class="slick-images">
-            <div><a href="/static/images/scraper-screenshot1.jpg"><img src="/static/images/scraper-screenshot1.jpg" class="rounded-images"></a></div>
-            <div><a href="/static/images/scraper-screenshot2.jpg"><img src="/static/images/scraper-screenshot2.jpg" class="rounded-images"></a></div>
+            <div><a href="/static/images/scrape2.jpg"><img src="/static/images/scrape2.jpg"></a></div>
+            <div><a href="/static/images/scrape3.jpg"><img src="/static/images/scrape3.jpg"></a></div>
+            <div><a href="/static/images/scrape4.jpg"><img src="/static/images/scrape4.jpg"></a></div>
+            <div><a href="/static/images/scrape5.jpg"><img src="/static/images/scrape5.jpg"></a></div>
+            <div><a href="/static/images/scrape1.jpg"><img src="/static/images/scrape1.jpg"></a></div>
         </div>
     </div>
 </div>
