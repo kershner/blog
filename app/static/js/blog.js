@@ -27,7 +27,7 @@ function smallMenu() {
 }
 
 function loadBacon() {
-	var path = 'static/images/bacon';
+	var path = 'http://www.kershner.org/static/images/bacon';
 	var images = [];
 	for (i = 1; i < 7; i++) {
 		var imagePath = path + i + '.jpg';
