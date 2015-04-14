@@ -101,7 +101,7 @@ body {
 
 @media (min-width: 1100px) {
 	.welcome-project-blurb {
-		font-size: 1.80vh;
+		font-size: 18px;
 	}
 }
 
@@ -138,7 +138,7 @@ body {
 	}
 }
 
-@media (min-width: 890px) {	
+@media (min-width: 890px) {
 	.welcome-project {
 		max-width: 25%;
 	}
@@ -203,7 +203,7 @@ body {
 	margin: .5vh;
 }
 
-#contact-form-container input, 
+#contact-form-container input,
 #contact-form-container textarea {
 	border: none;
 	box-shadow: 0 3px 10px -5px #000;
