@@ -7,7 +7,7 @@ function blog() {
 function projectsMasonry() {
 	var masonry = new Masonry('#projects-grid', {
 		itemSelector: '.project'
-	});	
+	});
 	imagesLoaded('#projects-grid', function() {
 		masonry.layout();
 	});
@@ -23,7 +23,7 @@ function smallMenu() {
 		} else {
 			$('.small-logo-container').fadeOut('fast');
 		}
-	});	
+	});
 }
 
 function loadBacon() {
@@ -40,7 +40,7 @@ function loadBacon() {
 		'opacity': '0.0'
 	}, 1200, function() {
 		$('#small-logo-link :first-child').remove();
-	});	
+	});
 	$('.small-logo-icon').animate({
 		'opacity': '1.0'
 	}, 800);
@@ -74,7 +74,7 @@ function jPlayer() {
 			'z-index': '0'});
 	});
 
-	$('.audio-text').on('click', function() {		
+	$('.audio-text').on('click', function() {
 		$("#jquery_jplayer_1").jPlayer("destroy");
 		$(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
 		var id = $(this).attr('id');
@@ -106,7 +106,7 @@ function jPlayer() {
 		});
 	});
 
-	$("#jquery_jplayer_1").jPlayer({		
+	$("#jquery_jplayer_1").jPlayer({
 		ready: function () {
 			$(this).jPlayer('setMedia', {
 				title: '25.mp3',
@@ -121,7 +121,7 @@ function jPlayer() {
 			height: '50%',
 			width: '80%'
 		},
-		useStateClassSkin: true,		
+		useStateClassSkin: true,
 		autoBlur: false,
 		smoothPlayBar: true,
 		keyEnabled: true,
@@ -172,7 +172,7 @@ function musicLightbox() {
 		}
 
 		var html = '<img src="' + path + image + '"><span>(Click anywhere to close)</span>';
-		
+
 		$('#music-lightbox').empty();
 		$('#music-lightbox').append(html);
 
@@ -187,7 +187,7 @@ function sendEmail() {
 	$('#send').on('click', function() {
 		var subject = $('#subject').val();
 		var email = $('#email-content').val();
-		var myEmail = 'tylerkershner@gmail.com';
+		var myEmail = 'tyler@kershner.org';
 		var link = 'mailto:' + myEmail + '?subject=' + subject + '&body=' + email;
 		window.location.href = link;
 	});
