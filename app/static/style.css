@@ -420,7 +420,6 @@ ul.rig.columns-3 li.article-image {
 	color: white;
 	text-shadow: 1px 1px .5px #000;
 	box-shadow: 1px 1px 5px #000;
-	border-radius: 5px;
 }
 
 @media (min-width: 0) {
@@ -451,7 +450,6 @@ ul.rig.columns-3 li.article-image {
 .project img {
 	width: 300px;
 	height: 300px;
-	border-radius: 5px;
 }
 
 .project-text {
@@ -460,7 +458,6 @@ ul.rig.columns-3 li.article-image {
 	width: 300px;
 	height: 55px;
 	background-color: #1abc9c;
-	border-radius: 0 0 5px 5px;
 }
 
 /* ID to center text inside project title blocks */
@@ -1625,7 +1622,6 @@ purple {
 	margin: 5% auto;
 	width: 100% !important;
 	height: 100% !important;
-	border-radius: 10px;
 	box-shadow: 0 15px 25px -10px #000;
 }
 
@@ -1770,4 +1766,8 @@ div::-webkit-scrollbar-thumb {
 	top: 0;
 	left: 0;
 	width: 100%;
+}
+
+#resume-pdf {
+    box-shadow: 0 5px 35px -15px #000;
 }

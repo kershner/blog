@@ -45,6 +45,12 @@ def about():
                            title='About Me')
 
 
+@app.route('/resume')
+def resume():
+    return render_template('/blog/resume.html',
+                            title='Resume')
+
+
 # Project Pages
 @app.route('/pta')
 def project1():

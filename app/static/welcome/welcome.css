@@ -13,7 +13,8 @@ body {
 
 .welcome-container {
 	position: relative;
-	margin: 2vh auto;
+	background-color: white;
+	margin: 0 auto;
 	min-height: 30vh;
 	width: 100%;
 	text-align: center;
@@ -54,7 +55,6 @@ body {
 }
 
 #projects-container img {
-	border-radius: 1vh;
 	box-shadow: 0 5px 20px -5px #000;
 }
 
@@ -92,7 +92,6 @@ body {
 	text-align: left;
 	color: #f2f2f2;
 	opacity: 0.0;
-	border-radius: 1vh;
 }
 
 .welcome-project-blurb:hover {
