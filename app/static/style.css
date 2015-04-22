@@ -489,8 +489,14 @@ ul.rig.columns-3 li.article-image {
 	display: block;
 	margin: 10px 0;
 	min-width: 100px;
-	font-size: 60px;
+	font-size: 13vw;
 	font-family: 'Raleway';
+}
+
+@media (min-width: 700px) {
+	.project-page-title {
+		font-size: 85px;
+	}
 }
 
 /* **************************************************** */
