@@ -419,7 +419,7 @@ ul.rig.columns-3 li.article-image {
 	height: 300px;
 	color: white;
 	text-shadow: 1px 1px .5px #000;
-	box-shadow: 1px 1px 5px #000;
+	box-shadow: 0 5px 15px -2px #000;
 }
 
 @media (min-width: 0) {
@@ -523,11 +523,11 @@ ul.rig.columns-3 li.article-image {
 
 .live-demo-button {
 	position: relative;
-	margin: 2vh auto;
+	margin: 2em auto;
 	max-width: 350px;
 	height: 50px;
 	background-color: #00BFA5;
-	border-radius: 1vh;
+	border-radius: .5em;
 	-webkit-box-shadow: 0px 9px 0px #007363;
         -moz-box-shadow: 0px 9px 0px #007363;
         box-shadow: 0px 9px 0px #007363;
@@ -541,13 +541,13 @@ ul.rig.columns-3 li.article-image {
 }
 
 .live-demo-button:hover > p {
-	font-size: 3.5vh;
+	font-size: 2.5em;
 }
 
 .live-demo-button p {
 	text-shadow: 1px 1px 3px #000;
 	line-height: 50px;
-	font-size: 2.75vh;
+	font-size: 2em;
 	color: #f2f2f2;
 }
 
@@ -710,7 +710,7 @@ div.project-screenshots img {
 .footer-links {
 	margin: 0 auto;
 	padding: 10px;
-	width: 240px;
+	width: 280px;
 }
 
 .icon-link {
@@ -1451,7 +1451,7 @@ purple {
 
 /* Music Page **************************************************************/
 #music-welcome {
-	margin-top: 7vh;
+	margin-top: 5em;
 	text-align: left;
 }
 
@@ -1462,14 +1462,14 @@ purple {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
 #music-lightbox img {
 	position: absolute;
 	margin: 0 auto;
-	top: 12vh;
+	top: 10em;
 	left: 0;
 	right: 0;
 	box-shadow: 0px 0px 20px 5px #000;
@@ -1478,7 +1478,7 @@ purple {
 #music-lightbox span {
 	position: absolute;
 	margin: 0 auto;
-	top: 9vh;
+	top: 7em;
 	left: 0;
 	right: 0;
 	width: 160px;
@@ -1490,13 +1490,12 @@ purple {
 	margin: 0 auto;
 	max-width: 600px;
 	min-height: 10px;
-	font-size: 1.8vh;
 	text-align: center;
 }
 
 .music-welcome span {
 	display: block;
-	margin: 1vh auto;
+	margin: .5em auto;
 	font-family: 'Droid Sans';
 }
 
@@ -1508,7 +1507,7 @@ purple {
 }
 
 .music-clickable {
-	padding: 1vh;
+	padding: .5em;
 	opacity: 0.0;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
@@ -1584,7 +1583,7 @@ purple {
 #jplayer-wrapper {
 	position: relative;
 	z-index: 5;
-	margin: 2vh auto;
+	margin: 1.5em auto;
 	width: 575px;
 	height: 400px;
 	background-color: #3a2a45;

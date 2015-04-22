@@ -15,27 +15,26 @@ body {
 	position: relative;
 	background-color: white;
 	margin: 0 auto;
-	min-height: 30vh;
+	min-height: 30em;
 	width: 100%;
 	text-align: center;
 }
 
 .welcome-blurb {
 	display: block;
-	margin: 2vh 0;
-	font-size: 2vh;
+	margin: 1em 0;
+	font-size: 1.25em;
 }
 
 .green {
 	background-color: #00BFA5;
 	color: #f2f2f2;
-
 }
 
 #hello {
 	display: block;
-	margin-bottom: -3vh;
-	font-size: 10vh;
+	margin-bottom: -.25em;
+	font-size: 7em;
 	font-family: 'Raleway';
 }
 
@@ -43,13 +42,13 @@ body {
 	position: relative;
 	margin: 0 auto;
 	font-family: 'Raleway';
-	font-size: 6vh;
+	font-size: 5em;
 	background-color: rgba(255, 255, 255, 0.0);
 }
 
 #projects-container {
 	position: relative;
-	min-height: 20vh;
+	min-height: 20em;
 	max-width: 100%;
 }
 
@@ -76,7 +75,7 @@ body {
 .welcome-project {
 	display: inline-block;
 	position: relative;
-	margin: 2vh 1vh;
+	margin: 1.5em .5em;
 	max-width: 100%;
 }
 
@@ -105,7 +104,7 @@ body {
 
 .welcome-project-blurb span {
 	font-family: 'Raleway';
-	font-size: 2.5vh;
+	font-size: 1.5em;
 	color: #00BFA5;
 }
 
@@ -164,10 +163,10 @@ body {
 	display: block;
 	position: relative;
 	margin: 0 auto;
-	height: 6vh;
-	line-height: 6vh;
+	height: 2.5em;
+	line-height: 2.5em;
 	background-color: #009480;
-	font-size: 3vh;
+	font-size: 1.5em;
 	color: rgba(255, 255, 255, 0.5);
 }
 
@@ -178,9 +177,9 @@ body {
 
 @media (max-width: 545px) {
 	#more-projects {
-		font-size: 1.5vh;
-		height: 5vh;
-		line-height: 5vh;
+		font-size: 1em;
+		height: 2.25em;
+		line-height: 2.25em;
 	}
 }
 
@@ -192,13 +191,13 @@ body {
 
 #contact-icons {
 	margin: 0 auto;
-	height: 10vh;
+	height: 7em;
 	max-width: 625px;
 }
 
 #contact-icons div {
 	display: inline-block;
-	margin: .5vh;
+	margin: .25em;
 }
 
 #contact-form-container input,
@@ -208,8 +207,8 @@ body {
 }
 
 #email-content {
-	height: 20vh;
-	max-height: 20vh;
+	height: 15em;
+	max-height: 15em;
 	max-width: 625px;
 }
 
