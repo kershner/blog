@@ -220,7 +220,8 @@ iframe {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-  color: #bc1a3a;
+  color: #FFC761;
+  font-size: 20px;
 }
 
 .navbar-collapse {
@@ -303,7 +304,7 @@ iframe {
 }
 
 .big-logo a:hover {
-	color: #b30000;
+	color: #FFC761;
 }
 
 .big-logo-row {
@@ -862,6 +863,7 @@ div.project-screenshots img {
 	text-shadow: 1px 1px .5px #000;
 	color: white;
 }
+
 #cms-links a:hover {
 	color: red;
 }
