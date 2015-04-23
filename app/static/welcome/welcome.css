@@ -36,6 +36,65 @@ body {
 	margin-bottom: -.25em;
 	font-size: 7em;
 	font-family: 'Raleway';
+	color: #00BFA5;
+	height: 150px;
+}
+
+.levitate {
+	-webkit-animation: 
+    	fadeInGrow 1s 1,
+    	levitate 3s infinite;
+	-moz-animation: 
+    	fadeInGrow 1s 1,
+    	levitate 3s infinite;
+}
+
+@-webkit-keyframes fadeInGrow {
+    0% {
+		opacity: 0;
+		font-size: 1em;
+	}
+    100% {
+		opacity: 1;
+		font-size: 7em;
+	}
+}
+
+@-moz-keyframes fadeInGrow {
+    0% {
+		-moz-transform: translateY(-50px);
+		-moz-transform: scale(0.0);
+		opacity: 0;
+	}
+    100% {
+		-moz-transform: translateY(10px);
+		-moz-transform: scale(1.0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes levitate {
+	0% {
+		-webkit-transform: translateY(-10px);
+	}
+    50% {
+		-webkit-transform: translateY(0px);
+	}
+	100% {
+		-webkit-transform: translateY(-10px);
+	}
+}
+
+@-moz-keyframes levitate {
+	0% {
+		-moz-transform: translateY(-10px);
+	}
+    50% {
+		-moz-transform: translateY(3px);
+	}
+	100% {
+		-moz-transform: translateY(-10px);
+	}
 }
 
 .welcome-section-title {

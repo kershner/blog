@@ -308,21 +308,21 @@ iframe {
 }
 
 .big-logo-row {
-  background-color: #00BFA5;
+	background-color: #00BFA5;
 }
 
 .big-logo-row .big-logo-container {
-  padding-top: 50px;
+	padding-top: 50px;
 }
 
 .big-logo-row h1 {
-  font-size: 2em;
-  margin: 30px 0 0 0;
-  padding: 0 0 15px 0;
-  color: #FFFFFF;
-  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1);
+	font-size: 2em;
+	margin: 30px 0 0 0;
+	padding: 0 0 15px 0;
+	color: #FFFFFF;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+				0px 8px 13px rgba(0,0,0,0.1),
+				0px 18px 23px rgba(0,0,0,0.1);
 }
 
 @media (min-width: 0) {
@@ -380,11 +380,6 @@ iframe {
 	font-size: 22px;
 	margin-bottom: 60px;
 	text-align: center;
-}
-
-/* Additional class to apply to images to round their corners */
-.kersh-image {
-
 }
 
 ul.rig.columns-3 li.article-image {
