@@ -33,6 +33,7 @@ body {
 
 #hello {
 	display: block;
+	margin-top: .25em;
 	margin-bottom: -.25em;
 	font-size: 7em;
 	font-family: 'Raleway';
@@ -41,10 +42,10 @@ body {
 }
 
 .levitate {
-	-webkit-animation: 
+	-webkit-animation:
     	fadeInGrow 1s 1,
     	levitate 3s infinite;
-	-moz-animation: 
+	-moz-animation:
     	fadeInGrow 1s 1,
     	levitate 3s infinite;
 }
