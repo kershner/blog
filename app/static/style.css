@@ -547,7 +547,7 @@ ul.rig.columns-3 li.article-image {
 	max-width: 350px;
 	height: 50px;
 	background-color: #00BFA5;
-	border-radius: .5em;
+	border-radius: .3em;
 	-webkit-box-shadow: 0px 9px 0px #007363;
         -moz-box-shadow: 0px 9px 0px #007363;
         box-shadow: 0px 9px 0px #007363;
@@ -1605,7 +1605,7 @@ purple {
 	position: relative;
 	margin: 0 auto;
 	margin-top: -1.5em;
-	z-index: 5;	
+	z-index: 5;
 	width: 800px;
 	height: 400px;
 }
@@ -1678,7 +1678,7 @@ purple {
 	top: 14.5em;
 }
 
-#volume-bar {	
+#volume-bar {
 	width: 100%;
 	margin: 0 auto;
 	height: 4px;
@@ -1701,17 +1701,17 @@ purple {
 	margin: 0 auto;
 	text-align: center;
 	bottom: .25em;
-	font-size: 2em;	
+	font-size: 2em;
 }
 
 #audio-seek {
 	position: absolute;
 	width: 90%;
 	margin: 0 auto;
-	bottom: 2em;	
+	bottom: 2em;
 }
 
-#seek-bar {		
+#seek-bar {
 	height: 10px;
 	background-color: #F5F5F5;
 	width: 100% !important;
@@ -1735,20 +1735,20 @@ purple {
 
 .jp-details {
 	position: absolute;
-	width: 90%;	
+	width: 90%;
 	margin: 0 auto;
 	top: -.25em;
 	text-align: center;
 }
 
-#song-title {	
+#song-title {
 	font-size: 2em;
 	text-shadow: 1px 1px 3px #000;
 }
 
 #song-download {
 	position: relative;
-	bottom: .5em;	
+	bottom: .5em;
 	text-shadow: 1px 1px .5px #000;
 }
 
@@ -1866,6 +1866,7 @@ div::-webkit-scrollbar-thumb {
 	top: 0;
 	left: 0;
 	width: 100%;
+	box-shadow: 2px 8px 15px -5px #000;
 }
 
 #resume-pdf {
