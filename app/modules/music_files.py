@@ -13,28 +13,23 @@ def get_songs():
     song_count = 1
     loop_count = 1
     for item in files:
-        css_class = ''
         name = item[:item.find('.')]
         length = MP3(path + name + '.mp3').info.length
         m, s = divmod(length, 60.0)
         length = '%d:%d' % (int(m), int(s))
         if name in known_songs:
-            if song_count % 2 == 0:
-                css_class = 'highlight'
             if name == '29':
                 length = '4:05'
-            songs.append([name, length, css_class])
+            songs.append([name, length])
             song_count += 1
         else:
-            if loop_count % 2 == 0:
-                css_class = 'highlight'
             if name == '18':
                 length = '1:05'
             if name == '33':
                 length = '1:09'
             if name == '38':
                 length = '1:08'
-            loops.append([name, length, css_class])
+            loops.append([name, length])
             loop_count += 1
 
     data = {

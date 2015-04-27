@@ -52,8 +52,10 @@ function jPlayer() {
 	$('#song-download').append(html);
 
 	$('#song-selection').on('click', function() {
-		$('#loop-selection').removeClass('highlight');
-		$(this).addClass('highlight');
+		$('#loop-selection').removeClass('selection-highlight')
+		$('#loop-selection').addClass('selection-unhighlight');
+		$(this).removeClass('selection-unhighlight');
+		$(this).addClass('selection-highlight');
 		$('#songs').css({
 			'opacity': '1.0',
 			'z-index': '2'});
@@ -64,8 +66,10 @@ function jPlayer() {
 	});
 
 	$('#loop-selection').on('click', function() {
-		$('#song-selection').removeClass('highlight');
-		$(this).addClass('highlight');
+		$('#song-selection').removeClass('selection-highlight')
+		$('#song-selection').addClass('selection-unhighlight');
+		$(this).removeClass('selection-unhighlight');
+		$(this).addClass('selection-highlight');
 		$('#loops').css({
 			'opacity': '1.0',
 			'z-index': '2'});
@@ -74,6 +78,7 @@ function jPlayer() {
 			'z-index': '0'});
 	});
 
+	// Load audio MP3 from user selection
 	$('.audio-text').on('click', function() {
 		$("#jquery_jplayer_1").jPlayer("destroy");
 		$(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
@@ -93,9 +98,22 @@ function jPlayer() {
 			},
 			swfPath: '/js',
 			supplied: 'mp3',
+			cssSelector: {
+				play: '#play-button',
+				stop: '#stop-button',
+				seekBar: '#seek-bar',
+				playBar: '#play-bar',
+				mute: '#mute',
+				volumeMax: '#max-volume',
+				volumeBar: '#volume-bar',
+				volumeBarValue: '#volume-bar-value',
+				currentTime: '#current-time',
+				duration: '#duration',
+				title: '#song-title'
+			},
 			size: {
-				height: '50%',
-				width: '80%'
+				height: '90%',
+				width: '95%'
 			},
 			useStateClassSkin: true,
 			autoBlur: false,
@@ -106,6 +124,7 @@ function jPlayer() {
 		});
 	});
 
+	// Default State
 	$("#jquery_jplayer_1").jPlayer({
 		ready: function () {
 			$(this).jPlayer('setMedia', {
@@ -117,9 +136,22 @@ function jPlayer() {
 		cssSelectorAncestor: '#jp_container_1',
 		swfPath: '/js',
 		supplied: 'mp3',
+		cssSelector: {
+			play: '#play-button',
+			stop: '#stop-button',
+			seekBar: '#seek-bar',
+			playBar: '#play-bar',			
+			mute: '#mute',
+			volumeMax: '#max-volume',
+			volumeBar: '#volume-bar',
+			volumeBarValue: '#volume-bar-value',
+			currentTime: '#current-time',
+			duration: '#duration',
+			title: '#song-title'
+		},
 		size: {
-			height: '50%',
-			width: '80%'
+			height: '90%',
+			width: '95%'
 		},
 		useStateClassSkin: true,
 		autoBlur: false,
