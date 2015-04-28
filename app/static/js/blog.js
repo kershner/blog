@@ -47,7 +47,7 @@ function loadBacon() {
 }
 
 function jPlayer() {
-	var html = '<a href="/static/music/25.mp3" download>Download</a>';
+	var html = '<a href="/static/music/25.mp3"><i class="fa fa-download animate"></i></a>';
 	$('#song-download').empty();
 	$('#song-download').append(html);
 
@@ -84,7 +84,7 @@ function jPlayer() {
 		$(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
 		var id = $(this).attr('id');
 		var url = '/static/music/';
-		var html = '<a href="' + url + id + '.mp3" download>Download</a>';
+		var html = '<a href="' + url + id + '.mp3"><i class="fa fa-download animate"></i></a>';
 		$('#song-download').empty();
 		$('#song-download').append(html);
 		$('#jquery_jplayer_1').jPlayer({
@@ -140,7 +140,7 @@ function jPlayer() {
 			play: '#play-button',
 			stop: '#stop-button',
 			seekBar: '#seek-bar',
-			playBar: '#play-bar',			
+			playBar: '#play-bar',
 			mute: '#mute',
 			volumeMax: '#max-volume',
 			volumeBar: '#volume-bar',
