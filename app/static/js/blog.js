@@ -100,6 +100,7 @@ function jPlayer() {
 			supplied: 'mp3',
 			cssSelector: {
 				play: '#play-button',
+				pause: '#pause-button',
 				stop: '#stop-button',
 				seekBar: '#seek-bar',
 				playBar: '#play-bar',
@@ -138,6 +139,7 @@ function jPlayer() {
 		supplied: 'mp3',
 		cssSelector: {
 			play: '#play-button',
+			pause: '#pause-button',
 			stop: '#stop-button',
 			seekBar: '#seek-bar',
 			playBar: '#play-bar',
