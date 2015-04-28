@@ -167,8 +167,8 @@ function jPlayer() {
 function getImage() {
 	var path = '/static/images/dogs/dogs';
 	var images = [];
-	for (i = 1; i < 13; i++) {
-		var imagePath = path + i + '.jpg';
+	for (i = 1; i < 12; i++) {
+		var imagePath = path + i + '.png';
 		images.push(imagePath);
 	};
 	var item = images[Math.floor(Math.random() * images.length)];
