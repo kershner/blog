@@ -1664,7 +1664,7 @@ purple {
 #jquery_jplayer_1 {
 	display: block;
 	position: absolute;
-	top: .75em;
+	top: 1.225em;
 	left: 1em;
 	margin: 0 auto;
 	background-color: #0A7ECC;
@@ -1681,7 +1681,6 @@ purple {
 	display: none !important;
 	width: 100% !important;
 	height: 100% !important;
-	box-shadow: 0 15px 25px -10px #000;
 }
 
 #jp_container_1 {
@@ -1730,11 +1729,13 @@ purple {
 .audio-controls {
 	position: absolute;
 	z-index: 3;
-	width: 80%;
+	width: 65%;
 	margin: 0 auto;
 	text-align: center;
 	bottom: .25em;
 	font-size: 2em;
+	left: 0;
+	right: 0;
 }
 
 .audio-controls i {
@@ -1743,9 +1744,11 @@ purple {
 
 #audio-seek {
 	position: absolute;
-	width: 80%;
+	width: 65%;
 	margin: 0 auto;
 	bottom: 4em;
+	left: 0;
+	right: 0;
 }
 
 #seek-bar {
@@ -1774,7 +1777,8 @@ purple {
 	position: relative;
 	width: 80%;
 	margin: 0 auto;
-	top: 3em;
+	top: 6em;
+	text-align: center;
 }
 
 #song-title {
@@ -1787,7 +1791,6 @@ purple {
     z-index: 3;
     font-size: 1.1em;
     bottom: .25em;
-    left: .25em;
 	text-shadow: 1px 1px .5px #000;
 }
 
@@ -1881,9 +1884,9 @@ div::-webkit-scrollbar-thumb {
 	}
 
 	#jquery_jplayer_1 {
-		top: 3em;
+		top: 3.15em;
 	}
-	
+
 	#audio-seek {
 		width: 90%;
 		bottom: 2em;
@@ -1902,12 +1905,12 @@ div::-webkit-scrollbar-thumb {
 
 	.jp-details {
 		position: absolute;
-		width: 40%;
+		width: 20%;
 		top: .1em;
 	}
 }
 
-@media (min-width: 800px) {
+@media (min-width: 500px) {
 	#jquery_jplayer_1 img {
 		display: inline !important;
 	}
