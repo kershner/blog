@@ -177,8 +177,8 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
-    .welcome-project-title {
+@media (min-width: 1020px) {
+    #ycs-title {
         font-size: 2em !important;
         line-height: 2em !important;
     }
