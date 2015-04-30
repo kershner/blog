@@ -170,6 +170,20 @@ body {
 	text-shadow: 1px 1px 3px #000;
 }
 
+@media (min-width: 1000px) {
+    .welcome-project-title {
+        font-size: 2em;
+        line-height: 2em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .welcome-project-title {
+        font-size: 2em !important;
+        line-height: 2em !important;
+    }
+}
+
 .welcome-project-blurb:hover {
 	opacity: 1.0;
 }
