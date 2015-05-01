@@ -226,6 +226,11 @@ body {
 		display: block;
 	}
 
+	#welcome-projects-med .welcome-project-title {
+		font-size: 5.5vw;
+		line-height: 8vw;
+	}
+
 	#welcome-projects-large {
 		display: none;
 	}
@@ -246,6 +251,8 @@ body {
 
 	#welcome-projects-large {
 		display: block;
+		margin: 0 auto;
+		max-width: 1400px;
 	}
 }
 
