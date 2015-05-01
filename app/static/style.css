@@ -507,6 +507,7 @@ ul.rig.columns-3 li.article-image {
 	min-width: 100px;
 	font-size: 13vw;
 	font-family: 'Raleway';
+	color: #00BFA5;
 }
 
 @media (min-width: 700px) {
@@ -728,6 +729,7 @@ div.project-screenshots img {
 	height: 140px;
 	max-height: 140px;
 	background-color: #2f2f2f;
+	box-shadow: 0 3px 2px 3px #000;
 }
 
 .footer-links {

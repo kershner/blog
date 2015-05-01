@@ -1,6 +1,10 @@
 body {
-	background-color: #F5F5F5;
+	background-color: #F2F2F2;
 	color: #4a4a4a;
+}
+
+hr {
+    max-width: 800px;
 }
 
 #projects-container a {
@@ -103,6 +107,7 @@ body {
 	margin: 0 auto;
 	font-family: 'Raleway';
 	font-size: 5em;
+	color: #00BFA5;
 	background-color: rgba(255, 255, 255, 0.0);
 }
 
@@ -115,6 +120,7 @@ body {
 #projects-container img {
 	box-shadow: 2px 8px 15px -5px #000;
 	border-radius: 5px;
+	border: .5em solid #00BFA5;
 }
 
 #welcome-projects-small {
@@ -148,17 +154,21 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 191, 165, 0.9);
 	text-align: left;
 	color: #f2f2f2;
 	opacity: 0.0;
 	border-radius: 5px;
 }
 
+.welcome-project-blurb:hover {
+	opacity: 1.0;
+}
+
 .welcome-project-title {
 	position: absolute;
 	z-index: 1;
-	background-color: rgba(0, 0, 0, 0.7) !important;
+	background-color: rgba(0, 0, 0, 0.4) !important;
 	width: 100%;
 	height: 20%;
 	bottom: 0;
@@ -186,6 +196,7 @@ body {
 
 .welcome-project-blurb:hover {
 	opacity: 1.0;
+	border: .5em solid #00BFA5;
 }
 
 .welcome-project-blurb:hover ~ .welcome-project-title {
@@ -201,7 +212,7 @@ body {
 .welcome-project-blurb span {
 	font-family: 'Raleway';
 	font-size: 1.5em;
-	color: #00BFA5;
+	color: white;
 }
 
 .welcome-project-blurb hr {
@@ -267,16 +278,18 @@ body {
 	position: relative;
 	margin: 0 auto;
 	height: 2.5em;
-	line-height: 2.5em;
-	background-color: #009480;
+	line-height: 2em;
+	color: #00BFA5;
+	background-color: white;
 	font-size: 1.5em;
-	color: rgba(255, 255, 255, 1);
 	border-radius: 5px;
+	border: .25em solid #00BFA5;
 }
 
 #more-projects:hover {
-	background-color: #007b6a;
-	color: rgba(255, 255, 255, 0.5);
+    background-color: #00BFA5;
+    color: white;
+    box-shadow: 2px 8px 15px -5px #000;
 }
 
 @media (max-width: 545px) {
@@ -306,7 +319,6 @@ body {
 
 #contact-form-container input,
 #contact-form-container textarea {
-	border: none;
 	box-shadow: 0 3px 10px -5px #000;
 }
 
@@ -314,12 +326,17 @@ body {
 	height: 15em;
 	max-height: 15em;
 	max-width: 625px;
+	border: .40em solid #00BFA5;
+}
+
+#subject {
+    border: .25em solid #00BFA5;
 }
 
 #send {
 	background-color: rgba(250, 51, 70, 1);
 	color: #f2f2f2;
-	border: none;
+	border: none !important;
 }
 
 #send:hover {
