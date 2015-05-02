@@ -109,6 +109,7 @@
         <script type="text/javascript" src="/static/js/masonry.min.js"></script>
         <script type="text/javascript" src="/static/js/imagesloaded.min.js"></script>
         <script type="text/javascript" src="/static/js/rainbow-custom.min.js"></script>
+        <script type="text/javascript" src="/static/js/randomColor.js"></script>
         <script type="text/javascript" src="/static/js/countUp.min.js"></script>
         <script type="text/javascript" src="/static/slick/slick.min.js"></script>
         <script type="text/javascript" src="/static/jplayer/js/jquery.jplayer.min.js"></script>
@@ -122,6 +123,7 @@
                 {% if title == 'Music' %}
                 jPlayer();
                 musicLightbox();
+                musicPlayerColors();
                 {% elif title == 'Welcome' %}
                 sendEmail();
                 {% endif %}

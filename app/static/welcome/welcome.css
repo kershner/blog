@@ -120,7 +120,7 @@ hr {
 #projects-container img {
 	box-shadow: 2px 8px 15px -5px #000;
 	border-radius: 5px;
-	border: .35em solid #00BFA5;
+	border: .15em solid #00BFA5;
 }
 
 #welcome-projects-small {
@@ -210,14 +210,13 @@ hr {
 }
 
 .welcome-project-blurb span {
+	display: block;
+	margin: .05em auto;
 	font-family: 'Raleway';
 	font-size: 1.5em;
+	text-align: center;
 	color: white;
-}
-
-.welcome-project-blurb hr {
-	position: relative;
-	margin: 0;
+	border-bottom: .15em solid white;
 }
 
 .responsive-image {
@@ -226,7 +225,11 @@ hr {
 
 @media (min-width: 500px) {
 	.welcome-project {
-		max-width: 45%;
+		max-width: 40%;
+	}
+
+	.welcome-project-blurb {
+		font-size: 2.8vw;
 	}
 
 	#welcome-projects-small {
@@ -238,7 +241,7 @@ hr {
 	}
 
 	#welcome-projects-med .welcome-project-title {
-		font-size: 5.5vw;
+		font-size: 4.5vw;
 		line-height: 8vw;
 	}
 
@@ -250,6 +253,10 @@ hr {
 @media (min-width: 890px) {
 	.welcome-project {
 		max-width: 25%;
+	}
+
+	.welcome-project-blurb {
+		font-size: 1.5vw;
 	}
 
 	#welcome-projects-small {
@@ -267,6 +274,16 @@ hr {
 	}
 }
 
+@media (min-width: 1400px) {
+	.welcome-project-blurb span {
+		font-size: 1.3em !important;
+	}
+
+	.welcome-project-blurb {
+		font-size: 1.5em;
+	}
+}
+
 #more-projects-link {
 	display: inline-block;
 	width: 60%;
@@ -278,18 +295,18 @@ hr {
 	position: relative;
 	margin: 0 auto;
 	height: 2.5em;
-	line-height: 2em;
+	max-width: 850px;
+	line-height: 2.5em;
 	color: #00BFA5;
 	background-color: white;
 	font-size: 1.5em;
 	border-radius: 5px;
-	border: .25em solid #00BFA5;
+	border: .125em solid #00BFA5;
 }
 
 #more-projects:hover {
     background-color: #00BFA5;
     color: white;
-    box-shadow: 2px 8px 15px -5px #000;
 }
 
 @media (max-width: 545px) {
@@ -326,11 +343,11 @@ hr {
 	height: 15em;
 	max-height: 15em;
 	max-width: 625px;
-	border: .40em solid #00BFA5;
+	border: .15em solid #00BFA5;
 }
 
 #subject {
-    border: .25em solid #00BFA5;
+    border: .10em solid #00BFA5;
 }
 
 #send {

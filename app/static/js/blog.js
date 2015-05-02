@@ -217,6 +217,14 @@ function musicLightbox() {
 	});
 }
 
+function musicPlayerColors() {
+	setInterval(function() {
+		console.log('Changing Color!');
+		var color = randomColor();
+		$('#jquery_jplayer_1').css('background-color', color);
+	}, 1200);
+}
+
 function sendEmail() {
 	$('#send').on('click', function() {
 		var subject = $('#subject').val();
