@@ -120,7 +120,7 @@ hr {
 #projects-container img {
 	box-shadow: 2px 8px 15px -5px #000;
 	border-radius: 5px;
-	border: .15em solid #00BFA5;
+	border: .25em solid #00BFA5;
 }
 
 #welcome-projects-small {
@@ -301,7 +301,7 @@ hr {
 	background-color: white;
 	font-size: 1.5em;
 	border-radius: 5px;
-	border: .125em solid #00BFA5;
+	border: .15em solid #00BFA5;
 }
 
 #more-projects:hover {
@@ -343,11 +343,11 @@ hr {
 	height: 15em;
 	max-height: 15em;
 	max-width: 625px;
-	border: .15em solid #00BFA5;
+	border: .25em solid #00BFA5;
 }
 
 #subject {
-    border: .10em solid #00BFA5;
+    border: .15em solid #00BFA5;
 }
 
 #send {
