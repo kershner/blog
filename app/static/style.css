@@ -1528,6 +1528,16 @@ purple {
 	text-align: center;
 }
 
+.music-welcome .welcome-section-title {
+    font-size: 11vw;
+}
+
+@media (min-width: 530px) {
+    .music-welcome .welcome-section-title {
+        font-size: 5em;
+    }
+}
+
 .music-welcome span {
 	display: block;
 	margin: .5em auto;
@@ -1681,7 +1691,7 @@ purple {
 	top: 1.225em;
 	left: 1em;
 	margin: 0 auto;
-	background-color: #0A7ECC;	
+	background-color: #0A7ECC;
 	z-index: 1;
 }
 
