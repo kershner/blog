@@ -1792,7 +1792,6 @@ purple {
 
 #song-title {
 	margin: .5em auto;
-	width: 23vw;
 	text-align: left;
 	font-size: 5vw;
 	text-shadow: 1px 1px 3px #000;
@@ -1807,6 +1806,7 @@ purple {
 #song-download {
     position: relative;
     z-index: 3;
+    text-align: left;
     font-size: 1.1em;
     bottom: .25em;
 	text-shadow: 1px 1px .5px #000;
@@ -1847,6 +1847,7 @@ div::-webkit-scrollbar-thumb {
 .audio-text {
 	position: relative;
 	margin: 0 auto;
+	z-index: 1;
 	padding: 5px;
 	width: 100%;
 	height: 30px;
@@ -1894,7 +1895,11 @@ div::-webkit-scrollbar-thumb {
 }
 
 .audio-length {
-	float: right;
+	position: absolute;
+	z-index: 2;
+	right: .3em;
+	width: 3.5em;
+	text-align: right;
 }
 
 @media (min-width: 500px) {
@@ -1930,8 +1935,8 @@ div::-webkit-scrollbar-thumb {
 
 	.jp-details {
 		position: absolute;
-		width: 20%;
-		top: .1em;
+		width: 100%;
+		top: 1em;
 	}
 }
 
