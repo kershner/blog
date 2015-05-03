@@ -1786,13 +1786,22 @@ purple {
 	position: relative;
 	width: 80%;
 	margin: 0 auto;
-	top: 6em;
+	top: 3em;
 	text-align: center;
 }
 
 #song-title {
-	font-size: 2em;
+	margin: .5em auto;
+	width: 23vw;
+	text-align: left;
+	font-size: 5vw;
 	text-shadow: 1px 1px 3px #000;
+}
+
+@media (min-width: 460px) {
+    #song-title {
+	font-size: 2em;
+}
 }
 
 #song-download {
@@ -1838,7 +1847,7 @@ div::-webkit-scrollbar-thumb {
 .audio-text {
 	position: relative;
 	margin: 0 auto;
-	padding: 5px 10px;
+	padding: 5px;
 	width: 100%;
 	height: 30px;
 	border-bottom: 1px solid #0A7ECC;
@@ -1849,7 +1858,7 @@ div::-webkit-scrollbar-thumb {
 	background-color: #0A7ECC;
 	color: white;
 	font-size: 1.4em;
-	line-height: 1.2em;
+	line-height: 1.05em;
 	margin-bottom: .2em;
 	text-shadow: 1px 1px 3px #000;
 }
@@ -1859,7 +1868,7 @@ div::-webkit-scrollbar-thumb {
 	background-color: #0A7ECC;
 	color: white;
 	font-size: 1.4em;
-	line-height: 1.2em;
+	line-height: 1.05em;
 	margin-bottom: .2em;
 	text-shadow: 1px 1px 3px #000;
 }
@@ -1875,7 +1884,13 @@ div::-webkit-scrollbar-thumb {
 }
 
 .audio-name {
+	position: absolute;
 	float: left;
+	left: 0;
+	height: 20px;
+	overflow: hidden;
+	width 63% !important;
+	text-align: left;
 }
 
 .audio-length {
