@@ -5,19 +5,15 @@
 
     <span id="hello" class="levitate">Hello!</span>
 
-    <span class="welcome-blurb">My name is Tyler Kershner.</span>
-    <span class="welcome-blurb">I'm a software developer in Ann Arbor, MI.</span>
-    <span class="welcome-blurb">Want to work together? Don't hesitate to <a href="#contact">get in touch</a>.</span>
+    <span id="blurb01" class="welcome-blurb">My name is Tyler Kershner.</span>
+    <span id="blurb02" class="welcome-blurb">I'm a software developer in Ann Arbor, MI.</span>
+    <span id="blurb03" class="welcome-blurb">Want to work together? Don't hesitate to <a href="#contact">get in touch</a>.</span>
 
-    <img class="img-responsive about-pics" src="/static/images/new_collage.png" style=" box-shadow: 0 5px 20px -5px #000;">
-
-    <br>
-    <br>
-    <br>
+    <img id="welcome-pic" class="img-responsive about-pics" src="/static/images/new_collage.png" style=" box-shadow: 0 5px 20px -5px #000;">
 </div>
 
 <div id="projects-section" class="welcome-container">
-    <div class="welcome-section-title" style="top: .5em;">Projects</div>
+    <div id="projects-title" class="welcome-section-title" style="top: .5em;">Projects</div>
 
     <br>
     <br>
@@ -202,42 +198,43 @@
         <br>
         <br>
         <br>
-        <br>
     </div>
 </div>
 
 
 <div id="contact-section" class="welcome-container">
     <br>
-    <div class="welcome-section-title">Contact</div>
+    <div id="contact-title" class="welcome-section-title">Contact</div>
 
-    <div id="contact-icons">
-        <div>
-            <i class="fa fa-paper-plane-o fa-2x"></i>
-            <a href="mailto:tyler@kershner.org">tyler@kershner.org</a>
+    <div id="contact-form-wrapper">
+        <div id="contact-icons">
+            <div>
+                <i class="fa fa-paper-plane-o fa-2x"></i>
+                <a href="mailto:tyler@kershner.org">tyler@kershner.org</a>
+            </div>
+
+            <br>
+
+            <div>
+                <i class="fa fa-github fa-2x"></i>
+                <a href="https://github.com/kershner">GitHub</a>
+            </div>
+
+            <div>
+                <i class="fa fa-linkedin fa-2x"></i>
+                <a href="https://www.linkedin.com/pub/tyler-kershner/95/97b/50">LinkedIn</a>
+            </div>
         </div>
 
-        <br>
+        <span class="welcome-blurb" style="margin: 0 auto;">Have some feedback or work for me?</span>
 
-        <div>
-            <i class="fa fa-github fa-2x"></i>
-            <a href="https://github.com/kershner">GitHub</a>
+        <a name="contact"></a>
+
+        <div id="contact-form-container">
+            <input id="subject" type="text" placeholder="Subject" class="animate">
+            <textarea id="email-content" placeholder="Email" class="animate"></textarea>
+            <input id="send" type="submit" value="Send" class="animate">
         </div>
-
-        <div>
-            <i class="fa fa-linkedin fa-2x"></i>
-            <a href="https://www.linkedin.com/pub/tyler-kershner/95/97b/50">LinkedIn</a>
-        </div>
-    </div>
-
-    <span class="welcome-blurb" style="margin: 0 auto;">Have some feedback or work for me?</span>
-
-    <a name="contact"></a>
-
-    <div id="contact-form-container">
-        <input id="subject" type="text" placeholder="Subject" class="animate">
-        <textarea id="email-content" placeholder="Email" class="animate"></textarea>
-        <input id="send" type="submit" value="Send" class="animate">
     </div>
 </div>
 {% endblock %}

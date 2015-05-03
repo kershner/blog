@@ -113,6 +113,7 @@
         <script type="text/javascript" src="/static/js/countUp.min.js"></script>
         <script type="text/javascript" src="/static/slick/slick.min.js"></script>
         <script type="text/javascript" src="/static/jplayer/js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript" src="/static/welcome/jquery.waypoints.min.js"></script>
         <script type="text/javascript" src="/static/js/blog.js"></script>
         <script type="text/javascript" src="/static/js/cms.js"></script>
 
@@ -126,6 +127,7 @@
                 musicPlayerColors();
                 {% elif title == 'Welcome' %}
                 sendEmail();
+                welcomeFadeIn();
                 {% endif %}
             });
         </script>

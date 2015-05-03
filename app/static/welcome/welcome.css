@@ -37,12 +37,12 @@ hr {
 
 #hello {
 	display: block;
-	margin-top: .25em;
-	margin-bottom: -.25em;
+	margin-top: .5em;
 	font-size: 7em;
 	font-family: 'Raleway';
 	color: #00BFA5;
-	height: 150px;
+	height: 75px;
+    line-height: 75px;
 }
 
 .levitate {
@@ -102,9 +102,43 @@ hr {
 	}
 }
 
+.levitate-smaller {
+	-webkit-animation:
+    	fadeInGrowSmaller 1s 1,
+    	levitate 3s infinite;
+	-moz-animation:
+    	fadeInGrowSmaller 1s 1,
+    	levitate 3s infinite;
+}
+
+@-webkit-keyframes fadeInGrowSmaller {
+    0% {
+		opacity: 0;
+		font-size: 1em;
+	}
+    100% {
+		opacity: 1;
+		font-size: 5em;
+	}
+}
+
+@-moz-keyframes fadeInGrowSmaller {
+    0% {
+		-moz-transform: translateY(-50px);
+		-moz-transform: scale(0.0);
+		opacity: 0;
+	}
+    100% {
+		-moz-transform: translateY(10px);
+		-moz-transform: scale(1.0);
+		opacity: 1;
+	}
+}
+
 .welcome-section-title {
 	position: relative;
 	margin: 0 auto;
+	opacity: 0;
 	font-family: 'Raleway';
 	font-size: 5em;
 	color: #00BFA5;
@@ -115,6 +149,7 @@ hr {
 	position: relative;
 	min-height: 20em;
 	max-width: 100%;
+	opacity: 0.0;
 }
 
 #projects-container img {
@@ -359,4 +394,12 @@ hr {
 	cursor: pointer;
 	background-color: rgba(250, 51, 70, 0.5);
 	box-shadow: none;
+}
+
+#contact-form-wrapper {
+    opacity: 0.0;
+}
+
+#blurb01, #blurb02, #blurb03, #welcome-pic {
+    opacity: 0.0;
 }

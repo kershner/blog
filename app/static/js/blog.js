@@ -234,3 +234,39 @@ function sendEmail() {
 		window.location.href = link;
 	});
 }
+
+function welcomeFadeIn() {
+    setTimeout(function() {
+        $('#blurb01').animate({'opacity': '1.0'}, 800, function() {
+            $('#blurb02').animate({'opacity': '1.0'}, 900, function() {
+                $('#blurb03').animate({'opacity': '1.0'}, 900, function() {
+                    $('#welcome-pic').animate({'opacity': '1.0'}, 1000, function() {
+                        welcomeScroll();
+                    });
+                });
+            });
+        });
+    }, 700);
+}
+
+function welcomeScroll() {
+    var waypoint1 = new Waypoint({
+        element: $('#welcome-pic'),
+        handler: function() {
+            $('#projects-title').addClass('levitate-smaller');
+            $('#projects-title').css('opacity', '1.0');
+            $('#projects-container').animate({'opacity': '1.0'}, 1500);
+        }
+    })
+
+    var waypoint2 = new Waypoint({
+        element: $('#more-projects'),
+        handler: function() {
+            console.log(this.triggerPoint);
+            $('#contact-title').addClass('levitate-smaller');
+            $('#contact-title').css('opacity', '1.0');
+            $('#contact-form-wrapper').animate({'opacity': '1.0'}, 1500);
+        },
+        offset: '35%'
+    })
+}

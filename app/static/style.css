@@ -522,14 +522,13 @@ ul.rig.columns-3 li.article-image {
 	display: inline-block;
 	position: relative;
 	margin: 10px auto;
-	height: 40px;
-	line-height: 40px;
+	height: 50px;
 	max-width: 300px;
 	background-color: rgba(26, 139, 188, 0.0);
 	padding: 5px 10px 5px 10px;
 	color: #00BFA5;
 	text-align: center;
-	border: .25em solid #00BFA5;
+	border: .15em solid #00BFA5;
 	border-radius: 5px;
 }
 
@@ -582,7 +581,6 @@ ul.rig.columns-3 li.article-image {
 	width: 150px;
 	height: 50px;
 	font-size: 24px;
-	line-height: 38px;
 	text-align: center;
 }
 
@@ -598,7 +596,8 @@ ul.rig.columns-3 li.article-image {
 	display: block;
 	position: relative;
 	margin: 15px auto;
-	height: 45px;
+	height: 50px;
+	line-height: 30px;
 	width: 300px;
 	font-size: 24px;
 }
@@ -609,6 +608,7 @@ ul.rig.columns-3 li.article-image {
 	bottom: -5px;
 	right: 5px;
 	height: 20px;
+	line-height: 20px;
 	width: 60px;
 	line-height: 0;
 	padding-top: 8px;
@@ -810,7 +810,7 @@ div.project-screenshots img {
 	margin: 0 auto;
 	font-size: 36px;
 	text-align: center;
-	color: rgb(26, 139, 188);
+	color: #00BFA5;
 }
 
 .cms-navbar {
@@ -912,7 +912,7 @@ div.project-screenshots img {
 	min-width: 200px;
 	margin: 15px;
 	padding: 25px;
-	box-shadow: 0px 1px 3px #000;
+	box-shadow: 0px 1px 3px #000 !important;
 	border-radius: 3px;
 	text-align: initial;
 }
@@ -1714,6 +1714,7 @@ purple {
 #volume-controls {
     position: relative;
     margin: 0 auto;
+    z-index: 3;
     width: 50%;
     top: 12em;
 }
@@ -1887,7 +1888,7 @@ div::-webkit-scrollbar-thumb {
 .audio-name {
 	position: absolute;
 	float: left;
-	left: 0;
+	left: .3em;
 	height: 20px;
 	overflow: hidden;
 	width 63% !important;
