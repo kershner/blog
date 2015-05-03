@@ -46,6 +46,10 @@ function loadBacon() {
 	}, 800);
 }
 
+function musicTitles() {
+    $('.welcome-section-title').animate({'opacity': '1.0'}, 1000);
+}
+
 function jPlayer() {
 	var html = '<a href="/static/music/25.mp3"><i class="fa fa-download animate"></i></a>';
 	$('#song-download').empty();
