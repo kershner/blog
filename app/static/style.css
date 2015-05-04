@@ -522,9 +522,10 @@ ul.rig.columns-3 li.article-image {
 	display: inline-block;
 	position: relative;
 	margin: 10px auto;
-	height: 50px;
+	height: 40px;
+	line-height: 18px;
 	max-width: 300px;
-	background-color: rgba(26, 139, 188, 0.0);
+	background-color: rgba(242, 242, 242, 0.0);
 	padding: 5px 10px 5px 10px;
 	color: #00BFA5;
 	text-align: center;
@@ -541,10 +542,10 @@ ul.rig.columns-3 li.article-image {
 .live-demo-button {
 	position: relative;
 	margin: 2em auto;
+	margin-top: -.5em;
 	width: 80%;
 	max-width: 350px;
 	height: 50px;
-	background-color: white;
     border: .25em solid #00BFA5;
 	border-radius: 5px;
 	-webkit-box-shadow: 0px 9px 0px #00BFA5;
@@ -726,6 +727,7 @@ div.project-screenshots img {
 	max-height: 140px;
 	background-color: #2f2f2f;
 	box-shadow: 0 3px 2px 3px #000;
+	text-align: center;
 }
 
 .footer-links {

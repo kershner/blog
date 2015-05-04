@@ -245,7 +245,10 @@ function welcomeFadeIn() {
             $('#blurb02').animate({'opacity': '1.0'}, 900, function() {
                 $('#blurb03').animate({'opacity': '1.0'}, 900, function() {
                     $('#welcome-pic').animate({'opacity': '1.0'}, 1000, function() {
-                        welcomeScroll();
+                        $('#down-arrow').animate({'opacity': '1.0'}, 800, function() {
+                            blinkingArrow();
+                            welcomeScroll();
+                        });
                     });
                 });
             });
@@ -257,6 +260,7 @@ function welcomeScroll() {
     var waypoint1 = new Waypoint({
         element: $('#welcome-pic'),
         handler: function() {
+            $('#down-arrow').css('display', 'none');
             $('#projects-title').addClass('levitate-smaller');
             $('#projects-title').css('opacity', '1.0');
             $('#projects-container').animate({'opacity': '1.0'}, 1500);
@@ -273,4 +277,11 @@ function welcomeScroll() {
         },
         offset: '35%'
     })
+}
+
+function blinkingArrow(action) {
+    setInterval(function() {
+        $('#down-arrow').animate({'opacity': '0.3'}, 1000);
+        $('#down-arrow').animate({'opacity': '1.0'}, 1000);
+    }, 1000);
 }

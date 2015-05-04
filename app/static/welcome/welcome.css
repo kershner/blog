@@ -15,6 +15,13 @@ hr {
 	color: white;
 }
 
+#down-arrow {
+    margin: 0 auto;
+    opacity: 0;
+    font-size: 3em;
+    color: #00BFA5
+}
+
 .welcome-container {
 	position: relative;
 	background-color: white;
