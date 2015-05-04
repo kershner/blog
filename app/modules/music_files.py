@@ -34,6 +34,10 @@ def get_songs():
             loops.append([name, length])
             loop_count += 1
 
+    print songs
+    # Moving songs with Jeff to the end of the list
+    songs.insert(-1, songs.pop(0))
+    songs.insert(-1, songs.pop(0))
     data = {
         'songs': songs,
         'loops': loops
