@@ -29,7 +29,7 @@ def get_songs():
                 length = '1:05'
             if name == '33':
                 length = '1:09'
-            if name == '38':
+            if name == '39':
                 length = '1:08'
             loops.append([name, length])
             loop_count += 1

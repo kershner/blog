@@ -1136,7 +1136,9 @@ div.not-submitted {
 
 .text-edit {
 	display: inline-block;
+	position: relative;
 	margin: 0;
+	z-index: 5;
 	min-width: 10px;
 	border-radius: 5px;
 	padding: 5px;

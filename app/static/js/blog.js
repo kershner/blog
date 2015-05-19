@@ -210,10 +210,8 @@ function musicLightbox() {
 		}
 
 		var html = '<img src="' + path + image + '"><span>(Click anywhere to close)</span>';
-
 		$('#music-lightbox').empty();
 		$('#music-lightbox').append(html);
-
 		$('#music-lightbox').css({
 			'opacity': '1.0',
 			'z-index': '6'});
@@ -243,37 +241,24 @@ function welcomeFadeIn() {
     setTimeout(function() {
         $('#blurb01').animate({'opacity': '1.0'}, 800, function() {
             $('#blurb02').animate({'opacity': '1.0'}, 900, function() {
-                $('#blurb03').animate({'opacity': '1.0'}, 900, function() {
-                    $('#welcome-pic').animate({'opacity': '1.0'}, 1000, function() {
-                        $('#down-arrow').animate({'opacity': '1.0'}, 800, function() {
-                            blinkingArrow();
-                            welcomeScroll();
-                        });
-                    });
-                });
+                $('#blurb03').animate({'opacity': '1.0'}, 900);
+                $('#welcome-pic').animate({'opacity': '1.0'}, 1000);
+                $('#down-arrow').animate({'opacity': '1.0'}, 800);
+                blinkingArrow();
+                welcomeScroll();
             });
         });
     }, 700);
 }
 
 function welcomeScroll() {
-    var waypoint1 = new Waypoint({
+    var waypoint = new Waypoint({
         element: $('#welcome-pic'),
         handler: function() {
             $('#down-arrow').css('display', 'none');
-            $('#projects-title').addClass('levitate-smaller');
-            $('#projects-title').css('opacity', '1.0');
-            $('#projects-container').animate({'opacity': '1.0'}, 1500);
-        }
-    })
-
-    var waypoint2 = new Waypoint({
-        element: $('#more-projects'),
-        handler: function() {
-            console.log(this.triggerPoint);
-            $('#contact-title').addClass('levitate-smaller');
-            $('#contact-title').css('opacity', '1.0');
-            $('#contact-form-wrapper').animate({'opacity': '1.0'}, 1500);
+            $('#projects-title, #contact-title').addClass('levitate-smaller');
+            $('#projects-title, #contact-title').css('opacity', '1.0');
+            $('#projects-container, #contact-form-wrapper').animate({'opacity': '1.0'}, 1500);
         },
         offset: '35%'
     })
