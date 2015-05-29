@@ -24,10 +24,11 @@ hr {
 
 .welcome-container {
 	position: relative;
-	background-color: white;
+	background-color: #F2F2F2;
 	margin: 0 auto;
 	min-height: 30em;
 	width: 100%;
+	max-width: 1180px;
 	text-align: center;
 }
 
@@ -245,12 +246,6 @@ hr {
 	opacity: 0.0;
 }
 
-@media (min-width: 1100px) {
-	.welcome-project-blurb {
-		font-size: 18px;
-	}
-}
-
 .welcome-project-blurb span {
 	display: block;
 	margin: .05em auto;
@@ -297,7 +292,7 @@ hr {
 	}
 
 	.welcome-project-blurb {
-		font-size: 1.5vw;
+		font-size: 1.3vw;
 	}
 
 	#welcome-projects-small {
@@ -317,11 +312,11 @@ hr {
 
 @media (min-width: 1400px) {
 	.welcome-project-blurb span {
-		font-size: 1.3em !important;
+		font-size: 1.2em !important;
 	}
 
 	.welcome-project-blurb {
-		font-size: 1.5em;
+		font-size: 1.3em;
 	}
 }
 
