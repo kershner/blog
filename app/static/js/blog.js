@@ -228,12 +228,31 @@ function musicPlayerColors() {
 }
 
 function sendEmail() {
+	// Opens mailto link after some basic form validation
 	$('#send').on('click', function() {
-		var subject = $('#subject').val();
-		var email = $('#email-content').val();
-		var myEmail = 'tyler@kershner.org';
-		var link = 'mailto:' + myEmail + '?subject=' + subject + '&body=' + email;
-		window.location.href = link;
+		var subjectLength = $('#subject').val().length;
+		var bodyLength = $('#email-content').val().length;
+		if (subjectLength == 0) {
+			console.log('Subject Field is Empty!');
+			$('#welcome-subject-notification').css('opacity', '1.0');
+			setTimeout(function() {
+				$('#welcome-subject-notification').css('opacity', '0.0');
+			}, 3000);
+		}
+		if (bodyLength == 0) {
+			console.log('Body Field is Empty!');
+			$('#welcome-body-notification').css('opacity', '1.0');
+			setTimeout(function() {
+				$('#welcome-body-notification').css('opacity', '0.0');
+			}, 3000);
+		}
+		if (subjectLength > 0 && bodyLength > 0) {
+			var subject = $('#subject').val();
+			var email = $('#email-content').val();
+			var myEmail = 'tyler@kershner.org';
+			var link = 'mailto:' + myEmail + '?subject=' + subject + '&body=' + email;
+			window.location.href = link;
+		}
 	});
 }
 
