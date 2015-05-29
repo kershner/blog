@@ -1544,13 +1544,12 @@ purple {
 	padding: .5em;
 	opacity: 0.0;
 	color: white;
-	text-shadow: 1px 1px 3px #000;
 }
 
 .music-clickable:hover {
 	cursor: pointer;
 	opacity: 1.0;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 191, 165, 0.8);
 }
 
 #collage-1 {
