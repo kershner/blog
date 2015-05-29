@@ -328,7 +328,7 @@ body {
 	margin: 0 auto;
 	height: 2.5em;
 	line-height: 2.2em;
-	max-width: 850px;	
+	max-width: 850px;
 	color: #00BFA5;
 	font-size: 1.5em;
 	border-radius: 5px;
@@ -369,14 +369,15 @@ body {
 	position: absolute;
 	margin: 0 auto;
 	left: 0;
-	right: 0;	
-	width: 30em;
-	min-height: 4em;	
+	right: 0;
+	width: 80%;
+	max-width: 30em;
+	min-height: 4em;
 	line-height: 4em;
 	opacity: 0.0;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
-	background-color: rgb(250, 51, 70);	
+	background-color: rgb(250, 51, 70);
 	border-radius: 5px;
 }
 
