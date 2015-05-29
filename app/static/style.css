@@ -238,13 +238,13 @@ iframe {
 /* Toolbar Logo
 /* ************************** */
 .small-logo-container {
-	display: none;
 	position: fixed;
 	top: 0;
-	z-index: 20;
+	z-index: 0;
 	height: 68px;
 	width: 100%;
 	overflow: hidden;
+	opacity: 0.0;
 	box-shadow: 0 2px 6px #000;
 	background-color: #00BFA5;
 }
@@ -1554,56 +1554,56 @@ purple {
 	position: absolute;
 	top: .5%;
 	left: .5%;
-	height: 30%;
+	height: 30.5%;
 	width: 39.5%;
 }
 
 #collage-2 {
 	position: absolute;
-	top: .5%;
-	left: 40.5%;
-	height: 61.5%;
-	width: 59%;
+	top: .25%;
+	left: 40.25%;
+	height: 61.75%;
+	width: 59.25%;
 }
 
 #collage-3 {
 	position: absolute;
-	top: 31.5%;
+	top: 31.25%;
 	left: .5%;
-	height: 30.5%;
-	width: 15%;
+	height: 30.75%;
+	width: 15.25%;
 }
 
 #collage-4 {
 	position: absolute;
-	top: 31.5%;
+	top: 31.25%;
 	left: 16%;
-	height: 30%;
+	height: 30.75%;
 	width: 24%;
 }
 
 #collage-5 {
 	position: absolute;
-	top: 62.5%;
+	top: 62.25%;
 	left: .5%;
-	height: 36.75%;
+	height: 37.25%;
 	width: 39.5%;
 }
 
 #collage-6 {
 	position: absolute;
 	top: 62.5%;
-	left: 40.5%;
+	left: 40.25%;
 	height: 36.75%;
-	width: 29%;
+	width: 29.5%;
 }
 
 #collage-7 {
 	position: absolute;
 	top: 62.5%;
 	left: 70%;
-	height: 36.75%;
-	width: 29%;
+	height: 37%;
+	width: 29.5%;
 }
 
 #music-images-wrapper img {

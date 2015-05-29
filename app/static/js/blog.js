@@ -19,9 +19,15 @@ function smallMenu() {
 		if (scrollTop > 150) {
 			// Fade in small navbar
 			var offset = scrollTop - 150
-			$('.small-logo-container').fadeIn('fast');
+			$('.small-logo-container').css({
+				'opacity': '1.0',
+				'z-index': '20'
+			});
 		} else {
-			$('.small-logo-container').fadeOut('fast');
+			$('.small-logo-container').css({
+				'opacity': '0.0',
+				'z-index': '0'
+			});
 		}
 	});
 }
@@ -277,7 +283,7 @@ function welcomeScroll() {
             $('#down-arrow').css('display', 'none');
             $('#projects-title, #contact-title').addClass('levitate-smaller');
             $('#projects-title, #contact-title').css('opacity', '1.0');
-            $('#projects-container, #contact-form-wrapper').animate({'opacity': '1.0'}, 1500);
+            $('#projects-container, #contact-form-wrapper').css('opacity', '1.0');
         },
         offset: '35%'
     })
