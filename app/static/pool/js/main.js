@@ -79,5 +79,6 @@ function cycleBanners() {
 		$(element).addClass('banner-selected');
 	}, 4000);
 }
+
 smallMenu();
 loadBanners();

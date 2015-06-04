@@ -307,13 +307,14 @@ body {
 }
 
 /* Footer */
-#footer {
+.footer {
 	position: relative;
 	top: -2.85em;
 	background-color: #b3b3b3;
 	width: 100%;
 	min-height: 8em;
 	border-top: .35em solid #5ab4ff;
+	box-shadow: 0 9px 10px -7px #000;
 }
 
 #footer-inner {
@@ -338,7 +339,7 @@ body {
 
 #social-icons i:hover {
 	cursor: pointer;
-	color: white;
+	color: #5ab4ff;
 }
 
 #footer-blurb {
@@ -363,7 +364,7 @@ body {
 
 .footer-links-links div:hover {
 	cursor: pointer;
-	color: white;
+	color: #5ab4ff;
 }
 
 .footer-extra {
@@ -441,6 +442,7 @@ body {
 }
 
 .announcement-title {
+	color: #003f72;
 	font-size: 2em;
 	font-family: 'Raleway', sans-serif;
 }
@@ -454,6 +456,19 @@ body {
 
 .announcement {
 	margin-bottom: 2em;
+}
+
+#more-announcements {
+	position: absolute;
+	right: 1em;
+	font-size: 1.2em;
+	font-family: 'Raleway', sans-serif;
+	color: #003f72;
+}
+
+#more-announcements:hover {
+	cursor: pointer;
+	color: #5ab4ff;
 }
 
 hr {
@@ -523,7 +538,6 @@ hr {
 
 #pricing-title {
 	margin: 0 auto;
-	width: 45%;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
 	font-size: 2.5em;
@@ -584,4 +598,16 @@ hr {
 	position: relative;
 	left: 1em;
 	color: white;
+}
+
+#more-pricing {
+	margin: -0.4em auto;
+	text-align: center;
+	color: #003f72;
+	font-size: 1.25em;
+}
+
+#more-pricing:hover {
+	cursor: pointer;
+	color: #5ab4ff;
 }
