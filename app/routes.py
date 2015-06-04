@@ -838,3 +838,8 @@ def contact():
 @app.route('/press')
 def press():
     return render_template('/campaign/press.html')
+
+
+@app.route('/pool')
+def pool():
+    return render_template('/pool/home.html')

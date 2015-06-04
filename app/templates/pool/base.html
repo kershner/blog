@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <link rel="icon" type="image/png" href="/static/images/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSS -->
+        <link type="text/css" rel="stylesheet" href="/static/pool/css/main.css"/>
+
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        {% if title %}
+        <title>{{title}} - Rutherford Community Pool</title>
+        {% else %}
+        <title>Rutherford Community Pool</title>
+        {% endif %}
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="header-logo">
+                <img src="/static/pool/images/rutherford-logo.jpg">
+            </div>
+
+            <div id="small-nav">
+                <i id="hamburger" class="fa fa-bars animate"></i>
+
+                <div id="small-nav-menu">
+                    <a href="/"><div class="small-menu-select animate">HOME</div></a>
+
+                    <a href="#">
+                        <div id="about-menu-small" class="small-menu-item animate">
+                            <div class="small-menu-select animate">ABOUT</div>
+
+                            <div id="about-submenu-small" class="small-submenu animate">
+                                <a href="#"><div class="animate">About the Pool</div></a>
+                                <a href="#"><div class="animate">Pricing and Hours</div></a>
+                                <a href="#"><div class="animate">Rules and Guidelines</div></a>
+                                <a href="#"><div class="animate">Press</div></a>
+                                <a href="#"><div class="animate">Contact Us</div></a>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div id="services-menu-small" class="small-menu-item animate">
+                            <div class="small-menu-select animate">SERVICES</div>
+
+                            <div id="services-submenu-small" class="small-submenu animate">
+                                <a href="#"><div class="animate">Pool Passes</div></a>
+                                <a href="#"><div class="animate">Swim Lessons</div></a>
+                                <a href="#"><div class="animate">Rentals</div></a>
+                                <a href="#"><div class="animate">Triathlon</div></a>
+                                <a href="#"><div class="animate">Club Wolverine</div></a>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div id="schedule-menu-small" class="small-menu-item animate">
+                            <div class="small-menu-select animate">SCHEDULE</div>
+
+                            <div id="schedule-submenu-small" class="small-submenu animate">
+                                <a href="#"><div class="animate">Calendar</div></a>
+                                <a href="#"><div class="animate">Closures</div></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div id="nav">
+                <a href="/"><div class="menu-item animate">HOME</div></a>
+                <a href="#">
+                    <div id="about-menu" class="menu-item animate">
+                        ABOUT
+                        <div id="about-submenu" class="submenu">
+                            <a href="#"><div class="animate">About the Pool</div></a>
+                            <a href="#"><div class="animate">Pricing and Hours</div></a>
+                            <a href="#"><div class="animate">Rules and Guidelines</div></a>
+                            <a href="#"><div class="animate">Press</div></a>
+                            <a href="#"><div class="animate">Contact Us</div></a>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div id="services-menu" class="menu-item animate">
+                        SERVICES
+                        <div id="services-submenu" class="submenu">
+                            <a href="#"><div class="animate">Pool Passes</div></a>
+                            <a href="#"><div class="animate">Swim Lessons</div></a>
+                            <a href="#"><div class="animate">Rentals</div></a>
+                            <a href="#"><div class="animate">Triathlon</div></a>
+                            <a href="#"><div class="animate">Club Wolverine</div></a>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div id="schedule-menu" class="menu-item animate">
+                        SCHEDULE
+                        <div id="schedule-submenu" class="submenu">
+                            <a href="#"><div class="animate">Calendar</div></a>
+                            <a href="#"><div class="animate">Closures</div></a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div id="banner-image">
+                <img src="/static/pool/images/pool-banner1.jpg" class="banner1">
+
+                <div class="banner-info animate">
+                    <div class="banner-info-title">Rutherford Community Pool Now Open!</div>
+
+                    <div class="banner-info-blurb">Grab your passes today!</div>
+                </div>
+
+                <a href="#"><div id="volunteers" class="animate">Volunteers Needed!</div></a>
+            </div>
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div id="footer">
+            <div id="footer-inner">
+                <div id="footer-title">Friends of Rutherford Pool</div>
+
+                <div id="social-icons">
+                    <i class="fa fa-twitter-square animate"></i>
+                    <i class="fa fa-facebook-square animate"></i>
+                </div>
+
+                <div id="footer-blurb">Vestibulum porttitor leo leo, non vulputate erat rutrum sed. Vivamus dignissim nisl et diam pharetra, vitae pellentesque eros fringilla. Nullam eget enim ac neque elementum egestas quis ut urna. Vivamus rhoncus ante non urna rutrum, nec consequat arcu efficitur.</div>
+
+                <div id="footer-links">
+
+                    <div class="footer-links">
+                        <div class="footer-links-title">About</div>
+                        <div class="footer-links-links">
+                            <div class="animate">About the Pool</div>
+                            <div class="animate">Pricing and Hours</div>
+                            <div class="animate">Rules and Guidelines</div>
+                            <div class="animate">Press</div>
+                            <div class="animate">Contact Us</div>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <div class="footer-links-title">Services</div>
+                        <div class="footer-links-links">
+                            <div class="animate">Pool Passes</div>
+                            <div class="animate">Swim Lessons</div>
+                            <div class="animate">Rentals</div>
+                            <div class="animate">Triathlon</div>
+                            <div class="animate">Club Wolverine</div>
+                        </div>
+                    </div>
+
+                    <div class="footer-links footer-extra">
+                        <div class="footer-links-title">Schedule</div>
+                        <div class="footer-links-links">
+                            <div class="animate">Calendar</div>
+                            <div class="animate">Closures</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScripts -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/static/pool/js/main.js"></script>
+    </body>
+</html>
