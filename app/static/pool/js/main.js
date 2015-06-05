@@ -80,5 +80,24 @@ function cycleBanners() {
 	}, 3000);
 }
 
+function midPagePoster() {
+	var index = 1;
+	setInterval(function() {
+		if (index === 3) {
+			index = 1;
+			$('#mid-page-poster').children('img').each(function() {
+				$(this).addClass('banner-deselected');
+				$(this).removeClass('banner-selected');
+			});
+		} else {
+			index ++;
+		}
+		var element = '.poster' + index;
+		$(element).removeClass('banner-deselected');
+		$(element).addClass('banner-selected');
+	}, 4000);
+}
+
 smallMenu();
 loadBanners();
+midPagePoster();

@@ -538,7 +538,7 @@ hr {
 #pricing {
 	margin: 0 auto;
 	width: 80%;
-	min-height: 40em;
+	min-height: 38em;
 	opacity: 0.9;
 }
 
@@ -617,3 +617,49 @@ hr {
 	cursor: pointer;
 	color: #5ab4ff;
 }
+
+.responsive-image {
+	position: relative;
+	max-width: 1200px;
+}
+
+.responsive-image img {
+	border-top: .35em solid #5ab4ff;
+	border-bottom: .35em solid #5ab4ff;
+	width: 100%;
+}
+
+#club-wolverine {
+	margin: 0 auto;
+	width: 90%;
+	min-height: 25em;
+}
+
+#club-wolverine img {
+	margin: 2em auto;
+	max-width: 500px;
+	border: none;
+	box-shadow: 0 9px 10px -7px #000;
+}
+
+#club-wolverine img:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#club-wolverine-blurb {
+	position: relative;
+	margin: -1em auto;
+	min-width: 1em;
+	text-align: center;
+}
+
+#club-wolverine-title {
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
+	font-size: 2.5em;
+	color: #003f72;
+}
+
+#club-wolverine-blurb p {
+	margin: 0 auto;
