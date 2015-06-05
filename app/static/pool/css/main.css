@@ -111,6 +111,7 @@ body {
 #nav {
 	position: relative;
 	display: none;
+	opacity: 0.925;
 	background-color: #003f72;
 	z-index: 2;
 	min-width: 430px;
@@ -324,6 +325,7 @@ body {
 	min-height: 10em;
 	text-align: center;
 	color: #003f72;
+	opacity: 0.8;
 }
 
 #footer-title {
@@ -436,6 +438,7 @@ body {
 .announcement-wrapper {
 	position: relative;
 	margin: 0 auto;
+	opacity: 0.9;
 	padding: 1em;
 	min-height: 1em;
 	width: 80%;
@@ -478,7 +481,7 @@ hr {
 }
 
 .block-divider {
-	margin: 2em auto;
+	margin: 1em auto;
 	opacity: 0;
 	width: 95%;
 	height: .35em;
@@ -536,6 +539,7 @@ hr {
 	margin: 0 auto;
 	width: 80%;
 	min-height: 40em;
+	opacity: 0.9;
 }
 
 #pricing-title {
@@ -550,11 +554,10 @@ hr {
 	margin: 1em auto;
 	padding: .25em;
 	padding-bottom: 1em;
-	width: 50%;
+	width: 30%;
 	min-width: 15em;
-	border: .2em solid #5ab4ff;
-	background-color: #003f72;
-	opacity: 0.9;
+	border-bottom: .2em solid #5ab4ff;
+	opacity: 0.99;
 }
 
 .pricing-table {
@@ -566,14 +569,14 @@ hr {
 	margin: .25em;
 	text-align: center;
 	font-size: 1.5em;
-	color: white;
+	color: #003f72;
 }
 
 .pricing-name {
 	display: inline-block;
 	min-width: 1em;
 	min-height: 5em;
-	color: white;
+	color: #003f72;
 }
 
 .pricing-subtitle {
@@ -600,7 +603,7 @@ hr {
 	display: inline-block;
 	position: relative;
 	left: 1em;
-	color: white;
+	color: #003f72;
 }
 
 #more-pricing {
