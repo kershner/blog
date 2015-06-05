@@ -7,7 +7,7 @@ function smallMenu() {
 		$('#small-nav-menu').css('display', 'block');
 		smallMenuAbout();
 		smallMenuServices();
-		smallMenuSchedule();		
+		smallMenuSchedule();
 		$(this).on('click', function() {
 			$(this).css('color', 'white');
 			$('#small-nav-menu').css('display', 'none');
@@ -17,14 +17,14 @@ function smallMenu() {
 }
 
 function smallMenuAbout() {
-	$('#about-menu-small').on('click', function() {		
+	$('#about-menu-small').on('click', function() {
 		$('#about-submenu-small').css('display', 'block');
 		$('#about-menu-small .small-menu-select').addClass('small-menu-selected');
 		$(this).on('click', function() {
 			$('#about-submenu-small').css('display', 'none');
 			$('#about-menu-small .small-menu-select').removeClass('small-menu-selected');
 			smallMenuAbout();
-		});		
+		});
 	});
 }
 
@@ -59,7 +59,7 @@ function loadBanners() {
 	}
 	setTimeout(function() {
 		cycleBanners();
-	}, 1000);
+	}, 200);
 }
 
 function cycleBanners() {
@@ -77,7 +77,7 @@ function cycleBanners() {
 		var element = '.banner' + index;
 		$(element).removeClass('banner-deselected');
 		$(element).addClass('banner-selected');
-	}, 4000);
+	}, 3000);
 }
 
 smallMenu();

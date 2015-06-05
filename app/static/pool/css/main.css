@@ -108,7 +108,7 @@ body {
 	border-bottom: 2px solid #FFD44E;
 }
 
-#nav {	
+#nav {
 	position: relative;
 	display: none;
 	background-color: #003f72;
@@ -266,7 +266,7 @@ body {
 }
 
 #volunteers:hover {
-	background-color: rgba(90, 180, 255, 1);	
+	background-color: rgba(90, 180, 255, 1);
 }
 
 @media(min-width: 480px) {
@@ -318,7 +318,7 @@ body {
 }
 
 #footer-inner {
-	margin: 1em auto;	
+	margin: 1em auto;
 	padding: 1em;
 	width: 90%;
 	min-height: 10em;
@@ -478,7 +478,8 @@ hr {
 }
 
 .block-divider {
-	margin: 0 auto;
+	margin: 2em auto;
+	opacity: 0;
 	width: 95%;
 	height: .35em;
 }
@@ -489,7 +490,7 @@ hr {
 	width: 80%;
 }
 
-.content-tile {	
+.content-tile {
 	position: relative;
 	display: block;
 	margin: 1%;
@@ -510,9 +511,10 @@ hr {
 	top: 5%;
 	left: 105%;
 	padding: 5%;
-	width: 70%;	
+	width: 70%;
 	background-color: #003f72;
 	color: white;
+	opacity: 0.9;
 }
 
 @media(min-width: 660px) {
@@ -549,9 +551,10 @@ hr {
 	padding: .25em;
 	padding-bottom: 1em;
 	width: 50%;
-	min-width: 15em;	
+	min-width: 15em;
 	border: .2em solid #5ab4ff;
 	background-color: #003f72;
+	opacity: 0.9;
 }
 
 .pricing-table {
@@ -593,7 +596,7 @@ hr {
 	margin: .2em auto;
 }
 
-.pricing-value {	
+.pricing-value {
 	display: inline-block;
 	position: relative;
 	left: 1em;
