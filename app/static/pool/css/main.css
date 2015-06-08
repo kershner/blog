@@ -542,7 +542,7 @@ hr {
 	opacity: 0.9;
 }
 
-#pricing-title {	
+#pricing-title {
 	margin: 0 auto;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
@@ -551,19 +551,17 @@ hr {
 }
 
 .pricing-table-wrapper {
-	margin: 1em auto;
 	padding: .25em;
 	padding-bottom: 1em;
-	border-bottom: .2em solid #5ab4ff;
 	opacity: 0.99;
 }
 
 .pricing-table {
 	position: relative;
 	margin: 0 auto;
-	width: 65%;
+	width: 80%;
+	max-width: 650px;
 	min-width: 230px;
-
 }
 
 .pricing-table-title {
