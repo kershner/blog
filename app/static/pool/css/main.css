@@ -542,7 +542,7 @@ hr {
 	opacity: 0.9;
 }
 
-#pricing-title {
+#pricing-title {	
 	margin: 0 auto;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
@@ -554,15 +554,16 @@ hr {
 	margin: 1em auto;
 	padding: .25em;
 	padding-bottom: 1em;
-	width: 30%;
-	min-width: 15em;
 	border-bottom: .2em solid #5ab4ff;
 	opacity: 0.99;
 }
 
 .pricing-table {
+	position: relative;
 	margin: 0 auto;
-	width: 15em;
+	width: 65%;
+	min-width: 230px;
+
 }
 
 .pricing-table-title {
@@ -574,6 +575,7 @@ hr {
 
 .pricing-name {
 	display: inline-block;
+	width: 90%;
 	min-width: 1em;
 	min-height: 5em;
 	color: #003f72;
@@ -592,17 +594,20 @@ hr {
 .pricing-indent {
 	position: relative;
 	margin: .2em auto;
+	border-bottom: 1px dotted #003f72;
 	left: .5em;
 }
 
 .value {
 	margin: .2em auto;
+	background-color: #F2F2F2;
+	border-bottom: 1px solid #F2F2F2;
 }
 
 .pricing-value {
 	display: inline-block;
-	position: relative;
-	left: 1em;
+	position: absolute;
+	right: 0;
 	color: #003f72;
 }
 
