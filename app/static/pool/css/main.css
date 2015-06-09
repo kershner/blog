@@ -504,7 +504,12 @@ hr {
 	width: 100%;
 }
 
-.content-tile img:hover {
+.content-tile:hover img{
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.content-tile:hover div{
 	cursor: pointer;
 	opacity: 0.5;
 }
