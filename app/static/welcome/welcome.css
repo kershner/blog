@@ -42,7 +42,7 @@ body {
 #hello {
 	display: block;
 	margin-top: .5em;
-	font-size: 7em;
+	font-size: 90px;
 	font-family: 'Raleway';
 	color: #00BFA5;
 	height: 75px;
@@ -61,11 +61,11 @@ body {
 @-webkit-keyframes fadeInGrow {
     0% {
 		opacity: 0;
-		font-size: 1em;
+		font-size: 12px;
 	}
     100% {
 		opacity: 1;
-		font-size: 7em;
+		font-size: 90px;
 	}
 }
 
@@ -118,11 +118,11 @@ body {
 @-webkit-keyframes fadeInGrowSmaller {
     0% {
 		opacity: 0;
-		font-size: 1em;
+		font-size: 12px;
 	}
     100% {
 		opacity: 1;
-		font-size: 5em;
+		font-size: 70px;
 	}
 }
 
