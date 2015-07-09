@@ -355,6 +355,8 @@ body {
 }
 
 #contact-icons {
+	position: relative;
+	z-index: 1;
 	margin: 0 auto;
 	min-height: 3em;
 	max-width: 625px;

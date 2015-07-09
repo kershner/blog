@@ -36,7 +36,7 @@ Rainbow.addClass=Rainbow.a;Rainbow.extend([{matches:{1:[{name:"keyword.operator"
 /* Rangy Inputs */
 /**
  * @license Rangy Inputs, a jQuery plug-in for selection and caret manipulation within textareas and text inputs.
- * 
+ *
  * https://github.com/timdown/rangyinputs
  *
  * For range and selection features for contenteditable, see Rangy.
@@ -201,7 +201,7 @@ Rainbow.addClass=Rainbow.a;Rainbow.extend([{matches:{1:[{name:"keyword.operator"
                 replaced: sel.text
             };
         }
-        
+
         function pasteTextWithCommand(el, text) {
             el.focus();
             var sel = getSelection(el);
@@ -265,7 +265,7 @@ Rainbow.addClass=Rainbow.a;Rainbow.extend([{matches:{1:[{name:"keyword.operator"
 
         var updateSelectionAfterInsert = function(el, startIndex, text, selectionBehaviour) {
             var endIndex = startIndex + text.length;
-            
+
             selectionBehaviour = (typeof selectionBehaviour == "string") ?
                 selectionBehaviour.toLowerCase() : "";
 
@@ -275,7 +275,7 @@ Rainbow.addClass=Rainbow.a;Rainbow.extend([{matches:{1:[{name:"keyword.operator"
                 var normalizedText = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
                 endIndex = startIndex + normalizedText.length;
                 var firstLineBreakIndex = startIndex + normalizedText.indexOf("\n");
-                
+
                 if (el.value.slice(firstLineBreakIndex, firstLineBreakIndex + 2) == "\r\n") {
                     // Browser uses \r\n, so we need to account for extra \r characters
                     endIndex += normalizedText.match(/\n/g).length;
@@ -361,15 +361,15 @@ Rainbow.addClass=Rainbow.a;Rainbow.extend([{matches:{1:[{name:"keyword.operator"
   // Support CommonJS
   } else if (typeof exports === 'object') {
     var randomColor = factory();
-    
+
     // Support NodeJS & Component, which allow module.exports to be a function
     if (typeof module === 'object' && module && module.exports) {
       exports = module.exports = randomColor;
     }
-    
+
     // Support CommonJS 1.1.1 spec
     exports.randomColor = randomColor;
-  
+
   // Support vanilla script loading
   } else {
     root.randomColor = factory();
@@ -993,16 +993,28 @@ function sendEmail() {
 		var bodyLength = $('#email-content').val().length;
 		if (subjectLength == 0) {
 			console.log('Subject Field is Empty!');
-			$('#welcome-subject-notification').css('opacity', '1.0');
+			$('#welcome-subject-notification').css({
+			    'opacity': '1.0',
+			    'z-index': 2
+			});
 			setTimeout(function() {
-				$('#welcome-subject-notification').css('opacity', '0.0');
+				$('#welcome-subject-notification').css({
+				    'opacity': '0.0',
+				    'z-index': 0
+				});
 			}, 3000);
 		}
 		if (bodyLength == 0) {
 			console.log('Body Field is Empty!');
-			$('#welcome-body-notification').css('opacity', '1.0');
+			$('#welcome-body-notification').css({
+			    'opacity': '1.0',
+			    'z-index': 2
+			});
 			setTimeout(function() {
-				$('#welcome-body-notification').css('opacity', '0.0');
+				$('#welcome-body-notification').css({
+				    'opacity': '0.0',
+				    'z-index': 0
+				});
 			}, 3000);
 		}
 		if (subjectLength > 0 && bodyLength > 0) {
@@ -1067,7 +1079,7 @@ function cms() {
 // AJAX request to /preview view function
 function populateData(data) {
 	console.log('Populating data...!');
-	$('.preview').fadeOut('fast');		
+	$('.preview').fadeOut('fast');
 	$('.posts-container').fadeOut('fast');
 	var color = $('#color').val();
 	var title = $('#title').val();
@@ -1076,7 +1088,7 @@ function populateData(data) {
 	var subtitle = $('#subtitle').val();
 	var content = $('#content').val();
 	var hidden_date = $('#hidden_date').val();
-	
+
 	$.getJSON($SCRIPT_ROOT + '/preview', {
 		color: color,
 		title: title,
@@ -1115,9 +1127,9 @@ function masonry() {
 		'#current-posts-container',
 		'#old-posts-container',
 		'#last-month-posts-container',
-		'#two-months-ago-posts-container'		
+		'#two-months-ago-posts-container'
 	];
-	
+
 	for (i = 0; i < containerDivs.length; i++) {
 		$(containerDivs[i]).masonry({
 			itemSelector: '.post-thumb',
@@ -1144,7 +1156,7 @@ function inputLabels() {
 	var subtitle = $('#subtitle').val();
 	var content = $('#content').val();
 	var author = $('#author').val();
-	
+
 	if (title) {
 		if (title.length > 1) {
 			$('#title-label').css('opacity', '1');
@@ -1159,7 +1171,7 @@ function inputLabels() {
 			$('#author-label').css('opacity', '1');
 		}
 	}
-	
+
 	$('#title').on('input', function() {
 		var title = $('#title').val();
 		if (title.length < 1) {
@@ -1170,7 +1182,7 @@ function inputLabels() {
 			notSubmitted();
 		}
 	});
-	
+
 	$('#subtitle').on('input', function() {
 		var subtitle = $('#subtitle').val();
 		if (subtitle.length < 1) {
@@ -1181,7 +1193,7 @@ function inputLabels() {
 			notSubmitted();
 		}
 	});
-	
+
 	$('#content').on('input', function() {
 		var content = $('#content').val();
 		if (content.length < 1) {
@@ -1269,7 +1281,7 @@ function projectsMasonry() {
 	var masonry = new Masonry('#projects-grid', {
 		itemSelector: '.project'
 	});
-	
+
 	imagesLoaded('#projects-grid', function() {
 		masonry.layout();
 	});
@@ -1281,13 +1293,13 @@ function codeTags() {
 	var clicked = false;
 	$('#code-tag').on('click', function() {
         if (clicked) {
-        	clicked = false;        	
+        	clicked = false;
         	$('#code-tag-options').fadeOut(50);
         	$(this).removeClass('color-select-selected');
         	$('.format-guide').css('height', '-=45px');
     	} else {
     		clicked = true;
-    		$('#code-tag-options').fadeIn('fast');    		
+    		$('#code-tag-options').fadeIn('fast');
         	$(this).addClass('color-select-selected');
         	$('.format-guide').css('height', '+=45px');
     	}
@@ -1311,7 +1323,7 @@ function headerTags() {
         	$(this).removeClass('color-select-selected');
         	$('.format-guide').css('height', '-=40px');
     	} else {
-    		clicked = true;    		
+    		clicked = true;
         	$(this).addClass('color-select-selected');
         	$('.format-guide').css('height', '+=40px');
         	$('#header-tag-options').fadeIn('fast');
@@ -1366,7 +1378,7 @@ function colorTags() {
         	$(this).removeClass('color-select-selected');
         	$('.format-guide').css('height', '-=40px');
     	} else {
-    		clicked = true;    		
+    		clicked = true;
         	$(this).addClass('color-select-selected');
         	$('.format-guide').css('height', '+=40px');
         	$('#color-tag-options').fadeIn('fast');
@@ -1410,7 +1422,7 @@ function linkTag() {
 		}
 	});
 	$('#link-tag-submit').on('click', function() {
-		var url = $('#link-url').val();		
+		var url = $('#link-url').val();
 		$('#content').surroundSelectedText('[', '](' + url + ')')
 	});
 }
@@ -1424,7 +1436,7 @@ function imgTag() {
 			$(this).removeClass('color-select-selected');
 			$('.format-guide').css('height', '-=155px');
 		} else {
-			clicked = true;			
+			clicked = true;
 			$(this).addClass('color-select-selected');
 			$('.format-guide').css('height', '+=155px');
 			$('#img-tag-options').fadeIn('fast');
@@ -1450,7 +1462,7 @@ function carouselTag() {
 			$(this).removeClass('color-select-selected');
 			$('.format-guide').css('height', '-=' + inputCount + 'px');
 		} else {
-			clicked = true;			
+			clicked = true;
 			$(this).addClass('color-select-selected');
 			$('.format-guide').css('height', '+=105px');
 			$('#carousel-tag-options').fadeIn('fast');
@@ -1465,11 +1477,11 @@ function carouselTag() {
 		var inputs = $('#carousel-tag-options').find('input');
 		var urls = [];
 		var htmlString = '';
-		var imageSlickStart = '<div class="slick-images">';		
+		var imageSlickStart = '<div class="slick-images">';
 		var imageSlickEnd = '</div>';
 		inputs.each(function() {
 			urls.push($(this).val());
-		});		
+		});
 		for (var i = urls.length - 1; i >= 0; i--) {
 			tempString = '<div><a href="' + urls[i] + '"><img src="' + urls[i] + '" class="rounded-images"></a></div>';
 			htmlString += tempString;

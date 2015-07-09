@@ -18,7 +18,7 @@ function smallMenu() {
 		var scrollTop = $(document).scrollTop();
 		if (scrollTop > 150) {
 			// Fade in small navbar
-			var offset = scrollTop - 150
+			var offset = scrollTop - 150;
 			$('.small-logo-container').css({
 				'opacity': '1.0',
 				'z-index': '20'
@@ -38,7 +38,7 @@ function loadBacon() {
 	for (i = 1; i < 7; i++) {
 		var imagePath = path + i + '.jpg';
 		images.push(imagePath);
-	};
+	}
 	var item = images[Math.floor(Math.random() * images.length)];
 	var html = '<img style="opacity: 0.0" class="small-logo-icon animate" alt="Tyler Kershner" src="' + item + '">';
 	$('#small-logo-link').append(html);
@@ -62,7 +62,7 @@ function jPlayer() {
 	$('#song-download').append(html);
 
 	$('#song-selection').on('click', function() {
-		$('#loop-selection').removeClass('selection-highlight')
+		$('#loop-selection').removeClass('selection-highlight');
 		$('#loop-selection').addClass('selection-unhighlight');
 		$(this).removeClass('selection-unhighlight');
 		$(this).addClass('selection-highlight');
@@ -76,7 +76,7 @@ function jPlayer() {
 	});
 
 	$('#loop-selection').on('click', function() {
-		$('#song-selection').removeClass('selection-highlight')
+		$('#song-selection').removeClass('selection-highlight');
 		$('#song-selection').addClass('selection-unhighlight');
 		$(this).removeClass('selection-unhighlight');
 		$(this).addClass('selection-highlight');
@@ -180,9 +180,9 @@ function getImage() {
 	for (i = 1; i < 12; i++) {
 		var imagePath = path + i + '.png';
 		images.push(imagePath);
-	};
+	}
 	var item = images[Math.floor(Math.random() * images.length)];
-	return item
+	return item;
 }
 
 function closeLightbox() {
@@ -212,7 +212,7 @@ function musicLightbox() {
 		} else if (id === 'collage-6') {
 			image = 'music03.jpg';
 		} else if (id === 'collage-7') {
-			image = 'music02.jpg'
+			image = 'music02.jpg';
 		}
 
 		var html = '<img src="' + path + image + '"><span>(Click anywhere to close)</span>';
@@ -240,16 +240,28 @@ function sendEmail() {
 		var bodyLength = $('#email-content').val().length;
 		if (subjectLength == 0) {
 			console.log('Subject Field is Empty!');
-			$('#welcome-subject-notification').css('opacity', '1.0');
+			$('#welcome-subject-notification').css({
+			    'opacity': '1.0',
+			    'z-index': 2
+			});
 			setTimeout(function() {
-				$('#welcome-subject-notification').css('opacity', '0.0');
+				$('#welcome-subject-notification').css({
+				    'opacity': '0.0',
+				    'z-index': 0
+				});
 			}, 3000);
 		}
 		if (bodyLength == 0) {
 			console.log('Body Field is Empty!');
-			$('#welcome-body-notification').css('opacity', '1.0');
+			$('#welcome-body-notification').css({
+			    'opacity': '1.0',
+			    'z-index': 2
+			});
 			setTimeout(function() {
-				$('#welcome-body-notification').css('opacity', '0.0');
+				$('#welcome-body-notification').css({
+				    'opacity': '0.0',
+				    'z-index': 0
+				});
 			}, 3000);
 		}
 		if (subjectLength > 0 && bodyLength > 0) {
