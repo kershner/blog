@@ -3,6 +3,7 @@ from flask import jsonify, render_template, request, flash, redirect, url_for, s
 from modules import music_files, campaign_logic, reddit_scraper, cstools_logic, gif_party_logic, pi_config, \
     pi_display_logic, cms_logic
 from forms import *
+import credentials
 from app import app, models
 
 
@@ -306,444 +307,444 @@ def gif_party_json_delay():
     return jsonify(data)
 
 
-###################################################################################
-#  CS Tools Apps ##################################################################
-@app.route('/cstools')
-def cstools():
-    return render_template('/cstools/index.html',
-                           title='Home')
+# ###################################################################################
+# #  CS Tools Apps ##################################################################
+# @app.route('/cstools')
+# def cstools():
+#     return render_template('/cstools/index.html',
+#                           title='Home')
 
 
-@app.route('/cstools/datechecker', methods=['GET', 'POST'])
-def datechecker():
-    form = DateCheckerForm()
-    if request.method == 'POST':
-        if not form.validate():
-            return render_template('/cstools/datechecker.html',
-                                   title='222 Form Date Checker',
-                                   form=form)
-        else:
-            try:
-                form_date = form.form_date.data
-                return render_template('/cstools/datechecker.html',
-                                       title="222 Form Date Checker",
-                                       form=form,
-                                       message=cstools_logic.datechecker_logic(form_date))
-            except ValueError:
-                message = 'Enter the form\'s issue date in the format MM/DD/YY.'
-                return render_template('/cstools/datechecker.html',
-                                       title='222 Form Date Checker',
-                                       form=form,
-                                       message=message)
-    elif request.method == 'GET':
-        return render_template('/cstools/datechecker.html',
-                               title='222 Form Date Checker',
-                               form=form)
+# @app.route('/cstools/datechecker', methods=['GET', 'POST'])
+# def datechecker():
+#     form = DateCheckerForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             return render_template('/cstools/datechecker.html',
+#                                   title='222 Form Date Checker',
+#                                   form=form)
+#         else:
+#             try:
+#                 form_date = form.form_date.data
+#                 return render_template('/cstools/datechecker.html',
+#                                       title="222 Form Date Checker",
+#                                       form=form,
+#                                       message=cstools_logic.datechecker_logic(form_date))
+#             except ValueError:
+#                 message = 'Enter the form\'s issue date in the format MM/DD/YY.'
+#                 return render_template('/cstools/datechecker.html',
+#                                       title='222 Form Date Checker',
+#                                       form=form,
+#                                       message=message)
+#     elif request.method == 'GET':
+#         return render_template('/cstools/datechecker.html',
+#                               title='222 Form Date Checker',
+#                               form=form)
 
 
-@app.route('/cstools/backorder', methods=['GET', 'POST'])
-def backorder():
-    form = BackorderForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/backorder.html',
-                                   title='Backorder Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            email = form.email.data
-            po = form.po.data
-            name = form.name.data
-            item_no = form.item_number.data
-            lead_time = form.lead_time.data
-            link = cstools_logic.backorder_logic(po, email, name, item_no, lead_time)
-            return render_template('/cstools/backorder.html',
-                                   title='Backorder Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
+# @app.route('/cstools/backorder', methods=['GET', 'POST'])
+# def backorder():
+#     form = BackorderForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/backorder.html',
+#                                   title='Backorder Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             email = form.email.data
+#             po = form.po.data
+#             name = form.name.data
+#             item_no = form.item_number.data
+#             lead_time = form.lead_time.data
+#             link = cstools_logic.backorder_logic(po, email, name, item_no, lead_time)
+#             return render_template('/cstools/backorder.html',
+#                                   title='Backorder Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
 
-    elif request.method == 'GET':
-        return render_template('/cstools/backorder.html',
-                               title='Backorder Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
-
-
-@app.route('/cstools/backorder-report', methods=['GET', 'POST'])
-def backorder_report():
-    form = BackorderReport()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/backorder-report.html',
-                                   title='Backorder Report Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            email = form.email.data
-            link = cstools_logic.backorder_report_logic(name, email)
-            return render_template('/cstools/backorder-report.html',
-                                   title='Backorder Report Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/backorder-report.html',
-                               title='Backorder Report Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/backorder.html',
+#                               title='Backorder Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/application', methods=['GET', 'POST'])
-def application():
-    form = ApplicationForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/application.html',
-                                   title='Account Application Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            email = form.email.data
-            link = cstools_logic.application_logic(name, email)
-            return render_template('/cstools/application.html',
-                                   title='Account Application Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/application.html',
-                               title='Account Application Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/backorder-report', methods=['GET', 'POST'])
+# def backorder_report():
+#     form = BackorderReport()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/backorder-report.html',
+#                                   title='Backorder Report Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             email = form.email.data
+#             link = cstools_logic.backorder_report_logic(name, email)
+#             return render_template('/cstools/backorder-report.html',
+#                                   title='Backorder Report Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/backorder-report.html',
+#                               title='Backorder Report Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/dea', methods=['GET', 'POST'])
-def dea():
-    form = DeaForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/dea.html',
-                                   title='DEA Protocol Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            email = form.email.data
-            items = form.dea_items.data
-            link = cstools_logic.dea_logic(name, email, items)
-            return render_template('/cstools/dea.html',
-                                   title='DEA Protocol Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/dea.html',
-                               title='DEA Protocol Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/application', methods=['GET', 'POST'])
+# def application():
+#     form = ApplicationForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/application.html',
+#                                   title='Account Application Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             email = form.email.data
+#             link = cstools_logic.application_logic(name, email)
+#             return render_template('/cstools/application.html',
+#                                   title='Account Application Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/application.html',
+#                               title='Account Application Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/newaccount', methods=['GET', 'POST'])
-def newaccount():
-    form = NewAccountForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/newaccount.html',
-                                   title='New Account Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            acct_number = form.acct.data
-            email = form.email.data
-            net30 = form.net30.data
-            link = cstools_logic.newaccount_logic(name, acct_number, email, net30)
-            return render_template('/cstools/newaccount.html',
-                                   title='New Account Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/newaccount.html',
-                               title='New Account Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/dea', methods=['GET', 'POST'])
+# def dea():
+#     form = DeaForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/dea.html',
+#                                   title='DEA Protocol Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             email = form.email.data
+#             items = form.dea_items.data
+#             link = cstools_logic.dea_logic(name, email, items)
+#             return render_template('/cstools/dea.html',
+#                                   title='DEA Protocol Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/dea.html',
+#                               title='DEA Protocol Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
-def shadyblurb():
-    form = ShadyForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/shadyblurb.html',
-                                   title='Shady Customer Blurb',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            email = form.email.data
-            order_no = form.order_no.data
-            link = cstools_logic.shadyblurb_logic(email, order_no)
-            return render_template('/cstools/shadyblurb.html',
-                                   title='Shady Customer Blurb',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/shadyblurb.html',
-                               title='Shady Customer Blurb',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/newaccount', methods=['GET', 'POST'])
+# def newaccount():
+#     form = NewAccountForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/newaccount.html',
+#                                   title='New Account Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             acct_number = form.acct.data
+#             email = form.email.data
+#             net30 = form.net30.data
+#             link = cstools_logic.newaccount_logic(name, acct_number, email, net30)
+#             return render_template('/cstools/newaccount.html',
+#                                   title='New Account Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/newaccount.html',
+#                               title='New Account Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
-def price_discrepancy():
-    form = DiscrepancyForm()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/pricediscrepancy.html',
-                                   title='Price Discrepancy Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            email = form.email.data
-            po = form.po.data
-            name = form.name.data
-            item_no = form.item_number.data
-            given_price = form.given_price.data
-            actual_price = form.actual_price.data
-            link = cstools_logic.price_discrepancy_logic(email, po, name, item_no, given_price, actual_price)
-            return render_template('/cstools/pricediscrepancy.html',
-                                   title='Price Discrepancy Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-
-    elif request.method == 'GET':
-        return render_template('/cstools/pricediscrepancy.html',
-                               title='Price Discrepancy Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/shadyblurb', methods=['GET', 'POST'])
+# def shadyblurb():
+#     form = ShadyForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/shadyblurb.html',
+#                                   title='Shady Customer Blurb',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             email = form.email.data
+#             order_no = form.order_no.data
+#             link = cstools_logic.shadyblurb_logic(email, order_no)
+#             return render_template('/cstools/shadyblurb.html',
+#                                   title='Shady Customer Blurb',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/shadyblurb.html',
+#                               title='Shady Customer Blurb',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/stillneed', methods=['GET', 'POST'])
-def still_need():
-    form = StillNeed()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/stillneed.html',
-                                   title='Still Need Item? Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            email = form.email.data
-            item = form.item_number.data
-            order_no = form.order_no.data
-            link = cstools_logic.stillneed_logic(name, email, item, order_no)
-            return render_template('/cstools/stillneed.html',
-                                   title='Still Need Item? Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/stillneed.html',
-                               title='Still Need Item? Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/pricediscrepancy', methods=['GET', 'POST'])
+# def price_discrepancy():
+#     form = DiscrepancyForm()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/pricediscrepancy.html',
+#                                   title='Price Discrepancy Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             email = form.email.data
+#             po = form.po.data
+#             name = form.name.data
+#             item_no = form.item_number.data
+#             given_price = form.given_price.data
+#             actual_price = form.actual_price.data
+#             link = cstools_logic.price_discrepancy_logic(email, po, name, item_no, given_price, actual_price)
+#             return render_template('/cstools/pricediscrepancy.html',
+#                                   title='Price Discrepancy Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+
+#     elif request.method == 'GET':
+#         return render_template('/cstools/pricediscrepancy.html',
+#                               title='Price Discrepancy Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
-def license_needed():
-    form = LicenseNeeded()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/licenseneeded.html',
-                                   title='DEA License Needed Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            name = form.name.data
-            email = form.email.data
-            order_no = form.order_no.data
-            link = cstools_logic.license_needed_logic(name, email, order_no)
-            return render_template('/cstools/licenseneeded.html',
-                                   title='DEA License Needed Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/licenseneeded.html',
-                               title='DEA License Needed Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/stillneed', methods=['GET', 'POST'])
+# def still_need():
+#     form = StillNeed()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/stillneed.html',
+#                                   title='Still Need Item? Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             email = form.email.data
+#             item = form.item_number.data
+#             order_no = form.order_no.data
+#             link = cstools_logic.stillneed_logic(name, email, item, order_no)
+#             return render_template('/cstools/stillneed.html',
+#                                   title='Still Need Item? Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/stillneed.html',
+#                               title='Still Need Item? Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/deaverify', methods=['GET', 'POST'])
-def dea_verify():
-    form = DeaVerify()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('/cstools/deaverify.html',
-                                   title='DEA Documents Verification Template',
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-        else:
-            order_no = form.order_no.data
-            institution = form.institution.data
-            link = cstools_logic.dea_verify_logic(order_no, institution)
-            return render_template('/cstools/deaverify.html',
-                                   title='DEA Documents Verification Template',
-                                   link=link,
-                                   form=form,
-                                   color=cstools_logic.get_css_color())
-    elif request.method == 'GET':
-        return render_template('/cstools/deaverify.html',
-                               title='DEA Documents Verification Template',
-                               form=form,
-                               color=cstools_logic.get_css_color())
+# @app.route('/cstools/licenseneeded', methods=['GET', 'POST'])
+# def license_needed():
+#     form = LicenseNeeded()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/licenseneeded.html',
+#                                   title='DEA License Needed Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             name = form.name.data
+#             email = form.email.data
+#             order_no = form.order_no.data
+#             link = cstools_logic.license_needed_logic(name, email, order_no)
+#             return render_template('/cstools/licenseneeded.html',
+#                                   title='DEA License Needed Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/licenseneeded.html',
+#                               title='DEA License Needed Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-def login_required_cstools(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'cstoolslogged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            error = 'You need to log in first.'
-            return render_template('/cstools/login.html',
-                                   title='Login',
-                                   error=error)
-    return wrap
+# @app.route('/cstools/deaverify', methods=['GET', 'POST'])
+# def dea_verify():
+#     form = DeaVerify()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             flash('All fields are required.')
+#             return render_template('/cstools/deaverify.html',
+#                                   title='DEA Documents Verification Template',
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#         else:
+#             order_no = form.order_no.data
+#             institution = form.institution.data
+#             link = cstools_logic.dea_verify_logic(order_no, institution)
+#             return render_template('/cstools/deaverify.html',
+#                                   title='DEA Documents Verification Template',
+#                                   link=link,
+#                                   form=form,
+#                                   color=cstools_logic.get_css_color())
+#     elif request.method == 'GET':
+#         return render_template('/cstools/deaverify.html',
+#                               title='DEA Documents Verification Template',
+#                               form=form,
+#                               color=cstools_logic.get_css_color())
 
 
-@app.route('/cstools/login', methods=['GET', 'POST'])
-def cstools_login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'cs' or request.form['password'] != 'cayman':
-            error = 'Invalid credentials, please try again.'
-        else:
-            session['cstoolslogged_in'] = True
-            return redirect(url_for('forms_without_orders'))
-    return render_template('/cstools/login.html',
-                           title='Login',
-                           error=error)
+# def login_required_cstools(test):
+#     @wraps(test)
+#     def wrap(*args, **kwargs):
+#         if 'cstoolslogged_in' in session:
+#             return test(*args, **kwargs)
+#         else:
+#             error = 'You need to log in first.'
+#             return render_template('/cstools/login.html',
+#                                   title='Login',
+#                                   error=error)
+#     return wrap
 
 
-@app.route('/cstools/logout')
-def cstools_logout():
-    if 'logged_in_cstools' in session:
-        session.pop('cstoolslogged_in', None)
-        return redirect(url_for('cstools'))
-    else:
-        return redirect(url_for('cstools'))
+# @app.route('/cstools/login', methods=['GET', 'POST'])
+# def cstools_login():
+#     error = None
+#     if request.method == 'POST':
+#         if request.form['username'] != credentials.username or request.form['password'] != credentials.password:
+#             error = 'Invalid credentials, please try again.'
+#         else:
+#             session['cstoolslogged_in'] = True
+#             return redirect(url_for('forms_without_orders'))
+#     return render_template('/cstools/login.html',
+#                           title='Login',
+#                           error=error)
 
 
-@app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
-@login_required_cstools
-def forms_without_orders():
-    form = DeaForms()
-    if request.method == 'POST':
-        if not form.validate():
-            entries = models.Entry.query.all()
-            flash('All fields are required.')
-            return render_template('/cstools/forms_without_orders.html',
-                                   title='DEA Forms Without Orders',
-                                   form=form,
-                                   entries=entries,
-                                   new_entry=True)
-        else:
-            institution = form.institution.data
-            name = form.name.data
-            email = form.email.data
-            csr_name = form.csr_name.data
-            item_numbers = form.item_numbers.data
-            notes = form.notes.data
-            d = cstools_logic.add_e(institution, name, email, item_numbers, notes, csr_name)
-            return render_template('/cstools/forms_without_orders.html',
-                                   title='DEA Forms Without Orders',
-                                   entries=d['entries'],
-                                   message=d['message'])
-    elif request.method == 'GET':
-        entries = models.Entry.query.all()
-        return render_template('/cstools/forms_without_orders.html',
-                               title='DEA Forms Without Orders',
-                               entries=entries)
+# @app.route('/cstools/logout')
+# def cstools_logout():
+#     if 'logged_in_cstools' in session:
+#         session.pop('cstoolslogged_in', None)
+#         return redirect(url_for('cstools'))
+#     else:
+#         return redirect(url_for('cstools'))
 
 
-@app.route('/cstools/forms-without-orders/new-entry')
-@login_required_cstools
-def new_entry():
-    form = DeaForms()
-    entries = models.Entry.query.all()
-    return render_template('/cstools/forms_without_orders.html',
-                           title='DEA Forms Without Orders',
-                           form=form,
-                           entries=entries,
-                           new_entry=True)
+# @app.route('/cstools/forms-without-orders', methods=['GET', 'POST'])
+# @login_required_cstools
+# def forms_without_orders():
+#     form = DeaForms()
+#     if request.method == 'POST':
+#         if not form.validate():
+#             entries = models.Entry.query.all()
+#             flash('All fields are required.')
+#             return render_template('/cstools/forms_without_orders.html',
+#                                   title='DEA Forms Without Orders',
+#                                   form=form,
+#                                   entries=entries,
+#                                   new_entry=True)
+#         else:
+#             institution = form.institution.data
+#             name = form.name.data
+#             email = form.email.data
+#             csr_name = form.csr_name.data
+#             item_numbers = form.item_numbers.data
+#             notes = form.notes.data
+#             d = cstools_logic.add_e(institution, name, email, item_numbers, notes, csr_name)
+#             return render_template('/cstools/forms_without_orders.html',
+#                                   title='DEA Forms Without Orders',
+#                                   entries=d['entries'],
+#                                   message=d['message'])
+#     elif request.method == 'GET':
+#         entries = models.Entry.query.all()
+#         return render_template('/cstools/forms_without_orders.html',
+#                               title='DEA Forms Without Orders',
+#                               entries=entries)
 
 
-@app.route('/cstools/forms-without-orders/edit-entry/<entry_id>')
-@login_required_cstools
-def edit_entry(entry_id):
-    entry = models.Entry.query.get(entry_id)
-    return render_template('/cstools/forms_without_orders_edit.html',
-                           title='DEA Forms Without Orders - Edit Entry',
-                           entry=entry)
+# @app.route('/cstools/forms-without-orders/new-entry')
+# @login_required_cstools
+# def new_entry():
+#     form = DeaForms()
+#     entries = models.Entry.query.all()
+#     return render_template('/cstools/forms_without_orders.html',
+#                           title='DEA Forms Without Orders',
+#                           form=form,
+#                           entries=entries,
+#                           new_entry=True)
 
 
-@app.route('/cstools/forms-without-orders/update-entry/<entry_id>', methods=['GET', 'POST'])
-@login_required_cstools
-def update_entry(entry_id):
-    form = DeaForms()
-    entry = models.Entry.query.get(entry_id)
-    if form.validate_on_submit():
-        institution = form.institution.data
-        contact_name = form.name.data
-        contact_email = form.email.data
-        csr_name = form.csr_name.data
-        item_numbers = form.item_numbers.data
-        notes = form.notes.data
-        d = cstools_logic.edit_e(entry_id, institution, contact_name, contact_email, csr_name, item_numbers, notes)
-        return render_template('/cstools/forms_without_orders.html',
-                               title='DEA Forms Without Orders',
-                               entries=d['entries'],
-                               message=d['message'])
-
-    form.institution.data = entry.institution
-    form.name.data = entry.contact_name
-    form.email.data = entry.contact_email
-    form.item_numbers.data = entry.item_numbers
-    form.notes.data = entry.notes
-    form.csr_name.data = entry.csr_name
-
-    return render_template('/cstools/forms_without_orders_update.html',
-                           title='DEA Forms Without Orders - Update Entry',
-                           entry=entry,
-                           form=form)
+# @app.route('/cstools/forms-without-orders/edit-entry/<entry_id>')
+# @login_required_cstools
+# def edit_entry(entry_id):
+#     entry = models.Entry.query.get(entry_id)
+#     return render_template('/cstools/forms_without_orders_edit.html',
+#                           title='DEA Forms Without Orders - Edit Entry',
+#                           entry=entry)
 
 
-@app.route('/cstools/forms-without-orders/delete-entry/<entry_id>')
-@login_required_cstools
-def delete_entry(entry_id):
-    d = cstools_logic.delete_e(entry_id)
-    return render_template('/cstools/forms_without_orders.html',
-                           title='DEA Forms Without Orders',
-                           message=d['message'],
-                           entries=d['entries'])
+# @app.route('/cstools/forms-without-orders/update-entry/<entry_id>', methods=['GET', 'POST'])
+# @login_required_cstools
+# def update_entry(entry_id):
+#     form = DeaForms()
+#     entry = models.Entry.query.get(entry_id)
+#     if form.validate_on_submit():
+#         institution = form.institution.data
+#         contact_name = form.name.data
+#         contact_email = form.email.data
+#         csr_name = form.csr_name.data
+#         item_numbers = form.item_numbers.data
+#         notes = form.notes.data
+#         d = cstools_logic.edit_e(entry_id, institution, contact_name, contact_email, csr_name, item_numbers, notes)
+#         return render_template('/cstools/forms_without_orders.html',
+#                               title='DEA Forms Without Orders',
+#                               entries=d['entries'],
+#                               message=d['message'])
+
+#     form.institution.data = entry.institution
+#     form.name.data = entry.contact_name
+#     form.email.data = entry.contact_email
+#     form.item_numbers.data = entry.item_numbers
+#     form.notes.data = entry.notes
+#     form.csr_name.data = entry.csr_name
+
+#     return render_template('/cstools/forms_without_orders_update.html',
+#                           title='DEA Forms Without Orders - Update Entry',
+#                           entry=entry,
+#                           form=form)
+
+
+# @app.route('/cstools/forms-without-orders/delete-entry/<entry_id>')
+# @login_required_cstools
+# def delete_entry(entry_id):
+#     d = cstools_logic.delete_e(entry_id)
+#     return render_template('/cstools/forms_without_orders.html',
+#                           title='DEA Forms Without Orders',
+#                           message=d['message'],
+#                           entries=d['entries'])
 
 
 ##############################################################################
