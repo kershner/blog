@@ -879,3 +879,32 @@ body form p input {
 	height: 25px;
 	width: 25px;
 }
+.animate {
+	-webkit-transition: all .25s ease-in-out;
+	-moz-transition: all .25s ease-in-out;
+	-o-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+}
+.temp-container {
+	margin-top: 15em;
+}
+.temp-title {
+	font-size: 3em;
+}
+.temp-text {
+	margin: 1em auto;
+	max-width: 80%;
+}
+.temp-project-link {
+	display: block;
+	margin: .5em auto;
+	padding: .25em;
+	width: 10em;
+	border: .18em solid white;
+	border-radius: .25em;
+}
+.temp-project-link:hover {
+	background-color: white;
+	color: black;
+	text-shadow: none;
+}

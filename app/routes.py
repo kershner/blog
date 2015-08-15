@@ -309,10 +309,10 @@ def gif_party_json_delay():
 
 # ###################################################################################
 # #  CS Tools Apps ##################################################################
-# @app.route('/cstools')
-# def cstools():
-#     return render_template('/cstools/index.html',
-#                           title='Home')
+@app.route('/cstools')
+def cstools():
+    return render_template('/cstools/temp.html',
+                          title='Home')
 
 
 # @app.route('/cstools/datechecker', methods=['GET', 'POST'])
