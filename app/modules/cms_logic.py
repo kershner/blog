@@ -30,18 +30,15 @@ def render_markdown(markdown_text):
 def get_posts():
     # Sorting by ID (descending order)
     posts = models.Post.query.order_by(models.Post.id.desc()).all()
-    current_month_posts = []
-    last_month_posts = []
-    two_months_ago_posts = []
+    posts_to_display = []
 
+    counter = 0
     for post in posts:
-        status = get_recent_posts(post)
-        if status == 'Current Month':
-            current_month_posts.append(post)
-        elif status == 'Last Month':
-            last_month_posts.append(post)
-        elif status == 'Two Months Ago':
-            two_months_ago_posts.append(post)
+        if counter == 5:
+            break
+        else:
+            posts_to_display.append(post)
+        counter += 1
 
     if 'logged_in' in session:
         link = '/cms'
@@ -49,9 +46,7 @@ def get_posts():
         link = ''
 
     data = {
-        'current_month_posts': current_month_posts,
-        'last_month_posts': last_month_posts,
-        'two_months_ago_posts': two_months_ago_posts,
+        'posts': posts_to_display,
         'link': link
     }
 

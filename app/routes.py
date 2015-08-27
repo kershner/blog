@@ -19,9 +19,7 @@ def index():
 def blog():
     data = cms_logic.get_posts()
     return render_template('/blog/home.html',
-                           current_month_posts=data['current_month_posts'],
-                           last_month_posts=data['last_month_posts'],
-                           two_months_ago_posts=data['two_months_ago_posts'],
+                           posts=data['posts'],
                            link=data['link'])
 
 
