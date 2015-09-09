@@ -2,6 +2,10 @@ function blog() {
 	smallMenu();
 	getImage();
 	setInterval(loadBacon, 8000);
+	colorWave('.small-logo', '#FFFFFF');
+	$('.project-page-title').each(function() {
+		colorWave($(this), '#00BFA5');
+	});
 }
 
 function projectsMasonry() {
@@ -277,28 +281,44 @@ function sendEmail() {
 function welcomeFadeIn() {
     setTimeout(function() {
         $('#blurb01').animate({'opacity': '1.0'}, 800, function() {
+			colorWave('#hello', '#00BFA5');
+        	colorWave('#blurb01', '#4A4A4A');
             $('#blurb02').animate({'opacity': '1.0'}, 900, function() {
-                $('#blurb03').animate({'opacity': '1.0'}, 900);
+                colorWave('#blurb02', '#4A4A4A');
+                $('#blurb03').animate({'opacity': '1.0'}, 900, function() {
+                	colorWave('#blurb03', '#4A4A4A');
+                });
                 $('#welcome-pic').animate({'opacity': '1.0'}, 1000);
                 $('#down-arrow').animate({'opacity': '1.0'}, 800);
                 blinkingArrow();
                 welcomeScroll();
             });
         });
-    }, 700);
+        colorWave('#projects-title', '#00BFA5');
+        colorWave('#more-projects', '#00BFA5');
+        colorWave('#contact-title', '#00BFA5');
+        $('.welcome-project-inner-title').each(function() {
+        	colorWave($(this), '#FFFFFF');
+        })
+    }, 300);
 }
 
 function welcomeScroll() {
     var waypoint = new Waypoint({
         element: $('#welcome-pic'),
         handler: function() {
-            $('#down-arrow').css('display', 'none');
             $('#projects-title, #contact-title').addClass('levitate-smaller');
-            $('#projects-title, #contact-title').css('opacity', '1.0');
-            $('#projects-container, #contact-form-wrapper').css('opacity', '1.0');
+            $('#projects-section').animate({'opacity': '1.0'}, 800);
         },
         offset: '35%'
-    })
+    });
+    var contactWaypoint = new Waypoint({
+    	element: $('#more-projects'),
+    	handler: function() {
+    		$('#contact-section').animate({'opacity': '1.0'}, 800);
+    	},
+    	offset: '75%'
+    });
 }
 
 function blinkingArrow(action) {
@@ -306,4 +326,53 @@ function blinkingArrow(action) {
         $('#down-arrow').animate({'opacity': '0.3'}, 1000);
         $('#down-arrow').animate({'opacity': '1.0'}, 1000);
     }, 1000);
+}
+
+var COLORS = [
+	'#0A7ECC', '#189BF2', '#244459', '#C74932', '#F21A18', '#27E300', '#FFA400',
+	'#FF6A00'
+];
+// Colors each letter of an element in succession and then returns each to white
+function colorWave(element, defaultColor) {
+    var finalHtml = '';
+    var text = $(element).text();
+    var postpone = text.length * 400;
+    if (postpone < 5000) {
+        postpone = 5000;
+    }
+    for (i=0; i<text.length; i++) {
+        var tempHtml = '<span class="colorwave animate">' + text[i] + '</span>';
+        finalHtml += tempHtml;
+    }
+    $(element).empty().append(finalHtml);
+    colorLetters(element, postpone, defaultColor);
+    setInterval(function() {
+        colorLetters(element, postpone, defaultColor);
+    }, postpone);
+}
+
+function colorLetters(element, postpone, defaultColor) {
+    var randomnumber = (Math.random() * (COLORS.length + 1)) << 0;
+    var counter = randomnumber;
+    var delay = 100;
+    var newPostpone = postpone / 5;
+    $(element).find('.colorwave').each(function() {
+        if (counter >= COLORS.length) {
+            counter = 0;
+        }
+        $(this).animate({'color': COLORS[counter]}, delay);
+        delay += 75;
+        counter += 1;
+    });
+    setTimeout(function() {
+        removeColor(element, defaultColor);
+    }, newPostpone);
+}
+
+function removeColor(element, defaultColor) {
+    var delay = 100;
+    $(element).find('.colorwave').each(function() {
+        $(this).animate({'color': defaultColor}, delay);
+        delay += 75;
+    });
 }
