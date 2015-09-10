@@ -124,6 +124,11 @@ iframe {
 	margin-bottom: 20px;
 }
 
+.codepen {
+	width: 100%;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+
 /* General class to add CSS animation to element */
 .animate {
 	-webkit-transition: all 0.2s ease-in-out;
