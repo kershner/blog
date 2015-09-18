@@ -42,8 +42,6 @@ def pi_display_main():
     with open('%s/%s' % (path, toplay_filename), 'a+') as urls_to_play:
         for entry in urls_toplay_list:
             if entry == gif_url:
-                print gif_url
-                print entry
                 continue
             else:
                 urls_to_play.write(entry)

@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="/static/pi_display.css"/>
     <title>{{title}}</title>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="http://www.kershner.org/static/js/jquery-color.min.js"></script>
 <script src="/static/js/imgcentering.min.js"></script>
 <script src="/static/js/pi_display.js"></script>
 </head>
 
 <body>
-    <div class="container"></div>
+    <div class="container">
+        <span class="loading">Loading...</span>
+    </div>
 </body>
 
 <script>
 $(document).ready(function() {
     getImage();
+    startColorWave();
 });
 
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};

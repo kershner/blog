@@ -4,6 +4,26 @@ body {
 }
 
 .container {
-    width: 480px;
-    height: 320px;
+    position: relative;
+    width: 800px;
+    height: 400px;
+}
+
+.loading {
+	position: absolute;
+	margin: 0 auto;
+	opacity: 0.3;
+	top: 150px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	color: white;
+	font-family: 'Lobster';
+	font-size: 3em;
+	text-align: center;
+	text-shadow: 3px 3px 0px rgba(255,255,255,0.3);
+}
+
+.colorwave {
+	position: relative;
 }
