@@ -3,27 +3,34 @@ body {
 	overflow: hidden;
 }
 
+.animate {transition: all 1s ease-in-out;}
+
 .container {
     position: relative;
     width: 800px;
-    height: 400px;
+    height: 480px;
+}
+
+.container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
 }
 
 .loading {
 	position: absolute;
 	margin: 0 auto;
-	opacity: 0.3;
-	top: 150px;
+	opacity: 0.2;
+	top: 200px;
 	left: 0;
 	right: 0;
 	width: 100%;
-	color: white;
+	color: #F2F2F2;
 	font-family: 'Lobster';
-	font-size: 3em;
+	font-size: 4em;
 	text-align: center;
 	text-shadow: 3px 3px 0px rgba(255,255,255,0.3);
-}
-
-.colorwave {
-	position: relative;
 }
