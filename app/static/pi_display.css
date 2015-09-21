@@ -3,12 +3,17 @@ body {
 	overflow: hidden;
 }
 
-.animate {transition: all 1s ease-in-out;}
+.animate {
+    transition: all .6s ease-in-out;
+    -webkit-transition: all .6s ease-in-out;
+}
 
 .container {
     position: relative;
-    width: 800px;
-    height: 480px;
+    top: -.3em;
+    left: -0.5em;
+    width: 260px;
+    height: 155px;
 }
 
 .container img {
@@ -21,16 +26,19 @@ body {
 }
 
 .loading {
-	position: absolute;
-	margin: 0 auto;
-	opacity: 0.2;
-	top: 200px;
-	left: 0;
-	right: 0;
-	width: 100%;
-	color: #F2F2F2;
-	font-family: 'Lobster';
-	font-size: 4em;
-	text-align: center;
-	text-shadow: 3px 3px 0px rgba(255,255,255,0.3);
+    position: absolute;
+    opacity: 0.3;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: .5em;
+    width: 100%;
+    color: #F2F2F2;
+    font-family: 'Lobster';
+    font-size: 3.5em;
+    text-align: center;
+    text-shadow: 3px 3px 0px rgba(255,255,255,0.3);
+}
+.colorwave {
+    position: relative;
 }

@@ -12,14 +12,15 @@
 </head>
 
 <body>
+    <span class="loading">Loading...</span>
     <div class="container">
-        <span class="loading">Loading...</span>
     </div>
 </body>
 
 <script>
 $(document).ready(function() {
     getImage();
+    $('.loading').colorWave(COLORS);
 });
 
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
