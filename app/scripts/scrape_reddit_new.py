@@ -44,7 +44,7 @@ class Temp(object):
 
 def request_url(url):
     try:
-        r = requests.get(url, stream=True)
+        r = requests.get(url, stream=True, allow_redirects=False)
         size_in_bytes = int(r.headers['content-length'])
         float_size = float(size_in_bytes) / 1051038
         code = r.status_code
@@ -61,17 +61,11 @@ def request_url(url):
     #     return None
 
 
-def get_reddit_urls(sub, path, category):
+def get_reddit_urls(sub, current_urls, reddit):
     print '\nGathering image URLs from /r/%s...' % sub
     temp_list = []
 
-    # Creating Python list from url file
-    with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
-        current_urls = list(f)
-
-    # Accessing Reddit API
-    r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
-    submissions = r.get_subreddit(sub).get_hot(limit=200)
+    submissions = reddit.get_subreddit(sub).get_hot(limit=50)
     for submission in submissions:
         if submission.url + '\n' in current_urls:
             continue
@@ -136,6 +130,8 @@ def write_urls(url_list, path, category):
 
 
 if __name__ == '__main__':
+    # Accessing Reddit API
+    r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
     log = Log(0, 0, 0, 0, 0, 0)
     current_path = '/home/tylerkershner/app/templates/pi_display/logs/'
     categories = ['all', 'animals', 'gaming', 'strange', 'educational']
@@ -151,29 +147,36 @@ if __name__ == '__main__':
          'Damnthatsinteresting', 'shittyrobots', 'catpranks', 'Awwducational', 'instant_regret', 'oddlysatisfying',
          'Perfectfit', 'SuperShibe', 'shibe', 'corgi', 'animalgifs', 'doggifs',
          'sleepinganimals', 'StoppedWorking', 'AnimalsFailing', 'brushybrushy', 'AnimalsBeingPolite',
-         'AnimalsBeingFunny', 'SloMoAnimals', 'AnimalReactions', 'awwakeup'],
+         'AnimalsBeingFunny', 'SloMoAnimals', 'AnimalReactions', 'awwakeup', 'analogygifs', 'Hadouken', 'fifagifs',
+         'destiny_gifs', 'VGG', 'IndieDev', 'videogamesgifs', 'TheElderGifs', 'RetroGamePorn', 'CreepyVideogames',
+         'GTAV_GIFS', 'kspgifs', 'SpaceGifs', 'aviationgifs', 'OceanGifs', 'ScienceGIFs', 'AnimatedScience', 'ThisBlewMyMind'],
         # Animals
         ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs', 'SuperShibe',
          'shibe', 'corgi', 'Awwducational', 'AnimalsBeingBros', 'StartledCats', 'catpranks', 'animalgifs', 'doggifs',
          'sleepinganimals', 'StoppedWorking', 'AnimalsFailing', 'brushybrushy', 'AnimalsBeingPolite',
          'AnimalsBeingFunny', 'SloMoAnimals', 'AnimalReactions', 'awwakeup'],
         # Gaming
-        ['gaming_gifs', 'gaming', 'GamePhysics', 'ps4gifs'],
+        ['gaming_gifs', 'gaming', 'GamePhysics', 'ps4gifs', 'fifagifs', 'destiny_gifs', 'VGG', 'IndieDev',
+         'videogamesgifs', 'TheElderGifs', 'RetroGamePorn', 'CreepyVideogames', 'GTAV_GIFS', 'kspgifs'],
         # Strange
         ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
         # Educational
         ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs', 'Damnthatsinteresting',
-         'interestingasfuck']
+         'interestingasfuck', 'SpaceGifs', 'aviationgifs', 'OceanGifs', 'ScienceGIFs', 'AnimatedScience', 'ThisBlewMyMind']
     ]
     start = time.time()
     count = 0
+
     for cat in categories:
         print '\n####################################'
         print 'Now scraping %s subreddits' % cat
         print '####################################'
         temp_urls = Temp([])
+        # Creating Python list from url file
+        with open('%s/%s_urls.txt' % (current_path, cat), 'a+') as f:
+            current_urls = list(f)
         for subreddit in subreddits[int('%d' % count)]:
-            raw_urls = get_reddit_urls(subreddit, current_path, cat)
+            raw_urls = get_reddit_urls(subreddit, current_urls, r)
             processed_urls = process_urls(raw_urls)
             for processed_url in processed_urls:
                 temp_urls.urls.append(processed_url)
@@ -181,4 +184,4 @@ if __name__ == '__main__':
         count += 1
     log.readout()
     end = time.time()
-    print '\nScript Execution Time: %.2f seconds' % float(end - start)
+    print '\nScript Execution Time: %.2f minutes' % float(end - start) / 60
