@@ -54,9 +54,11 @@ def request_url(url):
             'code': code
         }
         return data
-    except (KeyError, requests.exceptions.SSLError, requests.exceptions.ConnectionError):
-        # No content-length HTTP header or error with request handshake
+    except:
         return None
+    # except (KeyError, requests.exceptions.SSLError, requests.exceptions.ConnectionError):
+    #     # No content-length HTTP header or error with request handshake
+    #     return None
 
 
 def get_reddit_urls(sub, path, category):
@@ -139,7 +141,7 @@ if __name__ == '__main__':
     categories = ['all', 'animals', 'gaming', 'strange', 'educational']
     subreddits = [
         # All
-        ['gifs', 'gif', 'blackpeoplegifs', 'SpaceGifs', 'physicsgifs', 'educationalgifs', 'chemicalreactiongifs',
+        ['gifs', 'gif', 'SpaceGifs', 'physicsgifs', 'educationalgifs', 'chemicalreactiongifs',
          'SurrealGifs', 'Puggifs', 'slothgifs', 'asianpeoplegifs', 'gaming_gifs', 'Movie_GIFs', 'funnygifs',
          'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
          'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',

@@ -97,6 +97,7 @@ def clean_up_urls(path, filename):
 
         if image_url in bad_urls_list:
             log.counter(list_type, 'bad')
+            print '%s is in the bad_urls_list!' % image_url
             continue
         elif not url_test.endswith('.gif'):
             print '%s is not a .gif file, skipping...' % url_test
@@ -104,29 +105,13 @@ def clean_up_urls(path, filename):
             continue
         else:
             try:
-                r = requests.get(url_test, stream=True)
+                r = requests.get(url_test, stream=True, allow_redirects=False)
             except exceptions.ConnectionError:
                 print 'Connection error, skipping URL...'
                 continue
-            try:
-                size = int(r.headers['content-length'])
-                float_size = float(size) / 1051038
-                if size == 503:
-                    print '%s is a broken link (503 bytes), skipping...' % url_test
-                    log.counter(list_type, 'bad')
-                    continue
-                elif float_size > 6.00:
-                    continue
-
-            except KeyError:
-                clean_urls.append(image_url)
             code = r.status_code
-            if code == 404:
-                print '%s is a broken link (404), skipping...' % url_test
-                log.counter(list_type, 'bad')
-                continue
-            elif code == 302:
-                print '%s is a broken link (302), skipping...' % url_test
+            if not code == 200:
+                print '%s is a broken link, skipping...' % url_test
                 log.counter(list_type, 'bad')
                 continue
             else:
