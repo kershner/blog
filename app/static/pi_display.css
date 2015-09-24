@@ -4,8 +4,8 @@ body {
 }
 
 .animate {
-    transition: all .6s ease-in-out;
-    -webkit-transition: all .6s ease-in-out;
+    transition: all .9s ease-in-out;
+    -webkit-transition: all .9s ease-in-out;
 }
 
 .container {
@@ -27,7 +27,7 @@ body {
 
 .loading {
     position: absolute;
-    opacity: 0.3;
+    opacity: 0.4;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -37,7 +37,7 @@ body {
     font-family: 'Lobster';
     font-size: 3.5em;
     text-align: center;
-    text-shadow: 3px 3px 0px rgba(255,255,255,0.3);
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.3);
 }
 .colorwave {
     position: relative;

@@ -1,6 +1,6 @@
-import requests
 from requests import exceptions
 from datetime import datetime
+import requests
 
 
 class Log(object):
@@ -58,13 +58,11 @@ class Log(object):
 
 def remove_dupes(path, filename):
     with open('%s/%s' % (path, filename), 'r') as f:
-        urls = list(f)
+        urls = [url.rstrip('\r\n') for url in f]
         unique_urls = []
         duplicate_urls = []
 
-        for line in urls:
-            end_point = line.find('\n')
-            url = line[:end_point]
+        for url in urls:
             if url + '\n' in unique_urls:
                 duplicate_urls.append(url + '\n')
             else:
@@ -87,36 +85,33 @@ def clean_up_urls(path, filename):
     url_number = 0
     list_type = filename[:filename.find('.txt')]
     with open('%s/%s' % (path, filename), 'a+') as f:
-        urls_list = list(f)
+        urls_list = [url.rstrip('\r\n') for url in f]
     for image_url in urls_list:
-        end_point = image_url.find('\n')
-        url_test = image_url[:end_point]
         url_number += 1
         # Uncomment to see progress of script at runtime
-        print 'URL %d of %d' % (url_number, len(urls_list))
-
+        # print 'URL %d of %d' % (url_number, len(urls_list))
         if image_url in bad_urls_list:
+            print '%s is in the bad_urls_list, skipping...' % image_url
             log.counter(list_type, 'bad')
-            print '%s is in the bad_urls_list!' % image_url
             continue
-        elif not url_test.endswith('.gif'):
-            print '%s is not a .gif file, skipping...' % url_test
+        elif not image_url.endswith('.gif'):
+            print '%s is not a .gif file, skipping...' % image_url
             log.counter(list_type, 'bad')
             continue
         else:
             try:
-                r = requests.get(url_test, stream=True)
+                r = requests.get(image_url, stream=True)
             except exceptions.ConnectionError:
                 print 'Connection error, skipping URL...'
                 continue
             code = r.status_code
             if not code == 200:
-                print '%s is a broken link, skipping...' % url_test
+                print '%s is a broken link, skipping...' % image_url
                 log.counter(list_type, 'bad')
                 continue
             else:
                 log.counter(list_type, 'clean')
-                clean_urls.append(image_url)
+                clean_urls.append(image_url + '\n')
 
     # Open/close file in write mode to erase it
     open('%s/%s' % (path, filename), 'w').close()
@@ -140,7 +135,7 @@ if __name__ == '__main__':
     files = ['all_urls.txt', 'animals_urls.txt', 'gaming_urls.txt', 'strange_urls.txt', 'educational_urls.txt']
 
     with open('%s/%s' % (current_path, 'bad_urls.txt'), 'a+') as temp_file:
-        bad_urls_list = list(temp_file)
+        bad_urls_list = [url.rstrip('\r\n') for url in temp_file]
 
     log = Log(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))

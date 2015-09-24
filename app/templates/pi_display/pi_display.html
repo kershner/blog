@@ -21,6 +21,9 @@
 $(document).ready(function() {
     getImage();
     $('.loading').colorWave(COLORS);
+    window.colorWave = setInterval(function() {
+        $('.loading').colorWave(COLORS);
+    }, 3000);
 });
 
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};

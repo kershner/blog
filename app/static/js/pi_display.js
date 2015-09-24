@@ -5,13 +5,6 @@ function getImage() {
     $('.container img').one("webkitTransitionEnd",
       function(event) {
         $(this).remove();
-        $('.loading').colorWave(COLORS);
-        setTimeout(function() {
-            $('.loading').colorWave(COLORS);
-            setTimeout(function() {
-                $('.loading').colorWave(COLORS);
-            }, 3000);
-        }, 3000);
     });
     $('.container img').css('opacity', '0');
     $.ajax({

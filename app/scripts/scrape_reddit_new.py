@@ -184,4 +184,4 @@ if __name__ == '__main__':
         count += 1
     log.readout()
     end = time.time()
-    print '\nScript Execution Time: %.2f minutes' % float(end - start) / 60
+    print '\nScript Execution Time: %.2f minutes' % float(end - start) / 60.0
