@@ -78,6 +78,7 @@ function jPlayer() {
 
         window.loops.push(loopNumber);
 	});
+
 	$('#song-download').empty();
 	$('#song-download').append(html);
 
@@ -93,6 +94,19 @@ function jPlayer() {
 			'opacity': '0.0',
 			'z-index': '0'
 		});
+	});
+
+	$('#loop-selection').on('click', function() {
+		$('#song-selection').removeClass('selection-highlight');
+		$('#song-selection').addClass('selection-unhighlight');
+		$(this).removeClass('selection-unhighlight');
+		$(this).addClass('selection-highlight');
+		$('#loops').css({
+			'opacity': '1.0',
+			'z-index': '2'});
+		$('#songs').css({
+			'opacity': '0.0',
+			'z-index': '0'});
 	});
 
     // Load audio MP3 from user selection
