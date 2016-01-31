@@ -10,7 +10,7 @@
 
             <div id="songs" class="animate">
                 {% for entry in songs %}
-                    <div id="{{ entry[0] }}" class="audio-text animate">
+                    <div id="{{ entry[0] }}" class="audio-text animate song">
                         <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                     </div>
                 {% endfor %}
@@ -18,7 +18,7 @@
 
             <div id="loops" class="animate">
                 {% for entry in loops %}
-                    <div id="{{ entry[0] }}" class="audio-text animate">
+                    <div id="{{ entry[0] }}" class="audio-text animate loop">
                         <span class="audio-name">{{ entry[0] }}</span><span class="audio-length">{{ entry[1] }}</span>
                     </div>
                 {% endfor %}

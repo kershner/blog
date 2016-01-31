@@ -55,7 +55,7 @@
                         <li><a href="/blog" class="animate">Blog</a></li>
                         <li><a href="/projects" class="animate">Projects</a></li>
                         <li><a href="/music" class="animate">Music</a></li>
-                        <li><a href="/about" class="animate">About Me</a></li>
+                        <!--<li><a href="/about" class="animate">About Me</a></li>-->
                     </ul>
                 </div>
             </div>
@@ -124,6 +124,7 @@
 
         <!-- Production JavaScripts -->
         <script type="text/javascript" src="/static/production/main.min.js"></script>
+        <script type="text/javascript" src="/static/js/blog.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -134,6 +135,7 @@
                 jPlayer();
                 musicLightbox();
                 musicPlayerColors();
+
                 {% elif title == 'Welcome' %}
                 sendEmail();
                 welcomeFadeIn();

@@ -14,6 +14,21 @@ def index():
     return render_template('/blog/welcome.html',
                            title='Welcome')
 
+@app.route('/music-test')
+def music_test():
+    m = music_files.get_songs()
+    all_music = []
+
+    for song in m['songs']:
+        all_music.append(song[0][0])
+
+    for song in m['loops']:
+        all_music.append(song[0][0])
+
+    return render_template('/blog/music_test.html',
+                           title='Music',
+                           music=all_music)
+
 
 @app.route('/blog')
 def blog():
@@ -216,6 +231,13 @@ def clear_session():
 def email_gifs():
     data = pi_config.get_email_link()
     return jsonify(data)
+
+
+# Game TV
+@app.route('/game-tv')
+def game_tv():
+    return render_template('/game_tv/game_tv.html',
+                            title='Game TV')
 
 
 ##############################################################################

@@ -89,7 +89,7 @@ def clean_up_urls(path, filename):
     for image_url in urls_list:
         url_number += 1
         # Uncomment to see progress of script at runtime
-        # print 'URL %d of %d' % (url_number, len(urls_list))
+        # print '(%d of %d) - %s' % (url_number, len(urls_list), image_url)
         if image_url in bad_urls_list:
             print '%s is in the bad_urls_list, skipping...' % image_url
             log.counter(list_type, 'bad')
@@ -101,7 +101,7 @@ def clean_up_urls(path, filename):
         else:
             try:
                 r = requests.get(image_url, stream=True)
-            except exceptions.ConnectionError:
+            except:
                 print 'Connection error, skipping URL...'
                 continue
             code = r.status_code

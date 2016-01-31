@@ -63,6 +63,21 @@ function musicTitles() {
 
 function jPlayer() {
 	var html = '<a href="/static/music/25.mp3"><i class="fa fa-download animate"></i></a>';
+	window.playing = ';'
+	window.songs = [];
+    window.loops = [];
+
+    $('.song').each(function() {
+        var songNumber = $(this).attr('id');
+
+        window.songs.push(songNumber);
+	});
+
+	$('.loop').each(function() {
+        var loopNumber = $(this).attr('id');
+
+        window.loops.push(loopNumber);
+	});
 	$('#song-download').empty();
 	$('#song-download').append(html);
 
@@ -80,36 +95,64 @@ function jPlayer() {
 		});
 	});
 
-	$('#loop-selection').on('click', function() {
-		$('#song-selection').removeClass('selection-highlight');
-		$('#song-selection').addClass('selection-unhighlight');
-		$(this).removeClass('selection-unhighlight');
-		$(this).addClass('selection-highlight');
-		$('#loops').css({
-			'opacity': '1.0',
-			'z-index': '2'});
-		$('#songs').css({
-			'opacity': '0.0',
-			'z-index': '0'});
+    // Load audio MP3 from user selection
+	$('.audio-text').on('click', function() {
+	    var id = $(this).attr('id'),
+	        nextId = $(this).next().attr('id');
+	        firstId = $(this).parent().children().first().attr('id');
+
+		window.playing = id;
+		window.nextId = nextId;
+
+		setJplayerMedia(id);
 	});
 
-	// Load audio MP3 from user selection
-	$('.audio-text').on('click', function() {
-		$("#jquery_jplayer_1").jPlayer("destroy");
-		$(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
-		var id = $(this).attr('id');
-		var url = '/static/music/';
-		var html = '<a href="' + url + id + '.mp3"><i class="fa fa-download animate"></i></a>';
-		$('#song-download').empty();
-		$('#song-download').append(html);
-		$('#jquery_jplayer_1').jPlayer({
-			ready: function() {
-				$(this).jPlayer('setMedia', {
-					title: id + '.mp3',
-					mp3: url + id + '.mp3',
-					poster: getImage()
-				});
-			$(this).jPlayer('play', 0);
+	function highlightMediaRow(audioId) {
+        $('.audio-text').each(function() {
+           var id = $(this).attr('id');
+
+           if (id === audioId) {
+            $(this).addClass('audio-text-highlight');
+           } else {
+            $(this).removeClass('audio-text-highlight');
+           }
+        });
+        $(this).toggleClass('audio-text-highlight').siblings().removeClass('audio-text-highlight');
+	}
+
+	function setJplayerMedia(audioId) {
+	    var url = '/static/music/',
+	        html = '<a href="' + url + audioId + '.mp3"><i class="fa fa-download animate"></i></a>';
+
+	    highlightMediaRow(audioId);
+
+	    $("#jquery_jplayer_1").jPlayer("destroy");
+
+	    $('.audio-text').each(function() {
+	        var thisId = $(this).attr('id');
+
+            // Set global nextId from selected .audio-text element
+            if (thisId === audioId) {
+	           var nextId = $(this).next().attr('id');
+	           window.nextId = nextId;
+            }
+	    });
+
+	    if (window.nextId === undefined) {
+		    window.nextId = firstId;
+		}
+
+	    $('#jquery_jplayer_1').jPlayer({
+			ready   : function() {
+    				$(this).jPlayer('setMedia', {
+    					title: audioId + '.mp3',
+    					mp3: url + audioId + '.mp3',
+    					poster: getImage()
+    				});
+		            $(this).jPlayer('play', 0);
+			},
+			ended   : function() {
+			        setJplayerMedia(window.nextId);
 			},
 			swfPath: '/js',
 			supplied: 'mp3',
@@ -138,7 +181,7 @@ function jPlayer() {
 			remainingDuration: true,
 			toggleDuration: true
 		});
-	});
+	}
 
 	// Default State
 	$("#jquery_jplayer_1").jPlayer({

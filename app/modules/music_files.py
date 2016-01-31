@@ -9,7 +9,7 @@ def get_songs():
     files = sorted(os.listdir(path), reverse=True)
     print files
     known_songs = ['23', '25', '27', '28', '29', '30',
-    'kersh with Jeff J', 'a misspelling with Jeff J']
+                    'kersh with Jeff J', 'a misspelling with Jeff J']
     songs = []
     loops = []
     song_count = 1
@@ -31,6 +31,8 @@ def get_songs():
                 length = '1:09'
             if name == '39':
                 length = '1:08'
+            if name == '42':
+                length = '1:04'
             loops.append([name, length])
             loop_count += 1
 
