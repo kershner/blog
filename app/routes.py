@@ -7,6 +7,12 @@ import credentials
 from app import app, models
 
 
+@app.route('/orderv-test')
+def orderv_test():
+    return render_template('/blog/orderv_test.html',
+                           title='Welcome')
+
+
 ##############################################################################
 # Blog #######################################################################
 @app.route('/')

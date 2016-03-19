@@ -2,11 +2,19 @@ function blog() {
 	smallMenu();
 	getImage();
 	setInterval(loadBacon, 8000);
-	colorWave(COLORS, '.small-logo');
-	colorWave(COLORS, '.big-logo-text');
+	$('.small-logo').colorWave(COLORS);
+	$('.big-logo-text').colorWave(COLORS);
 	$('.project-page-title').each(function() {
-		colorWave(COLORS, $(this));
+		$(this).colorWave(COLORS);
 	});
+
+	setInterval(function() {
+        $('.small-logo').colorWave(COLORS);
+        $('.big-logo-text').colorWave(COLORS);
+        $('.project-page-title').each(function() {
+            $(this).colorWave(COLORS);
+        });
+    }, 10000);
 }
 
 function projectsMasonry() {
@@ -391,52 +399,57 @@ var COLORS = [
 	'#FF6A00'
 ];
 
-// Colors each letter of an element in succession and then returns to its default
-function colorWave(colors, element) {
-    var finalHtml = '';
-    var text = $(element).text();
-    var defaultColor = $(element).css('color');
-    var wait = text.length * 350;
-	if (wait < 6000) {
-		wait = 6000;
-	}
-    // Placing <spans> around each letter with class="colorwave"
-    var tempHtml = '';
-    for (i=0; i<text.length; i++) {
-        tempHtml = '<span class="colorwave">' + text[i] + '</span>';
-        finalHtml += tempHtml;
+(function($) {
+  $.fn.colorWave = function(colors) {
+    function _colorWave(colors, element) {
+      var finalHtml = '';
+      var text = $(element).text();
+      var defaultColor = $(element).css('color');
+      var wait = text.length * 350;
+      // Placing <spans> around each letter with class="colorwave"
+      var tempHtml = '';
+      for (i=0; i<text.length; i++) {
+          tempHtml = '<span class="colorwave" style="position: relative;">' + text[i] + '</span>';
+          finalHtml += tempHtml;
+      }
+      $(element).empty().append(finalHtml);
+      _colorLetters(colors, element, wait, defaultColor);
     }
-    $(element).empty().append(finalHtml);
-    colorLetters(colors, element, wait, defaultColor);
-    setInterval(function() {
-        colorLetters(colors, element, wait, defaultColor);
-    }, wait);
-}
-
-// Iterates through given color array, applies color to a colorwave span
-function colorLetters(colors, element, wait, defaultColor) {
-    var randomnumber = (Math.random() * (colors.length + 1)) << 0;
-    var counter = randomnumber;
-    var delay = 75;
-    var adjustedWait = wait / 5;
-    $(element).find('.colorwave').each(function() {
-        if (counter >= colors.length) {
-            counter = 0;
-        }
-        $(this).animate({'color': colors[counter]}, delay );
-        delay += 100;
-        counter += 1;
+    // Iterates through given color array, applies color to a colorwave span
+    function _colorLetters(colors, element, wait, defaultColor) {
+        var randomnumber = (Math.random() * (colors.length + 1)) << 0;
+        var counter = randomnumber;
+        var delay = 100;
+        var adjustedWait = wait / 5;
+        $(element).find('.colorwave').each(function() {
+            if (counter >= colors.length) {
+                counter = 0;
+            }
+            $(this).animate({
+              'color': colors[counter],
+              'bottom': '+=6px'
+            }, delay);
+            delay += 75;
+            counter += 1;
+        });
+        setTimeout(function() {
+            _removeColor(element, defaultColor);
+        }, adjustedWait);
+    }
+    // Iterates through color wave spans, returns each to default color
+    function _removeColor(element, defaultColor) {
+        var delay = 100;
+        $(element).find('.colorwave').each(function() {
+            $(this).animate({
+              'color': defaultColor,
+              'bottom': '-=6px'
+            }, delay);
+            delay += 75;
+        });
+    }
+    return this.each(function() {
+      _colorWave(colors, this);
     });
-    setTimeout(function() {
-        removeColor(element, defaultColor);
-    }, adjustedWait);
-}
-
-// Iterates through color wave spans, returns each to default color
-function removeColor(element, defaultColor) {
-    var delay = 75;
-    $(element).find('.colorwave').each(function() {
-        $(this).animate({'color': defaultColor}, delay);
-        delay += 75;
-    });
-}
+    return this;
+  }
+}(jQuery));
