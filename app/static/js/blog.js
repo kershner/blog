@@ -1,3 +1,8 @@
+var COLORS = [
+	'#0A7ECC', '#189BF2', '#244459', '#C74932', '#F21A18', '#27E300', '#FFA400',
+	'#FF6A00'
+];
+
 function blog() {
 	smallMenu();
 	getImage();
@@ -15,6 +20,36 @@ function blog() {
             $(this).colorWave(COLORS);
         });
     }, 10000);
+
+	colorProjects();
+}
+
+function colorProjects() {
+	var randomNumber = Math.floor(Math.random() * COLORS.length),
+		counter = randomNumber,
+		delay = 75;
+	$('.project').each(function() {
+		if (counter >= COLORS.length) {
+			counter = 0;
+		}
+
+		$(this).css('border-color', COLORS[counter]);
+		$(this).animate({
+			'opacity' : 1.0
+		}, delay);
+		$(this).find('.project-text').css('background-color', COLORS[counter]);
+
+		delay += 25;
+		counter += 1;
+	});
+
+	$('#projects-container').find('img').each(function() {
+		if (counter >= COLORS.length) {
+			counter = 0;
+		}
+		counter += 1;
+		$(this).css('border-color', COLORS[counter]);
+	});
 }
 
 function projectsMasonry() {
@@ -143,6 +178,7 @@ function jPlayer() {
 	}
 
 	function setJplayerMedia(audioId) {
+	    console.log('Poppin off');
 	    var url = '/static/music/',
 	        html = '<a href="' + url + audioId + '.mp3"><i class="fa fa-download animate"></i></a>';
 
@@ -361,11 +397,10 @@ function welcomeFadeIn() {
             });
         });
         colorWave(COLORS, '#projects-title');
-        colorWave(COLORS, '#more-projects');
         colorWave(COLORS, '#contact-title');
         $('.welcome-project-inner-title').each(function() {
         	colorWave(COLORS, $(this));
-        })
+        });
     }, 500);
 }
 
@@ -393,11 +428,6 @@ function blinkingArrow(action) {
         $('#down-arrow').animate({'opacity': '1.0'}, 1000);
     }, 1000);
 }
-
-var COLORS = [
-	'#0A7ECC', '#189BF2', '#244459', '#C74932', '#F21A18', '#27E300', '#FFA400',
-	'#FF6A00'
-];
 
 (function($) {
   $.fn.colorWave = function(colors) {

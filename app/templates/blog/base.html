@@ -6,18 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Development CSS -->
-        <!--<link type="text/css" rel="stylesheet" href="/static/Bootstrap/css/bootstrap.min.css"/>-->
-        <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
-        <!--<link type="text/css" rel="stylesheet" href="/static/rainbow.css"/>-->
-        <!--<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>-->
-        <!--<link type="text/css" rel="stylesheet" href="/static/style.css"/>-->
-        <!--<link type="text/css" rel="stylesheet" href="/static/welcome/welcome.css"/>-->
+        <link type="text/css" rel="stylesheet" href="/static/production/main.css"/>
 
          <!--Production CSS -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="/static/production/main.min.css"/>
+         <!--<link type="text/css" rel="stylesheet" href="/static/production/main.min.css"/>-->
 
         <!-- Fonts -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
@@ -108,23 +103,11 @@
         </div>
 
         <!-- Development JavaScripts -->
-        <!--<script type="text/javascript" src="/static/js/jquery-color.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/Bootstrap/js/bootstrap.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/rangyInputs.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/masonry.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/imagesloaded.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/rainbow-custom.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/randomColor.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/countUp.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/slick/slick.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/jplayer/js/jquery.jplayer.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/welcome/jquery.waypoints.min.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/blog.js"></script>-->
-        <!--<script type="text/javascript" src="/static/js/cms.js"></script>-->
+        <script type="text/javascript" src="/static/production/main.js"></script>
+        <script type="text/javascript" src="/static/js/blog.js"></script>
 
         <!-- Production JavaScripts -->
-        <script type="text/javascript" src="/static/production/main.min.js"></script>
-        <script type="text/javascript" src="/static/js/blog.js"></script>
+        <!--<script type="text/javascript" src="/static/production/main.min.js"></script>-->
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -135,10 +118,11 @@
                 jPlayer();
                 musicLightbox();
                 musicPlayerColors();
-
                 {% elif title == 'Welcome' %}
                 sendEmail();
                 welcomeFadeIn();
+                {% elif title == 'Projects' %}
+                colorProjects();
                 {% endif %}
             });
         </script>
