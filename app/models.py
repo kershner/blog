@@ -1,7 +1,7 @@
 from app import db
 
 
-# Model for blog posts
+# Model for blog posts ###################################################################
 class Post(db.Model):
     __bind_key__ = 'db1'
 
@@ -19,7 +19,7 @@ class Post(db.Model):
         return '%d' % self.id
 
 
-# Model for public blog posts
+# Model for public blog posts ############################################################
 class PublicPost(db.Model):
     __bind_key__ = 'db3'
 
@@ -39,7 +39,7 @@ class PublicPost(db.Model):
         return '%d' % self.pub_id
 
 
-# Model for CSTools Forms DB
+# Model for CSTools Forms DB #############################################################
 class Entry(db.Model):
     __bind_key__ = 'db2'
 
@@ -55,3 +55,44 @@ class Entry(db.Model):
 
     def __repr__(self):
         return 'Entry %r' % self.institution
+
+
+# GIF Display ############################################################################
+gif_tags = db.Table('gif_tags', db.metadata,
+                    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+                    db.Column('gif_id', db.Integer, db.ForeignKey('gif.id')),
+                    info={'bind_key': 'gifs_db'}
+                    )
+
+
+class Gif(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(256), index=True)
+    tags = db.relationship('Tag', secondary=gif_tags, backref=db.backref('tags', lazy='dynamic'))
+
+    def __repr__(self):
+        return '%r' % self.url
+
+
+class Tag(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), unique=True)
+    subreddits = db.relationship('Subreddit', backref='tag', lazy='dynamic')
+
+    def __repr__(self):
+        return '%r' % self.name
+
+
+class Subreddit(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'))
+
+    def __repr__(self):
+        return '%r' % self.name

@@ -33,13 +33,12 @@ function colorProjects() {
 			counter = 0;
 		}
 
-		$(this).css('border-color', COLORS[counter]);
-		$(this).animate({
-			'opacity' : 1.0
-		}, delay);
+		$(this).css({
+			'border-color' 	: COLORS[counter],
+			'opacity'		: 1
+		});
 		$(this).find('.project-text').css('background-color', COLORS[counter]);
 
-		delay += 25;
 		counter += 1;
 	});
 
@@ -50,7 +49,17 @@ function colorProjects() {
 		counter += 1;
 		$(this).css('border-color', COLORS[counter]);
 	});
+	var selectedTitle = $('.project-title').random();
+	colorWave(COLORS, selectedTitle)
+	setInterval(function() {
+		var selectedTitle = $('.project-title').random();
+		colorWave(COLORS, selectedTitle);
+	}, 9000);
 }
+
+$.fn.random = function() {
+  return this.eq(Math.floor(Math.random() * this.length));
+};
 
 function projectsMasonry() {
 	var masonry = new Masonry('#projects-grid', {

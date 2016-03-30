@@ -1,151 +1,116 @@
-from requests import exceptions
-from datetime import datetime
+from time import time
+import concurrent.futures
 import requests
+from tqdm import tqdm
+from time import sleep
+from app import db, models
 
 
 class Log(object):
-    def __init__(self, clean_urls_all, bad_urls_all, clean_urls_animals, bad_urls_animals, clean_urls_gaming,
-                 bad_urls_gaming, clean_urls_strange, bad_urls_strange, clean_urls_educational,
-                 bad_urls_educational):
-        self.clean_urls_all = clean_urls_all
-        self.bad_urls_all = bad_urls_all
-        self.clean_urls_animals = clean_urls_animals
-        self.bad_urls_animals = bad_urls_animals
-        self.clean_urls_gaming = clean_urls_gaming
-        self.bad_urls_gaming = bad_urls_gaming
-        self.clean_urls_strange = clean_urls_strange
-        self.bad_urls_strange = bad_urls_strange
-        self.clean_urls_educational = clean_urls_educational
-        self.bad_urls_educational = bad_urls_educational
+    def __init__(self, gif_list, removed_urls, exceptions):
+        self.gif_list = gif_list
+        self.removed_urls = removed_urls
+        self.exceptions = exceptions
 
-    def counter(self, list_type, url_type):
-        if url_type == 'clean':
-            if list_type == 'all_urls':
-                self.clean_urls_all += 1
-            elif list_type == 'animals_urls':
-                self.clean_urls_animals += 1
-            elif list_type == 'gaming_urls':
-                self.clean_urls_gaming += 1
-            elif list_type == 'strange_urls':
-                self.clean_urls_strange += 1
-            elif list_type == 'educational_urls':
-                self.clean_urls_educational += 1
+
+def remove_dupes(gif_list):
+    print '\n\n######################'
+    print 'Beginning Dupe Removal'
+
+    dupes = []
+    progress_bar = tqdm(gif_list)
+    for gif in progress_bar:
+        if gif.url in dupes:
+            print '\n\n%s is a duplicate gif, removing...\n\n' % gif.url
+            log.removed_urls.append(gif.url)
         else:
-            if list_type == 'all_urls':
-                self.bad_urls_all += 1
-            elif list_type == 'animals_urls':
-                self.bad_urls_animals += 1
-            elif list_type == 'gaming_urls':
-                self.bad_urls_gaming += 1
-            elif list_type == 'strange_urls':
-                self.bad_urls_strange += 1
-            elif list_type == 'educational_urls':
-                self.bad_urls_educational += 1
-
-    def readout(self):
-        print '\nStats:'
-        print 'Added %d clean URLs to all_urls.txt' % self.clean_urls_all
-        print 'Removed %d bad URLs from all_urls.txt' % self.bad_urls_all
-        print '\nAdded %d clean URLs to animals_urls.txt' % self.clean_urls_animals
-        print 'Removed %d bad URLs from animals_urls.txt' % self.bad_urls_animals
-        print '\nAdded %d clean URLs to gaming_urls.txt' % self.clean_urls_gaming
-        print 'Removed %d bad URLs from gaming_urls.txt' % self.bad_urls_gaming
-        print '\nAdded %d clean URLs to strange_urls.txt' % self.clean_urls_strange
-        print 'Removed %d bad URLs from strange_urls.txt' % self.bad_urls_strange
-        print '\nAdded %d clean URLs to educational_urls.txt' % self.clean_urls_educational
-        print 'Removed %d bad URLs from educational_urls.txt' % self.bad_urls_educational
+            dupes.append(gif.url)
 
 
-def remove_dupes(path, filename):
-    with open('%s/%s' % (path, filename), 'r') as f:
-        urls = [url.rstrip('\r\n') for url in f]
-        unique_urls = []
-        duplicate_urls = []
+def clean_up_urls(gif_list):
+    print '\n######################'
+    print 'Beginning GIF cleanup'
 
-        for url in urls:
-            if url + '\n' in unique_urls:
-                duplicate_urls.append(url + '\n')
-            else:
-                unique_urls.append(url + '\n')
+    progress_bar = tqdm(gif_list)
+    for gif in progress_bar:
+        if gif.url in bad_urls_list:
+            print '%s is in the bad_urls_list, removing...' % gif.url
+            log.removed_urls.append(gif.url)
+        elif not gif.url.endswith('.gif'):
+            print '%s is not a .gif file, removing...' % gif.url
+            log.removed_urls.append(gif.url)
 
-        # Open/close file in write mode to erase it
-        open('%s/%s' % (path, filename), 'w').close()
-
-        # Write contents of clean_urls list to file
-        with open('%s/%s' % (path, filename), 'a+') as clean_file:
-            for url in unique_urls:
-                clean_file.write(url)
-
-        print '%d duplicate URLs in %s' % (len(duplicate_urls), filename)
-        print '%d total unique URLs now in %s' % (len(unique_urls), filename)
+    send_requests(gif_list)
 
 
-def clean_up_urls(path, filename):
-    clean_urls = []
-    url_number = 0
-    list_type = filename[:filename.find('.txt')]
-    with open('%s/%s' % (path, filename), 'a+') as f:
-        urls_list = [url.rstrip('\r\n') for url in f]
-    for image_url in urls_list:
-        url_number += 1
-        # Uncomment to see progress of script at runtime
-        # print '(%d of %d) - %s' % (url_number, len(urls_list), image_url)
-        if image_url in bad_urls_list:
-            print '%s is in the bad_urls_list, skipping...' % image_url
-            log.counter(list_type, 'bad')
-            continue
-        elif not image_url.endswith('.gif'):
-            print '%s is not a .gif file, skipping...' % image_url
-            log.counter(list_type, 'bad')
-            continue
+def send_requests(gif_list):
+    print '\n######################'
+    print 'Sending Requests'
+
+    gif_list = [gif.url for gif in gif_list]
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+        pages = executor.map(load_url, gif_list)
+
+
+def load_url(gif_url):
+    log.gif_list.remove(gif_url)
+
+    try:
+        r = requests.get(gif_url, stream=True, timeout=1)
+        code = r.status_code
+        if not code == 200:
+            print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+            log.removed_urls.append(gif_url)
         else:
-            try:
-                r = requests.get(image_url, stream=True)
-            except:
-                print 'Connection error, skipping URL...'
-                continue
-            code = r.status_code
-            if not code == 200:
-                print '%s is a broken link, skipping...' % image_url
-                log.counter(list_type, 'bad')
-                continue
-            else:
-                log.counter(list_type, 'clean')
-                clean_urls.append(image_url + '\n')
+            print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+    except Exception as e:
+        print '\n\n@@@@@@@@@@@@@@@@@@'
+        print 'ERROR - ', e.message
+        log.exceptions.append(gif_url)
+        print '@@@@@@@@@@@@@@@@@@\n\n'
 
-    # Open/close file in write mode to erase it
-    open('%s/%s' % (path, filename), 'w').close()
 
-    # Write contents of clean_urls list to file
-    with open('%s/%s' % (path, filename), 'a+') as clean_file:
-        for url in clean_urls:
-            clean_file.write(url)
+def final_pass(gif_list):
+    print '\n######################'
+    print 'Final Pass'
+
+    sleep(5)
+
+    for gif in gif_list:
+        if gif.url in log.removed_urls:
+            db.session.delete(gif)
+
+    print '\nCommitting session...'
+    db.session.commit()
+    print 'done!'
+
 
 if __name__ == '__main__':
-    # Uncomment to run script off server
-    # prompt = raw_input('Are you running this file from work or home? > ').lower()
-    # if prompt == 'work':
-    #     current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs'
-    # else:
-    #     current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs'
+    # Local path
+    path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
 
     # Server path
-    current_path = '/home/tylerkershner/app/templates/pi_display/logs/'
+    # path = '/home/tylerkershner/app/templates/pi_display/logs/'
 
-    files = ['all_urls.txt', 'animals_urls.txt', 'gaming_urls.txt', 'strange_urls.txt', 'educational_urls.txt']
-
-    with open('%s/%s' % (current_path, 'bad_urls.txt'), 'a+') as temp_file:
+    gifs = models.Gif.query.all()
+    with open('%s/%s' % (path, 'bad_urls.txt'), 'a+') as temp_file:
         bad_urls_list = [url.rstrip('\r\n') for url in temp_file]
 
-    log = Log(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    time_start = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
-    for entry in files:
-        print '\n#########################'
-        print 'Beginning clean up of %s...' % entry
-        clean_up_urls(current_path, entry)
-        remove_dupes(current_path, entry)
-    log.readout()
-    time_end = str(datetime.now().strftime('%I:%M %p on %A, %B %d, %Y'))
+    gif_list_copy = [gif.url for gif in gifs]
+    log = Log(gif_list_copy, [], [])
 
-    print '\nURL cleanup began at %s' % time_start
-    print 'URL cleanup finished at %s' % time_end
+    start = time()
+    remove_dupes(gifs)
+    clean_up_urls(gifs)
+    final_pass(gifs)
+    end = time()
+
+    print '## READOUT ##############################'
+    print '\n%d GIFs removed' % len(log.removed_urls)
+    print log.removed_urls
+    print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
+
+    print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
+
+    print '\n%d Exceptions:' % len(log.exceptions)
+    print log.exceptions

@@ -1890,7 +1890,7 @@ div::-webkit-scrollbar-thumb {
 	left: .3em;
 	height: 20px;
 	overflow: hidden;
-	width 63% !important;
+	width: 63% !important;
 	text-align: left;
 }
 

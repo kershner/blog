@@ -1,155 +1,106 @@
 import requests
-from requests import exceptions
 import praw
+import time
+from app import models, db
 
 
-class Log(object):
-    def __init__(self, all_gifs, animals_gifs, gaming_gifs, strange_gifs, educational_gifs, temp_count):
-        self.all_gifs = all_gifs
-        self.animals_gifs = animals_gifs
-        self.gaming_gifs = gaming_gifs
-        self.strange_gifs = strange_gifs
-        self.educational_gifs = educational_gifs
-        self.temp_count = temp_count
-
-    def gif_counter(self, category):
-        if category == 'all':
-            self.all_gifs += 1
-        elif category == 'animals':
-            self.animals_gifs += 1
-        elif category == 'gaming':
-            self.gaming_gifs += 1
-        elif category == 'strange':
-            self.strange_gifs += 1
-        elif category == 'educational':
-            self.educational_gifs += 1
-        self.temp_count += 1
-
-    def readout(self):
-        categories = ['all', 'animals', 'gaming', 'strange', 'educational']
-        numbers = [self.all_gifs, self.animals_gifs, self.gaming_gifs, self.strange_gifs, self.educational_gifs]
-        counter = 0
-        print '\n'
-        for entry in categories:
-            print '%d GIFs added to %s_urls.txt' % (numbers[counter], entry)
-            counter += 1
+class Temp(object):
+    def __init__(self, current_urls, bad_urls, to_add_urls):
+        self.current_urls = current_urls
+        self.bad_urls = bad_urls
+        self.to_add_urls = to_add_urls
 
 
-def scrape_reddit(target_subreddit, path, category):
-    log.temp_count = 0
-    clean_urls = []
-    print '\nGathering image URLs from /r/%s...' % target_subreddit
+def request_url(url):
+    try:
+        r = requests.get(url, stream=True, timeout=1, allow_redirects=False)
+        size_in_bytes = int(r.headers['content-length'])
+        float_size = float(size_in_bytes) / 1051038
+        code = r.status_code
+        data = {
+            'size': size_in_bytes,
+            'float_size': float_size,
+            'code': code
+        }
+        return data
+    except Exception as e:
+        print e
+        return None
+    # except (KeyError, requests.exceptions.SSLError, requests.exceptions.ConnectionError):
+    #     # No content-length HTTP header or error with request handshake
+    #     return None
+
+
+def get_reddit_urls(subreddit, tag_id):
+    print '\nGathering image URLs from /r/%s...' % sub
+
+    submissions = r.get_subreddit(subreddit.name).get_hot(limit=100)
+    for submission in submissions:
+        if submission.url.endswith('.gif'):
+            temp.to_add_urls.append([tag_id, submission.url])
+
+
+def process_urls(urls_list):
+    print '\nProcessing URLs...'
+
+    count = 1
+    final_list = []
+    for entry in urls_list:
+        tag_id = entry[0]
+        url = entry[1]
+        try:
+            if url not in temp.current_urls and url not in temp.bad_urls:
+                url_data = request_url(url)
+                if not url_data['code'] == 200:
+                    print 'Status Code not 200.  Code: %d || %s' % (url_data['code'], url)
+                elif url_data['float_size'] > 6.00:
+                    print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
+                else:
+                    new_gif = models.Gif(url=url)
+                    if tag_id is not None:
+                        new_tag = models.Tag.query.get(tag_id)
+                        new_gif.tags.append(new_tag)
+                    db.session.add(new_gif)
+                    final_list.append([tag_id, url])
+                    print 'Adding GIF...(%d GIFs)' % count
+                    count += 1
+        except TypeError as e:
+            print e
+            continue
+
+    print '\nCommitting DB session...'
+    db.session.commit()
+    print 'done!'
+
+    print '\nTotal GIFs added: %d' % len(final_list)
+
+
+if __name__ == '__main__':
+    # Local path
+    path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
+
+    # Server path
+    # path = '/home/tylerkershner/app/templates/pi_display/logs/'
+
+    with open('%s/%s' % (path, 'bad_urls.txt'), 'a+') as temp_file:
+        bad_urls_list = [url.rstrip('\r\n') for url in temp_file]
 
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
-    submissions = r.get_subreddit(target_subreddit).get_hot(limit=200)
 
-    # Creating Python list from url file
-    with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
-        current_urls = list(f)
+    temp = Temp(
+        current_urls=[gif.url for gif in models.Gif.query.all()],
+        bad_urls=bad_urls_list,
+        to_add_urls=[]
+    )
 
-    large_urls = 0
-    for submission in submissions:
-        if submission.url + '\n' in current_urls:
-            continue
-        elif not submission.url.endswith('.gif'):
-            continue
-        elif 'sound' in submission.url:
-            continue
-        else:
-            try:
-                request = requests.get(submission.url, stream=True)
-                code = request.status_code
-            except (requests.exceptions.SSLError, requests.exceptions.ConnectionError):
-                continue
-            try:
-                size = int(request.headers['content-length'])
-                float_size = float(size) / 1051038
-                if size == 503:
-                    continue
-                elif float_size > 6.00:
-                    large_urls += 1
-                    continue
-            except KeyError:
-                clean_urls.append(submission.url + '\n')
-                log.gif_counter(category)
-            if code == 404:
-                continue
-            elif code == 302:
-                continue
-            else:
-                clean_urls.append(submission.url + '\n')
-                log.gif_counter(category)
-    print '\n%d GIFs added from /r/%s' % (log.temp_count, target_subreddit)
-    print '%d large (>6MB) GIFs skipped' % large_urls
+    start = time.time()
 
-    unique_urls = []
-    duplicate_urls = []
-    for line in clean_urls:
-        end_point = line.find('\n')
-        url = line[:end_point]
-        if url + '\n' in unique_urls:
-            duplicate_urls.append(url + '\n')
-        else:
-            unique_urls.append(url + '\n')
+    subreddits = models.Subreddit.query.all()
+    for sub in subreddits:
+        get_reddit_urls(sub, sub.tag_id)
 
-    # Appending contents of clean_urls to current url file
-    with open('%s/%s_urls.txt' % (path, category), 'a+') as f:
-        for line in unique_urls:
-            try:
-                f.write(line)
-            except UnicodeEncodeError:
-                continue
+    process_urls(temp.to_add_urls)
 
-    with open('%s/%s_urls_to_play.txt' % (path, category), 'a+') as f:
-        for line in unique_urls:
-            try:
-                f.write(line)
-            except UnicodeEncodeError:
-                continue
-
-if __name__ == '__main__':
-    # Uncomment to run script off server
-    # prompt = raw_input('Are you scraping from work or home? > ').lower()
-    # if prompt == 'work':
-    #     current_path = 'E:/programming/projects/blog/app/templates/pi_display/logs/'
-    # else:
-    #     current_path = 'H:/programming/projects/blog/app/templates/pi_display/logs/'
-
-    # Server path
-    current_path = '/home/tylerkershner/app/templates/pi_display/logs/'
-
-    categories = ['all', 'animals', 'gaming', 'strange', 'educational']
-
-    subreddits = [
-        ['gifs', 'gif', 'SpaceGifs', 'physicsgifs', 'educationalgifs', 'chemicalreactiongifs',
-         'SurrealGifs', 'Puggifs', 'slothgifs', 'asianpeoplegifs', 'gaming_gifs', 'Movie_GIFs', 'funnygifs',
-         'wheredidthesodago', 'reactiongifs', 'creepy_gif', 'perfectloops', 'aww_gifs', 'AnimalsBeingJerks',
-         'AnimalGIFs', 'whitepeoplegifs', 'interestinggifs', 'cinemagraphs', 'wtf_gifs',
-         'MichaelBayGifs', 'naturegifs', 'pugs', 'gaming', 'Wastedgifs', 'GamePhysics', 'catgifs',
-         'opticalillusions', 'wrestlinggifs', 'shittyreactiongifs', 'IdiotsFightingThings', 'Whatcouldgowrong',
-         'interestingasfuck', 'AnimalsBeingBros', 'PerfectTiming', 'holdmybeer', 'StartledCats', 'combinedgifs',
-         'Damnthatsinteresting', 'shittyrobots', 'catpranks', 'Awwducational', 'instant_regret', 'oddlysatisfying',
-         'Perfectfit', 'SuperShibe', 'shibe', 'corgi', 'animalgifs', 'doggifs',
-        'sleepinganimals', 'StoppedWorking', 'AnimalsFailing', 'brushybrushy', 'AnimalsBeingPolite', 'AnimalsBeingFunny',
-        'SloMoAnimals', 'AnimalReactions', 'awwakeup'],
-        ['Puggifs', 'slothgifs', 'aww_gifs', 'AnimalsBeingJerks', 'AnimalGIFs', 'pugs', 'CatGifs', 'SuperShibe',
-         'shibe', 'corgi', 'Awwducational', 'AnimalsBeingBros', 'StartledCats', 'catpranks', 'animalgifs', 'doggifs',
-        'sleepinganimals', 'StoppedWorking', 'AnimalsFailing', 'brushybrushy', 'AnimalsBeingPolite', 'AnimalsBeingFunny',
-        'SloMoAnimals', 'AnimalReactions', 'awwakeup'],
-        ['gaming_gifs', 'gaming', 'GamePhysics', 'ps4gifs'],
-        ['creepy_gif', 'wtf_gifs', 'SurrealGifs'],
-        ['physicsgifs', 'educationalgifs', 'chemicalreactiongifs', 'interestinggifs', 'Damnthatsinteresting',
-         'interestingasfuck']
-    ]
-
-    log = Log(0, 0, 0, 0, 0, 0)
-    count = 0
-    for entry in categories:
-        print '\n####################################'
-        print 'Now scraping %s subreddits' % entry
-        print '####################################'
-        for subreddit in subreddits[int('%d' % count)]:
-            scrape_reddit(subreddit, current_path, entry)
-        count += 1
-    log.readout()
+    end = time.time()
+    print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)

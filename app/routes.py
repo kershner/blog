@@ -1,8 +1,10 @@
 from functools import wraps
+import json
+import random
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
+from forms import *
 from modules import music_files, campaign_logic, reddit_scraper, cstools_logic, gif_party_logic, pi_config, \
     pi_display_logic, cms_logic
-from forms import *
 import credentials
 from app import app, models
 
@@ -160,12 +162,21 @@ def warning():
 # Pi Display #################################################################
 @app.route('/pi_display')
 def pi_display():
-    return render_template('/pi_display/pi_display.html')
+    data = pi_display_logic.pi_display_main()
+    delay = data['delay']
+    urls = data['urls']
+
+    return render_template('/pi_display/pi_display.html',
+                           urls=json.dumps(urls),
+                           delay=delay)
 
 
 @app.route('/pi_display_json')
 def pi_display_json():
     data = pi_display_logic.pi_display_main()
+    print 'ROUTE WAS HIT'
+    print data
+
     return jsonify(data)
 
 

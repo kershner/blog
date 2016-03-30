@@ -1,21 +1,31 @@
-var COLORS = ['#25B972', '#ff6767', '#FFA533', '#585ec7', '#FF8359'];
+var pi_display = {};
 
-function getImage() {
-    clearInterval(window.delay);
-    $('.container img').one("webkitTransitionEnd",
-      function(event) {
-        $(this).remove();
-    });
-    $('.container img').css('opacity', '0');
+pi_display.config = {
+    'delay'         : 1,
+    'gifs'          : [],
+    'colors'        : ['#25B972', '#ff6767', '#FFA533', '#585ec7', '#FF8359']
+};
+
+pi_display.init = function() {
+    getGifs();
+    playGifs();
+
+    $('.loading').colorWave(pi_display.config.colors);
+    window.colorWave = setInterval(function() {
+        $('.loading').colorWave(pi_display.config.colors);
+    }, 3000);
+};
+
+function getGifs() {
     $.ajax({
         url: $SCRIPT_ROOT + '/pi_display_json',
         success: function(json) {
-            url = json['URL'];
-            delay = json['delay'];
-            $('<img class="animate" style="opacity: 0;" src="' + url + '"/>').appendTo(".container").load(function() {
-                $(this).css({'opacity': '1.0'});
-            });
-            window.delay = setInterval(getImage, delay);
+            var urls = json['urls'],
+                delay = json['delay'];
+
+            pi_display.config.gifs = urls;
+            pi_display.config.delay = delay;
+            pi_display.config.delay = 5000;
         },
         error: function(xhr, errmsg, err) {
             console.log('Error!');
@@ -24,8 +34,44 @@ function getImage() {
 
         }
     });
+}
+
+function playGifs() {
+    setTimeout(function() {
+        var container = $('.container');
+        // Randomize array
+        pi_display.config.gifs.sort(function() { return 0.5 - Math.random() });
+
+        console.log(pi_display.config.gifs);
+        console.log('# of GIFs remaining: ', pi_display.config.gifs.length);
+        container.find('img').css('opacity', '0').one("webkitTransitionEnd",
+            function() {
+                container.find('img').remove();
+                $('<img class="animate" style="opacity: 0;" src="' + pi_display.config.gifs.pop() + '"/>').appendTo('.container').load(function() {
+                    $(this).css({'opacity': '1.0'});
+                });
+            }
+        );
+        if (pi_display.config.gifs.length === 1) {
+            console.log('GET NEW URLS, REGEN CONFIG.URLS');
+            getGifs();
+        }
+        playGifs();
+    }, pi_display.config.delay)
+}
+
+function getImage() {
+    var imgContainer = $('.container img');
+
+    clearInterval(window.delay);
+
+    imgContainer.one("webkitTransitionEnd",
+      function(event) {
+        $(this).remove();
+    });
+    imgContainer.css('opacity', '0');
     return false;
-};
+}
 
 (function( $ ) {
   $.fn.colorWave = function(colors) {
@@ -45,8 +91,7 @@ function getImage() {
     }
     // Iterates through given color array, applies color to a colorwave span
     function _colorLetters(colors, element, wait, defaultColor) {
-        var randomnumber = (Math.random() * (colors.length + 1)) << 0;
-        var counter = randomnumber;
+        var counter = (Math.random() * (colors.length + 1)) << 0;
         var delay = 100;
         var adjustedWait = wait / 5;
         $(element).find('.colorwave').each(function() {
@@ -76,7 +121,7 @@ function getImage() {
         });
     }
     return this.each(function() {
-      _colorWave(colors, this);
+      _colorWave(pi_display.config.colors, this);
     });
     return this;
   }

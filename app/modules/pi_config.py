@@ -1,7 +1,20 @@
+from sqlalchemy import text
 from flask import request, json, session
 from urllib2 import quote
+from app import app, db, models
 
-path = '/home/tylerkershner/app/templates/pi_display/logs'
+# Local path
+path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
+
+# Server path
+# path = '/home/tylerkershner/app/templates/pi_display/logs/'
+
+tags = {
+    'animals': models.Tag.query.filter_by(name='animals').first().id,
+    'gaming': models.Tag.query.filter_by(name='gaming').first().id,
+    'strange': models.Tag.query.filter_by(name='strange').first().id,
+    'educational': models.Tag.query.filter_by(name='educational').first().id
+}
 
 
 # Initalizes session variables, returns variables for display in template
@@ -10,22 +23,13 @@ def pi_config_main():
     session['prev_stop'] = -2
     session['prev_start'] = 3
 
-    with open('%s/all_urls.txt' % path, 'r') as urls_file:
-        main_urls_list = list(urls_file)
+    main_urls_list = [gif.url for gif in models.Gif.query.all()]
+    animals_urls_list = get_gifs_by_tag(tags['animals'])
+    gaming_urls_list = get_gifs_by_tag(tags['gaming'])
+    strange_urls_list = get_gifs_by_tag(tags['strange'])
+    educational_urls_list = get_gifs_by_tag(tags['educational'])
 
-    with open('%s/animals_urls.txt' % path, 'r') as urls_file:
-        animals_urls_list = list(urls_file)
-
-    with open('%s/gaming_urls.txt' % path, 'r') as urls_file:
-        gaming_urls_list = list(urls_file)
-
-    with open('%s/strange_urls.txt' % path, 'r') as urls_file:
-        strange_urls_list = list(urls_file)
-
-    with open('%s/educational_urls.txt' % path, 'r') as urls_file:
-        educational_urls_list = list(urls_file)
-
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
+    with open('%s/pi_display_config.txt' % local_path, 'r') as config_file:
         config = list(config_file)
 
     data = {
@@ -69,18 +73,6 @@ def get_prev():
         data = {
             'last_played': gifs,
             'message': message
-        }
-
-        return data
-
-
-# Sets auto-update
-def set_auto_update():
-    with open('%s/pi_display_config.txt' % path, 'r') as config_file:
-        config = list(config_file)
-        delay = config[2][:config[2].find('\n')]
-        data = {
-            'delay': delay + '000'
         }
 
         return data
@@ -130,36 +122,6 @@ def set_delay():
         return data
 
 
-# Get 5 previous GIFs
-def get_previous_gifs():
-    session['prev_stop'] -= 5
-    session['prev_start'] -= 5
-
-    with open('%s/last_played.txt' % path, 'a+') as f:
-        last_played_list = list(f)
-        prev_5 = ''.join(last_played_list[session['prev_start']:session['prev_stop']:-1]).split()
-        data = {
-            'prev_5': prev_5,
-            'id': session['prev_start']
-        }
-
-        return data
-
-
-# Get any number of previous GIFs
-def get_last_played(number):
-    number = 0 - int(number)
-
-    with open('%s/last_played.txt' % path, 'r') as f:
-        last_played_list = list(f)
-        gifs = ''.join(last_played_list[-2:number - 2:-1]).split()
-        data = {
-            'gifs': gifs
-        }
-
-        return data
-
-
 # Clear session (mostly for removing auto-update)
 def clear():
     session['prev_stop'] = -2
@@ -172,16 +134,19 @@ def clear():
     return data
 
 
-# Return mailto link containing saved GIFs
-def get_email_link():
-    email = request.args.get('email', 0, type=str)
-    gifs = json.loads(request.args.get('images', 0, type=str))
-    subject = 'Your Saved GIFs'
-    gifs = '\n'.join(gifs)
-    body = '%s' % gifs
-    link = "mailto:%s?subject=%s&body=%s" % (quote(email), quote(subject), quote(body))
-    data = {
-        'link': link
-    }
+def get_gifs_by_tag(tag_ids):
+    ids_string = str(tag_ids)
+    if type(tag_ids) is list:
+        ids_string = ','.join(str(i) for i in tag_ids)
 
-    return data
+    tag_ids = '(%s)' % ids_string
+    gif_db_bind = db.get_engine(app, 'gifs_db')
+    sql = text('SELECT gif_id FROM gif_tags WHERE tag_id in ' + tag_ids + ';')
+    rows = db.session.execute(sql, bind=gif_db_bind)
+    urls = []
+
+    for row in rows:
+        url = models.Gif.query.get(row[0]).url
+        urls.append(url)
+
+    return urls

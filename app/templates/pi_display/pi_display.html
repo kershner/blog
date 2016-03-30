@@ -13,20 +13,19 @@
 
 <body>
     <span class="loading">Loading...</span>
-    <div class="container">
-    </div>
+    <div class="container"><img class="animate" style="opacity: 1;" src="http://share.gifyoutube.com/yApBgx.gif"/></div>
 </body>
 
 <script>
-$(document).ready(function() {
-    getImage();
-    $('.loading').colorWave(COLORS);
-    window.colorWave = setInterval(function() {
-        $('.loading').colorWave(COLORS);
-    }, 3000);
-});
-
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+$(document).ready(function() {
+
+
+    pi_display.config.urls = '{{ urls|safe }}';
+    pi_display.config.delay = '{{ delay }}';
+
+    pi_display.init();
+});
 </script>
 
 </html>
