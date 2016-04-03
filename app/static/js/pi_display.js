@@ -25,7 +25,7 @@ function getGifs() {
 
             pi_display.config.gifs = urls;
             pi_display.config.delay = delay;
-            pi_display.config.delay = 5000;
+            pi_display.config.delay = 20000;
         },
         error: function(xhr, errmsg, err) {
             console.log('Error!');

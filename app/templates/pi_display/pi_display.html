@@ -13,14 +13,12 @@
 
 <body>
     <span class="loading">Loading...</span>
-    <div class="container"><img class="animate" style="opacity: 1;" src="http://share.gifyoutube.com/yApBgx.gif"/></div>
+    <div class="container"><img class="animate" style="opacity: 1;" src="{{ first_gif }}"/></div>
 </body>
 
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
-
-
     pi_display.config.urls = '{{ urls|safe }}';
     pi_display.config.delay = '{{ delay }}';
 

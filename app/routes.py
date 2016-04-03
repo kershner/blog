@@ -163,10 +163,12 @@ def warning():
 @app.route('/pi_display')
 def pi_display():
     data = pi_display_logic.pi_display_main()
+    gif = data['gif']
     delay = data['delay']
     urls = data['urls']
 
     return render_template('/pi_display/pi_display.html',
+                           first_gif=gif,
                            urls=json.dumps(urls),
                            delay=delay)
 

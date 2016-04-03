@@ -2,10 +2,10 @@ import random
 from app import models
 
 # Local path
-path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
+# path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
 
 # Server path
-# path = '/home/tylerkershner/app/templates/pi_display/logs/'
+path = '/home/tylerkershner/app/templates/pi_display/logs/'
 
 
 def pi_display_main():
@@ -19,6 +19,7 @@ def pi_display_main():
     delay = str(delay) + '000'
 
     data = {
+        'gif' : random.choice(gif_urls),
         'urls': gif_urls,
         'delay': delay
     }
