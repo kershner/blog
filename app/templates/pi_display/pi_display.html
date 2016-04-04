@@ -13,16 +13,17 @@
 
 <body>
     <span class="loading">Loading...</span>
-    <div class="container"><img class="animate" style="opacity: 1;" src="{{ first_gif }}"/></div>
+    <div class="container"><img class="animate" style="opacity: 1;" src="{{ gif }}"/></div>
 </body>
 
 <script>
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
-    pi_display.config.urls = '{{ urls|safe }}';
+    pi_display.config.gif = '{{ gif }}';
     pi_display.config.delay = '{{ delay }}';
-
-    pi_display.init();
+    setTimeout(function() {
+        pi_display.init();
+    }, pi_display.config.delay);
 });
 </script>
 

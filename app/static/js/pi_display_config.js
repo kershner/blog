@@ -1,3 +1,77 @@
+var pi_config = {};
+
+pi_config.config = {
+    'colors' : ['#DB3340', '#E8B81A', '#20DA9B', '#28ABE3', '#abe328', '#be28e3', '#6028e3'],
+	'previous_gifs_url'	: ''
+};
+
+
+pi_config.init = function() {
+	colorElements();
+	portletToggles();
+};
+
+function portletToggles() {
+	$('#previous-btn').on('click', function() {
+		$(this).toggleClass('btn-selected');
+		$('#previous').toggleClass('hidden');
+		getPreviousGifs();
+	});
+}
+
+function colorElements() {
+	var counter = Math.floor(Math.random() * pi_config.config.colors.length);
+	$('.settings-btn').css('background-color', pi_config.config.colors[counter]);
+	$('.nav-btn').each(function() {
+		counter += 1;
+		if (counter > pi_config.config.colors.length - 1) {
+			 counter = 0;
+		}
+		$(this).css('background-color', pi_config.config.colors[counter]);
+	});
+	$('.portlet-title').each(function() {
+		counter += 1;
+		if (counter > pi_config.config.colors.length - 1) {
+			 counter = 0;
+		}
+		$(this).css('background-color', pi_config.config.colors[counter]);
+	});
+}
+
+function getPreviousGifs() {
+	var offset = $('.gif-wrapper').length;
+	$.ajax({
+        url     : pi_config.config.previous_gifs_url + '/' + offset,
+        success : function(result) {
+            var gifsHtml = getGifHtml(result['gifs']);
+			$('#previous').find('.portlet-body').append(gifsHtml);
+		},
+        error   : function(result) {
+            var resultObj = JSON.parse(result);
+            console.log(resultObj);
+        }
+    });
+}
+
+
+function getGifHtml(gifs) {
+	var finalHtml = '';
+
+	for (var i=0; i<gifs.length; i++) {
+		var gif = gifs[i];
+
+		finalHtml += '<div class="gif-wrapper"><img src="' + gif + '"></div>';
+	}
+	return finalHtml;
+}
+
+
+
+
+
+
+
+
 function piDisplayConfig() {
 	showSettings();
 	clickUpdateGif();

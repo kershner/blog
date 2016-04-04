@@ -1,6 +1,7 @@
 import requests
 import praw
 import time
+from datetime import datetime
 from app import models, db
 
 
@@ -34,7 +35,7 @@ def request_url(url):
 def get_reddit_urls(subreddit, tag_id):
     print '\nGathering image URLs from /r/%s...' % sub
 
-    submissions = r.get_subreddit(subreddit.name).get_hot(limit=100)
+    submissions = r.get_subreddit(subreddit.name).get_hot(limit=50)
     for submission in submissions:
         if submission.url.endswith('.gif'):
             temp.to_add_urls.append([tag_id, submission.url])
@@ -56,7 +57,7 @@ def process_urls(urls_list):
                 elif url_data['float_size'] > 6.00:
                     print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
                 else:
-                    new_gif = models.Gif(url=url)
+                    new_gif = models.Gif(url=url, created_at=datetime.now())
                     if tag_id is not None:
                         new_tag = models.Tag.query.get(tag_id)
                         new_gif.tags.append(new_tag)

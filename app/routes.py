@@ -1,10 +1,10 @@
 from functools import wraps
 import json
 import random
+from sqlalchemy import desc
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import *
-from modules import music_files, campaign_logic, reddit_scraper, cstools_logic, gif_party_logic, pi_config, \
-    pi_display_logic, cms_logic
+from modules import music_files, campaign_logic, reddit_scraper, gif_party_logic, cstools_logic, pi_gif_display, pi_gif_display_config, cms_logic
 import credentials
 from app import app, models
 
@@ -21,6 +21,7 @@ def orderv_test():
 def index():
     return render_template('/blog/welcome.html',
                            title='Welcome')
+
 
 @app.route('/music-test')
 def music_test():
@@ -162,94 +163,33 @@ def warning():
 # Pi Display #################################################################
 @app.route('/pi_display')
 def pi_display():
-    data = pi_display_logic.pi_display_main()
+    data = pi_gif_display.get_data()
     gif = data['gif']
     delay = data['delay']
-    urls = data['urls']
 
     return render_template('/pi_display/pi_display.html',
-                           first_gif=gif,
-                           urls=json.dumps(urls),
+                           gif=gif,
                            delay=delay)
 
 
 @app.route('/pi_display_json')
 def pi_display_json():
-    data = pi_display_logic.pi_display_main()
-    print 'ROUTE WAS HIT'
-    print data
-
-    return jsonify(data)
+    return jsonify(pi_gif_display.get_data())
 
 
 ##############################################################################
 # Pi Display Config ##########################################################
-@app.route('/pi_display_config')
+@app.route('/pi_config')
 def pi_display_config():
-    data = pi_config.pi_config_main()
+    current_gif = models.Gif.query.order_by(desc(models.Gif.last_played)).first().url
     return render_template('/pi_display/pi_display_config.html',
-                           current_gif=data['current_gif'],
-                           main_urls_count=data['main_urls_count'],
-                           animals_urls_count=data['animals_urls_count'],
-                           gaming_urls_count=data['gaming_urls_count'],
-                           strange_urls_count=data['strange_urls_count'],
-                           educational_urls_count=data['educational_urls_count'],
-                           category=data['category'].title(),
-                           delay=data['delay'])
+                           current_gif=current_gif)
 
 
-@app.route('/pi-display-config-update')
-def pi_display_config_update():
-    data = pi_config.pi_config_update()
-    return jsonify(data)
-
-
-@app.route('/pi-display-config-prev')
-def pi_display_config_prev():
-    data = pi_config.get_prev()
-    return jsonify(data)
-
-
-@app.route('/pi-display-config-auto')
-def pi_display_config_auto():
-    data = pi_config.set_auto_update()
-    return jsonify(data)
-
-
-@app.route('/pi-display-config-categories')
-def pi_display_config_all():
-    data = pi_config.set_category()
-    return jsonify(data)
-
-
-@app.route('/pi-display-config-delay')
-def pi_display_config_delay():
-    data = pi_config.set_delay()
-    return jsonify(data)
-
-
-@app.route('/previous-gifs')
-def previous_gifs():
-    data = pi_config.get_previous_gifs()
-    return jsonify(data)
-
-
-@app.route('/last-played/<number>')
-def last_played(number):
-    data = pi_config.get_last_played(number)
-    return jsonify(data)
-
-
-@app.route('/clear-session')
-def clear_session():
-    data = pi_config.clear()
-    return jsonify(data)
-
-
-@app.route('/email-gifs')
-def email_gifs():
-    data = pi_config.get_email_link()
-    return jsonify(data)
+@app.route('/previous/<offset>')
+def previous_gifs(offset):
+    data = pi_gif_display_config.get_prev_gifs(offset)
+    return jsonify({'gifs': data})
 
 
 # Game TV

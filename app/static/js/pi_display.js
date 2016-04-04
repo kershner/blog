@@ -2,13 +2,12 @@ var pi_display = {};
 
 pi_display.config = {
     'delay'         : 1,
-    'gifs'          : [],
+    'gif'           : [],
     'colors'        : ['#25B972', '#ff6767', '#FFA533', '#585ec7', '#FF8359']
 };
 
 pi_display.init = function() {
-    getGifs();
-    playGifs();
+    getGif();
 
     $('.loading').colorWave(pi_display.config.colors);
     window.colorWave = setInterval(function() {
@@ -16,16 +15,27 @@ pi_display.init = function() {
     }, 3000);
 };
 
-function getGifs() {
+function getGif() {
     $.ajax({
         url: $SCRIPT_ROOT + '/pi_display_json',
         success: function(json) {
-            var urls = json['urls'],
-                delay = json['delay'];
+            var gif = json['gif'],
+                delay = json['delay'],
+                container = $('.container');
 
-            pi_display.config.gifs = urls;
+            pi_display.config.gif = gif;
             pi_display.config.delay = delay;
-            pi_display.config.delay = 20000;
+            container.find('img').css('opacity', '0').one("webkitTransitionEnd",
+                function () {
+                    container.find('img').remove();
+                    $('<img class="animate" style="opacity: 0;" src="' + gif + '"/>').appendTo(container).load(function () {
+                        $(this).css({'opacity': '1.0'});
+                    });
+                    setTimeout(function() {
+                        getGif();
+                    }, delay);
+                }
+            );
         },
         error: function(xhr, errmsg, err) {
             console.log('Error!');
@@ -36,43 +46,7 @@ function getGifs() {
     });
 }
 
-function playGifs() {
-    setTimeout(function() {
-        var container = $('.container');
-        // Randomize array
-        pi_display.config.gifs.sort(function() { return 0.5 - Math.random() });
-
-        console.log(pi_display.config.gifs);
-        console.log('# of GIFs remaining: ', pi_display.config.gifs.length);
-        container.find('img').css('opacity', '0').one("webkitTransitionEnd",
-            function() {
-                container.find('img').remove();
-                $('<img class="animate" style="opacity: 0;" src="' + pi_display.config.gifs.pop() + '"/>').appendTo('.container').load(function() {
-                    $(this).css({'opacity': '1.0'});
-                });
-            }
-        );
-        if (pi_display.config.gifs.length === 1) {
-            console.log('GET NEW URLS, REGEN CONFIG.URLS');
-            getGifs();
-        }
-        playGifs();
-    }, pi_display.config.delay)
-}
-
-function getImage() {
-    var imgContainer = $('.container img');
-
-    clearInterval(window.delay);
-
-    imgContainer.one("webkitTransitionEnd",
-      function(event) {
-        $(this).remove();
-    });
-    imgContainer.css('opacity', '0');
-    return false;
-}
-
+// ColorWave
 (function( $ ) {
   $.fn.colorWave = function(colors) {
     function _colorWave(colors, element) {

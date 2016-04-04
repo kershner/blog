@@ -71,9 +71,20 @@ class Gif(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(256), index=True)
     tags = db.relationship('Tag', secondary=gif_tags, backref=db.backref('tags', lazy='dynamic'))
+    created_at = db.Column(db.DateTime())
+    last_played = db.Column(db.DateTime())
 
     def __repr__(self):
         return '%r' % self.url
+
+
+class Config(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    current_gif = db.Column(db.String(255))
+    delay = db.Column(db.Integer)
+    active_tags = db.Column(db.String(255))
 
 
 class Tag(db.Model):
