@@ -4,7 +4,8 @@ pi_config.config = {
     'colors' 			: ['#DB3340', '#E8B81A', '#20DA9B', '#28ABE3', '#abe328', '#be28e3', '#6028e3'],
 	'previousGifsUrl'	: '',
 	'gifInfoUrl'		: '',
-	'prevClicked'		: false
+	'prevClicked'		: false,
+	'offset'			: 0
 };
 
 pi_config.init = function() {
@@ -50,13 +51,13 @@ function colorElements() {
 }
 
 function getPreviousGifs() {
-	var offset = $('.gif-wrapper').length;
 	$.ajax({
-        url     : pi_config.config.previousGifsUrl + '/' + offset,
+        url     : pi_config.config.previousGifsUrl + '/' + pi_config.config.offset,
         success : function(result) {
             var gifsHtml = getGifHtml(result['gifs']);
 			$('#previous').find('.portlet-body').append(gifsHtml);
 			gifInfoWindow();
+			pi_config.config.offset += 10;
 		},
         error   : function(result) {
             console.log(result);
@@ -69,7 +70,7 @@ function getGifHtml(gifs) {
 	for (var i=0; i<gifs.length; i++) {
 		var gif = gifs[i],
 			url = gif.url,
-			lastPlayed = moment(gif.last_played).format('D/M h:mm:ss a');
+			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a');
 		finalHtml += '<div class="btn gif-wrapper" data-id="' + gif.id + '"><img src="' + url + '"><span class="last-played">' + lastPlayed + '</span></div>';
 	}
 	return finalHtml;

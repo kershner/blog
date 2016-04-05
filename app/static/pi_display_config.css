@@ -68,7 +68,7 @@ body {
     position: relative;
     margin: 0 auto;
     top: 1.5em;
-    max-width: 60em;
+    max-width: 30em;
     background-color: #F2F2F2;
     border-radius: .3em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
@@ -122,13 +122,11 @@ body {
 #remove-gif {
     background-color: rgb(219, 51, 64);
 }
-
-
 .current-gif-container {
     position: relative;
     margin: 0 auto;
     min-width: 10em;
-    max-width: 40em;
+    max-width: 20em;
 }
 .current-gif-container img {
     width: 100%;
