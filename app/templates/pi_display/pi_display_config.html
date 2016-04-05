@@ -19,6 +19,37 @@
 </head>
 
 <body>
+    <div class="lightbox-overlay hidden">
+        <div class="gif-info-window" data-id="1">
+            <i class="btn fa fa-times close-lightbox"></i>
+
+            <img src="https://media.giphy.com/media/UsK5GqD3e0huU/giphy.gif">
+
+            <div class="lightbox-content">
+
+                <div class="gif-tags-container">
+                    <div class="tag"><i class="fa fa-tag"></i> animals</div>
+                    <div class="tag"><i class="fa fa-tag"></i> gaming</div>
+                </div>
+
+                <br>
+                <textarea rows="4" name="description">Description</textarea>
+                <br>
+                <div class="btn save-gif animate">Save</div>
+
+                <div class="gif-actions">
+                    <div id="remove-gif" class="btn animate gif-action-btn">
+                        Remove GIF
+                    </div>
+
+                    <div id="edit-tags" class="btn animate gif-action-btn">
+                        Edit Tags
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="current-gif-container">
         <div class="settings-btn animate">
             <i class="fa fa-gear"></i>
@@ -28,19 +59,19 @@
     </div>
 
     <div class="nav-container">
-        <div id="previous-btn" class="nav-btn animate">
+        <div id="previous-btn" class="btn nav-btn animate">
             Previous
         </div>
 
-        <div class="nav-btn animate">
+        <div class="btn nav-btn animate">
             Tags
         </div>
 
-        <div class="nav-btn animate">
+        <div class="btn nav-btn animate">
             Gifs
         </div>
 
-        <div class="nav-btn animate">
+        <div class="btn nav-btn animate">
             Subreddits
         </div>
     </div>
@@ -50,6 +81,7 @@
 
         <div class="portlet-body">
 
+            <div class="btn more-gifs animate">Prev 10</div>
         </div>
     </div>
 
@@ -77,12 +109,17 @@
 </body>
 
 <!-- JS -->
+<script src="/static/vendor/moment/moment.min.js"></script>
 <script src="/static/js/pi_display_config.js"></script>
 <script>
     $(document).ready(function () {
-        var url = '{{ url_for("previous_gifs", offset=0) }}';
-        url = url.substr(0, url.lastIndexOf('/'));
-        pi_config.config.previous_gifs_url = url;
+        var prevUrl = '{{ url_for("previous_gifs", offset=0) }}',
+            infoUrl = '{{ url_for("get_gif", gif_id=0) }}';
+        prevUrl = prevUrl.substr(0, prevUrl.lastIndexOf('/'));
+        infoUrl = infoUrl.substr(0, infoUrl.lastIndexOf('/'));
+
+        pi_config.config.previousGifsUrl = prevUrl;
+        pi_config.config.gifInfoUrl = infoUrl;
         pi_config.init()
     });
 </script>

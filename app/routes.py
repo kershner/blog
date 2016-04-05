@@ -192,6 +192,12 @@ def previous_gifs(offset):
     return jsonify({'gifs': data})
 
 
+@app.route('/gif/<gif_id>')
+def get_gif(gif_id):
+    data = pi_gif_display_config.get_gif_info(gif_id)
+    return jsonify({'gif': data})
+
+
 # Game TV
 @app.route('/game-tv')
 def game_tv():

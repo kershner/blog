@@ -1,4 +1,5 @@
 body {
+    position: relative;
     margin: 0;
     padding: 10px;
     overflow-x: hidden;
@@ -9,6 +10,13 @@ body {
 }
 .hidden{display: none;}
 .animate {transition: all .1s ease-in-out;}
+.btn {
+    border-radius: .3em;
+}
+.btn:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
 .portlet {
     position: relative;
     margin: 2em auto;
@@ -35,6 +43,87 @@ body {
 .portlet-body {
     margin: 1em;
 }
+.lightbox-overlay {
+    z-index: 10;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+}
+.lightbox-content {
+    padding: .75em;
+}
+.close-lightbox {
+    position: absolute;
+    top: .25em;
+    right: .25em;
+    font-size: 1.5em;
+    color: rgb(219, 51, 64);
+}
+.gif-info-window {
+    position: relative;
+    margin: 0 auto;
+    top: 1.5em;
+    max-width: 60em;
+    background-color: #F2F2F2;
+    border-radius: .3em;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    text-align: center;
+}
+.gif-info-window img {
+    width: 100%;
+    border-radius: .2em;
+}
+.gif-tags-container {
+    display: inline-block;
+    padding: .5em;
+}
+.tag {
+    display: inline-block;
+    margin: .25em;
+    padding: .4em;
+    border: 1px solid #949494;
+    border-radius: .3em;
+    color: #949494;
+    font-size: .8em;
+}
+.gif-info-window textarea {
+    display: inline-block;
+    margin: .5em;
+    width: 80%;
+    max-width: 40em;
+    border: 1px solid #949494;
+    border-radius: .3em;
+}
+.save-gif {
+    display: inline-block;
+    margin: .75em;
+    margin-top: -1em;
+    padding: .25em 1em;
+    background-color: rgb(32, 218, 155);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    color: white;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.46);
+}
+.gif-action-btn {
+    display: inline-block;
+    padding: .5em;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    color: white;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.46);
+}
+#edit-tags {
+    background-color: rgb(40, 171, 227);
+}
+#remove-gif {
+    background-color: rgb(219, 51, 64);
+}
+
+
 .current-gif-container {
     position: relative;
     margin: 0 auto;
@@ -85,10 +174,6 @@ body {
     color: white;
     text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
 }
-.nav-btn:hover {
-    cursor: pointer;
-    transform: scale(1.2);
-}
 .nav-btn:active {
     top: 6px;
 }
@@ -105,4 +190,22 @@ body {
     height: 6.5em;
     border-radius: .3em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+.more-gifs {
+    position: absolute;
+    height: 2em;
+    line-height: 2em;
+    width: 5em;
+    bottom: -.6em;
+    right: 1em;
+    color: white;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
+    background-color: rgb(40, 171, 227);
+    border-radius: .3em;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+.last-played {
+    display: block;
+    font-size: .75em;
+    color: #949494;
 }
