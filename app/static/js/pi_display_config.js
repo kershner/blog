@@ -33,7 +33,7 @@ function getMoreGifs() {
 
 function colorElements() {
 	var counter = Math.floor(Math.random() * pi_config.config.colors.length);
-	$('.settings-btn').css('background-color', pi_config.config.colors[counter]);
+	$('.settings-btn i').css('color', pi_config.config.colors[counter]);
 	$('.nav-btn').each(function() {
 		counter += 1;
 		if (counter > pi_config.config.colors.length - 1) {
@@ -54,8 +54,7 @@ function getPreviousGifs() {
 	$.ajax({
         url     : pi_config.config.previousGifsUrl + '/' + pi_config.config.offset,
         success : function(result) {
-            var gifsHtml = getGifHtml(result['gifs']);
-			$('#previous').find('.portlet-body').append(gifsHtml);
+			appendGifsHtml(result['gifs']);
 			gifInfoWindow();
 			pi_config.config.offset += 10;
 		},
@@ -65,22 +64,25 @@ function getPreviousGifs() {
     });
 }
 
-function getGifHtml(gifs) {
-	var finalHtml = '';
+function appendGifsHtml(gifs) {
+	var container = $('#previous').find('.portlet-body'),
+		addedIds = [];
 	for (var i=0; i<gifs.length; i++) {
 		var gif = gifs[i],
 			url = gif.url,
 			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a');
-		finalHtml += '<div class="btn gif-wrapper" data-id="' + gif.id + '"><img src="' + url + '"><span class="last-played">' + lastPlayed + '</span></div>';
+		addedIds.push(gif.id);
+		$('<div class="btn gif-wrapper" data-id="' + gif.id + '"><img src="' + url + '"><span class="last-played">' + lastPlayed + '</span></div>').appendTo(container);
 	}
-	return finalHtml;
+	for (var j=0; j<addedIds.length; j++) {
+		$('[data-id="' + addedIds[j] + '"]').addClass('fadeIn');
+	}
 }
 
 function gifInfoWindow() {
 	var wrapper = $('.gif-wrapper');
 	wrapper.unbind('click');
 	wrapper.on('click', function() {
-		console.log('clicked');
 		var gifId = $(this).data('id');
 		$.ajax({
 			url     : pi_config.config.gifInfoUrl + '/' + gifId,

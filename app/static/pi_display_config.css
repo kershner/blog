@@ -125,8 +125,8 @@ body {
 .current-gif-container {
     position: relative;
     margin: 0 auto;
-    min-width: 10em;
-    max-width: 20em;
+    max-width: 40em;
+    max-height: 40em;
 }
 .current-gif-container img {
     width: 100%;
@@ -136,11 +136,8 @@ body {
 .settings-btn {
     opacity: 0.2;
     position: absolute;
-    padding: .6em .75em;
     right: .25em;
     top: .25em;
-    border-radius: 50%;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }
 .settings-btn:hover {
     cursor: pointer;
@@ -150,7 +147,6 @@ body {
 .settings-btn i {
     font-size: 2.5em;
     color: white;
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.46);
 }
 .nav-container {
     position: relative;
@@ -180,14 +176,28 @@ body {
 }
 .gif-wrapper {
     display: inline-block;
-    margin: .5em;
+    position: relative;
+    margin: 1em;
     vertical-align: top;
-}
-.gif-wrapper img {
     width: 6.5em;
     height: 6.5em;
+}
+.gif-wrapper img {
     border-radius: .3em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    width: 100%;
+    height: 100%;
+}
+.last-played {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: .7em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 .2em;
 }
 .more-gifs {
     position: absolute;
@@ -202,8 +212,24 @@ body {
     border-radius: .3em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }
-.last-played {
-    display: block;
-    font-size: .75em;
-    color: #949494;
+/* Animations *************************************************************************/
+.fadeIn {
+    -webkit-animation: fadeIn 1s 1;
+            animation: fadeIn 1s 1;
+}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

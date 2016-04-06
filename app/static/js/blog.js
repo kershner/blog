@@ -26,8 +26,7 @@ function blog() {
 
 function colorProjects() {
 	var randomNumber = Math.floor(Math.random() * COLORS.length),
-		counter = randomNumber,
-		delay = 75;
+		counter = randomNumber;
 	$('.project').each(function() {
 		if (counter >= COLORS.length) {
 			counter = 0;
@@ -49,17 +48,22 @@ function colorProjects() {
 		counter += 1;
 		$(this).css('border-color', COLORS[counter]);
 	});
-	var selectedTitle = $('.project-title').random();
-	colorWave(COLORS, selectedTitle)
-	setInterval(function() {
-		var selectedTitle = $('.project-title').random();
-		colorWave(COLORS, selectedTitle);
-	}, 9000);
+
+	//$('.project-title').each(function() {
+	//	setTimeout(function() {
+	//		colorWave(COLORS, $(this));
+	//	}, randomIntFromInterval(1000, 20000));
+	//});
 }
 
 $.fn.random = function() {
   return this.eq(Math.floor(Math.random() * this.length));
 };
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 
 function projectsMasonry() {
 	var masonry = new Masonry('#projects-grid', {
