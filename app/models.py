@@ -64,18 +64,11 @@ gif_tags = db.Table('gif_tags', db.metadata,
                     info={'bind_key': 'gifs_db'}
                     )
 
-
-class Gif(db.Model):
-    __bind_key__ = 'gifs_db'
-
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(256), index=True)
-    tags = db.relationship('Tag', secondary=gif_tags, backref=db.backref('tags', lazy='dynamic'))
-    created_at = db.Column(db.DateTime())
-    last_played = db.Column(db.DateTime())
-
-    def __repr__(self):
-        return '%r' % self.url
+subreddit_tags = db.Table('subreddit_tags', db.metadata,
+                          db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+                          db.Column('subreddit_id', db.Integer, db.ForeignKey('subreddit.id')),
+                          info={'bind_key': 'gifs_db'}
+                          )
 
 
 class Config(db.Model):
@@ -87,15 +80,18 @@ class Config(db.Model):
     active_tags = db.Column(db.String(255))
 
 
-class Tag(db.Model):
+class Gif(db.Model):
     __bind_key__ = 'gifs_db'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), unique=True)
-    subreddits = db.relationship('Subreddit', backref='tag', lazy='dynamic')
+    url = db.Column(db.String(256), index=True)
+    description = db.Column(db.String(256), index=True)
+    tags = db.relationship('Tag', secondary=gif_tags, backref=db.backref('tags', lazy='dynamic'))
+    created_at = db.Column(db.DateTime())
+    last_played = db.Column(db.DateTime())
 
     def __repr__(self):
-        return '%r' % self.name
+        return '%r' % self.url
 
 
 class Subreddit(db.Model):
@@ -103,7 +99,25 @@ class Subreddit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
-    tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'))
+    tags = db.relationship('Tag', secondary=subreddit_tags, backref=db.backref('subreddit_tags', lazy='dynamic'))
+
+    def __repr__(self):
+        return '%r' % self.name
+
+
+class BadUrl(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(256), index=True)
+    reason = db.Column(db.String(256), index=True)
+
+
+class Tag(db.Model):
+    __bind_key__ = 'gifs_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), unique=True)
 
     def __repr__(self):
         return '%r' % self.name

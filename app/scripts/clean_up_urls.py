@@ -7,9 +7,9 @@ from app import db, models
 
 
 class Log(object):
-    def __init__(self, gif_list, removed_urls, exceptions):
+    def __init__(self, gif_list, removed_gifs, exceptions):
         self.gif_list = gif_list
-        self.removed_urls = removed_urls
+        self.removed_gifs = removed_gifs
         self.exceptions = exceptions
 
 
@@ -22,7 +22,11 @@ def remove_dupes(gif_list):
     for gif in progress_bar:
         if gif.url in dupes:
             print '\n\n%s is a duplicate gif, removing...\n\n' % gif.url
-            log.removed_urls.append(gif.url)
+            logged_gif = {
+                'url': gif.url,
+                'reason': 'Dupe'
+            }
+            log.removed_gifs.append(logged_gif)
         else:
             dupes.append(gif.url)
 
@@ -35,10 +39,18 @@ def clean_up_urls(gif_list):
     for gif in progress_bar:
         if gif.url in bad_urls_list:
             print '%s is in the bad_urls_list, removing...' % gif.url
-            log.removed_urls.append(gif.url)
+            logged_gif = {
+                'url': gif.url,
+                'reason': 'In bad URLs list'
+            }
+            log.removed_gifs.append(logged_gif)
         elif not gif.url.endswith('.gif'):
+            logged_gif = {
+                'url': gif.url,
+                'reason': 'Not a .gif'
+            }
             print '%s is not a .gif file, removing...' % gif.url
-            log.removed_urls.append(gif.url)
+            log.removed_gifs.append(logged_gif)
 
     send_requests(gif_list)
 
@@ -49,7 +61,7 @@ def send_requests(gif_list):
 
     gif_list = [gif.url for gif in gif_list]
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
-        pages = executor.map(load_url, gif_list)
+        pages = executor.map(load_url, gif_list)  # Black magic
 
 
 def load_url(gif_url):
@@ -60,7 +72,12 @@ def load_url(gif_url):
         code = r.status_code
         if not code == 200:
             print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
-            log.removed_urls.append(gif_url)
+            logged_gif = {
+                'url': gif.url,
+                'code': 200,
+                'reason': 'Code not 200'
+            }
+            log.removed_gifs.append(logged_gif)
         else:
             print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
     except Exception as e:
@@ -76,8 +93,9 @@ def final_pass(gif_list):
 
     sleep(5)
 
+    removed_urls = [removed_gif['url'] for removed_gif in log.removed_gifs]
     for gif in gif_list:
-        if gif.url in log.removed_urls:
+        if gif.url in removed_urls:
             db.session.delete(gif)
 
     print '\nCommitting session...'
@@ -86,15 +104,8 @@ def final_pass(gif_list):
 
 
 if __name__ == '__main__':
-    # Local path
-    path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
-
-    # Server path
-    # path = '/home/tylerkershner/app/templates/pi_display/logs/'
-
     gifs = models.Gif.query.all()
-    with open('%s/%s' % (path, 'bad_urls.txt'), 'a+') as temp_file:
-        bad_urls_list = [url.rstrip('\r\n') for url in temp_file]
+    bad_urls_list = [url.url for url in models.BadUrl.query.all()]
 
     gif_list_copy = [gif.url for gif in gifs]
     log = Log(gif_list_copy, [], [])
@@ -106,8 +117,8 @@ if __name__ == '__main__':
     end = time()
 
     print '## READOUT ##############################'
-    print '\n%d GIFs removed' % len(log.removed_urls)
-    print log.removed_urls
+    print '\n%d GIFs removed' % len(log.removed_gifs)
+    print log.removed_gifs
     print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
 
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)

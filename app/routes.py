@@ -1,12 +1,14 @@
 from functools import wraps
 import json
 import random
+from datetime import datetime
 from sqlalchemy import desc
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import *
 from modules import music_files, campaign_logic, reddit_scraper, gif_party_logic, cstools_logic, pi_gif_display, pi_gif_display_config, cms_logic
 import credentials
-from app import app, models
+from modules.cms_logic import login_required
+from app import app, db, models
 
 
 @app.route('/orderv-test')
@@ -196,6 +198,74 @@ def previous_gifs(offset):
 def get_gif(gif_id):
     data = pi_gif_display_config.get_gif_info(gif_id)
     return jsonify({'gif': data})
+
+
+@app.route('/gif/add', methods=['POST'])
+def add_gif_ajax():
+    if request.method == 'POST':
+        print 'ADD ROUTE HIT'
+        gif = request.json
+
+        if gif['url'].endswith('.gif'):
+            new_gif = models.Gif()
+            new_gif.created_at = datetime.now()
+            new_gif.url = gif['url']
+            new_gif.description = gif['desc']
+            tags = [tag.lstrip() for tag in gif['tags'].split(',')]
+            pi_gif_display_config.add_tags_to_gif(tags, new_gif)
+
+            db.session.add(new_gif)
+            db.session.commit()
+            message = 'Successfully added GIF'
+        else:
+            message = 'Not a GIF'
+
+        return jsonify({'message': message})
+
+
+@app.route('/gif/update', methods=['POST'])
+def update_gif_ajax():
+    if request.method == 'POST':
+        print 'UPDATE ROUTE HIT'
+        gif = request.json
+        tags = [tag.lstrip() for tag in gif['tags'].split(',')]
+
+        gif_to_update = models.Gif.query.get(int(gif['id']))
+        gif_to_update.url = gif['url']
+        gif_to_update.description = gif['desc']
+        pi_gif_display_config.add_tags_to_gif(tags, gif_to_update)
+
+        db.session.add(gif_to_update)
+        db.session.commit()
+
+        message = 'Successfully updated GIF!'
+        return jsonify({'message': message})
+
+
+@app.route('/gif/remove', methods=['POST'])
+@login_required
+def remove_gif_ajax():
+    if request.method == 'POST':
+        print 'REMOVE ROUTE HIT'
+        gif = request.json
+        gif_to_remove = models.Gif.query.filter_by(url=gif['url']).first()
+        new_bad_url = models.BadUrl()
+        new_bad_url.url = gif['url']
+
+        db.session.delete(gif_to_remove)
+        db.session.add(new_bad_url)
+        db.session.commit()
+
+        message = 'Successfully deleted GIF!'
+        return jsonify({'message': message})
+
+# Routes for adding tags
+
+# Routes for removing tags
+
+# Routes for adding subreddit
+
+# Routes for removing subreddits
 
 
 # Game TV

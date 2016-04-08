@@ -4,8 +4,12 @@ pi_config.config = {
     'colors' 			: ['#DB3340', '#E8B81A', '#20DA9B', '#28ABE3', '#abe328', '#be28e3', '#6028e3'],
 	'previousGifsUrl'	: '',
 	'gifInfoUrl'		: '',
+	'addGifUrl'			: '',
+	'updateUrl'			: '',
+	'removeUrl'			: '',
 	'prevClicked'		: false,
-	'offset'			: 0
+	'offset'			: 0,
+	'defaultGif'		: 'https://giant.gfycat.com/DeliriousHatefulEkaltadeta.gif'
 };
 
 pi_config.init = function() {
@@ -22,6 +26,16 @@ function portletToggles() {
 			getPreviousGifs();
 			pi_config.config.prevClicked = true;
 		}
+	});
+
+	$('#gifs-btn').on('click', function() {
+		$(this).toggleClass('btn-selected');
+		$('#gifs').toggleClass('hidden');
+
+		// Add Gifs Button inside #gifs portlet
+		$('#add-gif-btn').on('click', function() {
+			gifInfoWindow({}, 'add');
+		});
 	});
 }
 
@@ -55,7 +69,7 @@ function getPreviousGifs() {
         url     : pi_config.config.previousGifsUrl + '/' + pi_config.config.offset,
         success : function(result) {
 			appendGifsHtml(result['gifs']);
-			gifInfoWindow();
+			clickGifs();
 			pi_config.config.offset += 10;
 		},
         error   : function(result) {
@@ -79,7 +93,7 @@ function appendGifsHtml(gifs) {
 	}
 }
 
-function gifInfoWindow() {
+function clickGifs() {
 	var wrapper = $('.gif-wrapper');
 	wrapper.unbind('click');
 	wrapper.on('click', function() {
@@ -87,10 +101,8 @@ function gifInfoWindow() {
 		$.ajax({
 			url     : pi_config.config.gifInfoUrl + '/' + gifId,
 			success : function(result) {
-				var gif = result['gif'],
-					overlay = $('.lightbox-overlay');
-				overlay.find('img').attr('src', gif.url);
-				overlay.removeClass('hidden');
+				$('#add-gif-form').data('gif-id', result['gif']['id']);
+				gifInfoWindow(result['gif'], 'update');
 			},
 			error   : function(result) {
 				console.log(result);
@@ -99,6 +111,97 @@ function gifInfoWindow() {
 	});
 }
 
+function gifInfoWindow(gif, method) {
+	var overlay = $('.lightbox-overlay'),
+		form = $('#add-gif-form');
+	if (method === 'add') {
+		overlay.find('img').attr('src', pi_config.config.defaultGif);
+		overlay.removeClass('hidden');
+
+		form.data('gif-id', null);
+		$('#url-input, #desc-input, #tags-input').val('');
+
+		form.find('.btn').addClass('hidden');
+		$('.add-gif, .remove-gif').removeClass('hidden');
+	} else if (method === 'update') {
+		overlay.find('img').attr('src', gif.url);
+		overlay.removeClass('hidden');
+
+		$('.gif-tags-container').empty();
+		console.log(gif.tags);
+		for (var i=0; i<gif.tags.length; i++) {
+			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i>' + gif.tags[i] + '</div>';
+			$('.gif-tags-container').append(tagHtml);
+		}
+
+		$('#url-input').val(gif.url);
+		$('#desc-input').val(gif.description);
+		$('.save-gif').text('Update GIF');
+
+		form.find('.btn').addClass('hidden');
+		$('.remove-gif, .update-gif').removeClass('hidden');
+	} else if (method === 'remove') {
+		console.log('Adding GIF to bad urls list...')
+	}
+}
+
+// General events
+$('.remove-gif').on('click', function() {
+	$('#add-gif-form').data('ajax-url', pi_config.config.removeUrl);
+});
+
+$('.add-gif').on('click', function() {
+	$('#add-gif-form').data('ajax-url', pi_config.config.addGifUrl);
+});
+
+$('.update-gif').on('click', function() {
+	$('#add-gif-form').data('ajax-url', pi_config.config.updateUrl);
+});
+
+$('#add-gif-form').on('submit', function() {
+	var gif = {
+		'url'		: $('#url-input').val(),
+		'tags'		: $('#tags-input').val(),
+		'desc'		: $('#desc-input').val(),
+		'id'		: $(this).data('gif-id')
+	};
+
+	$.ajax({
+		url     	: $(this).data('ajax-url'),
+		method		: 'POST',
+		contentType	: 'application/json;charset=UTF-8',
+		data		: JSON.stringify(gif),
+		success : function(result) {
+			console.log(result);
+			console.log('NO ERROR');
+			// Pop up notification
+		},
+		error   : function(result) {
+			console.log(result);
+			if (result.status === 401) {
+				console.log('ACCESS DENIED');
+				window.location = '/login'
+			}
+			// Pop up notification
+		}
+	});
+	return false;
+});
+
 $('.close-lightbox').on('click', function() {
 	$('.lightbox-overlay').addClass('hidden');
 });
+
+$('#url-input').on('input', function() {
+	var overlay = $('.lightbox-overlay');
+	if (endsWith($(this).val(), '.gif')) {
+		overlay.find('img').attr('src', $(this).val());
+	} else {
+		overlay.find('img').attr('src', pi_config.config.defaultGif);
+	}
+});
+
+// Utility
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}

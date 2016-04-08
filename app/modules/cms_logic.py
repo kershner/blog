@@ -1,4 +1,4 @@
-from flask import flash, render_template, redirect, session, url_for, request, jsonify, Markup
+from flask import flash, render_template, redirect, session, url_for, request, jsonify, Markup, abort
 from app import app, models, db, forms
 from datetime import datetime, timedelta
 from markdown import markdown
@@ -15,9 +15,7 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            flash('You need to log in first.')
-            return redirect(url_for('login'))
-
+            abort(401)
     return wrap
 
 

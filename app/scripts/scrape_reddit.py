@@ -6,10 +6,12 @@ from app import models, db
 
 
 class Temp(object):
-    def __init__(self, current_urls, bad_urls, to_add_urls):
+    def __init__(self, current_urls, bad_urls, to_add_urls, final_list, processed_subs):
         self.current_urls = current_urls
         self.bad_urls = bad_urls
         self.to_add_urls = to_add_urls
+        self.final_list = final_list
+        self.processed_subs = processed_subs
 
 
 def request_url(url):
@@ -27,18 +29,15 @@ def request_url(url):
     except Exception as e:
         print e
         return None
-    # except (KeyError, requests.exceptions.SSLError, requests.exceptions.ConnectionError):
-    #     # No content-length HTTP header or error with request handshake
-    #     return None
 
 
-def get_reddit_urls(subreddit, tag_id):
-    print '\nGathering image URLs from /r/%s...' % sub
+def get_reddit_urls(subreddit, limit):
+    print 'Gathering image URLs from /r/%s...' % sub
 
-    submissions = r.get_subreddit(subreddit.name).get_hot(limit=50)
+    submissions = r.get_subreddit(subreddit.name).get_hot(limit=limit)
     for submission in submissions:
         if submission.url.endswith('.gif'):
-            temp.to_add_urls.append([tag_id, submission.url])
+            temp.to_add_urls.append([subreddit.tags, submission.url])
 
 
 def process_urls(urls_list):
@@ -47,7 +46,7 @@ def process_urls(urls_list):
     count = 1
     final_list = []
     for entry in urls_list:
-        tag_id = entry[0]
+        tags = entry[0]
         url = entry[1]
         try:
             if url not in temp.current_urls and url not in temp.bad_urls:
@@ -58,50 +57,46 @@ def process_urls(urls_list):
                     print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
                 else:
                     new_gif = models.Gif(url=url, created_at=datetime.now())
-                    if tag_id is not None:
-                        new_tag = models.Tag.query.get(tag_id)
-                        new_gif.tags.append(new_tag)
+                    for tag in tags:
+                        print '\nAdding tag: %s to gif %s' % (tag.name, gif.url)
+                        new_gif.tags.append(tag)
                     db.session.add(new_gif)
-                    final_list.append([tag_id, url])
+                    final_list.append([tags, url])
                     print 'Adding GIF...(%d GIFs)' % count
                     count += 1
         except TypeError as e:
             print e
             continue
 
+    temp.final_list = final_list
+
     print '\nCommitting DB session...'
     db.session.commit()
     print 'done!'
 
-    print '\nTotal GIFs added: %d' % len(final_list)
-
-
 if __name__ == '__main__':
-    # Local path
-    path = 'c:/programming/projects/blog/app/templates/pi_display/logs'
-
-    # Server path
-    # path = '/home/tylerkershner/app/templates/pi_display/logs/'
-
-    with open('%s/%s' % (path, 'bad_urls.txt'), 'a+') as temp_file:
-        bad_urls_list = [url.rstrip('\r\n') for url in temp_file]
-
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
 
     temp = Temp(
         current_urls=[gif.url for gif in models.Gif.query.all()],
-        bad_urls=bad_urls_list,
-        to_add_urls=[]
+        bad_urls=[url.url for url in models.BadUrl.query.all()],
+        to_add_urls=[],
+        final_list=[],
+        processed_subs=1
     )
 
     start = time.time()
-
     subreddits = models.Subreddit.query.all()
+
     for sub in subreddits:
-        get_reddit_urls(sub, sub.tag_id)
+        print '\nSubreddit #%d of %d' % (temp.processed_subs, len(subreddits))
+        get_reddit_urls(sub, 250)
+        temp.processed_subs += 1
 
     process_urls(temp.to_add_urls)
-
     end = time.time()
+
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
+    print '\nTotal GIFs added: %d' % len(temp.final_list)
+    print temp.final_list

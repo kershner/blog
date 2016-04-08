@@ -27,25 +27,17 @@
 
             <div class="lightbox-content">
 
-                <div class="gif-tags-container">
-                    <div class="tag"><i class="fa fa-tag"></i> animals</div>
-                    <div class="tag"><i class="fa fa-tag"></i> gaming</div>
-                </div>
+                <div class="gif-tags-container"></div>
 
-                <br>
-                <textarea rows="4" name="description">Description</textarea>
-                <br>
-                <div class="btn save-gif animate">Save</div>
-
-                <div class="gif-actions">
-                    <div id="remove-gif" class="btn animate gif-action-btn">
-                        Remove GIF
-                    </div>
-
-                    <div id="edit-tags" class="btn animate gif-action-btn">
-                        Edit Tags
-                    </div>
-                </div>
+                <form id="add-gif-form">
+                    <input id="url-input" type="text" name="url" placeholder="URL">
+                    <input id="tags-input" type="text" name="tags" placeholder="Comma separated tags">
+                    <textarea id="desc-input" rows="4" name="description" placeholder="Description"></textarea>
+                    <br>
+                    <button type="submit" class="btn update-gif animate">Update GIF</button>
+                    <button type="submit" class="btn add-gif animate">Add GIF</button>
+                    <button type="submit" class="btn remove-gif animate">Remove GIF</button>
+                </form>
             </div>
         </div>
     </div>
@@ -67,7 +59,7 @@
             Tags
         </div>
 
-        <div class="btn nav-btn animate">
+        <div id="gifs-btn" class="btn nav-btn animate">
             Gifs
         </div>
 
@@ -97,7 +89,9 @@
         <div class="portlet-title">Edit Gifs</div>
 
         <div class="portlet-body">
-
+            <div class="add-gif-form">
+                <button id="add-gif-btn" class="btn animate">Add GIF</button>
+            </div>
         </div>
     </div>
 
@@ -114,12 +108,18 @@
 <script>
     $(document).ready(function () {
         var prevUrl = '{{ url_for("previous_gifs", offset=0) }}',
-            infoUrl = '{{ url_for("get_gif", gif_id=0) }}';
+            infoUrl = '{{ url_for("get_gif", gif_id=0) }}',
+            addGifUrl = '{{ url_for("add_gif_ajax") }}',
+            updateUrl = '{{ url_for("update_gif_ajax") }}',
+            removeUrl = '{{ url_for("remove_gif_ajax") }}';
         prevUrl = prevUrl.substr(0, prevUrl.lastIndexOf('/'));
         infoUrl = infoUrl.substr(0, infoUrl.lastIndexOf('/'));
 
         pi_config.config.previousGifsUrl = prevUrl;
         pi_config.config.gifInfoUrl = infoUrl;
+        pi_config.config.addGifUrl = addGifUrl;
+        pi_config.config.updateUrl = updateUrl;
+        pi_config.config.removeUrl = removeUrl;
         pi_config.init()
     });
 </script>
