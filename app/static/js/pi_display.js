@@ -7,10 +7,6 @@ pi_display.config = {
 };
 
 pi_display.init = function() {
-    console.log('RELOAD');
-    console.log('RELOAD');
-    console.log('RELOAD');
-    console.log('RELOAD');
     getGif();
 
     $('.loading').colorWave(pi_display.config.colors);
@@ -51,9 +47,20 @@ function getGif() {
 }
 
 function reloadGif() {
-    console.log('RELOAD');
+    var colors = pi_display.config.colors,
+        randColor = colors[Math.floor(Math.random() * colors.length)];
+
     $('.reload-area').on('click', function() {
-        location.reload()
+        //location.reload();
+        $(this).animate({
+            'opacity'           : 1,
+            'background-color'  : randColor
+        }, 500, function() {
+            $('.new-gif-text').colorWave(colors);
+            setInterval(function() {
+                $('.new-gif-text').colorWave(colors);
+            }, 6000);
+        });
     });
 }
 
