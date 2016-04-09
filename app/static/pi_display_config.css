@@ -20,11 +20,12 @@ body {
 .portlet {
     position: relative;
     margin: 2em auto;
+    margin-bottom: 2.5em;
     padding: .75em;
     background-color: #F2F2F2;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
     border-radius: .3em;
-    max-width: 40em;
+    max-width: 90%;
     text-align: center ;
 }
 .portlet-title {
@@ -42,6 +43,16 @@ body {
 }
 .portlet-body {
     margin: 1em;
+}
+.notification {
+    position: absolute;
+    right: 1em;
+    z-index: 20;
+    padding: .25em 1em;
+    max-width: 20em;
+    color: white;
+    background-color: rgb(40, 171, 227);
+    border-radius: .3em;
 }
 .lightbox-overlay {
     z-index: 10;
@@ -76,8 +87,8 @@ body {
 }
 .gif-info-window img {
     width: 100%;
-    max-height: 20em;
-    border-radius: .2em;
+    max-height: 30em;
+    border-radius: .2em .2em 0 0;
 }
 .gif-tags-container {
     display: inline-block;
@@ -100,16 +111,6 @@ body {
     border: 1px solid #949494;
     border-radius: .3em;
 }
-.save-gif {
-    display: inline-block;
-    margin: .75em;
-    margin-top: -1em;
-    padding: .25em 1em;
-    background-color: rgb(32, 218, 155);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
-    color: white;
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.46);
-}
 .gif-action-btn {
     display: inline-block;
     padding: .5em;
@@ -128,6 +129,7 @@ body {
     margin: 0 auto;
     height: 80%;
     width: 80%;
+    max-width: 40em;
     min-width: 14em;
 }
 .current-gif-container img {
@@ -201,7 +203,24 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 0 0 .2em;
 }
-.more-gifs {
+.gif-wrapper i {
+    position: absolute;
+    display: block;
+    margin: .25em auto;
+    opacity: 0.4;
+    color: white;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
+}
+.gif-tags-icon {
+    top: .25em;
+    right: .25em;
+}
+.gif-desc-icon {
+    top: 1.5em;
+    right: .25em;
+}
+.prev-gifs,
+#add-gif-btn {
     position: absolute;
     height: 2em;
     line-height: 2em;
@@ -212,7 +231,44 @@ body {
     text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
     background-color: rgb(40, 171, 227);
     border-radius: .3em;
+    border: none;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+#add-gif-btn {
+    top: -1em;
+    font-size: 1em;
+    background-color: rgb(32, 218, 155);
+}
+#add-gif-form .btn {
+    margin: .5em 1em;
+    padding: .5em 1em;
+    font-size: 1em;
+    color: white;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
+    border: none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+.add-gif {
+    background-color: rgb(40, 171, 227);
+}
+.update-gif {
+    background-color: rgb(32, 218, 155);
+}
+.remove-gif {
+    background-color: rgb(219, 51, 64);
+}
+#add-gif-form textarea,
+#add-gif-form input {
+    display: block;
+    margin: .5em auto;
+    padding: .2em .5em;
+    width: 80%;
+    max-width: 80%;
+    font-size: 1em;
+    line-height: 1em;
+    border-radius: .3em;
+    border: 1px solid #cdcdcd;
+    box-shadow: 0 2px 3px rgba(199, 199, 199, 0.6);
 }
 /* Animations *************************************************************************/
 .fadeIn {

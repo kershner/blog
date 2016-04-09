@@ -7,7 +7,6 @@ pi_config.config = {
 	'addGifUrl'			: '',
 	'updateUrl'			: '',
 	'removeUrl'			: '',
-	'prevClicked'		: false,
 	'offset'			: 0,
 	'defaultGif'		: 'https://giant.gfycat.com/DeliriousHatefulEkaltadeta.gif'
 };
@@ -19,28 +18,27 @@ pi_config.init = function() {
 };
 
 function portletToggles() {
-	$('#previous-btn').on('click', function() {
-		$(this).toggleClass('btn-selected');
-		$('#previous').toggleClass('hidden');
-		if (!pi_config.config.prevClicked) {
-			getPreviousGifs();
-			pi_config.config.prevClicked = true;
-		}
-	});
-
 	$('#gifs-btn').on('click', function() {
+		var container = $('#gifs');
 		$(this).toggleClass('btn-selected');
-		$('#gifs').toggleClass('hidden');
+		container.toggleClass('hidden');
 
-		// Add Gifs Button inside #gifs portlet
 		$('#add-gif-btn').on('click', function() {
 			gifInfoWindow({}, 'add');
 		});
+
+		if (container.hasClass('hidden')) {
+			console.log('Container closed');
+			$('.gif-wrapper').remove();
+			pi_config.config.offset = 0;
+		} else {
+			getPreviousGifs()
+		}
 	});
 }
 
 function getMoreGifs() {
-	$('.more-gifs').on('click', function() {
+	$('.prev-gifs').on('click', function() {
 		getPreviousGifs();
 	});
 }
@@ -79,14 +77,26 @@ function getPreviousGifs() {
 }
 
 function appendGifsHtml(gifs) {
-	var container = $('#previous').find('.portlet-body'),
+	var container = $('#gifs').find('.portlet-body'),
 		addedIds = [];
 	for (var i=0; i<gifs.length; i++) {
 		var gif = gifs[i],
 			url = gif.url,
-			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a');
+			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a'),
+			tags = gif.tags,
+			desc = gif.desc,
+			html = '<div class="btn gif-wrapper" data-id="' + gif.id + '">' +
+				   '<img src="' + url + '"><span class="last-played">' + lastPlayed + '</span>';
+		if (tags.length) {
+			html += '<i class="fa fa-tag gif-tags-icon"></i>';
+		}
+		if (desc.length) {
+			html += '<i class="fa fa-pencil gif-desc-icon"></i>';
+		}
+		html += '</div>';
+
 		addedIds.push(gif.id);
-		$('<div class="btn gif-wrapper" data-id="' + gif.id + '"><img src="' + url + '"><span class="last-played">' + lastPlayed + '</span></div>').appendTo(container);
+		$(html).appendTo(container);
 	}
 	for (var j=0; j<addedIds.length; j++) {
 		$('[data-id="' + addedIds[j] + '"]').addClass('fadeIn');
@@ -111,41 +121,7 @@ function clickGifs() {
 	});
 }
 
-function gifInfoWindow(gif, method) {
-	var overlay = $('.lightbox-overlay'),
-		form = $('#add-gif-form');
-	if (method === 'add') {
-		overlay.find('img').attr('src', pi_config.config.defaultGif);
-		overlay.removeClass('hidden');
-
-		form.data('gif-id', null);
-		$('#url-input, #desc-input, #tags-input').val('');
-
-		form.find('.btn').addClass('hidden');
-		$('.add-gif, .remove-gif').removeClass('hidden');
-	} else if (method === 'update') {
-		overlay.find('img').attr('src', gif.url);
-		overlay.removeClass('hidden');
-
-		$('.gif-tags-container').empty();
-		console.log(gif.tags);
-		for (var i=0; i<gif.tags.length; i++) {
-			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i>' + gif.tags[i] + '</div>';
-			$('.gif-tags-container').append(tagHtml);
-		}
-
-		$('#url-input').val(gif.url);
-		$('#desc-input').val(gif.description);
-		$('.save-gif').text('Update GIF');
-
-		form.find('.btn').addClass('hidden');
-		$('.remove-gif, .update-gif').removeClass('hidden');
-	} else if (method === 'remove') {
-		console.log('Adding GIF to bad urls list...')
-	}
-}
-
-// General events
+//== General Events ===============================================================================
 $('.remove-gif').on('click', function() {
 	$('#add-gif-form').data('ajax-url', pi_config.config.removeUrl);
 });
@@ -172,25 +148,31 @@ $('#add-gif-form').on('submit', function() {
 		contentType	: 'application/json;charset=UTF-8',
 		data		: JSON.stringify(gif),
 		success : function(result) {
-			console.log(result);
-			console.log('NO ERROR');
-			// Pop up notification
+			notification(result['message']);
+			infoWindowTeardown(result['type'], result['gif_id']);
 		},
 		error   : function(result) {
-			console.log(result);
 			if (result.status === 401) {
-				console.log('ACCESS DENIED');
 				window.location = '/login'
 			}
-			// Pop up notification
+			notification(result['message']);
 		}
 	});
 	return false;
 });
 
+// Lightbox dismissal ////////////////////////////
 $('.close-lightbox').on('click', function() {
-	$('.lightbox-overlay').addClass('hidden');
+	infoWindowTeardown('clicked close');
 });
+
+$('.lightbox-overlay').on('click', function(e) {
+	var target = e.target;
+	if ($(target).hasClass('lightbox-overlay')) {
+		infoWindowTeardown('clicked out');
+	}
+});
+// End Lightbox dismissal
 
 $('#url-input').on('input', function() {
 	var overlay = $('.lightbox-overlay');
@@ -201,7 +183,68 @@ $('#url-input').on('input', function() {
 	}
 });
 
-// Utility
+//== Utility ======================================================================================
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+function notification(message) {
+	var wrapper = $('.notification');
+	wrapper.find('p').text(message);
+	wrapper.css('opacity', '1');
+	wrapper.removeClass('hidden');
+	setTimeout(function() {
+		wrapper.animate({'opacity': 0}, 1000, function() {
+			$(this).addClass('hidden');
+		});
+	}, 2000)
+}
+
+function gifInfoWindow(gif, method) {
+	var overlay = $('.lightbox-overlay'),
+		form = $('#add-gif-form');
+	if (method === 'add') {
+		overlay.find('img').attr('src', pi_config.config.defaultGif);
+		overlay.removeClass('hidden');
+
+		form.data('gif-id', null);
+		$('#url-input, #desc-input, #tags-input').val('');
+
+		form.find('.btn').addClass('hidden');
+		$('.add-gif, .remove-gif').removeClass('hidden');
+	} else if (method === 'update') {
+		var tagsContainer = $('.gif-tags-container');
+		overlay.find('img').attr('src', gif.url);
+		overlay.removeClass('hidden');
+
+		tagsContainer.empty();
+		for (var i=0; i<gif.tags.length; i++) {
+			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i>' + gif.tags[i] + '</div>';
+			tagsContainer.append(tagHtml);
+		}
+
+		$('#url-input').val(gif.url);
+		$('#tags-input').val('');
+		$('#desc-input').val(gif.desc);
+
+		form.find('.btn').addClass('hidden');
+		$('.remove-gif, .update-gif').removeClass('hidden');
+	} else if (method === 'remove') {
+		console.log('Adding GIF to bad urls list...')
+	}
+}
+
+function infoWindowTeardown(type, gifId) {
+	var wrapper = $('.lightbox-overlay');
+	$('.gif-tags-container').empty();
+	if (type === 'remove') {
+		wrapper.addClass('hidden');
+		$('.gif-wrapper').each(function() {
+			if ($(this).data('id') === gifId) {
+				$(this).remove();
+			}
+		});
+	} else {
+		wrapper.addClass('hidden');
+	}
 }

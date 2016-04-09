@@ -9,8 +9,9 @@ def get_prev_gifs(offset):
         data = {
             'id': gif.id,
             'url': gif.url,
-            'created': gif.created_at,
-            'last_played': gif.last_played,
+            'desc': gif.description,
+            'created': str(gif.created_at),
+            'last_played': str(gif.last_played),
             'tags': [str(tag.name) for tag in gif.tags]
         }
         result.append(data)
@@ -22,8 +23,9 @@ def get_gif_info(gif_id):
     data = {
         'id': gif.id,
         'url': gif.url,
-        'created': gif.created_at,
-        'last_played': gif.last_played,
+        'desc': gif.description,
+        'created': str(gif.created_at),
+        'last_played': str(gif.last_played),
         'tags': [str(tag.name) for tag in gif.tags]
     }
     return data

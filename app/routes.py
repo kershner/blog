@@ -211,7 +211,7 @@ def add_gif_ajax():
             new_gif.created_at = datetime.now()
             new_gif.url = gif['url']
             new_gif.description = gif['desc']
-            tags = [tag.lstrip() for tag in gif['tags'].split(',')]
+            tags = [tag.lstrip() for tag in gif['tags'].split(',') if tag]
             pi_gif_display_config.add_tags_to_gif(tags, new_gif)
 
             db.session.add(new_gif)
@@ -220,7 +220,11 @@ def add_gif_ajax():
         else:
             message = 'Not a GIF'
 
-        return jsonify({'message': message})
+        return jsonify({
+            'message': message,
+            'type': 'add',
+            'gif_id': new_gif.id if new_gif.id else None
+        })
 
 
 @app.route('/gif/update', methods=['POST'])
@@ -228,7 +232,8 @@ def update_gif_ajax():
     if request.method == 'POST':
         print 'UPDATE ROUTE HIT'
         gif = request.json
-        tags = [tag.lstrip() for tag in gif['tags'].split(',')]
+        tags = [tag.lstrip() for tag in gif['tags'].split(',') if tag]
+        print tags
 
         gif_to_update = models.Gif.query.get(int(gif['id']))
         gif_to_update.url = gif['url']
@@ -239,7 +244,11 @@ def update_gif_ajax():
         db.session.commit()
 
         message = 'Successfully updated GIF!'
-        return jsonify({'message': message})
+        return jsonify({
+            'message': message,
+            'type': 'update',
+            'gif_id': gif_to_update.id
+        })
 
 
 @app.route('/gif/remove', methods=['POST'])
@@ -257,7 +266,11 @@ def remove_gif_ajax():
         db.session.commit()
 
         message = 'Successfully deleted GIF!'
-        return jsonify({'message': message})
+        return jsonify({
+            'message': message,
+            'type': 'remove',
+            'gif_id': gif_to_remove.id
+        })
 
 # Routes for adding tags
 
