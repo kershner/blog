@@ -7,6 +7,10 @@ pi_display.config = {
 };
 
 pi_display.init = function() {
+    console.log('RELOAD');
+    console.log('RELOAD');
+    console.log('RELOAD');
+    console.log('RELOAD');
     getGif();
 
     $('.loading').colorWave(pi_display.config.colors);
@@ -43,6 +47,13 @@ function getGif() {
             console.log(xhr.status + ': ' + xhr.responseText);
 
         }
+    });
+}
+
+function reloadGif() {
+    console.log('RELOAD');
+    $('.reload-area').on('click', function() {
+        location.reload()
     });
 }
 

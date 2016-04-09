@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div class="reload-area"></div>
     <span class="loading">Loading...</span>
     <div class="container"><img class="animate" style="opacity: 1;" src="{{ gif }}"/></div>
 </body>
@@ -21,6 +22,8 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
     pi_display.config.gif = '{{ gif }}';
     pi_display.config.delay = '{{ delay }}';
+    reloadGif();
+
     setTimeout(function() {
         pi_display.init();
     }, pi_display.config.delay);
