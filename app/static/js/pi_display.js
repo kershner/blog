@@ -60,9 +60,7 @@ function reloadGif() {
         randColor = colors[Math.floor(Math.random() * colors.length)];
 
     $('.reload-area').on('click', function() {
-        ////
-        //location.reload();
-        ////
+        location.reload();
         $(this).animate({
             'opacity'           : 1,
             'background-color'  : randColor
@@ -77,7 +75,6 @@ function reloadGif() {
 
 function turnOff() {
     $('.turn-off').on('click', function(e) {
-        $(this).toggleClass('turn-off-clicked');
         $('.content-wrapper').toggleClass('hidden');
         pi_display.config.keepGoing = !$(this).hasClass('turn-off-clicked');
     });
