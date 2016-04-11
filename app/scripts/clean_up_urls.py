@@ -125,3 +125,4 @@ if __name__ == '__main__':
 
     print '\n%d Exceptions:' % len(log.exceptions)
     print log.exceptions
+    input('\n\nPress any key to exit...')

@@ -7,14 +7,17 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="http://www.kershner.org/static/js/jquery-color.min.js"></script>
-<script src="/static/js/imgcentering.min.js"></script>
 <script src="/static/js/pi_display.js"></script>
 </head>
 
 <body>
-    <div class="reload-area"><span class="new-gif-text">Loading New Gif...</span></div>
-    <span class="loading">Loading...</span>
-    <div class="container"><img class="animate" style="opacity: 1;" src="{{ gif }}"/></div>
+    <div class="turn-off"></div>
+
+    <div class="content-wrapper">
+        <div class="reload-area"><span class="new-gif-text">Loading New Gif...</span></div>
+        <span class="loading">Loading...</span>
+        <div class="container"><img class="animate" style="opacity: 1;" src="{{ gif }}"/></div>
+    </div>
 </body>
 
 <script>
@@ -22,6 +25,7 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
     pi_display.config.gif = '{{ gif }}';
     pi_display.config.delay = '{{ delay }}';
+    turnOff();
     reloadGif();
 
     setTimeout(function() {

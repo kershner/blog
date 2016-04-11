@@ -2,12 +2,13 @@ body {
 	background-color: #000000;
 	overflow: hidden;
 }
-
 .animate {
     transition: all .9s ease-in-out;
     -webkit-transition: all .9s ease-in-out;
 }
-
+.hidden {
+    display: none;
+}
 .container {
     position: relative;
     top: -.3em;
@@ -15,7 +16,6 @@ body {
     width: 260px;
     height: 155px;
 }
-
 .container img {
     position: absolute;
     top: 0;
@@ -24,7 +24,6 @@ body {
     height: 100%;
     width: 100%;
 }
-
 .loading {
     position: absolute;
     opacity: 0.4;
@@ -56,4 +55,20 @@ body {
     text-align: center;
     font-size: 2em;
     font-family: 'Lobster', sans-serif;
+}
+.turn-off {
+    position: absolute;
+    z-index: 5;
+    padding: .5em;
+    padding-bottom: 0;
+    top: 0;
+    left: 0;
+    height: 3em;
+    width: 100%;
+    font-family: 'Helvetica', sans-serif;
+}
+.turn-off-clicked {
+    opacity: 0.8;
+    background-color: #2f2f2f;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }

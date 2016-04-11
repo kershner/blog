@@ -3,6 +3,7 @@ var pi_display = {};
 pi_display.config = {
     'delay'         : 1,
     'gif'           : [],
+    'keepGoing'     : true,
     'colors'        : ['#25B972', '#ff6767', '#FFA533', '#585ec7', '#FF8359']
 };
 
@@ -16,34 +17,42 @@ pi_display.init = function() {
 };
 
 function getGif() {
-    $.ajax({
-        url: $SCRIPT_ROOT + '/pi_display_json',
-        success: function(json) {
-            var gif = json['gif'],
-                delay = json['delay'],
-                container = $('.container');
+    if (pi_display.config.keepGoing) {
+        console.log('keepGoing ENABLED');
+        $.ajax({
+            url: $SCRIPT_ROOT + '/pi_display_json',
+            success: function (json) {
+                var gif = json['gif'],
+                    delay = json['delay'],
+                    container = $('.container');
 
-            pi_display.config.gif = gif;
-            pi_display.config.delay = delay;
-            container.find('img').css('opacity', '0').one("webkitTransitionEnd",
-                function () {
-                    container.find('img').remove();
-                    $('<img class="animate" style="opacity: 0;" src="' + gif + '"/>').appendTo(container).load(function () {
-                        $(this).css({'opacity': '1.0'});
-                    });
-                    setTimeout(function() {
-                        getGif();
-                    }, delay);
-                }
-            );
-        },
-        error: function(xhr, errmsg, err) {
-            console.log('Error!');
-            console.log(errmsg);
-            console.log(xhr.status + ': ' + xhr.responseText);
-
-        }
-    });
+                pi_display.config.gif = gif;
+                pi_display.config.delay = delay;
+                container.find('img').css('opacity', '0').one("webkitTransitionEnd",
+                    function () {
+                        var html = '<img class="animate" style="opacity: 0;" src="' + gif + '"/>';
+                        container.find('img').remove();
+                        $(html).appendTo(container).load(function () {
+                            $(this).css({'opacity': '1.0'});
+                        });
+                        setTimeout(function () {
+                            getGif();
+                        }, delay);
+                    }
+                );
+            },
+            error: function (xhr, errmsg, err) {
+                console.log('Error!');
+                console.log(errmsg);
+                console.log(xhr.status + ': ' + xhr.responseText);
+            }
+        });
+    } else {
+        console.log('keepGoing DISABLED');
+        setTimeout(function() {
+            getGif();
+        }, 2000);
+    }
 }
 
 function reloadGif() {
@@ -51,7 +60,9 @@ function reloadGif() {
         randColor = colors[Math.floor(Math.random() * colors.length)];
 
     $('.reload-area').on('click', function() {
+        ////
         //location.reload();
+        ////
         $(this).animate({
             'opacity'           : 1,
             'background-color'  : randColor
@@ -61,6 +72,14 @@ function reloadGif() {
                 $('.new-gif-text').colorWave(colors);
             }, 6000);
         });
+    });
+}
+
+function turnOff() {
+    $('.turn-off').on('click', function(e) {
+        $(this).toggleClass('turn-off-clicked');
+        $('.content-wrapper').toggleClass('hidden');
+        pi_display.config.keepGoing = !$(this).hasClass('turn-off-clicked');
     });
 }
 

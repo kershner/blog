@@ -90,7 +90,7 @@ function appendGifsHtml(gifs) {
 		if (tags.length) {
 			html += '<i class="fa fa-tag gif-tags-icon"></i>';
 		}
-		if (desc.length) {
+		if (desc !== null) {
 			html += '<i class="fa fa-pencil gif-desc-icon"></i>';
 		}
 		html += '</div>';

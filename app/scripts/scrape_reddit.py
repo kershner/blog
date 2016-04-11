@@ -6,12 +6,13 @@ from app import models, db
 
 
 class Temp(object):
-    def __init__(self, current_urls, bad_urls, to_add_urls, final_list, processed_subs):
+    def __init__(self, current_urls, bad_urls, to_add_urls, final_list, processed_subs, submission_limit):
         self.current_urls = current_urls
         self.bad_urls = bad_urls
         self.to_add_urls = to_add_urls
         self.final_list = final_list
         self.processed_subs = processed_subs
+        self.submission_limit = submission_limit
 
 
 def request_url(url):
@@ -62,7 +63,7 @@ def process_urls(urls_list):
                         new_gif.tags.append(tag)
                     db.session.add(new_gif)
                     final_list.append([tags, url])
-                    print 'Adding GIF...(%d GIFs)' % count
+                    print 'Adding GIF...(%d GIFs) || %s' % (count, url)
                     count += 1
         except TypeError as e:
             print e
@@ -83,7 +84,8 @@ if __name__ == '__main__':
         bad_urls=[url.url for url in models.BadUrl.query.all()],
         to_add_urls=[],
         final_list=[],
-        processed_subs=1
+        processed_subs=1,
+        submission_limit=1000
     )
 
     start = time.time()
@@ -91,7 +93,7 @@ if __name__ == '__main__':
 
     for sub in subreddits:
         print '\nSubreddit #%d of %d' % (temp.processed_subs, len(subreddits))
-        get_reddit_urls(sub, 250)
+        get_reddit_urls(sub, temp.submission_limit)
         temp.processed_subs += 1
 
     process_urls(temp.to_add_urls)
