@@ -8,6 +8,8 @@ pi_display.config = {
 };
 
 pi_display.init = function() {
+    turnOff();
+    reloadGif();
     getGif();
 
     $('.loading').colorWave(pi_display.config.colors);
@@ -24,24 +26,35 @@ function getGif() {
             success: function (json) {
                 var gif = json['gif'],
                     delay = json['delay'],
-                    container = $('.container');
+                    container = $('.container'),
+                    html = '<img class="animate" style="opacity: 0;" src="' + gif + '"/>';
 
                 pi_display.config.gif = gif;
                 pi_display.config.delay = delay;
-                container.find('img').css('opacity', '0').one("webkitTransitionEnd",
-                    function () {
-                        var html = '<img class="animate" style="opacity: 0;" src="' + gif + '"/>';
-                        container.find('img').remove();
-                        $(html).appendTo(container).load(function () {
-                            $(this).css({'opacity': '1.0'});
-                        });
+
+                $(html).appendTo(container).load(function () {
+                    container.find('img').first().css('opacity', '0').one("webkitTransitionEnd", function () {
+                        $(this).remove();
+                        container.find('img').css({'opacity': '1.0'});
                         setTimeout(function () {
                             getGif();
                         }, delay);
-                    }
-                );
+                    });
+                });
+
+                //container.find('img').css('opacity', '0').one("webkitTransitionEnd",
+                //    function () {
+                //        container.find('img').remove();
+                //        $(html).appendTo(container).load(function () {
+                //            $(this).css({'opacity': '1.0'});
+                //        });
+                //        setTimeout(function () {
+                //            getGif();
+                //        }, delay);
+                //    }
+                //);
             },
-            error: function (xhr, errmsg, err) {
+            error: function(xhr, errmsg, err) {
                 console.log('Error!');
                 console.log(errmsg);
                 console.log(xhr.status + ': ' + xhr.responseText);
@@ -75,6 +88,7 @@ function reloadGif() {
 
 function turnOff() {
     $('.turn-off').on('click', function(e) {
+        console.log('Clicked');
         $('.content-wrapper').toggleClass('hidden');
         pi_display.config.keepGoing = !$(this).hasClass('turn-off-clicked');
     });

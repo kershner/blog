@@ -25,12 +25,7 @@ $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 $(document).ready(function() {
     pi_display.config.gif = '{{ gif }}';
     pi_display.config.delay = '{{ delay }}';
-    turnOff();
-    reloadGif();
-
-    setTimeout(function() {
-        pi_display.init();
-    }, pi_display.config.delay);
+    pi_display.init();
 });
 </script>
 
