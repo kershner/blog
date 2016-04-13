@@ -11,7 +11,7 @@
 
     <!-- CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="all" href="/static/pi_display_config.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/pi_display/pi_display_config.css"/>
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -83,9 +83,7 @@
     <div id="tags" class="portlet hidden">
         <div class="portlet-title">Edit Tags</div>
 
-        <div class="portlet-body">
-
-        </div>
+        <div class="portlet-body"></div>
     </div>
 
     <div id="subreddits" class="portlet hidden">
@@ -97,7 +95,7 @@
 
 <!-- JS -->
 <script src="/static/vendor/moment/moment.min.js"></script>
-<script src="/static/js/pi_display_config.js"></script>
+<script src="/static/pi_display/js/pi_display_config.js"></script>
 <script>
     $(document).ready(function () {
         var prevUrl = '{{ url_for("previous_gifs", offset=0) }}',

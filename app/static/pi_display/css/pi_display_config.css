@@ -6,7 +6,7 @@ body {
     font-size: 18px;
 	font-family: 'Roboto', sans-serif;
     color: black;
-    background: url(../static/images/pi_display_config/mochaGrunge.png);
+    background: url(../../images/pi_display_config/mochaGrunge.png);
 }
 .hidden{display: none;}
 .animate {transition: all .1s ease-in-out;}
