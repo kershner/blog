@@ -7,10 +7,9 @@ from app import db, models
 
 
 class Log(object):
-    def __init__(self, gif_list, removed_gifs, exceptions):
+    def __init__(self, gif_list, removed_gifs):
         self.gif_list = gif_list
         self.removed_gifs = removed_gifs
-        self.exceptions = exceptions
 
 
 def remove_dupes(gif_list):
@@ -35,8 +34,8 @@ def clean_up_urls(gif_list):
     print '\n######################'
     print 'Beginning GIF cleanup'
 
-    progress_bar = tqdm(gif_list)
-    for gif in progress_bar:
+    gifs = tqdm(gif_list)
+    for gif in gifs:
         if gif.url in bad_urls_list:
             print '%s is in the bad_urls_list, removing...' % gif.url
             logged_gif = {
@@ -60,21 +59,27 @@ def send_requests(gif_list):
     print 'Sending Requests'
 
     gif_list = [gif.url for gif in gif_list]
+
+    # Traditional
+    # for url in gif_list:
+    #     load_url(url)
+
+    # Threaded Black magic
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
-        pages = executor.map(load_url, gif_list)  # Black magic
+        pages = executor.map(load_url, gif_list)
 
 
 def load_url(gif_url):
     log.gif_list.remove(gif_url)
 
     try:
-        r = requests.get(gif_url, stream=True, timeout=1)
+        r = requests.get(gif_url, stream=True, timeout=5)
         code = r.status_code
         if not code == 200:
             print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
             logged_gif = {
                 'url': gif.url,
-                'code': 200,
+                'code': code,
                 'reason': 'Code not 200'
             }
             log.removed_gifs.append(logged_gif)
@@ -82,8 +87,12 @@ def load_url(gif_url):
             print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
     except Exception as e:
         print '\n\n@@@@@@@@@@@@@@@@@@'
-        print 'ERROR - ', e.message
-        log.exceptions.append(gif_url)
+        print 'ERROR - %s | %s' % (e.message, gif_url)
+        # logged_gif = {
+        #     'url': gif.url,
+        #     'reason': e.message
+        # }
+        # log.removed_gifs.append(logged_gif)
         print '@@@@@@@@@@@@@@@@@@\n\n'
 
 
@@ -108,7 +117,7 @@ if __name__ == '__main__':
     bad_urls_list = [url.url for url in models.BadUrl.query.all()]
 
     gif_list_copy = [gif.url for gif in gifs]
-    log = Log(gif_list_copy, [], [])
+    log = Log(gif_list_copy, [])
 
     start = time()
     remove_dupes(gifs)
@@ -123,6 +132,4 @@ if __name__ == '__main__':
 
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
 
-    print '\n%d Exceptions:' % len(log.exceptions)
-    print log.exceptions
     input('\n\nPress any key to exit...')

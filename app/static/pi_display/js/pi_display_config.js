@@ -13,11 +13,17 @@ pi_config.config = {
 
 pi_config.init = function() {
 	colorElements();
-	portletToggles();
+	mainButtons();
 	getMoreGifs();
 };
 
-function portletToggles() {
+function mainButtons() {
+	$('.settings-btn').on('click', function() {
+		$('.lightbox-overlay').removeClass('hidden');
+		$('.settings').removeClass('hidden');
+		$('.gif-info-window').addClass('hidden');
+	});
+
 	$('#gifs-btn').on('click', function() {
 		var container = $('#gifs');
 		$(this).toggleClass('btn-selected');
@@ -162,7 +168,7 @@ $('#add-gif-form').on('submit', function() {
 });
 
 // Lightbox dismissal ////////////////////////////
-$('.close-lightbox').on('click', function() {
+$('.close-lightbox, .close-settings').on('click', function() {
 	infoWindowTeardown('clicked close');
 });
 
@@ -200,8 +206,11 @@ function notification(message) {
 	}, 2000)
 }
 
+// Updates modal DOM elements based on method
 function gifInfoWindow(gif, method) {
+	$('.settings').addClass('hidden');
 	var overlay = $('.lightbox-overlay'),
+		infoWindow = $('.gif-info-window'),
 		form = $('#add-gif-form');
 	if (method === 'add') {
 		overlay.find('img').attr('src', pi_config.config.defaultGif);
@@ -229,9 +238,8 @@ function gifInfoWindow(gif, method) {
 
 		form.find('.btn').addClass('hidden');
 		$('.remove-gif, .update-gif').removeClass('hidden');
-	} else if (method === 'remove') {
-		console.log('Adding GIF to bad urls list...')
 	}
+	infoWindow.removeClass('hidden');
 }
 
 function infoWindowTeardown(type, gifId) {

@@ -5,9 +5,10 @@ from datetime import datetime
 from sqlalchemy import desc
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
 from forms import *
-from modules import music_files, campaign_logic, reddit_scraper, gif_party_logic, cstools_logic, pi_gif_display, pi_gif_display_config, cms_logic
+from modules import music_files, campaign_logic, reddit_scraper, gif_party_logic, cstools_logic, cms_logic
 import credentials
 from modules.cms_logic import login_required
+from modules.pi_display import config, display
 from app import app, db, models
 
 
@@ -165,7 +166,7 @@ def warning():
 # Pi Display #################################################################
 @app.route('/pi_display')
 def pi_display():
-    data = pi_gif_display.get_data()
+    data = display.get_data()
     gif = data['gif']
     delay = data['delay']
 
@@ -176,7 +177,7 @@ def pi_display():
 
 @app.route('/pi_display_json')
 def pi_display_json():
-    return jsonify(pi_gif_display.get_data())
+    return jsonify(display.get_data())
 
 
 ##############################################################################
@@ -184,19 +185,19 @@ def pi_display_json():
 @app.route('/pi_config')
 def pi_display_config():
     current_gif = models.Gif.query.order_by(desc(models.Gif.last_played)).first().url
-    return render_template('/pi_display/pi_display_config.html',
+    return render_template('/pi_display/pi_config.html',
                            current_gif=current_gif)
 
 
 @app.route('/previous/<offset>')
 def previous_gifs(offset):
-    data = pi_gif_display_config.get_prev_gifs(offset)
+    data = config.get_prev_gifs(offset)
     return jsonify({'gifs': data})
 
 
 @app.route('/gif/<gif_id>')
 def get_gif(gif_id):
-    data = pi_gif_display_config.get_gif_info(gif_id)
+    data = config.get_gif_info(gif_id)
     return jsonify({'gif': data})
 
 
@@ -212,7 +213,7 @@ def add_gif_ajax():
             new_gif.url = gif['url']
             new_gif.description = gif['desc']
             tags = [tag.lstrip() for tag in gif['tags'].split(',') if tag]
-            pi_gif_display_config.add_tags_to_gif(tags, new_gif)
+            config.add_tags_to_gif(tags, new_gif)
 
             db.session.add(new_gif)
             db.session.commit()
@@ -238,7 +239,7 @@ def update_gif_ajax():
         gif_to_update = models.Gif.query.get(int(gif['id']))
         gif_to_update.url = gif['url']
         gif_to_update.description = gif['desc']
-        pi_gif_display_config.add_tags_to_gif(tags, gif_to_update)
+        config.add_tags_to_gif(tags, gif_to_update)
 
         db.session.add(gif_to_update)
         db.session.commit()

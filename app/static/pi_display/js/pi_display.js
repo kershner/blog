@@ -25,7 +25,6 @@ function getGif() {
             url: $SCRIPT_ROOT + '/pi_display_json',
             success: function (json) {
                 var gif = json['gif'],
-                    gif = 'http://redditmetrics.com/r/StoppedWorking?uri=/r/StoppedWorking.gif',
                     delay = json['delay'],
                     container = $('.container'),
                     html = '<img class="animate" style="opacity: 0;" src="' + gif + '"/>';

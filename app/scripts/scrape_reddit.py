@@ -75,6 +75,7 @@ def process_urls(urls_list):
     db.session.commit()
     print 'done!'
 
+
 if __name__ == '__main__':
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
@@ -85,7 +86,7 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=1000
+        submission_limit=100
     )
 
     start = time.time()
@@ -102,3 +103,4 @@ if __name__ == '__main__':
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
     print '\nTotal GIFs added: %d' % len(temp.final_list)
     print temp.final_list
+    raw_input('Press any key to exit...')
