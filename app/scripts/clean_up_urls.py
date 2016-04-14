@@ -14,13 +14,13 @@ class Log(object):
 
 
 def remove_dupes(gif_list):
-    print '\n\n######################'
-    print 'Beginning Dupe Removal'
+    # print '\n\n######################'
+    # print 'Beginning Dupe Removal'
 
     dupes = []
-    for gif in tqdm(gif_list):
+    for gif in gif_list:
         if gif.url in dupes:
-            print '\n\n%s is a duplicate gif, removing...\n\n' % gif.url
+            # print '\n\n%s is a duplicate gif, removing...\n\n' % gif.url
             logged_gif = {
                 'url': gif.url,
                 'reason': 'Dupe'
@@ -31,13 +31,13 @@ def remove_dupes(gif_list):
 
 
 def clean_up_urls(gif_list):
-    print '\n######################'
-    print 'Beginning GIF cleanup'
+    # print '\n######################'
+    # print 'Beginning GIF cleanup'
 
-    gifs = tqdm(gif_list)
+    gifs = gif_list
     for gif in gifs:
         if gif.url in bad_urls_list:
-            print '%s is in the bad_urls_list, removing...' % gif.url
+            # print '%s is in the bad_urls_list, removing...' % gif.url
             logged_gif = {
                 'url': gif.url,
                 'reason': 'In bad URLs list'
@@ -48,7 +48,7 @@ def clean_up_urls(gif_list):
                 'url': gif.url,
                 'reason': 'Not a .gif'
             }
-            print '%s is not a .gif file, removing...' % gif.url
+            # print '%s is not a .gif file, removing...' % gif.url
             log.removed_gifs.append(logged_gif)
         else:
             for string in log.banned_strings:
@@ -63,8 +63,8 @@ def clean_up_urls(gif_list):
 
 
 def send_requests(gif_list):
-    print '\n######################'
-    print 'Sending Requests'
+    # print '\n######################'
+    # print 'Sending Requests'
 
     gif_list = [gif.url for gif in gif_list]
 
@@ -84,7 +84,7 @@ def load_url(gif_url):
         r = requests.get(gif_url, stream=True, timeout=5)
         code = r.status_code
         if not code == 200:
-            print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+            # print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
             logged_gif = {
                 'url': gif.url,
                 'code': code,
@@ -92,21 +92,21 @@ def load_url(gif_url):
             }
             log.removed_gifs.append(logged_gif)
         else:
-            print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+            # print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
     except Exception as e:
-        print '\n\n@@@@@@@@@@@@@@@@@@'
-        print 'ERROR - %s | %s' % (e.message, gif_url)
+        # print '\n\n@@@@@@@@@@@@@@@@@@'
+        # print 'ERROR - %s | %s' % (e.message, gif_url)
         # logged_gif = {
         #     'url': gif.url,
         #     'reason': e.message
         # }
         # log.removed_gifs.append(logged_gif)
-        print '@@@@@@@@@@@@@@@@@@\n\n'
+        # print '@@@@@@@@@@@@@@@@@@\n\n'
 
 
 def final_pass(gif_list):
-    print '\n######################'
-    print 'Final Pass'
+    # print '\n######################'
+    # print 'Final Pass'
 
     sleep(5)
 
@@ -115,9 +115,9 @@ def final_pass(gif_list):
         if gif.url in removed_urls:
             db.session.delete(gif)
 
-    print '\nCommitting session...'
+    # print '\nCommitting session...'
     db.session.commit()
-    print 'done!'
+    # print 'done!'
 
 
 if __name__ == '__main__':
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
     gif_list_copy = [gif.url for gif in gifs]
     log = Log(gif_list_copy, [], [])
-    log.banned_strings = ['gifsec', 'redditmetrics']
+    log.banned_strings = ['gifsec', 'redditmetrics', 'thecooltshirt']
 
     start = time()
     remove_dupes(gifs)
@@ -138,5 +138,4 @@ if __name__ == '__main__':
     print '\n%d GIFs removed' % len(log.removed_gifs)
     print log.removed_gifs
     print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
-
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)

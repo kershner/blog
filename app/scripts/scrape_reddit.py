@@ -28,12 +28,12 @@ def request_url(url):
         }
         return data
     except Exception as e:
-        print e
+        # print e
         return None
 
 
 def get_reddit_urls(subreddit, limit):
-    print 'Gathering image URLs from /r/%s...' % sub
+    # print 'Gathering image URLs from /r/%s...' % sub
 
     submissions = r.get_subreddit(subreddit.name).get_hot(limit=limit)
     for submission in submissions:
@@ -42,7 +42,7 @@ def get_reddit_urls(subreddit, limit):
 
 
 def process_urls(urls_list):
-    print '\nProcessing URLs...'
+    # print '\nProcessing URLs...'
 
     count = 1
     final_list = []
@@ -53,27 +53,29 @@ def process_urls(urls_list):
             if url not in temp.current_urls and url not in temp.bad_urls:
                 url_data = request_url(url)
                 if not url_data['code'] == 200:
-                    print 'Status Code not 200.  Code: %d || %s' % (url_data['code'], url)
+                    # print 'Status Code not 200.  Code: %d || %s' % (url_data['code'], url)
+                    continue
                 elif url_data['float_size'] > 6.00:
-                    print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
+                    # print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
+                    continue
                 else:
                     new_gif = models.Gif(url=url, created_at=datetime.now())
                     for tag in tags:
-                        print '\nAdding tag: %s to gif %s' % (tag.name, gif.url)
+                        # print '\nAdding tag: %s to gif %s' % (tag.name, gif.url)
                         new_gif.tags.append(tag)
                     db.session.add(new_gif)
                     final_list.append([tags, url])
-                    print 'Adding GIF...(%d GIFs) || %s' % (count, url)
+                    # print 'Adding GIF...(%d GIFs) || %s' % (count, url)
                     count += 1
         except TypeError as e:
-            print e
+            # print e
             continue
 
     temp.final_list = final_list
 
-    print '\nCommitting DB session...'
+    # print '\nCommitting DB session...'
     db.session.commit()
-    print 'done!'
+    # print 'done!'
 
 
 if __name__ == '__main__':
@@ -93,7 +95,7 @@ if __name__ == '__main__':
     subreddits = models.Subreddit.query.all()
 
     for sub in subreddits:
-        print '\nSubreddit #%d of %d' % (temp.processed_subs, len(subreddits))
+        # print '\nSubreddit #%d of %d' % (temp.processed_subs, len(subreddits))
         get_reddit_urls(sub, temp.submission_limit)
         temp.processed_subs += 1
 
