@@ -88,7 +88,7 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=250
+        submission_limit=50
     )
 
     start = time.time()

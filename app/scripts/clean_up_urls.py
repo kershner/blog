@@ -93,7 +93,9 @@ def load_url(gif_url):
             log.removed_gifs.append(logged_gif)
         else:
             # print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+            continue
     except Exception as e:
+        continue
         # print '\n\n@@@@@@@@@@@@@@@@@@'
         # print 'ERROR - %s | %s' % (e.message, gif_url)
         # logged_gif = {
