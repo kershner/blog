@@ -19,18 +19,45 @@
 </head>
 
 <body>
+    <!-- Notification -->
     <div class="notification hidden">
         <p></p>
     </div>
 
     <div class="lightbox-overlay hidden">
+        <!-- Settings -->
         <div class="settings hidden">
+            <div class="settings-title">Settings</div>
             <i class="btn fa fa-times close-lightbox"></i>
 
-            <h1>Hello World</h1>
-            <p>Some text here</p>
+            <!-- Stats Readout -->
+            <div class="readout">
+                <div class="stats-wrapper">
+                    <div class="stat-labels">
+                        <span>Gifs</span>
+                        <span>Tags</span>
+                        <span>Subreddits</span>
+                    </div>
+
+                    <div class="stat-values">
+                        <span>{{ total_gifs }}</span>
+                        <span>{{ total_tags }}</span>
+                        <span>{{ total_subs }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Form -->
+            <form id="settings-form">
+                <div class="form-group">
+                    <label>Delay</label>
+                    <input id="delay-input" type="number" name="delay" value="{{ delay }}" placeholder="delay" min="5" max="120">
+                    <input type="submit" class="btn">
+                </div>
+            </form>
         </div>
 
+        <!-- Gif Info Window -->
         <div class="gif-info-window" data-id="1">
             <i class="btn fa fa-times close-lightbox"></i>
 
@@ -53,6 +80,7 @@
         </div>
     </div>
 
+    <!-- Current Gif Container -->
     <div class="current-gif-container">
         <div class="btn settings-btn animate">
             <i class="fa fa-gear"></i>
@@ -61,6 +89,7 @@
         <img src="{{ current_gif }}">
     </div>
 
+    <!-- Current Nav Container -->
     <div class="nav-container">
         <div id="gifs-btn" class="btn nav-btn animate">
             Gifs
@@ -75,6 +104,7 @@
         </div>
     </div>
 
+    <!-- Gifs Portlet -->
     <div id="gifs" class="portlet hidden">
         <div class="portlet-title">GIFs</div>
 
@@ -87,12 +117,14 @@
         </div>
     </div>
 
+    <!-- Tags Portlet -->
     <div id="tags" class="portlet hidden">
         <div class="portlet-title">Edit Tags</div>
 
         <div class="portlet-body"></div>
     </div>
 
+    <!-- Subreddits Portlet -->
     <div id="subreddits" class="portlet hidden">
         <div class="portlet-title">Edit Subreddits</div>
 
@@ -109,7 +141,8 @@
             infoUrl = '{{ url_for("get_gif", gif_id=0) }}',
             addGifUrl = '{{ url_for("add_gif_ajax") }}',
             updateUrl = '{{ url_for("update_gif_ajax") }}',
-            removeUrl = '{{ url_for("remove_gif_ajax") }}';
+            removeUrl = '{{ url_for("remove_gif_ajax") }}',
+            settingsUrl = '{{ url_for("pi_config_settings") }}';
         prevUrl = prevUrl.substr(0, prevUrl.lastIndexOf('/'));
         infoUrl = infoUrl.substr(0, infoUrl.lastIndexOf('/'));
 
@@ -118,6 +151,7 @@
         pi_config.config.addGifUrl = addGifUrl;
         pi_config.config.updateUrl = updateUrl;
         pi_config.config.removeUrl = removeUrl;
+        pi_config.config.settingsUrl = settingsUrl;
         pi_config.init()
     });
 </script>

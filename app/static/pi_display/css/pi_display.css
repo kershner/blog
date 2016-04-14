@@ -44,11 +44,11 @@ body {
 .reload-area {
     position: absolute;
     opacity: 1;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 1em;
-    height: 1em;
+    z-index: 5;
+    top: 6.9em;
+    left: 13.25em;
+    width: 3em;
+    height: 3em;
 }
 .turn-off {
     position: absolute;

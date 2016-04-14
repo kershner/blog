@@ -86,7 +86,7 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=100
+        submission_limit=250
     )
 
     start = time.time()
@@ -103,4 +103,3 @@ if __name__ == '__main__':
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
     print '\nTotal GIFs added: %d' % len(temp.final_list)
     print temp.final_list
-    raw_input('Press any key to exit...')

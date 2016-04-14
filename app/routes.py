@@ -185,8 +185,17 @@ def pi_display_json():
 @app.route('/pi_config')
 def pi_display_config():
     current_gif = models.Gif.query.order_by(desc(models.Gif.last_played)).first().url
+    total_gifs = models.Gif.query.count()
+    total_tags = models.Tag.query.count()
+    total_subs = models.Subreddit.query.count()
+    gif_config = models.Config.query.first()
+
     return render_template('/pi_display/pi_config.html',
-                           current_gif=current_gif)
+                           current_gif=current_gif,
+                           total_gifs=total_gifs,
+                           total_tags=total_tags,
+                           total_subs=total_subs,
+                           delay=gif_config.delay)
 
 
 @app.route('/previous/<offset>')
@@ -271,6 +280,24 @@ def remove_gif_ajax():
             'message': message,
             'type': 'remove',
             'gif_id': gif_to_remove.id
+        })
+
+
+@app.route('/pi_config/settings', methods=['POST'])
+def pi_config_settings():
+    if request.method == 'POST':
+        print 'SETTINGS ROUTE HIT'
+        settings = request.json
+
+        config_obj = models.Config.query.first()
+        config_obj.delay = int(settings['delay'])
+
+        db.session.add(config_obj)
+        db.session.commit()
+
+        message = 'Settings Updated'
+        return jsonify({
+            'message': message
         })
 
 # Routes for adding tags

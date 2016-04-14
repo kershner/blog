@@ -20,7 +20,7 @@ pi_display.init = function() {
 
 function getGif() {
     if (pi_display.config.keepGoing) {
-        console.log('keepGoing ENABLED');
+        console.log('KeepGoing enabled...');
         $.ajax({
             url: $SCRIPT_ROOT + '/pi_display_json',
             success: function (json) {
@@ -33,9 +33,6 @@ function getGif() {
                 pi_display.config.delay = delay;
 
                 $(html).appendTo(container).load(function() {
-                    container.find('img').error(function() {
-                       console.log('ERROR');
-                    });
                     container.find('img').first().css('opacity', '0').one("webkitTransitionEnd", function () {
                         $(this).remove();
                         container.find('img').css({'opacity': '1.0'});
@@ -44,18 +41,6 @@ function getGif() {
                         }, delay);
                     });
                 });
-
-                //container.find('img').css('opacity', '0').one("webkitTransitionEnd",
-                //    function () {
-                //        container.find('img').remove();
-                //        $(html).appendTo(container).load(function () {
-                //            $(this).css({'opacity': '1.0'});
-                //        });
-                //        setTimeout(function () {
-                //            getGif();
-                //        }, delay);
-                //    }
-                //);
             },
             error: function(xhr, errmsg, err) {
                 console.log('Error!');
@@ -64,8 +49,9 @@ function getGif() {
             }
         });
     } else {
-        console.log('keepGoing DISABLED');
+        console.log('Poop');
         setTimeout(function() {
+            console.log('Firing getGif()...');
             getGif();
         }, 2000);
     }
@@ -81,10 +67,7 @@ function reloadGif() {
             'opacity'           : 1,
             'background-color'  : randColor
         }, 500, function() {
-            $('.new-gif-text').colorWave(colors);
-            setInterval(function() {
-                $('.new-gif-text').colorWave(colors);
-            }, 6000);
+            $(this).animate({'opacity': 0}, 500);
         });
     });
 }
@@ -93,7 +76,8 @@ function turnOff() {
     $('.turn-off').on('click', function(e) {
         console.log('Clicked');
         $('.content-wrapper').toggleClass('hidden');
-        pi_display.config.keepGoing = !$(this).hasClass('turn-off-clicked');
+        $(this).toggleClass('turned-off');
+        pi_display.config.keepGoing = $(this).hasClass('turned-off');
     });
 }
 

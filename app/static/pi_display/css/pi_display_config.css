@@ -138,9 +138,6 @@ body {
     border-radius: .25em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }
-.settings {
-    padding: .5em;
-}
 .settings-btn {
     opacity: 0.2;
     position: absolute;
@@ -156,6 +153,81 @@ body {
 .settings-btn i {
     font-size: 2.5em;
     color: white;
+}
+.settings {
+    top: 3em;
+    padding: .5em;
+    min-height: 10em;
+}
+.settings-title {
+    position: absolute;
+    margin: 0 auto;
+    padding: .05em;
+    top: -1.4em;
+    left: 0;
+    right: 0;
+    width: 4em;
+    font-size: 1.75em;
+    font-family: 'Hind', sans-serif;
+    color: #708090;
+    background-color: #F2F2F2;
+    border-radius: .3em .3em 0 0;
+}
+#settings-form {
+    position: relative;
+    float: right;
+    margin-right: 1em;
+    padding: .5em;
+    max-width: 20em;
+    min-width: 10em;
+}
+.form-group {
+    display: block;
+}
+.form-group label {
+    display: inline-block;
+    position: relative;
+    float: left;
+    margin: .25em .7em;
+    font-size: .8em;
+    color: #708090;
+}
+.form-group input {
+    display: inline-block;
+}
+.form-group .btn {
+    background-color: rgb(40, 171, 227);
+    color: white;
+}
+.readout {
+    position: relative;
+    float: left;
+    padding: .25em;
+    width: 10em;
+    background-color: #708090;
+    border-radius: .3em;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    color: white;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.46);
+}
+.stats-wrapper {
+    margin: 0 auto;
+    height: 100%;
+    width: 9em;
+}
+.stat-values, .stat-labels {
+    height: 100%;
+}
+.stat-values span, .stat-labels span {
+    display: block;
+}
+.stat-labels {
+    float: left;
+    text-align: right;
+}
+.stat-values {
+    float: right;
+    text-align: left;
 }
 .nav-container {
     position: relative;
@@ -263,7 +335,8 @@ body {
     background-color: rgb(219, 51, 64);
 }
 #add-gif-form textarea,
-#add-gif-form input {
+#add-gif-form input,
+.form-group input {
     display: block;
     margin: .5em auto;
     padding: .2em .5em;

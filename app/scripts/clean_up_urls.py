@@ -7,9 +7,10 @@ from app import db, models
 
 
 class Log(object):
-    def __init__(self, gif_list, removed_gifs):
+    def __init__(self, gif_list, removed_gifs, banned_strings):
         self.gif_list = gif_list
         self.removed_gifs = removed_gifs
+        self.banned_strings = banned_strings
 
 
 def remove_dupes(gif_list):
@@ -17,8 +18,7 @@ def remove_dupes(gif_list):
     print 'Beginning Dupe Removal'
 
     dupes = []
-    progress_bar = tqdm(gif_list)
-    for gif in progress_bar:
+    for gif in tqdm(gif_list):
         if gif.url in dupes:
             print '\n\n%s is a duplicate gif, removing...\n\n' % gif.url
             logged_gif = {
@@ -50,6 +50,14 @@ def clean_up_urls(gif_list):
             }
             print '%s is not a .gif file, removing...' % gif.url
             log.removed_gifs.append(logged_gif)
+        else:
+            for string in log.banned_strings:
+                if string in gif.url:
+                    logged_gif = {
+                        'url': gif.url,
+                        'reason': '%s in URL' % string
+                    }
+                    log.removed_gifs.append(logged_gif)
 
     send_requests(gif_list)
 
@@ -117,7 +125,8 @@ if __name__ == '__main__':
     bad_urls_list = [url.url for url in models.BadUrl.query.all()]
 
     gif_list_copy = [gif.url for gif in gifs]
-    log = Log(gif_list_copy, [])
+    log = Log(gif_list_copy, [], [])
+    log.banned_strings = ['gifsec', 'redditmetrics']
 
     start = time()
     remove_dupes(gifs)
@@ -131,5 +140,3 @@ if __name__ == '__main__':
     print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
 
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
-
-    input('\n\nPress any key to exit...')

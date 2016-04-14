@@ -7,6 +7,7 @@ pi_config.config = {
 	'addGifUrl'			: '',
 	'updateUrl'			: '',
 	'removeUrl'			: '',
+	'settingsUrl'		: '',
 	'offset'			: 0,
 	'defaultGif'		: 'https://giant.gfycat.com/DeliriousHatefulEkaltadeta.gif'
 };
@@ -161,6 +162,26 @@ $('#add-gif-form').on('submit', function() {
 			if (result.status === 401) {
 				window.location = '/login'
 			}
+			notification(result['message']);
+		}
+	});
+	return false;
+});
+
+$('#settings-form').on('submit', function() {
+	var settings = {
+		'delay'		: $('#delay-input').val()
+	};
+
+	$.ajax({
+		url     	: pi_config.config.settingsUrl,
+		method		: 'POST',
+		contentType	: 'application/json;charset=UTF-8',
+		data		: JSON.stringify(settings),
+		success : function(result) {
+			notification(result['message']);
+		},
+		error   : function(result) {
 			notification(result['message']);
 		}
 	});
