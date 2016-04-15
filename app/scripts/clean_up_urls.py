@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
     gif_list_copy = [gif.url for gif in gifs]
     log = Log(gif_list_copy, [], [])
-    log.banned_strings = ['gifsec', 'redditmetrics', 'thecooltshirt']
+    log.banned_strings = ['gifsec', 'redditmetrics', 'thecooltshirt', '5secondsapp']
 
     start = time()
     remove_dupes(gifs)
