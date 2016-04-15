@@ -33,8 +33,6 @@ def request_url(url):
 
 
 def get_reddit_urls(subreddit, limit):
-    # print 'Gathering image URLs from /r/%s...' % sub
-
     submissions = r.get_subreddit(subreddit.name).get_hot(limit=limit)
     for submission in submissions:
         if submission.url.endswith('.gif'):
@@ -42,8 +40,6 @@ def get_reddit_urls(subreddit, limit):
 
 
 def process_urls(urls_list):
-    # print '\nProcessing URLs...'
-
     count = 1
     final_list = []
     for entry in urls_list:
@@ -53,29 +49,22 @@ def process_urls(urls_list):
             if url not in temp.current_urls and url not in temp.bad_urls:
                 url_data = request_url(url)
                 if not url_data['code'] == 200:
-                    # print 'Status Code not 200.  Code: %d || %s' % (url_data['code'], url)
                     continue
                 elif url_data['float_size'] > 6.00:
-                    # print 'Gif too large.  Size: %f || %s' % (url_data['float_size'], url)
                     continue
                 else:
                     new_gif = models.Gif(url=url, created_at=datetime.now())
                     for tag in tags:
-                        # print '\nAdding tag: %s to gif %s' % (tag.name, gif.url)
                         new_gif.tags.append(tag)
                     db.session.add(new_gif)
                     final_list.append([tags, url])
-                    # print 'Adding GIF...(%d GIFs) || %s' % (count, url)
                     count += 1
         except TypeError as e:
             # print e
             continue
 
     temp.final_list = final_list
-
-    # print '\nCommitting DB session...'
     db.session.commit()
-    # print 'done!'
 
 
 if __name__ == '__main__':
@@ -88,20 +77,20 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=50
+        submission_limit=200
     )
 
     start = time.time()
     subreddits = models.Subreddit.query.all()
 
     for sub in subreddits:
-        # print '\nSubreddit #%d of %d' % (temp.processed_subs, len(subreddits))
         get_reddit_urls(sub, temp.submission_limit)
         temp.processed_subs += 1
 
     process_urls(temp.to_add_urls)
     end = time.time()
 
+    print '## scrape_reddit Readout ###############################################################'
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
     print '\nTotal GIFs added: %d' % len(temp.final_list)
     print temp.final_list
