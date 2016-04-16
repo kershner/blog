@@ -75,6 +75,7 @@ def load_url(gif_url):
     except Exception as e:
         logged_gif['reason'] = e.args[0]
         log.exceptions.append(logged_gif)
+        log.removed_gifs.append(logged_gif)
 
 
 def final_pass(gif_list):
@@ -94,7 +95,7 @@ if __name__ == '__main__':
 
     gif_list_copy = [gif.url for gif in gifs]
     log = Log(gif_list_copy, [], [], [])
-    log.banned_strings = ['gifsec', 'redditmetrics', 'thecooltshirt', '5secondsapp', 'gifsoup']
+    log.banned_strings = ['gifsec', 'redditmetrics', 'thecooltshirt', '5secondsapp', 'gifsoup', '#/media/File:']
 
     start = time()
     clean_up_urls(gifs)
@@ -105,6 +106,5 @@ if __name__ == '__main__':
     print '\n%d GIFs removed' % len(log.removed_gifs)
     print log.removed_gifs
     print '\n%d Exceptions' % len(log.exceptions)
-    print log.exceptions
     print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
