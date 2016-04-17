@@ -1,5 +1,5 @@
 from sqlalchemy import desc
-from app import models, db
+from app import app, models, db
 
 
 def get_prev_gifs(offset):
@@ -47,3 +47,37 @@ def add_tags_to_gif(tags, gif):
 
 def tag_exists(tag_name):
     return models.Tag.query.filter_by(name=str(tag_name)).scalar() is not None
+
+
+# Expects list of tag ids returns list of gif_ids
+def get_new_gif_ids_list(tag_ids):
+    if len(tag_ids):
+        print 'Generating gif_ids by tag names...'
+        new_gif_ids_list = get_gif_ids_by_tags([str(name) for name in tag_ids])
+        return new_gif_ids_list
+    else:
+        # All Gifs
+        print 'Generating all gif_ids...'
+        return [gif.id for gif in models.Gif.query.all()]
+
+
+# Expects list of tag ids as input, returns list of gif IDs with those tags
+def get_gif_ids_by_tags(tag_ids):
+    tag_ids = [tag_id for tag_id in tag_ids if str(tag_id)]
+    if tag_ids:
+        ids_string = '(' + ','.join(map(str, tag_ids)) + ')'
+        sql = 'SELECT gif_id FROM gif_tags WHERE tag_id IN %s' % ids_string
+
+        my_db_bind = db.get_engine(app, 'gifs_db')
+        rows = db.session.execute(sql, bind=my_db_bind)
+        result = [entry[0] for entry in rows]
+    else:
+        result = [gif.id for gif in models.Gif.query.all()]
+
+    return result
+
+
+# Takes in two lists, removes elements from all list that are present in inactive list
+def filter_inactive_tags(all_gif_ids, inactive_tag_gif_ids):
+    return [gif_id for gif_id in all_gif_ids if gif_id not in inactive_tag_gif_ids]
+

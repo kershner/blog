@@ -78,6 +78,8 @@ class Config(db.Model):
     current_gif = db.Column(db.String(255))
     delay = db.Column(db.Integer)
     active_tags = db.Column(db.String(255))
+    inactive_tags = db.Column(db.String(255))
+    gif_ids_to_play = db.Column(db.String())
 
 
 class Gif(db.Model):

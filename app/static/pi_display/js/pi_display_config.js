@@ -95,10 +95,10 @@ function appendGifsHtml(gifs) {
 			html = '<div class="btn gif-wrapper" data-id="' + gif.id + '">' +
 				   '<img src="' + url + '"><span class="last-played">' + lastPlayed + '</span>';
 		if (tags.length) {
-			html += '<i class="fa fa-tag gif-tags-icon"></i>';
+			html += '<i class="fa fa-tag gif-icon gif-tags-icon"></i>';
 		}
-		if (desc !== null) {
-			html += '<i class="fa fa-pencil gif-desc-icon"></i>';
+		if (desc.length) {
+			html += '<i class="fa fa-pencil gif-icon gif-desc-icon"></i>';
 		}
 		html += '</div>';
 
@@ -170,7 +170,9 @@ $('#add-gif-form').on('submit', function() {
 
 $('#settings-form').on('submit', function() {
 	var settings = {
-		'delay'		: $('#delay-input').val()
+		'delay'			: $('#delay-input').val(),
+		'activeTags' 	: $('#active_tag_ids_input').val(),
+		'inactiveTags'	: $('#inactive_tag_ids_input').val()
 	};
 
 	$.ajax({
@@ -179,7 +181,9 @@ $('#settings-form').on('submit', function() {
 		contentType	: 'application/json;charset=UTF-8',
 		data		: JSON.stringify(settings),
 		success : function(result) {
+			console.log(result);
 			notification(result['message']);
+			$('#in-rotation').text(result['inRotation']);
 		},
 		error   : function(result) {
 			notification(result['message']);
@@ -188,6 +192,32 @@ $('#settings-form').on('submit', function() {
 	return false;
 });
 
+$('.settings-tag').on('click', function() {
+	//$(this).toggleClass('active');
+	if ($(this).hasClass('active')) {
+		$(this).removeClass('active').addClass('inactive');
+	} else if ($(this).hasClass('inactive')) {
+		$(this).removeClass('inactive');
+	} else {
+		$(this).addClass('active');
+	}
+	updateTagsInput();
+});
+
+function updateTagsInput() {
+	var activeInputArray = [],
+		inactiveInputArray = [];
+	$('.settings-tag').each(function() {
+		if ($(this).hasClass('active')) {
+			activeInputArray.push($(this).data('id'));
+		}
+		if ($(this).hasClass('inactive')) {
+			inactiveInputArray.push($(this).data('id'));
+		}
+	});
+	$('#active_tag_ids_input').val(activeInputArray.toString());
+	$('#inactive_tag_ids_input').val(inactiveInputArray.toString());
+}
 // Lightbox dismissal ////////////////////////////
 $('.close-lightbox, .close-settings').on('click', function() {
 	infoWindowTeardown('clicked close');
@@ -249,7 +279,7 @@ function gifInfoWindow(gif, method) {
 
 		tagsContainer.empty();
 		for (var i=0; i<gif.tags.length; i++) {
-			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i>' + gif.tags[i] + '</div>';
+			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i> ' + gif.tags[i] + '</div>';
 			tagsContainer.append(tagHtml);
 		}
 
