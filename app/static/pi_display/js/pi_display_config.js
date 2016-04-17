@@ -91,7 +91,7 @@ function appendGifsHtml(gifs) {
 			url = gif.url,
 			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a'),
 			tags = gif.tags,
-			desc = gif.desc,
+			desc = gif.desc ? gif.desc : '',
 			html = '<div class="btn gif-wrapper" data-id="' + gif.id + '">' +
 				   '<img src="' + url + '"><span class="last-played">' + lastPlayed + '</span>';
 		if (tags.length) {

@@ -198,6 +198,7 @@ def pi_display_config_route():
     active_tag_ids, inactive_tag_ids = [], []
     active_tag_ids_str, inactive_tag_ids_str = '', ''
     gifs_in_rotation = total_gifs
+
     if gif_config.active_tags:
         active_tag_ids = [int(tag_id) for tag_id in gif_config.active_tags.split(',')]
         active_tag_ids_str = ','.join(map(str, active_tag_ids))
