@@ -8,6 +8,7 @@ pi_config.config = {
 	'updateUrl'			: '',
 	'removeUrl'			: '',
 	'settingsUrl'		: '',
+	'gifsRotationUrl'	: '',
 	'offset'			: 0,
 	'defaultGif'		: 'https://giant.gfycat.com/DeliriousHatefulEkaltadeta.gif'
 };
@@ -20,6 +21,7 @@ pi_config.init = function() {
 
 function mainButtons() {
 	$('.settings-btn').on('click', function() {
+		getGifsInRotation();
 		$('.lightbox-overlay').removeClass('hidden');
 		$('.settings').removeClass('hidden');
 		$('.gif-info-window').addClass('hidden');
@@ -42,6 +44,21 @@ function mainButtons() {
 			getPreviousGifs()
 		}
 	});
+}
+
+function getGifsInRotation() {
+	if (!$('#in-rotation').text().length) {
+		$.ajax({
+			url: pi_config.config.gifsInRotationUrl,
+			method: 'POST',
+			success: function (result) {
+				$('#in-rotation').empty().append(result.total);
+			},
+			error: function (result) {
+				console.log(result);
+			}
+		});
+	}
 }
 
 function getMoreGifs() {

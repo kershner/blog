@@ -104,6 +104,16 @@ def get_tag_gif_counts():
     return all_tags
 
 
+def get_total_gifs_in_rotation():
+    gif_config = models.Config.query.first()
+
+    active_tag_ids = [int(tag_id) for tag_id in gif_config.active_tags.split(',') if tag_id]
+    inactive_tag_ids = [int(tag_id) for tag_id in gif_config.inactive_tags.split(',') if tag_id]
+
+    total_gif_ids_in_rotation = get_gif_ids_by_tags(active_tag_ids, inactive_tag_ids)
+    return len(total_gif_ids_in_rotation)
+
+
 # Takes in two lists, removes elements from all list that are present in inactive list
 def filter_inactive_tags(gif_ids, inactive_tag_gif_ids):
     return [gif_id for gif_id in gif_ids if gif_id not in inactive_tag_gif_ids]

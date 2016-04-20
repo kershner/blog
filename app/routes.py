@@ -200,13 +200,14 @@ def pi_display_config_route():
     inactive_tag_ids = [int(tag_id) for tag_id in gif_config.inactive_tags.split(',') if tag_id]
     inactive_tag_ids_str = ','.join(map(str, inactive_tag_ids))
 
-    if not inactive_tag_ids:
-        temp_inactive_tag_ids = None
-    else:
-        temp_inactive_tag_ids = inactive_tag_ids
-
-    total_gif_ids = pi_display_config.get_gif_ids_by_tags(active_tag_ids, temp_inactive_tag_ids)
-    gifs_in_rotation = len(total_gif_ids)
+    # if not inactive_tag_ids:
+    #     temp_inactive_tag_ids = None
+    # else:
+    #     temp_inactive_tag_ids = inactive_tag_ids
+    #
+    # total_gif_ids = pi_display_config.get_gif_ids_by_tags(active_tag_ids, temp_inactive_tag_ids)
+    # gifs_in_rotation = len(total_gif_ids)
+    # gifs_in_rotation = 420
 
     return render_template('/pi_display/pi_config.html',
                            current_gif=current_gif,
@@ -218,8 +219,17 @@ def pi_display_config_route():
                            active_tag_ids=active_tag_ids,
                            active_tag_ids_str=active_tag_ids_str,
                            inactive_tag_ids=inactive_tag_ids,
-                           inactive_tag_ids_str=inactive_tag_ids_str,
-                           gifs_in_rotation=gifs_in_rotation)
+                           inactive_tag_ids_str=inactive_tag_ids_str)
+
+
+@app.route('/pi_config/get-total-gifs', methods=['POST'])
+def pi_config_gifs_rotation():
+    if request.method == 'POST':
+        total_gifs_in_rotation = pi_display_config.get_total_gifs_in_rotation()
+        data = {
+            'total': total_gifs_in_rotation
+        }
+        return jsonify(data)
 
 
 @app.route('/previous/<offset>')

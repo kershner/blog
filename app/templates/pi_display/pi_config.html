@@ -41,7 +41,7 @@
 
                     <div class="stat-values">
                         <span>{{ total_gifs }}</span>
-                        <span id="in-rotation">{{ gifs_in_rotation }}</span>
+                        <span id="in-rotation"><i class="fa fa-gear fa-spin"></i></span>
                         <span>{{ total_tags }}</span>
                         <span>{{ total_subs }}</span>
                     </div>
@@ -164,7 +164,8 @@
             addGifUrl = '{{ url_for("add_gif_ajax") }}',
             updateUrl = '{{ url_for("update_gif_ajax") }}',
             removeUrl = '{{ url_for("remove_gif_ajax") }}',
-            settingsUrl = '{{ url_for("pi_config_settings") }}';
+            settingsUrl = '{{ url_for("pi_config_settings") }}',
+            gifsInRotationUrl = '{{ url_for("pi_config_gifs_rotation") }}';
         prevUrl = prevUrl.substr(0, prevUrl.lastIndexOf('/'));
         infoUrl = infoUrl.substr(0, infoUrl.lastIndexOf('/'));
 
@@ -174,6 +175,7 @@
         pi_config.config.updateUrl = updateUrl;
         pi_config.config.removeUrl = removeUrl;
         pi_config.config.settingsUrl = settingsUrl;
+        pi_config.config.gifsInRotationUrl = gifsInRotationUrl;
         pi_config.init()
     });
 </script>
