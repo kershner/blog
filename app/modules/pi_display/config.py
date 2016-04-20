@@ -61,23 +61,49 @@ def get_new_gif_ids_list(tag_ids):
         return [gif.id for gif in models.Gif.query.all()]
 
 
-# Expects list of tag ids as input, returns list of gif IDs with those tags
-def get_gif_ids_by_tags(tag_ids):
+# Expects list of tag ids, returns list of gif IDs with those tags
+def get_gif_ids_by_tags(tag_ids, inactive_tags=None):
+    my_db_bind = db.get_engine(app, 'gifs_db')
     tag_ids = [tag_id for tag_id in tag_ids if str(tag_id)]
+    result = [gif.id for gif in models.Gif.query.all()]
     if tag_ids:
+        print 'Active tags passed!'
         ids_string = '(' + ','.join(map(str, tag_ids)) + ')'
         sql = 'SELECT gif_id FROM gif_tags WHERE tag_id IN %s' % ids_string
+        if inactive_tags is not None:
+            print 'Also passing inactive tags!'
+            inactive_ids_string = '(' + ','.join(map(str, inactive_tags)) + ')'
+            sql += ' AND tag_id NOT IN %s' % inactive_ids_string
 
-        my_db_bind = db.get_engine(app, 'gifs_db')
         rows = db.session.execute(sql, bind=my_db_bind)
         result = [entry[0] for entry in rows]
     else:
-        result = [gif.id for gif in models.Gif.query.all()]
+        print 'No active tags passed...'
+        if inactive_tags is not None:
+            print 'But passing inactive tags!'
+            all_gif_ids = [gif.id for gif in models.Gif.query.all()]
+            inactive_ids_string = '(' + ','.join(map(str, inactive_tags)) + ')'
+            sql = 'SELECT gif_id FROM gif_tags WHERE tag_id IN %s' % inactive_ids_string
+
+            rows = db.session.execute(sql, bind=my_db_bind)
+            inactive_gif_ids = [entry[0] for entry in rows]
+            result = filter_inactive_tags(all_gif_ids, inactive_gif_ids)
 
     return result
 
 
-# Takes in two lists, removes elements from all list that are present in inactive list
-def filter_inactive_tags(all_gif_ids, inactive_tag_gif_ids):
-    return [gif_id for gif_id in all_gif_ids if gif_id not in inactive_tag_gif_ids]
+def get_tag_gif_counts():
+    my_db_bind = db.get_engine(app, 'gifs_db')
+    all_tags = models.Tag.query.all()
+    for tag in all_tags:
+        sql = 'SELECT count(gif_id) FROM gif_tags WHERE tag_id = %s' % str(tag.id)
+        rows = db.session.execute(sql, bind=my_db_bind)
+        result = [entry[0] for entry in rows]
+        tag.gif_count = int(result[0])
 
+    return all_tags
+
+
+# Takes in two lists, removes elements from all list that are present in inactive list
+def filter_inactive_tags(gif_ids, inactive_tag_gif_ids):
+    return [gif_id for gif_id in gif_ids if gif_id not in inactive_tag_gif_ids]

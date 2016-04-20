@@ -11,7 +11,8 @@ from modules.cms_logic import login_required
 from modules.pi_display import display
 from modules.pi_display import config as pi_display_config
 from app import app, db, models
-
+import timeit
+import time
 
 @app.route('/orderv-test')
 def orderv_test():
@@ -185,32 +186,27 @@ def pi_display_json():
 # Pi Display Config ##########################################################
 @app.route('/pi_config')
 def pi_display_config_route():
-    current_gif = models.Gif.query.order_by(desc(models.Gif.last_played)).first().url
     total_gifs = models.Gif.query.count()
     total_tags = models.Tag.query.count()
     total_subs = models.Subreddit.query.count()
+    tags = pi_display_config.get_tag_gif_counts()
+
+    current_gif = models.Gif.query.order_by(desc(models.Gif.last_played)).first().url
     gif_config = models.Config.query.first()
 
-    all_tags = models.Tag.query.all()
-    for tag in all_tags:
-        tag.gif_count = len(pi_display_config.get_gif_ids_by_tags([tag.id]))
+    active_tag_ids = [int(tag_id) for tag_id in gif_config.active_tags.split(',') if tag_id]
+    active_tag_ids_str = ','.join(map(str, active_tag_ids))
 
-    active_tag_ids, inactive_tag_ids = [], []
-    active_tag_ids_str, inactive_tag_ids_str = '', ''
-    gifs_in_rotation = total_gifs
+    inactive_tag_ids = [int(tag_id) for tag_id in gif_config.inactive_tags.split(',') if tag_id]
+    inactive_tag_ids_str = ','.join(map(str, inactive_tag_ids))
 
-    if gif_config.active_tags:
-        active_tag_ids = [int(tag_id) for tag_id in gif_config.active_tags.split(',')]
-        active_tag_ids_str = ','.join(map(str, active_tag_ids))
-        gifs_in_rotation = len(pi_display_config.get_gif_ids_by_tags(gif_config.active_tags.split(',')))
-    if gif_config.inactive_tags:
-        inactive_tag_ids = [int(tag_id) for tag_id in gif_config.inactive_tags.split(',')]
-        inactive_tag_ids_str = ','.join(map(str, inactive_tag_ids))
-        gif_ids = pi_display_config.get_gif_ids_by_tags(gif_config.active_tags.split(','))
-        inactive_tag_gif_ids = pi_display_config.get_gif_ids_by_tags(gif_config.inactive_tags.split(','))
+    if not inactive_tag_ids:
+        temp_inactive_tag_ids = None
+    else:
+        temp_inactive_tag_ids = inactive_tag_ids
 
-        total_gif_ids = pi_display_config.filter_inactive_tags(gif_ids, inactive_tag_gif_ids)
-        gifs_in_rotation = len(total_gif_ids)
+    total_gif_ids = pi_display_config.get_gif_ids_by_tags(active_tag_ids, temp_inactive_tag_ids)
+    gifs_in_rotation = len(total_gif_ids)
 
     return render_template('/pi_display/pi_config.html',
                            current_gif=current_gif,
@@ -218,7 +214,7 @@ def pi_display_config_route():
                            total_tags=total_tags,
                            total_subs=total_subs,
                            delay=gif_config.delay,
-                           all_tags=all_tags,
+                           tags=tags,
                            active_tag_ids=active_tag_ids,
                            active_tag_ids_str=active_tag_ids_str,
                            inactive_tag_ids=inactive_tag_ids,
@@ -322,29 +318,30 @@ def pi_config_settings():
 
         gifs_in_rotation = models.Gif.query.count()
 
-        # Check if tags have changed
         active_tags_js = settings['activeTags']
         current_active_tags = config_obj.active_tags
 
         inactive_tags_js = settings['inactiveTags']
-        config_obj.inactive_tags = inactive_tags_js
-        if not current_active_tags == active_tags_js:
-            print 'Active Tags have changed, updating config object'
-            new_gif_ids_list = pi_display_config.get_gif_ids_by_tags(active_tags_js.split(','))
-            config_obj.active_tags = active_tags_js
-            new_gif_ids_to_play = ','.join([str(gif_id) for gif_id in new_gif_ids_list])
+        current_inactive_tags = config_obj.inactive_tags
 
+        # Check if tags need to be updated
+        if current_active_tags != active_tags_js or current_inactive_tags != inactive_tags_js:
+            print 'Tags have changed, updating config object'
+            active_tags_list = [str(tag_id) for tag_id in active_tags_js.split(',') if str(tag_id)]
+            inactive_tags_list = [str(tag_id) for tag_id in inactive_tags_js.split(',') if str(tag_id)]
+            if inactive_tags_list:
+                print 'Inactive tags present'
+                new_gif_ids_list = pi_display_config.get_gif_ids_by_tags(active_tags_list, inactive_tags_list)
+            else:
+                print 'Inactive tags not present'
+                new_gif_ids_list = pi_display_config.get_gif_ids_by_tags(active_tags_list)
+
+            new_gif_ids_to_play = ','.join([str(gif_id) for gif_id in new_gif_ids_list])
             config_obj.gif_ids_to_play = new_gif_ids_to_play
             gifs_in_rotation = len(new_gif_ids_list)
-        if config_obj.inactive_tags:
-            print 'Filtering out Inactive Tags...'
-            gif_ids_list = pi_display_config.get_gif_ids_by_tags(config_obj.active_tags.split(','))
-            inactive_gif_ids_list = pi_display_config.get_gif_ids_by_tags(config_obj.inactive_tags.split(','))
-            filtered_gif_ids = pi_display_config.filter_inactive_tags(gif_ids_list, inactive_gif_ids_list)
-            new_gif_ids_to_play = ','.join([str(gif_id) for gif_id in filtered_gif_ids])
 
-            config_obj.gif_ids_to_play = new_gif_ids_to_play
-            gifs_in_rotation = len(filtered_gif_ids)
+            config_obj.active_tags = active_tags_js
+            config_obj.inactive_tags = inactive_tags_js
 
         db.session.add(config_obj)
         db.session.commit()

@@ -279,7 +279,7 @@ function gifInfoWindow(gif, method) {
 
 		tagsContainer.empty();
 		for (var i=0; i<gif.tags.length; i++) {
-			var tagHtml = '<div class="tag"><i class="fa fa-tag"></i> ' + gif.tags[i] + '</div>';
+			var tagHtml = '<div class="tag" data-id="' + gif.tags[i].id + '"><i class="fa fa-tag"></i> ' + gif.tags[i] + '</div>';
 			tagsContainer.append(tagHtml);
 		}
 

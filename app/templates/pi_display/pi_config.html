@@ -51,7 +51,7 @@
             <!-- Tags Container -->
             <div class="settings-tags-container">
                 <div class="settings-tags-container-title">Active Tags</div>
-                {% for tag in all_tags %}
+                {% for tag in tags %}
                 {% if tag.id in active_tag_ids %}
                 <div class="tag settings-tag active" data-id="{{ tag.id }}"><i class="fa fa-tag"></i> {{ tag.name }}
                 {% elif tag.id in inactive_tag_ids %}
