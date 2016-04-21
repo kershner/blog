@@ -1,6 +1,7 @@
 import requests
 import praw
 import time
+import os
 from cStringIO import StringIO
 from PIL import Image
 from datetime import datetime
@@ -72,8 +73,8 @@ def process_urls(urls_list):
 def create_thumbnails(final_url_list):
     for entry in final_url_list:
         gif_url = str(entry[1])
-        gif_id = models.Gif.query.filter_by(url=gif_url).first().id
-        save_thumbnail(gif_url, gif_id)
+        gif = models.Gif.query.filter_by(url=gif_url).first()
+        save_thumbnail(gif_url, gif.id)
 
 
 def save_thumbnail(url, gif_id):
@@ -82,7 +83,10 @@ def save_thumbnail(url, gif_id):
     img = StringIO(img.content)
     img_file = Image.open(img).convert('RGB').resize(size)
     img_file.thumbnail(size, Image.ANTIALIAS)
-    filename = '../static/pi_display/thumbnails/' + str(gif_id) + '.jpeg'
+
+    base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+    filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif_id
+    print 'Saving %s' % filename
     img_file.save(filename, 'JPEG')
 
 
@@ -96,15 +100,11 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=100
+        submission_limit=200
     )
 
     start = time.time()
     subreddits = models.Subreddit.query.all()
-
-    # Testing
-    gifs_sub = models.Subreddit.query.filter_by(name='gifs').first()
-    subreddits = [gifs_sub]
 
     for sub in subreddits:
         get_reddit_urls(sub, temp.submission_limit)
