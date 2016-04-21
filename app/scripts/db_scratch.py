@@ -6,6 +6,10 @@ import random
 from flask import jsonify
 from sqlalchemy import text
 import timeit
+import os
+from tqdm import tqdm
+from cStringIO import StringIO
+from PIL import Image
 from app import app, db, models
 
 
@@ -73,12 +77,17 @@ config = models.Config.query.first()
 #
 # print config.active_tags
 
-bad_gifs = []
+
 gifs = models.Gif.query.all()
 for gif in gifs:
-    if 'gifeye' in gif.url:
-        bad_gifs.append(gif.url)
-print bad_gifs
+    print 'Creating thumbnail for gif #: %d' % gif.id
+    size = (150, 150)
+    img = requests.get(gif.url)
+    img = StringIO(img.content)
+    img_file = Image.open(img).convert('RGB').resize(size)
+    img_file.thumbnail(size, Image.ANTIALIAS)
+    filename = '../static/pi_display/thumbnails/' + str(gif.id) + '.jpeg'
+    img_file.save(filename, 'JPEG')
 
 
 # Subreddit stuff for later ########################################################################################################################################

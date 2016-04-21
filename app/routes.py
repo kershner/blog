@@ -1,6 +1,7 @@
 from functools import wraps
 import json
 import random
+import os
 from datetime import datetime
 from sqlalchemy import desc
 from flask import jsonify, render_template, request, flash, redirect, url_for, session
@@ -200,15 +201,6 @@ def pi_display_config_route():
     inactive_tag_ids = [int(tag_id) for tag_id in gif_config.inactive_tags.split(',') if tag_id]
     inactive_tag_ids_str = ','.join(map(str, inactive_tag_ids))
 
-    # if not inactive_tag_ids:
-    #     temp_inactive_tag_ids = None
-    # else:
-    #     temp_inactive_tag_ids = inactive_tag_ids
-    #
-    # total_gif_ids = pi_display_config.get_gif_ids_by_tags(active_tag_ids, temp_inactive_tag_ids)
-    # gifs_in_rotation = len(total_gif_ids)
-    # gifs_in_rotation = 420
-
     return render_template('/pi_display/pi_config.html',
                            current_gif=current_gif,
                            total_gifs=total_gifs,
@@ -222,7 +214,7 @@ def pi_display_config_route():
                            inactive_tag_ids_str=inactive_tag_ids_str)
 
 
-@app.route('/pi_config/get-total-gifs', methods=['POST'])
+@app.route('/pi_config/get_total_gifs', methods=['POST'])
 def pi_config_gifs_rotation():
     if request.method == 'POST':
         total_gifs_in_rotation = pi_display_config.get_total_gifs_in_rotation()
@@ -304,6 +296,10 @@ def remove_gif_ajax():
         gif_to_remove = models.Gif.query.filter_by(url=gif['url']).first()
         new_bad_url = models.BadUrl()
         new_bad_url.url = gif['url']
+
+        path = os.path.dirname(os.path.abspath(__file__)) + '/static/pi_display/thumbnails/%d.jpeg' % gif_to_remove.id
+        print 'Deleting thumbnail: %s' % path
+        os.remove(path)
 
         db.session.delete(gif_to_remove)
         db.session.add(new_bad_url)

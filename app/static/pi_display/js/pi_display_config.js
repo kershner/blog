@@ -36,8 +36,8 @@ function mainButtons() {
 			gifInfoWindow({}, 'add');
 		});
 
+		// Reset gifs container
 		if (container.hasClass('hidden')) {
-			console.log('Container closed');
 			$('.gif-wrapper').remove();
 			pi_config.config.offset = 0;
 		} else {

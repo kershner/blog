@@ -1,6 +1,8 @@
 import requests
 import praw
 import time
+from cStringIO import StringIO
+from PIL import Image
 from datetime import datetime
 from app import models, db
 
@@ -67,6 +69,23 @@ def process_urls(urls_list):
     db.session.commit()
 
 
+def create_thumbnails(final_url_list):
+    for entry in final_url_list:
+        gif_url = str(entry[1])
+        gif_id = models.Gif.query.filter_by(url=gif_url).first().id
+        save_thumbnail(gif_url, gif_id)
+
+
+def save_thumbnail(url, gif_id):
+    size = (150, 150)
+    img = requests.get(url)
+    img = StringIO(img.content)
+    img_file = Image.open(img).convert('RGB').resize(size)
+    img_file.thumbnail(size, Image.ANTIALIAS)
+    filename = '../static/pi_display/thumbnails/' + str(gif_id) + '.jpeg'
+    img_file.save(filename, 'JPEG')
+
+
 if __name__ == '__main__':
     # Accessing Reddit API
     r = praw.Reddit(user_agent='Raspberry Pi Project by billcrystals')
@@ -77,17 +96,22 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=200
+        submission_limit=100
     )
 
     start = time.time()
     subreddits = models.Subreddit.query.all()
+
+    # Testing
+    gifs_sub = models.Subreddit.query.filter_by(name='gifs').first()
+    subreddits = [gifs_sub]
 
     for sub in subreddits:
         get_reddit_urls(sub, temp.submission_limit)
         temp.processed_subs += 1
 
     process_urls(temp.to_add_urls)
+    create_thumbnails(temp.final_list)
     end = time.time()
 
     print '## scrape_reddit Readout ###############################################################'
