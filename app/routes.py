@@ -297,9 +297,9 @@ def remove_gif_ajax():
         new_bad_url = models.BadUrl()
         new_bad_url.url = gif['url']
 
-        path = os.path.dirname(os.path.abspath(__file__)) + '/static/pi_display/thumbnails/%d.jpeg' % gif_to_remove.id
-        print 'Deleting thumbnail: %s' % path
-        os.remove(path)
+        # print 'Deleting thumbnail: %s' % path
+        # path = os.path.dirname(os.path.abspath(__file__)) + '/static/pi_display/thumbnails/%d.jpeg' % gif_to_remove.id
+        # os.remove(path)
 
         db.session.delete(gif_to_remove)
         db.session.add(new_bad_url)
@@ -930,6 +930,8 @@ def scrape():
         else:
             form = RedditImageScraper()
             subreddit = str(form.subreddit_choice.data)
+            print '\n###############################################'
+            print 'Using Reddit Image Scraper on sub: %s' % subreddit
             results_from = int(form.results_from.data)
             number = int(form.number.data)
             try:
