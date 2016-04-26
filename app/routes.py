@@ -159,7 +159,7 @@ def pi_display():
 
 @app.route('/pi_display_json')
 def pi_display_json():
-    return jsonify(display.get_data())
+    return jsonify(display.grab_gif_data())
 
 
 ##############################################################################
