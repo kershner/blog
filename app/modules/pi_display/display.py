@@ -4,7 +4,7 @@ from . import config as pi_config
 from app import models, db
 
 
-def get_data():
+def grab_gif_data():
     config = models.Config.query.first()
     delay = str(config.delay) + '000'
 

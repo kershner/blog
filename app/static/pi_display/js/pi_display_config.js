@@ -92,7 +92,7 @@ function getPreviousGifs() {
         success : function(result) {
 			appendGifsHtml(result['gifs']);
 			clickGifs();
-			pi_config.config.offset += 10;
+			pi_config.config.offset += 50;
 		},
         error   : function(result) {
             console.log(result);
@@ -105,7 +105,7 @@ function appendGifsHtml(gifs) {
 		addedIds = [];
 	for (var i=0; i<gifs.length; i++) {
 		var gif = gifs[i],
-			url = gif.url,
+			url = '/static/pi_display/thumbnails/' + gif.id + '.jpeg',
 			lastPlayed = moment(gif.last_played).subtract(4, 'hours').format('MMM Do h:mm:ss a'),
 			tags = gif.tags,
 			desc = gif.desc ? gif.desc : '',
@@ -265,7 +265,7 @@ function endsWith(str, suffix) {
 function notification(message) {
 	var wrapper = $('.notification');
 	wrapper.find('p').text(message);
-	wrapper.css('opacity', '1');
+	wrapper.css('opacity', '0.8');
 	wrapper.removeClass('hidden');
 	setTimeout(function() {
 		wrapper.animate({'opacity': 0}, 1000, function() {

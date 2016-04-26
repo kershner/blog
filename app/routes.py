@@ -15,11 +15,6 @@ from app import app, db, models
 import timeit
 import time
 
-@app.route('/orderv-test')
-def orderv_test():
-    return render_template('/blog/orderv_test.html',
-                           title='Welcome')
-
 
 ##############################################################################
 # Blog #######################################################################
@@ -27,22 +22,6 @@ def orderv_test():
 def index():
     return render_template('/blog/welcome.html',
                            title='Welcome')
-
-
-@app.route('/music-test')
-def music_test():
-    m = music_files.get_songs()
-    all_music = []
-
-    for song in m['songs']:
-        all_music.append(song[0][0])
-
-    for song in m['loops']:
-        all_music.append(song[0][0])
-
-    return render_template('/blog/music_test.html',
-                           title='Music',
-                           music=all_music)
 
 
 @app.route('/blog')
@@ -169,12 +148,12 @@ def warning():
 # Pi Display #################################################################
 @app.route('/pi_display')
 def pi_display():
-    data = display.get_data()
-    gif = data['gif']
-    delay = data['delay']
+    gif_data = display.grab_gif_data()
+    gif_url = gif_data['gif']
+    delay = gif_data['delay']
 
     return render_template('/pi_display/pi_display.html',
-                           gif=gif,
+                           gif=gif_url,
                            delay=delay)
 
 
@@ -297,9 +276,13 @@ def remove_gif_ajax():
         new_bad_url = models.BadUrl()
         new_bad_url.url = gif['url']
 
-        path = os.path.dirname(os.path.abspath(__file__)) + '/static/pi_display/thumbnails/%d.jpeg' % gif_to_remove.id
-        print 'Deleting thumbnail: %s' % path
-        os.remove(path)
+        try:
+            path = os.path.dirname(os.path.abspath(__file__)) + '/static/pi_display/thumbnails/%d.jpeg' % gif_to_remove.id
+            print 'Deleting thumbnail: %s' % path
+            os.remove(path)
+        except Exception as e:
+            print e
+            pass
 
         db.session.delete(gif_to_remove)
         db.session.add(new_bad_url)

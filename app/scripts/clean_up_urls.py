@@ -1,9 +1,12 @@
 from time import time
 import concurrent.futures
-import requests
 from tqdm import tqdm
+from cStringIO import StringIO
+from PIL import Image
 from time import sleep
 from app import db, models
+import requests
+import os
 
 
 class Log(object):
@@ -59,17 +62,12 @@ def load_url(gif_url):
     }
 
     try:
-        r = requests.get(gif_url, stream=True, timeout=5, allow_redirects=True)
+        r = requests.get(gif_url, stream=True, timeout=5, allow_redirects=False)
         code = r.status_code
-        size_in_bytes = int(r.headers['content-length'])
-        float_size = float(size_in_bytes) / 1051038
-        # print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+        print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
         if not code == 200:
             logged_gif['code'] = code
             logged_gif['reason'] = 'Code not 200'
-            log.removed_gifs.append(logged_gif)
-        if float_size == 503:
-            logged_gif['reason'] = 'Size is 503'
             log.removed_gifs.append(logged_gif)
 
     except Exception as e:
@@ -85,9 +83,36 @@ def final_pass(gif_list):
     for gif in gif_list:
         if gif.url in removed_urls:
             db.session.delete(gif)
+            # Remove thumbnail
+            try:
+                base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+                filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
+                print 'Deleting thumbnail: %s' % filename
+                os.remove(filename)
+            except Exception as e:
+                print e
+                pass
+        else:
+            create_thumbnail(gif)
 
     db.session.commit()
 
+
+def create_thumbnail(gif):
+    base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+    filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
+    if not (os.path.isfile(filename)):
+        print 'Attempting to save thumbnail for Gif %d...' % gif.id
+        size = (150, 150)
+        img = requests.get(gif.url)
+        img = StringIO(img.content)
+        try:
+            img_file = Image.open(img).convert('RGB').resize(size)
+            img_file.thumbnail(size, Image.ANTIALIAS)
+            img_file.save(filename, 'JPEG')
+        except IOError as e:
+            print 'Gif %d - ' % gif.id, e
+            pass
 
 if __name__ == '__main__':
     gifs = models.Gif.query.all()

@@ -3,7 +3,7 @@ from app import app, models, db
 
 
 def get_prev_gifs(offset):
-    previous_gifs = models.Gif.query.order_by(desc(models.Gif.last_played)).limit(10).offset(offset).all()
+    previous_gifs = models.Gif.query.order_by(desc(models.Gif.last_played)).limit(50).offset(offset).all()
     result = []
     for gif in previous_gifs:
         data = {
