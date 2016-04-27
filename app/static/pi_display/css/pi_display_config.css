@@ -17,6 +17,20 @@ body {
     cursor: pointer;
     transform: scale(1.2);
 }
+.loading-icon {
+    position: absolute;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    color: rgb(232, 184, 26);
+    font-size: 5em;
+}
+.prev-gifs .loading-icon {
+    font-size: 1.5em;
+    text-shadow: none;
+}
 .portlet {
     position: relative;
     margin: 2em auto;
@@ -151,6 +165,7 @@ body {
 }
 .current-gif-container img {
     width: 100%;
+    max-height: 35em;
     border-radius: .25em;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }
@@ -294,6 +309,9 @@ body {
 .btn-selected {
     transform: scale(1.2);
 }
+#gifs {
+    min-height: 5em;
+}
 .gif-wrapper {
     display: inline-block;
     position: relative;
@@ -337,6 +355,20 @@ body {
     top: 2.5em;
     right: -1em;
 }
+.back-to-top {
+    position: absolute;
+    padding: 1em;
+    bottom: -1.25em;
+    left: 1em;
+    border-radius: 2em;
+    background-color: rgb(96, 40, 227);
+    color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+.back-to-top:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
 .prev-gifs,
 #add-gif-btn {
     position: absolute;
@@ -351,6 +383,14 @@ body {
     border-radius: .3em;
     border: none;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+.prev-gifs:active,
+.back-to-top:active {
+    bottom: -.75em;
+    box-shadow: inset 0 0 0 1px #27496d,inset 0 5px 30px #193047;
+}
+.back-to-top:active {
+    bottom: -2em;
 }
 #add-gif-btn {
     top: -1em;

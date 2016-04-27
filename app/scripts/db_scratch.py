@@ -78,17 +78,31 @@ config = models.Config.query.first()
 # print config.active_tags
 
 
-gifs = models.Gif.query.all()
-for gif in gifs:
-    size = (150, 150)
-    img = requests.get(gif.url)
-    img = StringIO(img.content)
-    img_file = Image.open(img).convert('RGB').resize(size)
-    img_file.thumbnail(size, Image.ANTIALIAS)
+def create_thumbnail(gif):
     base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
     filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
-    print 'Saving thumbnail: %s' % filename
-    img_file.save(filename, 'JPEG')
+    if not (os.path.isfile(filename)):
+        print 'Attempting to ssve thumbnail for Gif %d...' % gif.id
+        size = (150, 150)
+        img = requests.get(gif.url)
+        img = StringIO(img.content)
+        try:
+            img_file = Image.open(img).convert('RGB').resize(size)
+            img_file.thumbnail(size, Image.ANTIALIAS)
+            img_file.save(filename, 'JPEG')
+        except IOError as e:
+            print 'Gif %d - ' % gif.id, e
+            pass
+
+
+gifs = models.Gif.query.all()
+gif = models.Gif.query.filter_by(id=9254).first()
+create_thumbnail(gif)
+
+
+# for gif in gifs:
+#     print 'Creating thumbnail for gif #: %d' % gif.id
+#     create_thumbnail(gif_url)
 
 
 # Subreddit stuff for later ########################################################################################################################################

@@ -36,6 +36,7 @@ function mainButtons() {
 			gifInfoWindow({}, 'add');
 		});
 
+		refreshCurrentGif();
 		// Reset gifs container
 		if (container.hasClass('hidden')) {
 			$('.gif-wrapper').remove();
@@ -44,6 +45,23 @@ function mainButtons() {
 			getPreviousGifs()
 		}
 	});
+
+	backToTop();
+}
+
+function refreshCurrentGif() {
+	$.ajax({
+			url: pi_config.config.previousGifsUrl + '/0',
+			success: function (result) {
+				var gifs = result.gifs,
+					currentUrl = gifs[0].url;
+
+				$('.current-gif-container').find('img').attr('src', currentUrl);
+			},
+			error: function (result) {
+				console.log(result);
+			}
+		});
 }
 
 function getGifsInRotation() {
@@ -87,9 +105,13 @@ function colorElements() {
 }
 
 function getPreviousGifs() {
+	$('#gifs').find('.loading-icon').removeClass('hidden');
+	$('.prev-50-text').addClass('hidden');
 	$.ajax({
         url     : pi_config.config.previousGifsUrl + '/' + pi_config.config.offset,
         success : function(result) {
+			$('#gifs').find('.loading-icon').addClass('hidden');
+			$('.prev-50-text').removeClass('hidden');
 			appendGifsHtml(result['gifs']);
 			clickGifs();
 			pi_config.config.offset += 50;
@@ -258,6 +280,12 @@ $('#url-input').on('input', function() {
 });
 
 //== Utility ======================================================================================
+function backToTop() {
+	$('.back-to-top').on('click', function() {
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+	});
+}
+
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
