@@ -64,7 +64,7 @@ def load_url(gif_url):
     try:
         r = requests.get(gif_url, stream=True, timeout=5, allow_redirects=False)
         code = r.status_code
-        print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
+        # print '%d | %d GIFs remaining | %s' % (code, len(log.gif_list), gif_url)
         if not code == 200:
             logged_gif['code'] = code
             logged_gif['reason'] = 'Code not 200'
