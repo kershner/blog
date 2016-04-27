@@ -46,6 +46,10 @@ function getGif() {
                 console.log('Error!');
                 console.log(errmsg);
                 console.log(xhr.status + ': ' + xhr.responseText);
+                setTimeout(function() {
+                    console.log('Firing getGif()...');
+                    getGif();
+                }, 2000);
             }
         });
     } else {
