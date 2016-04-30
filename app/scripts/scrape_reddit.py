@@ -77,7 +77,7 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=200
+        submission_limit=100
     )
 
     start = time.time()
@@ -92,5 +92,5 @@ if __name__ == '__main__':
 
     print '## scrape_reddit Readout ###############################################################'
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
-    print '\nTotal GIFs added: %d' % len(temp.final_list)
-    print temp.final_list
+    print '\n%d GIFs added' % len(temp.final_list)
+    # print temp.final_list

@@ -7,6 +7,7 @@ from time import sleep
 from app import db, models
 import requests
 import os
+import pprint
 
 
 class Log(object):
@@ -87,10 +88,10 @@ def final_pass(gif_list):
             try:
                 base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
                 filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
-                print 'Deleting thumbnail: %s' % filename
+                # print 'Deleting thumbnail: %s' % filename
                 os.remove(filename)
             except Exception as e:
-                print e
+                # print e
                 pass
         else:
             create_thumbnail(gif)
@@ -102,7 +103,7 @@ def create_thumbnail(gif):
     base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
     filename = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
     if not (os.path.isfile(filename)):
-        print 'Attempting to save thumbnail for Gif %d...' % gif.id
+        # print 'Attempting to save thumbnail for Gif %d...' % gif.id
         size = (150, 150)
         img = requests.get(gif.url)
         img = StringIO(img.content)
@@ -111,7 +112,7 @@ def create_thumbnail(gif):
             img_file.thumbnail(size, Image.ANTIALIAS)
             img_file.save(filename, 'JPEG')
         except IOError as e:
-            print 'Gif %d - ' % gif.id, e
+            # print 'Gif %d - ' % gif.id, e
             pass
 
 if __name__ == '__main__':
@@ -129,7 +130,7 @@ if __name__ == '__main__':
 
     print '## clean_up_urls Readout ###############################################################'
     print '\n%d GIFs removed' % len(log.removed_gifs)
-    print log.removed_gifs
     print '\n%d Exceptions' % len(log.exceptions)
     print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
     print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
+    pprint(log.removed_gifs)
