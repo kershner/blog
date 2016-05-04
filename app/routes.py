@@ -47,6 +47,17 @@ def music():
                            loops=m['loops'])
 
 
+@app.route('/music-analytics', methods=['POST'])
+def music_analytics():
+    if request.method == 'POST':
+        songId = request.json
+        print 'Someone is playing %s.mp3...' % songId
+        data = {
+            'message': 'Printed song ID'
+        }
+        return jsonify(data)
+
+
 @app.route('/about')
 def about():
     return render_template('/blog/about.html',

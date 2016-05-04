@@ -171,11 +171,28 @@ function jPlayer() {
 	        nextId = $(this).next().attr('id');
 	        firstId = $(this).parent().children().first().attr('id');
 
+		crappyAnalytics(id);
+
 		window.playing = id;
 		window.nextId = nextId;
 
 		setJplayerMedia(id);
 	});
+
+	function crappyAnalytics(id) {
+	    $.ajax({
+    		url     	: '/music-analytics',
+    		method		: 'POST',
+    		contentType	: 'application/json;charset=UTF-8',
+    		data		: JSON.stringify(id),
+    		success : function(result) {
+    			console.log(result);
+    		},
+    		error   : function(result) {
+    			console.log(result);
+    		}
+    	});
+	}
 
 	function highlightMediaRow(audioId) {
         $('.audio-text').each(function() {

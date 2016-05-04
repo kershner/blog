@@ -7,7 +7,7 @@ from time import sleep
 from app import db, models
 import requests
 import os
-import pprint
+from pprint import pprint
 
 
 class Log(object):
@@ -128,9 +128,9 @@ if __name__ == '__main__':
     final_pass(gifs)
     end = time()
 
-    print '## clean_up_urls Readout ###############################################################'
-    print '\n%d GIFs removed' % len(log.removed_gifs)
-    print '\n%d Exceptions' % len(log.exceptions)
-    print '\nCurrent Gif Total: %d' % len(models.Gif.query.all())
-    print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
+    print '\n\n## clean_up_urls Readout ###############################################################'
+    print '%d GIFs removed' % len(log.removed_gifs)
+    print '%d Exceptions' % len(log.exceptions)
+    print 'Current Gif Total: %d' % len(models.Gif.query.all())
+    print 'Script Execution Time: %.2f minutes\n' % (float(end - start) / 60.0)
     pprint(log.removed_gifs)

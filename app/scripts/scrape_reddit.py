@@ -90,7 +90,7 @@ if __name__ == '__main__':
     process_urls(temp.to_add_urls)
     end = time.time()
 
-    print '## scrape_reddit Readout ###############################################################'
-    print '\nScript Execution Time: %.2f minutes' % (float(end - start) / 60.0)
-    print '\n%d GIFs added' % len(temp.final_list)
+    print '\n\n## scrape_reddit Readout ###############################################################'
+    print '%d GIFs added' % len(temp.final_list)
+    print 'Script Execution Time: %.2f minutes\n\n\n\n' % (float(end - start) / 60.0)
     # print temp.final_list
