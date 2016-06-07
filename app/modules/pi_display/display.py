@@ -16,6 +16,8 @@ def grab_gif_data():
 
     gif = None
     while gif is None:
+        if not config.gif_ids_to_play:
+            gif_ids_to_play = get_new_gif_list()
         choice = random.choice(gif_ids_to_play)
         gif_ids_to_play.remove(choice)
         gif = models.Gif.query.filter_by(id=choice).first()
