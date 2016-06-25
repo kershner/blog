@@ -16,14 +16,41 @@ pi_display.init = function() {
     window.colorWave = setInterval(function() {
         $('.loading').colorWave(pi_display.config.colors);
     }, 3000);
+
+    window.onerror = function() {
+        var error = {
+            'message': 'SUP!'
+        };
+
+        getGif();
+        makeAjaxErrorCall('Generic window.onerror');
+    }
 };
+
+function makeAjaxErrorCall(message) {
+    $.ajax({
+            url         : $SCRIPT_ROOT + '/pi_display_error',
+            type        : 'POST',
+            contentType : 'application/json;charset=UTF-8',
+            data        : JSON.stringify(message),
+            success     : function (json) {
+                var message = json['message'];
+                console.log(message);
+            },
+            error       : function(xhr, errmsg, err) {
+                console.log('Error!');
+                console.log(errmsg);
+                console.log(xhr.status + ': ' + xhr.responseText);
+            }
+        });
+}
 
 function getGif() {
     if (pi_display.config.keepGoing) {
         console.log('KeepGoing enabled...');
         $.ajax({
-            url: $SCRIPT_ROOT + '/pi_display_json',
-            success: function (json) {
+            url     : $SCRIPT_ROOT + '/pi_display_json',
+            success : function (json) {
                 var gif = json['gif'],
                     delay = json['delay'],
                     container = $('.container'),
@@ -32,17 +59,16 @@ function getGif() {
                 pi_display.config.gif = gif;
                 pi_display.config.delay = delay;
 
-                $(html).appendTo(container).load(function() {
-                    container.find('img').first().css('opacity', '0').one("webkitTransitionEnd", function () {
-                        $(this).remove();
-                        container.find('img').css({'opacity': '1.0'});
-                        setTimeout(function () {
-                            getGif();
-                        }, delay);
-                    });
+                $(html).appendTo(container);
+                container.find('img').first().css('opacity', '0').one("webkitTransitionEnd", function () {
+                    $(this).remove();
+                    container.find('img').css({'opacity': '1.0'});
+                    setTimeout(function () {
+                        getGif();
+                    }, delay);
                 });
             },
-            error: function(xhr, errmsg, err) {
+            error   : function(xhr, errmsg, err) {
                 console.log('Error!');
                 console.log(errmsg);
                 console.log(xhr.status + ': ' + xhr.responseText);

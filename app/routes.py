@@ -173,6 +173,20 @@ def pi_display_json():
     return jsonify(display.grab_gif_data())
 
 
+
+@app.route('/pi_display_error', methods=['POST'])
+def pi_display_error():
+    if request.method == 'POST':
+        data = request.json
+        print 'pi_display_error: %s' % data
+
+        message = 'Hello world'
+
+        return jsonify({
+            'message': message
+        })
+
+
 ##############################################################################
 # Pi Display Config ##########################################################
 @app.route('/pi_config')
