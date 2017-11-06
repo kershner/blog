@@ -88,6 +88,7 @@ class Gif(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(256), index=True)
     description = db.Column(db.String(256), index=True)
+    thumbnail_hash = db.Column(db.String(256), index=True)
     tags = db.relationship('Tag', secondary=gif_tags, backref=db.backref('tags', lazy='dynamic'))
     created_at = db.Column(db.DateTime())
     last_played = db.Column(db.DateTime())

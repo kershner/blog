@@ -28,7 +28,7 @@
 
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="small-logo-container animate">
+            <div class="small-logo-container animate-slow-banner">
                 <a id="small-logo-link" href="/">
                     <img class="small-logo-icon animate" alt="Tyler Kershner" src="/static/images/bacon4.jpg">
                 </a>
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="container-fluid big-logo-row" style="position: relative; z-index: 1;">
+        <div class="container-fluid big-logo-row animate-slow-banner" style="position: relative; z-index: 1;">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 big-logo-container">
@@ -113,16 +113,17 @@
             $(document).ready(function() {
                 initSlick();
                 blog();
+
                 {% if title == 'Music' %}
-                musicTitles();
-                jPlayer();
-                musicLightbox();
-                musicPlayerColors();
+                    musicTitles();
+                    jPlayer();
+                    musicLightbox();
+                    musicPlayerColors();
                 {% elif title == 'Welcome' %}
-                sendEmail();
-                welcomeFadeIn();
+                    sendEmail();
+                    welcomeFadeIn();
                 {% elif title == 'Projects' %}
-                colorProjects();
+                    colorProjects();
                 {% endif %}
             });
         </script>
@@ -135,7 +136,6 @@
 
           ga('create', 'UA-54330299-1', 'auto');
           ga('send', 'pageview');
-
         </script>
     </body>
 </html>

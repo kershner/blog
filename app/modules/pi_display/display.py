@@ -9,7 +9,6 @@ def grab_gif_data():
     delay = str(config.delay) + '000'
 
     gif_ids_to_play = [gif_id for gif_id in config.gif_ids_to_play.split(',') if str(gif_id)]
-    print '%d URLs remaining...' % len(gif_ids_to_play)
 
     if not config.gif_ids_to_play:
         gif_ids_to_play = get_new_gif_list()

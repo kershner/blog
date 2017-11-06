@@ -155,3 +155,10 @@ class PublicDatabaseForm(Form):
     month = StringField('Month Field', [Optional()])
     year = StringField('Year Field', [Optional()])
     submit = SubmitField('Submit')
+
+
+#############################################
+# SteamTime
+class SteamTime(Form):
+    steamid = StringField('SteamID', validators=[DataRequired('Enter Your SteamID')])
+    submit = SubmitField('Submit')

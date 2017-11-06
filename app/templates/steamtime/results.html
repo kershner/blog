@@ -1,16 +1,16 @@
 {% extends "/steamtime/base.html" %}
 {% block content %}
     <div id="header" class="hidden">
-        <a href="/steamtime"><h1><span class="white animate">Steam</span><span class="blue animate">Time</span></h1></a>
-        <a href="/steamtime"><p class="white animate">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p></a>
+        <a href="{{ url_for('steamtime') }}"><h1 id="results-big-logo"><span class="white animate">Steam</span><span class="blue animate">Time</span></h1></a>
+        <a href="{{ url_for('steamtime') }}"><p class="white animate">VISUALIZE TIME SPENT IN YOUR STEAM LIBRARY</p></a>
     </div>
 
     <div id="hidden-menu" class="blue-gradient-circular">
         <a href="{{ profile_url }}"><img src="{{ user_image_icon }}" class="animate glow"></a>
-        <p class="green no-shadow">{{ display_name }}</p>
+        <p class="green shadow">{{ display_name }}</p>
 
         <div id="back-to-top">
-            <a href="/steamtime"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue no-shadow">Time</span></h2></a>
+            <a href="/"><h2 id="hidden-logo"><span class="white">Steam</span><span class="dark-blue no-shadow">Time</span></h2></a>
             <a href="#" id="top"><i class="fa fa-arrow-circle-up fa-2x shadow animate"></i></a>
         </div>
     </div>
@@ -24,7 +24,7 @@
             </div>
 
             <div id="new-search" class="hidden">
-                <form action="{{ url_for('steamtime_logic') }}" method="POST">
+                <form action="{{ url_for('results') }}" method="POST">
                     {{ form.hidden_tag() }}
 
                     {{ form.steamid(placeholder="SteamID", class="animate") }}
@@ -242,7 +242,7 @@
                         <hr>
 
                         <div id="hours-breakdown-legend" class="blue-gradient-circular shadow">
-                            <h3>Games With Hours</h3>
+                            <span id="breakdown-legend-title" class="yellow">Games With Hours</span>
                             <div id="breakdown-legend-labels">
                                 <p>
                                     0.1 - 5:<br>
@@ -277,85 +277,85 @@
                         <h1 class="stats-title">Distinctions</h1>
                         <hr>
 
-                        <ul class="rig columns-2">
-                        {% if distinctions['hyper_nerd_alert'] %}
-                        <li class="distinction green-gradient">
-                            <span class="distinction-title">
-                                Hyper Nerd Alert
-                                <span class="distinction-description">Games with Over 500 hours</span>
-                            </span>
-                            {% for entry in distinctions['hyper_nerd_alert'] %}
-                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-
-                        {% if distinctions['super_nerd_alert'] %}
-                        <li class="distinction green-gradient">
-                            <span class="distinction-title">
-                                Super Nerd Alert
-                                <span class="distinction-description">Games with Over 100 hours</span>
-                            </span>
-                            {% for entry in distinctions['super_nerd_alert'] %}
-                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-
-                        {% if distinctions['nerd_alert'] %}
-                        <li class="distinction green-gradient">
-                            <span class="distinction-title">
-                                Nerd Alert
-                                <span class="distinction-description">Games with Over 50 hours</span>
-                            </span>
-                            {% for entry in distinctions['nerd_alert'] %}
-                                <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-
-                        {% if distinctions['completionist'] %}
-                        <li class="distinction green-gradient">
-                            <span class="distinction-title">
-                                Completionist
-                                <span class="distinction-description">20% or Less Unplayed Games</span>
-                            </span>
-                            <span class="distinction-text">{{ distinctions['completionist'] }}%</span>
-                        </li>
-                        {% endif %}
-
-                        {% if distinctions['dedication'] %}
-                        <li class="distinction green-gradient">
-                            <span class="distinction-title">
-                                Dedication
-                                <span class="distinction-description">Avg Game Time > 10 Hours</span>
-                            </span>
-                            <span class="distinction-text">{{ distinctions['dedication'] }} hours</span>
-                        </li>
-                        {% endif %}
-
-                        {% if not two_weeks == 'privacy' %}
-                            {% if distinctions['diverse'] %}
-                            <li class="distinction green-gradient">
+                        <div id="distinctions-grid">
+                            {% if distinctions['completionist'] %}
+                            <div class="distinction green-gradient">
                                 <span class="distinction-title">
-                                    Diverse Gamer
-                                    <span class="distinction-description">4+ Games in Last Two Weeks</span>
+                                    Completionist
+                                    <span class="distinction-description">20% or Less Unplayed Games</span>
                                 </span>
-                                <span class="distinction-text">{{ distinctions['diverse'] }} games</span>
-                            </li>
+                                <span class="distinction-text">{{ distinctions['completionist'] }}%</span>
+                            </div>
                             {% endif %}
 
-                            {% if distinctions['focused'] %}
-                            <li class="distinction green-gradient">
+                            {% if distinctions['dedication'] %}
+                            <div class="distinction green-gradient">
                                 <span class="distinction-title">
-                                    Focused Gamer
-                                    <span class="distinction-description">1 Game in the Last Two Weeks</span>
+                                    Dedication
+                                    <span class="distinction-description">Avg Game Time > 10 Hours</span>
                                 </span>
-                                <span class="distinction-text">{{ distinctions['focused'] }} game</span>
-                            </li>
+                                <span class="distinction-text">{{ distinctions['dedication'] }} hours</span>
+                            </div>
                             {% endif %}
-                        {% endif %}
-                        </ul>
+
+                            {% if not two_weeks == 'privacy' %}
+                                {% if distinctions['diverse'] %}
+                                <div class="distinction green-gradient">
+                                    <span class="distinction-title">
+                                        Diverse Gamer
+                                        <span class="distinction-description">4+ Games in Last Two Weeks</span>
+                                    </span>
+                                    <span class="distinction-text">{{ distinctions['diverse'] }} games</span>
+                                </div>
+                                {% endif %}
+
+                                {% if distinctions['focused'] %}
+                                <div class="distinction green-gradient">
+                                    <span class="distinction-title">
+                                        Focused Gamer
+                                        <span class="distinction-description">1 Game in the Last Two Weeks</span>
+                                    </span>
+                                    <span class="distinction-text">{{ distinctions['focused'] }} game</span>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if distinctions['hyper_nerd_alert'] %}
+                            <div class="distinction green-gradient">
+                                <span class="distinction-title">
+                                    Basement Lord
+                                    <span class="distinction-description">Games with Over 500 hours</span>
+                                </span>
+                                {% for entry in distinctions['hyper_nerd_alert'] %}
+                                    <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            {% if distinctions['super_nerd_alert'] %}
+                            <div class="distinction green-gradient">
+                                <span class="distinction-title">
+                                    Junior Neckbeard
+                                    <span class="distinction-description">Games with Over 100 hours</span>
+                                </span>
+                                {% for entry in distinctions['super_nerd_alert'] %}
+                                    <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            {% if distinctions['nerd_alert'] %}
+                            <div class="distinction green-gradient">
+                                <span class="distinction-title">
+                                    Nerd Alert
+                                    <span class="distinction-description">Games with Over 50 hours</span>
+                                </span>
+                                {% for entry in distinctions['nerd_alert'] %}
+                                    <a href="{{ entry[1] }}"><img src="{{ entry[0] }}" class="glow animate"></a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                     {% endif %}
 
@@ -366,53 +366,57 @@
 
                         <div class="game-stats-row">
                             <div id="most" class="game-stats-div left blue-gradient-circular">
-                                <h1 class="game-stats-div-title">Most Played Game</h1>
+                                <span class="game-stats-div-title">Most Played Game</span>
 
                                 <br>
                                 <br>
 
                                 <a href="{{ stats[0]['most_played'][3] }}"><img src="{{ stats[0]['most_played'][2] }}" class="animate glow"></a><br>
-                                <h2>{{ stats[0]['most_played'][0] }}</h2>
+                                <span class="game-stats-div-name">{{ stats[0]['most_played'][0] }}</span>
                                 <p>{{ stats[0]['most_played'][1] }} hours played</p>
                             </div>
 
+                            {% if not stats[0]['least_played'][3] == 'N/A' %}
                             <div id="least" class="game-stats-div right blue-gradient-circular">
-                                <h1 class="game-stats-div-title">Least Played Game</h1>
+                                <span class="game-stats-div-title">Least Played Game</span>
 
                                 <br>
                                 <br>
 
                                 <a href="{{ stats[0]['least_played'][3] }}"><img src="{{ stats[0]['least_played'][2] }}" class="animate glow"></a><br>
-                                <h2>{{ stats[0]['least_played'][0] }}</h2>
+                                <span class="game-stats-div-name">{{ stats[0]['least_played'][0] }}</span>
                                 <p>{{ stats[0]['least_played'][1] }} hours played</p>
                             </div>
+                            {% endif %}
                         </div>
 
                         {% if two_weeks != "privacy" %}
                         <div class="game-stats-row">
                             <div class="game-stats-div left blue-gradient-circular">
-                                <h1 class="game-stats-div-title">Most Played Game</h1>
+                                <span class="game-stats-div-title">Most Played Game</span>
                                 <span class="smaller-title">Last Two Weeks</span>
 
                                 <br>
                                 <br>
 
                                 <a href="{{ stats[0]['most_played_current'][3] }}"><img src="{{ stats[0]['most_played_current'][2] }}" class="animate glow"></a><br>
-                                <h2>{{ stats[0]['most_played_current'][0] }}</h2>
+                                <span class="game-stats-div-name">{{ stats[0]['most_played_current'][0] }}</span>
                                 <p>{{ stats[0]['most_played_current'][1] }} hours played</p>
                             </div>
 
+                            {% if not stats[0]['most_played_current'] == stats[0]['least_played_current'] %}
                             <div class="game-stats-div right blue-gradient-circular">
-                                <h1 class="game-stats-div-title">Least Played Game</h1>
+                                <span class="game-stats-div-title">Least Played Game</span>
                                 <span class="smaller-title">Last Two Weeks</span>
 
                                 <br>
                                 <br>
 
                                 <a href="{{ stats[0]['least_played_current'][3] }}"><img src="{{ stats[0]['least_played_current'][2] }}" class="animate glow"></a><br>
-                                <h2>{{ stats[0]['least_played_current'][0] }}</h2>
+                                <span class="game-stats-div-name">{{ stats[0]['least_played_current'][0] }}</span>
                                 <p>{{ stats[0]['least_played_current'][1] }} hours played</p>
                             </div>
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>
@@ -443,7 +447,7 @@
                     <h1 class="white shadow"><span class="green">{{ display_name }}'s</span> Friends</h1>
                     <span class="shame-total dark-blue">{{ friends[1] }} total</span>
                     <p>Click to view SteamTime profile</p>
-                    <form id="hidden-form" action="{{ url_for('steamtime_logic') }}" method="POST">
+                    <form id="hidden-form" action="{{ url_for('results') }}" method="POST">
                         {{ form.hidden_tag() }}
                         {{ form.steamid(placeholder="SteamID", id="hidden-steamid", class="hidden") }}
                     </form>
@@ -936,7 +940,7 @@
             </div>
 
             <div id="text1" class="extra-loading-text hidden">This is taking longer than expected...</div>
-            <div id="text2" class="extra-loading-text hidden">The API is <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=steam%20web%20api%20slow" class="animate">notoriously slow</a> and will likely time out, please try again!</div>
+            <div id="text2" class="extra-loading-text hidden">The API is <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=steam%20web%20api%20slow" class="animate">notoriously slow</a> and will possibly time out, please try again!</div>
         </div>
     </div>
 

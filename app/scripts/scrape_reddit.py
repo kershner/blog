@@ -4,6 +4,8 @@ import time
 from datetime import datetime
 from app import models, db
 
+requests.packages.urllib3.disable_warnings()
+
 
 class Temp(object):
     def __init__(self, current_urls, bad_urls, to_add_urls, final_list, processed_subs, submission_limit):
@@ -33,18 +35,28 @@ def request_url(url):
 
 
 def get_reddit_urls(subreddit, limit):
+    # print '\nGrabbing submissions from /r/%s...' % subreddit.name
     submissions = r.get_subreddit(subreddit.name).get_hot(limit=limit)
+
+    # print 'About to process %d submissions...' % len(list(submissions))
+    gifcount = 0
     for submission in submissions:
         if submission.url.endswith('.gif'):
+            gifcount += 1
             temp.to_add_urls.append([subreddit.tags, submission.url])
+
+    # print '%d GIFs added from r/%s' % (gifcount, subreddit.name)
 
 
 def process_urls(urls_list):
-    count = 1
+
+    urlcount = 0
     final_list = []
     for entry in urls_list:
+        urlcount += 1
         tags = entry[0]
         url = entry[1]
+        # print 'Processing URL %d of %d...' % (urlcount, len(urls_list))
         try:
             if url not in temp.current_urls and url not in temp.bad_urls:
                 url_data = request_url(url)
@@ -58,7 +70,6 @@ def process_urls(urls_list):
                         new_gif.tags.append(tag)
                     db.session.add(new_gif)
                     final_list.append([tags, url])
-                    count += 1
         except TypeError as e:
             # print e
             continue
@@ -77,7 +88,7 @@ if __name__ == '__main__':
         to_add_urls=[],
         final_list=[],
         processed_subs=1,
-        submission_limit=100
+        submission_limit=150
     )
 
     start = time.time()

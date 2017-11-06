@@ -32,7 +32,7 @@ def get_posts():
 
     counter = 0
     for post in posts:
-        if counter == 5:
+        if counter == 8:
             break
         else:
             posts_to_display.append(post)

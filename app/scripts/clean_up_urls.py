@@ -10,6 +10,8 @@ import os
 from pprint import pprint
 
 
+requests.packages.urllib3.disable_warnings()
+
 class Log(object):
     def __init__(self, gif_list, removed_gifs, banned_strings, exceptions):
         self.gif_list = gif_list

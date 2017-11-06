@@ -104,10 +104,15 @@ function reloadGif() {
 
 function turnOff() {
     $('.turn-off').on('click', function(e) {
-        console.log('Clicked');
         $('.content-wrapper').toggleClass('hidden');
         $(this).toggleClass('turned-off');
-        pi_display.config.keepGoing = $(this).hasClass('turned-off');
+
+        var turningOn = $(this).hasClass('turned-off');
+        pi_display.config.keepGoing = turningOn;
+
+        if (!turningOn) {
+            location.reload();
+        }
     });
 }
 

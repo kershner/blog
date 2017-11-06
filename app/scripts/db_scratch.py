@@ -10,6 +10,7 @@ import os
 from tqdm import tqdm
 from cStringIO import StringIO
 from PIL import Image
+import imagehash
 from app import app, db, models
 
 
@@ -96,9 +97,24 @@ def create_thumbnail(gif):
 
 
 gifs = models.Gif.query.all()
-gif = models.Gif.query.filter_by(id=9254).first()
-create_thumbnail(gif)
+base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+total_gifs = len(gifs)
+counter = 1
 
+for gif in gifs:
+    print 'Processing GIF #%d of %d' % (counter, total_gifs)
+    try:
+        thumbnail = base_path + '/static/pi_display/thumbnails/%d.jpeg' % gif.id
+        hash = imagehash.average_hash(Image.open(thumbnail))
+        gif.thumbnail_hash = hash.__str__()
+        db.session.add(gif)
+    except IOError:
+        print 'No thumbnail, image probably deleted...'
+        continue
+    counter += 1
+
+db.session.commit()
+print 'DONE!'
 
 # for gif in gifs:
 #     print 'Creating thumbnail for gif #: %d' % gif.id

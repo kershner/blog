@@ -270,6 +270,12 @@ iframe {
 	-webkit-transition: all 1s ease-in-out;
 			transition: all 1s ease-in-out;
 }
+.animate-slow-banner {
+	-webkit-transition: opacity 2s ease-in-out;
+        transition: opacity 2s ease-in-out;
+    -webkit-transition: background-color 3s ease-in-out;
+        transition: background-color 3s ease-in-out;
+}
 .post-date {
 	position: relative;
 	margin-left: 2px;
@@ -2110,6 +2116,7 @@ body {
 
 #down-arrow {
     margin: 0 auto;
+    margin-top: .25em;
     opacity: 0;
     font-size: 3em;
     color: #00BFA5
@@ -2123,6 +2130,17 @@ body {
 	width: 100%;
 	max-width: 1180px;
 	text-align: center;
+}
+
+.get-in-touch-link {
+    display: inline-block;
+    font-size: 1.35em;
+    margin-left: .25em;
+    border-bottom: .2em solid #00BFA5;
+}
+
+#contact-section {
+    margin-bottom: 5em;
 }
 
 .welcome-blurb {
@@ -2486,7 +2504,11 @@ body {
 	background-color: rgba(250, 51, 70, 0.5);
 	box-shadow: none;
 }
-
-#blurb01, #blurb02, #blurb03, #welcome-pic {
+#blurb01, #blurb02, #blurb03,
+#welcome-pic, .get-in-touch-link {
     opacity: 0.0;
+}
+#blurb03 {
+    margin-top: 0;
+    margin-bottom: 0;
 }

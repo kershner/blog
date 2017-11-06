@@ -7,6 +7,7 @@ function blog() {
 	smallMenu();
 	getImage();
 	setInterval(loadBacon, 8000);
+	colorBanner();
 	$('.small-logo').colorWave(COLORS);
 	$('.big-logo-text').colorWave(COLORS);
 	$('.project-page-title').each(function() {
@@ -22,6 +23,21 @@ function blog() {
     }, 10000);
 
 	colorProjects();
+}
+
+function colorBanner() {
+    var banner = $('.big-logo-row'),
+        smallBanner = $('.small-logo-container');
+
+    setInterval(function() {
+        var color = randomColor();
+        banner.css({
+            'background-color'  : color
+        });
+        smallBanner.css({
+            'background-color'  : color
+        });
+    }, 1000);
 }
 
 function colorProjects() {
@@ -420,6 +436,7 @@ function welcomeFadeIn() {
                 $('#blurb03').animate({'opacity': '1.0'}, 900, function() {
                 	colorWave(COLORS, '#blurb03');
                 });
+                $('.get-in-touch-link').animate({'opacity': '1.0'}, 900);
                 $('#welcome-pic').animate({'opacity': '1.0'}, 1000);
                 $('#down-arrow').animate({'opacity': '1.0'}, 800);
                 blinkingArrow();
