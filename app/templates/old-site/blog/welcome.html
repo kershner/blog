@@ -1,0 +1,251 @@
+{% extends '/old-site/blog/base.html' %}
+{% block content %}
+<div class="welcome-container">
+    <br>
+
+    <span id="hello" class="levitate">Hello!</span>
+
+    <span id="blurb01" class="welcome-blurb">My name is Tyler Kershner.</span>
+    <span id="blurb02" class="welcome-blurb">I'm a software developer in Ann Arbor, MI.</span>
+    <span id="blurb03" class="welcome-blurb" style="display: inline-block;">Want to work together? Don't hesitate to </span><span class="get-in-touch-link"><a href="#contact-section"> get in touch</a></span>
+
+    <img id="welcome-pic" class="img-responsive about-pics" src="/static/images/new_collage.png">
+    <i id="down-arrow" class="fa fa-chevron-down"></i>
+</div>
+
+<div id="projects-section" class="welcome-container">
+    <div id="projects-title" class="welcome-section-title" style="top: .5em;">Projects</div>
+
+    <br>
+    <br>
+
+    <div id="projects-container" class="animate">
+        <!-- Small Container -->
+        <div id="welcome-projects-small">
+            <a href="http://www.gifcache.com">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/gifcache-welcome.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">GifCache</div>
+                        Full-stack Django application to store gif URLs.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, Django, and Amazon S3.
+                    </div>
+                    <div class="welcome-project-title animate">GifCache</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="/screenbloom-project">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/screenbloom-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title" style="font-size: 1.5em;">ScreenBloom</div>
+                        A desktop application to update selected Philips Hue bulbs with your screen's current color.
+                    </div>
+
+                    <div class="welcome-project-title animate">ScreenBloom</div>
+                </div>
+            </a>
+        </div>
+        <!-- End Small Container -->
+
+        <!-- Medium Container -->
+        <div id="welcome-projects-med">
+            <a href="http://www.gifcache.com">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/gifcache-welcome.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">GifCache</div>
+                        Full-stack Django application to store gif URLs.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, Django, and Amazon S3.
+                    </div>
+                    <div class="welcome-project-title animate">GifCache</div>
+                </div>
+            </a>
+
+            <a href="/screenbloom-project">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/screenbloom-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">ScreenBloom</div>
+                        A desktop application to update selected Philips Hue bulbs with your screen's current color.
+                    </div>
+                    <div class="welcome-project-title animate">ScreenBloom</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="/cms-project">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/cms-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">Custom CMS</div>
+                        A content management system to make maintaining and contributing to my blog more
+                        streamlined and less error prone.
+                    </div>
+                    <div class="welcome-project-title animate">Custom CMS</div>
+                </div>
+            </a>
+
+            <a href="/gif_display">
+                <div class="welcome-project">
+                    <img src="/static/images/gif-display-icon.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">RPi GIF Display</div>
+                        A fun project that combines hardware and code.  GIFs are pulled from the reddit API and
+                        served to an RPi powered display.
+                    </div>
+                    <div class="welcome-project-title animate">RPi GIF Display</div>
+                </div>
+            </a>
+        </div>
+        <!-- End Medium Container -->
+
+        <!-- Large Container -->
+        <div id="welcome-projects-large">
+            <a href="http://www.orderv.com">
+                <div class="welcome-project">
+                    <img src="/static/images/orderv.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">Orderv</div>
+                        A service to send videos to ecommerce customers.  Web + iOS app.
+                        <br>
+                        <br>
+                        Built with PHP, Postgres, and the usual JS/CS/HTML.
+                    </div>
+                    <div class="welcome-project-title animate">Orderv</div>
+                </div>
+            </a>
+
+            <a href="http://www.gifcache.com">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/gifcache-welcome.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">GifCache</div>
+                        Full-stack Django application to store gif URLs.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, Django, and Amazon S3.
+                    </div>
+                    <div class="welcome-project-title animate">GifCache</div>
+                </div>
+            </a>
+
+            <a href="/screenbloom-project">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/screenbloom-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">ScreenBloom</div>
+                        A desktop application to update selected Philips Hue bulbs with your screen's current color.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, HTML/CSS, and Flask.
+                    </div>
+                    <div class="welcome-project-title animate">ScreenBloom</div>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="/steamtime-project">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/steamtime-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">SteamTime</div>
+                        A web app that organizes data pulled from the Steam API.
+                        Users enter their SteamID and see stats related to time spent in their
+                        Steam games.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, and Flask.
+                    </div>
+                    <div class="welcome-project-title animate">SteamTime</div>
+                </div>
+            </a>
+
+            <a href="/gif_display">
+                <div class="welcome-project">
+                    <img src="/static/images/gif-display-icon.png" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title">RPi GIF Display</div>
+                        A fun combination of hardware and code.  GIFs are pulled from the reddit API and
+                        served to an RPi powered display.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, HTML/CSS, and Linux.
+                    </div>
+                    <div class="welcome-project-title animate">RPi GIF Display</div>
+                </div>
+            </a>
+
+            <a href="/ycs-campaign">
+                <div class="welcome-project">
+                    <img src="/static/images/blog_welcome/ycs-welcome.jpg" class="responsive-image">
+                    <div class="welcome-project-blurb animate">
+                        <div class="welcome-project-inner-title" style="font-size: 1.9vw;">YCS Campaign Site</div>
+                        A professional website commissioned for a local re-election campaign.
+                        <br>
+                        <br>
+                        Built with Python, JavaScript, HTML/CSS, and Flask.
+                    </div>
+                    <div id="ycs-title" class="welcome-project-title animate" style="font-size: 1.5em;">YCS Campaign Site</div>
+                </div>
+            </a>
+        </div>
+        <!-- End Large Container -->
+
+        <a id="more-projects-link" href="/projects"><div id="more-projects" class="animate">More Projects</div></a>
+
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+
+<div id="contact-section" class="welcome-container">
+    <br>
+    <div id="contact-title" class="welcome-section-title">Contact</div>
+
+    <div id="contact-form-wrapper" class="animate">
+        <div id="contact-icons">
+            <div>
+                <i class="fa fa-paper-plane-o fa-2x"></i>
+                <a href="mailto:tylerkershner@gmail.com">tylerkershner@gmail.com</a>
+            </div>
+
+            <br>
+
+            <div>
+                <i class="fa fa-github fa-2x"></i>
+                <a href="https://github.com/kershner">GitHub</a>
+            </div>
+
+            <div>
+                <i class="fa fa-linkedin fa-2x"></i>
+                <a href="https://www.linkedin.com/pub/tyler-kershner/95/97b/50">LinkedIn</a>
+            </div>
+        </div>
+
+        <div id="welcome-subject-notification" class="welcome-notification animate">The subject field is empty!</div>
+        <div id="welcome-body-notification" class="welcome-notification animate">The body field is empty!</div>
+
+        <span class="welcome-blurb">Have some feedback or work for me?</span>
+
+        <a name="contact"></a>
+
+
+        <div id="contact-form-container">
+            <input id="subject" type="text" placeholder="Subject" class="animate">
+            <textarea id="email-content" placeholder="Email" class="animate"></textarea>
+            <input id="send" type="submit" value="Send" class="animate">
+        </div>
+    </div>
+</div>
+{% endblock %}

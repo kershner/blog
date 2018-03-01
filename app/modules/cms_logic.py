@@ -157,7 +157,6 @@ def password_validate(username, password):
         data = f.read().split()
         if username == data[0]:
             if password == data[1]:
-                print 'Access granted!'
                 return [True, None]
             else:
                 message = 'Invalid password.'
@@ -238,7 +237,7 @@ def archive():
 
     # Sorting by third index - year + month
     month_list.sort(key=lambda x: x[3], reverse=True)
-    return render_template('/blog/archive.html',
+    return render_template('/old-site/blog/archive.html',
                            title='Archive',
                            months=month_list)
 
@@ -256,7 +255,7 @@ def archive_viewer(year, month):
         except TypeError:
             continue
 
-    return render_template('/blog/cms/archive_viewer.html',
+    return render_template('/old-site/blog/cms/archive_viewer.html',
                            title='Archive - %s %d' % (month_string, int(year)),
                            selected_posts=selected_posts)
 
@@ -271,14 +270,13 @@ def login():
         verify = password_validate(username, password)
 
         if not verify[0]:
-            print 'Did not verify'
             flash(verify[1])
             return redirect(url_for('login'))
         else:
             session['logged_in'] = True
             return redirect(url_for('cms'))
     else:
-        return render_template('/blog/cms/login.html',
+        return render_template('/old-site/blog/cms/login.html',
                                form=form,
                                title='CMS Login')
 
@@ -331,7 +329,7 @@ def cms():
         two_months_ago = ''
         statistics = ''
 
-    return render_template('/blog/cms/cms.html',
+    return render_template('/old-site/blog/cms/cms.html',
                            icons=dog_icons(),
                            form=forms.DatabaseForm(),
                            current_month_posts=current_month_posts,
@@ -361,7 +359,7 @@ def new_post():
     link = '/cms'
     text = 'CMS'
 
-    return render_template('/blog/cms/new-post.html',
+    return render_template('/old-site/blog/cms/new-post.html',
                            form=form,
                            icons=dog_icons(),
                            link=link,
@@ -374,7 +372,7 @@ def new_post():
 def cms_submit():
     form = forms.DatabaseForm()
     if not form.validate_on_submit():
-        return render_template('/blog/cms/new-post.html',
+        return render_template('/old-site/blog/cms/new-post.html',
                                icons=dog_icons(),
                                form=form)
     else:
@@ -460,7 +458,7 @@ def cms_edit(unique_id):
     form.month.data = post.month
     form.year.data = post.year
 
-    return render_template('/blog/cms/edit-post.html',
+    return render_template('/old-site/blog/cms/edit-post.html',
                            post=post,
                            form=form,
                            icons=dog_icons(),
@@ -494,7 +492,7 @@ def cms_update(unique_id):
     form.subtitle.data = post.subtitle
     form.content.data = post.content
 
-    return render_template('/blog/cms/edit-post.html',
+    return render_template('/old-site/blog/cms/edit-post.html',
                            form=form,
                            post=post,
                            icons=dog_icons())
@@ -522,7 +520,7 @@ def public():
         if post.approved:
             approved_posts.append(post)
 
-    return render_template('/blog/public-cms/public.html',
+    return render_template('/old-site/blog/public-cms/public.html',
                            posts=approved_posts)
 
 
@@ -535,7 +533,7 @@ def public_cms():
             approved_posts.append(post)
     statistics = stats(approved_posts, 1)
 
-    return render_template('/blog/public-cms/public-cms.html',
+    return render_template('/old-site/blog/public-cms/public-cms.html',
                            posts=approved_posts,
                            stats=statistics,
                            title='Public CMS')
@@ -551,7 +549,7 @@ def public_new_post():
     latest_id = models.PublicPost.query.all()[-1].pub_id + 1
     form.color.data = get_color(latest_id)
 
-    return render_template('/blog/public-cms/public-new-post.html',
+    return render_template('/old-site/blog/public-cms/public-new-post.html',
                            form=form,
                            icons=dog_icons(),
                            title='New Public Post')
@@ -561,7 +559,7 @@ def public_new_post():
 def public_cms_submit():
     form = forms.PublicDatabaseForm()
     if not form.validate_on_submit():
-        return render_template('/blog/public-cms/public-new-post.html',
+        return render_template('/old-site/blog/public-cms/public-new-post.html',
                                icons=dog_icons(),
                                form=form)
     else:
@@ -608,7 +606,7 @@ def need_approval():
         else:
             approved.append(post)
 
-    return render_template('/blog/public-cms/posts-to-approve.html',
+    return render_template('/old-site/blog/public-cms/posts-to-approve.html',
                            posts=to_be_approved,
                            approved=approved,
                            title='Posts to Be Approved')
@@ -631,7 +629,7 @@ def public_cms_edit(unique_id):
     form.month.data = post.pub_month
     form.year.data = post.pub_year
 
-    return render_template('/blog/public-cms/public-edit-post.html',
+    return render_template('/old-site/blog/public-cms/public-edit-post.html',
                            post=post,
                            approved=approved,
                            form=form,
@@ -669,7 +667,7 @@ def public_cms_update(unique_id):
     form.subtitle.data = post.pub_subtitle
     form.content.data = post.pub_content
 
-    return render_template('/blog/public-cms/public-edit-post.html',
+    return render_template('/old-site/blog/public-cms/public-edit-post.html',
                            form=form,
                            post=post,
                            icons=dog_icons())

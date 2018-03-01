@@ -85,7 +85,6 @@ def gif_party_main():
 
     def check_if_played(url):
         if url + '\n' in session['played']:
-            print 'Already played this URL'
             return False
         else:
             return True
@@ -98,7 +97,6 @@ def gif_party_main():
             if check_if_played(choice):
                 checking = True
             else:
-                print 'Choosing different GIF'
                 choice = random.choice(urls_list)
 
         session['played'].append(choice)

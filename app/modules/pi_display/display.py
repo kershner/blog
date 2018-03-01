@@ -40,7 +40,6 @@ def grab_gif_data():
 
 def get_new_gif_list():
     config = models.Config.query.first()
-    print 'Generating new list of gif IDs...'
     if config.active_tags:
         new_gif_ids_list = pi_config.get_new_gif_ids_list(config.active_tags.split(','))
         config.gif_ids_to_play = new_gif_ids_list

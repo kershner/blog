@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 from app import db, models
-from urllib import quote
 import random
 
 
@@ -66,7 +66,7 @@ def backorder_logic(po, email, name, item_no, lead_time):
               '\n\nHave a great day,\n\n'
     body += signoff
 
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -75,7 +75,7 @@ def backorder_report_logic(name, email):
     subject = 'Cayman Chemical Backorder Report'
     body = 'Hello %s,\n\nAttached find an updated copy of your institution\'s backorder report.\n\n' \
            'Please let me know if you have any questions.\n\n' % name
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -86,7 +86,7 @@ def application_logic(name, email):
            'processed and your items shipped you will need to establish an account with our company.  I have ' \
            'attached our customer account application which has all the instructions you will need, ' \
            'though please don\'t hesitate to call if you have any questions.\n\n' % name
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -99,7 +99,7 @@ def dea_logic(name, email, items):
            'protocol for ordering scheduled compounds as well as a guide for filling out the required 222 ' \
            'form.\n\nIf you have any questions, please don\'t hesitate to ask.\n\nThank you,\n\n' % \
            (name, items)
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -122,7 +122,7 @@ def newaccount_logic(name, acct_number, email, net30):
                '\n\nWhen placing an order please reference customer account number %s.\n\nWe look forward to doing ' \
                'business with you!\n\n' % (name, acct_number)
 
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -139,7 +139,7 @@ def shadyblurb_logic(email, order_no):
            'be advised that we do not deliver to residential addresses, P.O. boxes, or warehouses.  Only to ' \
            'businesses and institutions.\n\nThank you for your interest in Cayman Chemical products.  Please ' \
            'feel free to contact me if you have any questions.\n\nBest regards,\n\n'
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -151,7 +151,7 @@ def price_discrepancy_logic(email, po, name, item_no, given_price, actual_price)
            'item\'s actual cost is $%s.  Please confirm whether we should process or cancel the item.\n\n' \
            'Please let me know if you have any questions,\n\n' % \
            (name, item_no, given_price, actual_price)
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -162,7 +162,7 @@ def stillneed_logic(name, email, item, order_no):
            'been on a lengthy backorder we\'re sending this email to verify that you still need the item and ' \
            'would like it to be shipped as soon as possible.  Please let me know how you would like ' \
            'to proceed.\n\n' % (name, item)
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -173,7 +173,7 @@ def license_needed_logic(name, email, order_no):
            'registration before the order can be processed.  Unlike the 222 form, the registration does not ' \
            'need to be an original - you can simply scan your license and email it to me.  Please send us ' \
            'your license as soon as possible to ensure prompt delivery of your order.\n\n' % name
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 
@@ -182,7 +182,7 @@ def dea_verify_logic(order_no, institution):
     email = 'Compliance@caymanchem.com; DEAorderprocessing@caymanchem.com'
     subject = '%s / %s' % (order_no, institution)
     body = 'Hello,\n\nPlease verify these documents.\n\n'
-    link = 'mailto:%s?subject=%s&body=%s' % (quote(email), quote(subject), quote(body))
+    link = 'mailto:%s?subject=%s&body=%s' % (urlparse(email), urlparse(subject), urlparse(body))
 
     return link
 

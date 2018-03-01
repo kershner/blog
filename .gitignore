@@ -103,3 +103,11 @@ scraper.css
 app/static/steamtime/js/steamtime.js
 app/static/steamtime/style.css
 app/static/welcome.css
+*.db
+cms_settings.txt
+config.py
+steamtime_api_key.txt
+steamtime_config.py
+.idea/
+app/credentials.py
+venv/

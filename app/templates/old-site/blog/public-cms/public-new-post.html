@@ -1,0 +1,176 @@
+{% extends '/old-site/blog/base.html' %}
+{% block content %}
+    <div class="white-inner">
+        <div class="white-inner-container">
+            <div class="white-inner-right">
+                <div class="not-submitted">Not Yet Submitted</div>
+
+                <div class="preview" style="display:none;"></div>
+            </div>
+
+            <div class="white-inner-left">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="alert">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if form.errors %}
+                    <div class="alert">
+                        {% for message in form.author.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.title.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.icon.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.subtitle.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+
+                        {% for message in form.content.errors %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form class="cms" action="/public-cms-submit" method="POST">
+                    {{ form.hidden_tag() }}
+
+                    {{ form.color() }}
+                    {{ form.icon() }}
+
+                    {{ form.month(placeholder="Month", class="animate") }}
+                    {{ form.year(placeholder="Year", class="animate") }}
+                    {{ form.hidden_date(placeholder="Date String", class="animate") }}
+
+                    <div id="author-label" class="input-label animate">Your Name</div>
+                    {{ form.author(placeholder="Your Name", class="animate") }}
+
+                    <div id="title-label" class="input-label animate">Title</div>
+                    {{ form.title(placeholder="Title", class="animate") }}
+
+                    <div id="date-label" class="input-label animate">Subtitle</div>
+                    {{ form.subtitle(placeholder="Subtitle", class="animate") }}
+
+                    <div class="format-guide">
+                        <p>This blog uses <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> for formatting.</p>
+                        <span>Highlight your text and click the button to apply tags</span>
+
+                        <div class="formatting-buttons">
+                            <div id="code-tag" class="text-edit animate">
+                                <i class="fa fa-file-code-o fa-2x"></i>
+                                <p class="text-edit label">Code</p>
+                            </div>
+
+                            <div id="video-tag" class="text-edit animate">
+                                <i class="fa fa-play fa-2x"></i>
+                                <p class="text-edit label">Video</p>
+                            </div>
+
+                            <div id="img-tag" class="text-edit animate">
+                                <i class="fa fa-file-image-o fa-2x"></i>
+                                <p class="text-edit label">Img</p>
+                            </div>
+
+                            <div id="carousel-tag" class="text-edit animate">
+                                <i class="fa fa-file-image-o fa-2x"></i>
+                                <p class="text-edit label">Carousel</p>
+                            </div>
+
+                            <div id="color-tag" class="text-edit animate">
+                                <i class="fa fa-paint-brush fa-2x"></i>
+                                <p class="text-edit label">Color</p>
+                            </div>
+
+                            <br>
+
+                            <div id="bold-tag" class="text-edit animate">
+                                <i class="fa fa-bold"></i>
+                            </div>
+
+                            <div id="italic-tag" class="text-edit animate">
+                                <i class="fa fa-italic"></i>
+                            </div>
+
+                            <div id="header-tag" class="text-edit animate">
+                                <i class="fa fa-header"></i>
+                            </div>
+
+                            <div id="link-tag" class="text-edit animate">
+                                <i class="fa fa-link"></i>
+                            </div>
+
+                            <div id="code-tag-options" class="tag-options">
+                                <div id="code-tag-options-python" class="button animate">Python</div>
+                                <div id="code-tag-options-js" class="button animate">JavaScript</div>
+                            </div>
+
+                            <div id="header-tag-options" class="tag-options">
+                                <div id="header-tag-options-h1" class="button animate">H1</div>
+                                <div id="header-tag-options-h2" class="button animate">H2</div>
+                                <div id="header-tag-options-h3" class="button animate">H3</div>
+                                <div id="header-tag-options-h4" class="button animate">H4</div>
+                                <div id="header-tag-options-h5" class="button animate">H5</div>
+                                <div id="header-tag-options-h6" class="button animate">H6</div>
+                            </div>
+
+                            <div id="color-tag-options" class="tag-options">
+                                <div id="color-tag-options-red" class="button animate" style="background-color: #F40022; width: 20px;"></div>
+                                <div id="color-tag-options-blue" class="button animate" style="background-color: #0D4EAF; width: 20px;"></div>
+                                <div id="color-tag-options-yellow" class="button animate" style="background-color: #FFCD78; width: 20px;"></div>
+                                <div id="color-tag-options-green" class="button animate" style="background-color: #007E65; width: 20px;"></div>
+                                <div id="color-tag-options-purple" class="button animate" style="background-color: #8924C1; width: 20px;"></div>
+                            </div>
+
+                            <div id="link-tag-options" class="tag-options">
+                                <input type="text" id="link-url" placeholder="URL" class="animate">
+                                <div id="link-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+
+                            <div id="img-tag-options" class="tag-options">
+                                <input type="text" id="img-url" placeholder="URL" class="animate">
+                                <input type="text" id="img-alt-text" placeholder="Alt Text" class="animate">
+                                <div id="img-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+
+                            <div id="carousel-tag-options" class="tag-options">
+                                <input type="text" class="carousel-url animate" placeholder="URL">
+                                <div id="add-field" class="button animate">Add Field</div>
+                                <div id="carousel-tag-submit" class="button animate">Add Tag</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-label" class="input-label animate">Content</div>
+                    {{ form.content(placeholder="Content", class="animate")|safe }}
+
+                    <div id="icon-selections">
+                        <div id="icon-selections-label">Choose Icon</div>
+                        {% for icon in icons %}
+                            <img class="animate" src="{{ icon }}">
+                        {% endfor %}
+                    </div>
+
+                    <div id="preview-submit">
+                        <div id="preview" class="button animate">Preview</div>
+                        {{ form.submit(class="button animate") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function() {
+        cms();
+    });
+</script>
+{% endblock %}

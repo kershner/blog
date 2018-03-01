@@ -1,0 +1,72 @@
+{% extends "/old-site/blog/base.html" %}
+{% block content %}
+<div class="grey">
+    <div id="project-wide">
+        <div><img src="static/images/cstools_wide.png"></div>
+    </div>
+
+    <div class="container">
+		<div class="row">
+            <div class="project-page-info">
+                <span class="project-page-title">CSTools</span>
+
+                <a href="/cstools">
+                    <div class="live-demo-button">
+                        <p class="animate">Live Site</p>
+                    </div>
+                </a>
+
+                <a href="/cstoolswriteup-part1">
+                <div class="button animate">
+                    <p>Write up</p>
+                </div>
+                </a>
+                <br>
+                Note - CSTools is currently down as it is being integrated into the official company infrastructure.
+
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/modules/cstools_logic.py">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/cstools">HTML</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/cstools-custom.css">CSS</a>
+                </div>
+
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, Twitter Bootstrap, Flask</p>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+                <hr>
+				<p>
+                    I came up with the idea for a suite of very simple apps to help
+                    with a few mundane tasks at work.  Much of my daily work duties involve repetitive tasks where only
+                    a few variables change within a larger set structure - a suitable problem for programming to solve.
+                    <br><br>
+                    Most the applications are simple web forms that insert variables into email templates, but there
+                    are some more complicated tools such as a date checker and a SQL database-driven notice board.
+                    For as simple as these programs are, they are without a doubt the most personally useful
+                    code I've yet produced.
+                    <br><br>
+                    The apps save me so much time at work that once I let my boss know about the project she had me release
+                    it to our department and we've been using CSTools ever since.
+                </p>
+			</div>
+		</div>
+
+        <div class="slick-images">
+            <div><a href="/static/images/cstools1.jpg"><img src="/static/images/cstools1.jpg"></a></div>
+            <div><a href="/static/images/cstools2.jpg"><img src="/static/images/cstools2.jpg"></a></div>
+            <div><a href="/static/images/cstools3.jpg"><img src="/static/images/cstools3.jpg"></a></div>
+            <div><a href="/static/images/cstools4.jpg"><img src="/static/images/cstools4.jpg"></a></div>
+            <div><a href="/static/images/cstools5.jpg"><img src="/static/images/cstools5.jpg"></a></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
+{% endblock %}

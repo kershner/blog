@@ -37,7 +37,6 @@ def add_tags_to_gif(tags, gif):
             tag = models.Tag.query.filter_by(name=tag).first()
             gif.tags.append(tag)
         else:
-            print 'Creating new tag'
             new_tag = models.Tag()
             new_tag.name = tag
             gif.tags.append(new_tag)
@@ -52,12 +51,10 @@ def tag_exists(tag_name):
 # Expects list of tag ids returns list of gif_ids
 def get_new_gif_ids_list(tag_ids):
     if len(tag_ids):
-        print 'Generating gif_ids by tag names...'
         new_gif_ids_list = get_gif_ids_by_tags([str(name) for name in tag_ids])
         return new_gif_ids_list
     else:
         # All Gifs
-        print 'Generating all gif_ids...'
         return [gif.id for gif in models.Gif.query.all()]
 
 
@@ -67,20 +64,16 @@ def get_gif_ids_by_tags(tag_ids, inactive_tags=None):
     tag_ids = [tag_id for tag_id in tag_ids if str(tag_id)]
     result = [gif.id for gif in models.Gif.query.all()]
     if tag_ids:
-        print 'Active tags passed!'
         ids_string = '(' + ','.join(map(str, tag_ids)) + ')'
         sql = 'SELECT gif_id FROM gif_tags WHERE tag_id IN %s' % ids_string
         if inactive_tags is not None:
-            print 'Also passing inactive tags!'
             inactive_ids_string = '(' + ','.join(map(str, inactive_tags)) + ')'
             sql += ' AND tag_id NOT IN %s' % inactive_ids_string
 
         rows = db.session.execute(sql, bind=my_db_bind)
         result = [entry[0] for entry in rows]
     else:
-        print 'No active tags passed...'
         if inactive_tags is not None:
-            print 'But passing inactive tags!'
             all_gif_ids = [gif.id for gif in models.Gif.query.all()]
             inactive_ids_string = '(' + ','.join(map(str, inactive_tags)) + ')'
             sql = 'SELECT gif_id FROM gif_tags WHERE tag_id IN %s' % inactive_ids_string

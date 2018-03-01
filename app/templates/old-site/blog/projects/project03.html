@@ -1,0 +1,100 @@
+{% extends "/old-site/blog/base.html" %}
+{% block content %}
+<div class="grey">
+    <div id="project-wide">
+        <div><img src="static/images/pidisplay_wide.jpg"></div>
+    </div>
+
+    <div class="container">
+		<div class="row">
+			 <div class="project-page-info">
+                <span class="project-page-title">Raspberry Pi GIF Display</span>
+
+                <a href="/warning">
+                <div class="button animate">
+                    <p>Pi Display Site</p>
+                </div>
+                </a>
+
+                <a href="/warning">
+                <div class="button animate">
+                    <p>Config Site</p>
+                </div>
+                </a>
+
+                <a href="/piproject1">
+                <div class="button animate">
+                    <p>Write up</p>
+                </div>
+                </a>
+
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/RPi_Display">Soure Code / Guide</a>
+                </div>
+
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, JavaScript, Flask, Linux, Decoupage!</p>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+                <hr>
+				<p>
+                    This project allowed me to combine my love of computer hardware with my new found interest
+                    in programming.  It's not exactly as practical as a lot of other
+                    Pi projects, but it is certainly entertaining!  The work turned out to have a much wider scope than I
+                    initially prepared for, forcing me to step outside my comfort zone and implement concepts I had not yet
+                    come across, like AJAX.
+                    <br><br>
+                    The code for the project is linked above along with a separate configuration website
+                    I created for the device.  The configuration website has received a functionality makeover since I first
+                    completed the project, and you can change the settings on the actual device sitting on my desk with the control panel website.
+                    <br><br>
+                    Knock yourself out!
+                </p>
+			</div>
+		</div>
+
+        <div class="slick-images">
+            <div><a href="/static/images/gif_display1.png"><img src="/static/images/gif_display1.png"></a></div>
+            <div><a href="/static/images/gif_display2.png"><img src="/static/images/gif_display2.png"></a></div>
+            <div><a href="/static/images/gif_display3.png"><img src="/static/images/gif_display3.png"></a></div>
+            <div><a href="/static/images/gif_display4.png"><img src="/static/images/gif_display4.png"></a></div>
+            <div><a href="/static/images/gif_display5.png"><img src="/static/images/gif_display5.png"></a></div>
+            <div><a href="/static/images/gif-display-final-01.jpg"><img src="/static/images/gif-display-final-01.jpg"></a></div>
+            <div><a href="/static/images/gif-display-final-02.jpg"><img src="/static/images/gif-display-final-02.jpg"></a></div>
+            <div><a href="/static/images/gif-display-final-03.jpg"><img src="/static/images/gif-display-final-03.jpg"></a></div>
+            <div><a href="/static/images/Pi_1.jpg"><img src="/static/images/Pi_1.jpg"></a></div>
+            <div><a href="/static/images/pi_8.png"><img src="/static/images/pi_8.png"></a></div>
+            <div><a href="/static/images/pi_10.png"><img src="/static/images/pi_10.png"></a></div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <p style="text-align:center; margin: 0;">A couple videos of the device, from the beginning and the end of the process:</p>
+
+        <div style="position: relative; width: 75%; margin: 0 auto;">
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="//www.youtube.com/embed/-bcYcc7HKfU" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <br>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="//www.youtube.com/embed/ibwFjEYeeCM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <br>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PFvCgDggzr4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
+{% endblock %}

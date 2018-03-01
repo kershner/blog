@@ -1,0 +1,68 @@
+{% extends "/old-site/blog/base.html" %}
+{% block content %}
+<div class="grey">
+    <div id="project-wide">
+        <div><img src="static/images/gifparty_wide.jpg"></div>
+    </div>
+
+    <div class="container">
+		<div class="row">
+            <div class="project-page-info">
+                <span class="project-page-title">GIF Party!</span>
+
+                <a href="/gif_party">
+                    <div class="live-demo-button">
+                        <p class="animate">Live Site</p>
+                    </div>
+                </a>
+
+                <div class="github-links">
+                    <i class="fa fa-github fa-3x"></i>
+                    <a href="https://github.com/kershner/blog/blob/master/app/modules/gif_party_logic.py">Python</a>
+                    <a href="https://github.com/kershner/blog/tree/master/app/templates/gif_party">HTML</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party_welcome.css">CSS (Welcome Page)</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/gif_party.css">CSS (Application)</a>
+                    <a href="https://github.com/kershner/blog/blob/master/app/static/js/gif-party.js">Javascript</a>
+                </div>
+
+                <div class="technology-used">
+                    <span class="tech-title">Technologies Used:</span>
+                    <p>Python, HTML, CSS, JavaScript, jQuery, AJAX, Flask</p>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+                <hr>
+				<p>
+                    GIF Party was a pet project to help me get comfortable with JavaScript.
+                    <br><br>
+                    I have thousands of optimized GIF links from my previous GIF Display project
+                    and I wanted a fun way to display them.  I came up with the idea for a full-screen web app where
+                    GIFs pulled from my master list will randomly fly around the screen creating an absurd bit
+                    of internet madness.
+                    <br><br>
+                    Gif Party expanded my JavaScript knowledge and got me comfortable with concepts like
+                    grid-based animation, DOM manipulation, and made me really pay attention to the user interface and experience.
+                    <br><br>
+                    <strong>Bandwidth warning</strong>: the maximum number of GIFs the app can display at one time is 20, which averages
+                    out to about 50 MB of data.  Depending on the auto-refresh setting, this can add up quick, so please be aware if
+                    you've got a data limit.
+				</p>
+			</div>
+		</div>
+
+        <div class="slick-images">
+            <div><a href="/static/images/gifparty2.jpg"><img src="/static/images/gifparty2.jpg"></a></div>
+            <div><a href="/static/images/gifparty3.jpg"><img src="/static/images/gifparty3.jpg"></a></div>
+            <div><a href="/static/images/gifparty4.jpg"><img src="/static/images/gifparty4.jpg"></a></div>
+            <div><a href="/static/images/gifparty5.jpg"><img src="/static/images/gifparty5.jpg"></a></div>
+            <div><a href="/static/images/gif-party.jpg"><img src="/static/images/gif-party.jpg"></a></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        initSlick();
+    });
+</script>
+{% endblock %}

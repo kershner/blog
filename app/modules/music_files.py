@@ -7,7 +7,6 @@ def get_songs():
     path = os.path.dirname(os.path.realpath(__file__))
     path = os.path.dirname(path) + '/static/music/'
     files = sorted(os.listdir(path), reverse=True)
-    print files
     known_songs = ['23', '25', '27', '28', '29', '30',
                     'kersh with Jeff J', 'a misspelling with Jeff J']
     songs = []
@@ -34,7 +33,6 @@ def get_songs():
             loops.append([name, length])
             loop_count += 1
 
-    print songs
     # Moving songs with Jeff to the end of the list
     songs.insert(-1, songs.pop(0))
     songs.insert(-1, songs.pop(0))
