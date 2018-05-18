@@ -8,7 +8,7 @@ The following web apps are hosted on this domain:
 <a href="http://www.kershner.org/cstools">CSTools</a><br>
 <a href="http://www.kershner.org/scrape">Reddit Image Scraper</a><br>
 <a href="http://www.kershner.org/gif_party">GIF Party!</a><br>
-<a href="http://www.kershner.org/pi_display_config">Raspberry Pi GIF Display Control Panel</a><br>
+<a href="http://www.kershner.org/pi_config">Raspberry Pi GIF Display Control Panel</a><br>
 along with a handful of other small projects.
 <br>
 <br>
